@@ -1,16 +1,16 @@
-[submodule "xpdbg_software/submodules/capstone"]
-	path = xpdbg_software/submodules/capstone
+[submodule "medusa_software/submodules/capstone"]
+	path = medusa_software/submodules/capstone
 	url = https://github.com/capstone-engine/capstone.git
 	branch=next
-[submodule "xpdbg_software/submodules/keystone"]
-	path = xpdbg_software/submodules/keystone
+[submodule "medusa_software/submodules/keystone"]
+	path = medusa_software/submodules/keystone
 	url = https://github.com/keystone-engine/keystone.git
-[submodule "xpdbg_software/submodules/unicorn"]
-	path = xpdbg_software/submodules/unicorn
+[submodule "medusa_software/submodules/unicorn"]
+	path = medusa_software/submodules/unicorn
 	url = https://github.com/unicorn-engine/unicorn.git
-[submodule "xpdbg_software/submodules/LIEF"]
-	path = xpdbg_software/submodules/LIEF
+[submodule "medusa_software/submodules/LIEF"]
+	path = medusa_software/submodules/LIEF
 	url = https://github.com/lief-project/LIEF.git
-[submodule "xpdbg_software/submodules/binary-samples"]
-	path = xpdbg_software/submodules/binary-samples
+[submodule "medusa_software/submodules/binary-samples"]
+	path = medusa_software/submodules/binary-samples
 	url = https://github.com/JonathanSalwan/binary-samples.git
