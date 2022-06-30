@@ -1,16 +1,13 @@
-                _ _
-__  ___ __   __| | |__   __ _
-\ \/ / '_ \ / _` | '_ \ / _` |
- >  <| |_) | (_| | |_) | (_| |
-/_/\_\ .__/ \__,_|_.__/ \__, |
-     |_|                |___/
+ __  __          _                 
+|  \/  | ___  __| |_   _ ___  __ _ 
+| |\/| |/ _ \/ _` | | | / __|/ _` |
+| |  | |  __/ (_| | |_| \__ \ (_| |
+|_|  |_|\___|\__,_|\__,_|___/\__,_|
 
-    - xpDBG.org
-
-What is xpDBG?
-xpDBG is a project to create a cross platform debugger, code editor, and general
-development environment, targeting lower level development.
-The xpDBG project also includes the desire to create a better piece of software
+What is Medusa?
+Medusa is a project to create a cross platform debugger, code editor, and
+general development environment, targeting lower level development.
+The Medusa project also includes the desire to create a better piece of software
 for reverse engineering, as all of them have their own problems.
 For example:
     - Cutter: not very featureful, essentially a radare2 GUI, doesn't have
