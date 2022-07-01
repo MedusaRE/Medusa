@@ -46,3 +46,20 @@ Credits:
     QEMU          - QEMU
     
     and probably more...
+
+Lastly, I've (spv) been asked if I accept donations. I will place some wallet
+addresses at the end of this section, but keep this in mind. I'm doing fine, and
+there are probably organizations more deserving of your money than I am.
+Consider donating to these organizations instead:
+    - Amnesty International (https://www.amnesty.org/)
+    - The Humane Society of The United States (https://www.humanesociety.org/)
+    - Feeding America (https://www.feedingamerica.org/)
+    - More will be added to this list as I find charities I would like to
+      support.
+If, for some reason, you would still like to donate to me, here are some
+cryptocurrency wallets you could donate to.
+
+BTC: bc1qjg6jck6c08lqrxdgjnuj5m8c3v0zdrfh7rvjt5
+ETH: Will add once I find a good ETH wallet.
+XMR: 8BzgGQbbBUybgYw2dEC5EhazQcKGyG6UL6A9bueuDT5Mjhuwo3H7Lg2jEkEEJcrNR7W2MtCKfoRkEBxi3JjztwHj1VwMV2u
+XLM: GBKN2D7ZRBPQDW7GEQCT23ID6PVNZ43A224ULBZSP6G4JBNDEKY42J6C
