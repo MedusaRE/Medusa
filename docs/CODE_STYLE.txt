@@ -7,7 +7,7 @@
 
 Code Style
 
-xpDBG was originally going to be written in "C-Style C++". After learning more
+Medusa was originally going to be written in "C-Style C++". After learning more
 about/of C++, and its standard library, I (spv) embrace more C++ features.
 
 In general, make use of C++ stdlib functions and features when possible. (within

@@ -5,7 +5,7 @@
 |_|  |_|\___|\__,_|\__,_|___/\__,_|
 
 
-xpDBG Software
+Medusa Software
 
-This folder contains the source tree, resources, and such for the actual xpDBG
+This folder contains the source tree, resources, and such for the actual Medusa
 software, and its components.

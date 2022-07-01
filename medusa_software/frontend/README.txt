@@ -5,7 +5,7 @@
 |_|  |_|\___|\__,_|\__,_|___/\__,_|
 
 
-xpDBG Frontend
+Medusa Frontend
 
-This folder contains the source tree, resources, and such for the default xpDBG
+This folder contains the source tree, resources, and such for the default Medusa
 frontend software.

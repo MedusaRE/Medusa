@@ -17,7 +17,7 @@
 
 #include <capstone/capstone.h>
 #include <unicorn/unicorn.h>
-#include "xpDBG_window.h"
+#include "medusa_window.h"
 #include "logging.h"
 #include <gtkmm.h>
 #include "lib.h"
@@ -110,10 +110,10 @@ char* format_uc(uc_engine* uc) {
 	return ret;
 }
 
-void xpDBG_window::step_clicked() {
+void medusa_window::step_clicked() {
 	uc_err err;
 
-	xpdbg_log(LOG_VERBOSE, "Beginning emulation...");
+	medusa_log(LOG_VERBOSE, "Beginning emulation...");
 	uc_reg_read(uc_global, UC_ARM_REG_R15, &global_pc);
 
 	if (global_pc >= (BASE_ADDY + len)) {
@@ -131,7 +131,7 @@ void xpDBG_window::step_clicked() {
 
 	err = uc_emu_start(uc_global, global_pc | 1, -1, 0, 1);
 	if (err) {
-		xpdbg_log(LOG_ERROR, "Failed on uc_emu_start() with error returned: %u\n",
+		medusa_log(LOG_ERROR, "Failed on uc_emu_start() with error returned: %u\n",
 				  err);
 	}
 
@@ -139,7 +139,7 @@ void xpDBG_window::step_clicked() {
 	reg_view.get_buffer()->set_text(out_str);
 }
 
-xpDBG_window::xpDBG_window(int   argc,
+medusa_window::medusa_window(int   argc,
 						   char* argv[]) {
 	string disassembly_text_str;
 	char* filename = NULL;
@@ -150,8 +150,8 @@ xpDBG_window::xpDBG_window(int   argc,
 	uc_err err;
 	int i;
 
-	xpdbg_log(LOG_INFO, "Landed in xpDBG_window.");
-	xpdbg_log(LOG_INFO, "Asking for file for disassembly...");
+	medusa_log(LOG_INFO, "Landed in medusa_window.");
+	medusa_log(LOG_INFO, "Asking for file for disassembly...");
 	Gtk::FileChooserDialog dialog("Please choose a file for disassembly.",
 								  Gtk::FILE_CHOOSER_ACTION_OPEN);
 	dialog.set_transient_for(*this);
@@ -167,27 +167,27 @@ xpDBG_window::xpDBG_window(int   argc,
 			 *  god, i love memory management
 			 */
 
-			xpdbg_log(LOG_INFO, "User chose to open file.");
+			medusa_log(LOG_INFO, "User chose to open file.");
 			filename = strdup(dialog.get_filename().c_str());
-			xpdbg_log(LOG_INFO, "Filename: %s", filename);
+			medusa_log(LOG_INFO, "Filename: %s", filename);
 			break;
 		} case (Gtk::RESPONSE_CANCEL): {
-			xpdbg_log(LOG_INFO, "User cancelled file opening.");
+			medusa_log(LOG_INFO, "User cancelled file opening.");
 			filename = NULL;
 			break;
 		} default: {
-			xpdbg_log(LOG_ERROR, "Something went wrong.");
+			medusa_log(LOG_ERROR, "Something went wrong.");
 			return;
 			break;
 		}
 	}
 
 	if (filename == NULL) {
-		xpdbg_log(LOG_INFO, "Using built-in test code.");
+		medusa_log(LOG_INFO, "Using built-in test code.");
 		buf = test_arm_thumb_code;
 		len = sizeof(test_arm_thumb_code);
 	} else {
-		xpdbg_log(LOG_INFO, "Opening %s...",
+		medusa_log(LOG_INFO, "Opening %s...",
 				  filename);
 		FILE   *fp	= fopen(filename, "rb");
 
@@ -195,7 +195,7 @@ xpDBG_window::xpDBG_window(int   argc,
 		len	= ftell(fp);
 		rewind(fp);
 
-		xpdbg_log(LOG_INFO, "File is %d bytes (0x%x in hex) long.",
+		medusa_log(LOG_INFO, "File is %d bytes (0x%x in hex) long.",
 				  len,
 				  len);
 
@@ -207,7 +207,7 @@ xpDBG_window::xpDBG_window(int   argc,
 		 *  should always be 1. i think. eh whatever security
 		 */
 
-		xpdbg_log(LOG_VERBOSE, "Allocating memory...");
+		medusa_log(LOG_VERBOSE, "Allocating memory...");
 
 		buf	= (uint8_t*)calloc(len,
 							   len / sizeof(uint8_t));
@@ -218,7 +218,7 @@ xpDBG_window::xpDBG_window(int   argc,
 		fclose(fp);
 	}
 
-	set_title(string_format_cstr("xpDBG - %s",
+	set_title(string_format_cstr("Medusa - %s",
 								 (filename != NULL) ? filename
 			 										: "default THUMB test code").c_str());
 	set_default_size(800,
@@ -228,7 +228,7 @@ xpDBG_window::xpDBG_window(int   argc,
 	 *  create a TextView for the disassembly, as well as a TextBuffer for
 	 *  containing the text
 	 */
-	xpdbg_log(LOG_VERBOSE, "Creating GTK TextView and TextBuffer...");
+	medusa_log(LOG_VERBOSE, "Creating GTK TextView and TextBuffer...");
 	auto* our_text_view   = new Gtk::TextView();
 	auto  our_text_buffer = Gtk::TextBuffer::create();
 
@@ -236,7 +236,7 @@ xpDBG_window::xpDBG_window(int   argc,
 	 *  monospace looks better :P
 	 *  also we don't want it to be editable
 	 */
-	xpdbg_log(LOG_VERBOSE, "Setting TextView properties...");
+	medusa_log(LOG_VERBOSE, "Setting TextView properties...");
 	our_text_view->set_monospace(true);
 	our_text_view->set_editable(false);
 	our_text_view->set_buffer(our_text_buffer);
@@ -245,7 +245,7 @@ xpDBG_window::xpDBG_window(int   argc,
 	 *  open capstone handle
 	 *  CS_MODE_THUMB as this is thumb code
 	 */
-	xpdbg_log(LOG_VERBOSE, "Opening Capstone handle.");
+	medusa_log(LOG_VERBOSE, "Opening Capstone handle.");
 	cs_open(CS_ARCH_ARM,
 			(cs_mode)(CS_MODE_THUMB),
 			&handle);
@@ -253,7 +253,7 @@ xpDBG_window::xpDBG_window(int   argc,
 	/*
 	 *  disassemble it
 	 */
-	xpdbg_log(LOG_INFO, "Disassembling code...");
+	medusa_log(LOG_INFO, "Disassembling code...");
 	count = cs_disasm(handle,
 					  buf,
 					  len,
@@ -265,7 +265,7 @@ xpDBG_window::xpDBG_window(int   argc,
 	/*
 	 *  initialize with empty string, otherwise it'll start with "(null)"
 	 */
-	xpdbg_log(LOG_INFO, "Formatting disassembly...");
+	medusa_log(LOG_INFO, "Formatting disassembly...");
 
 	disassembly_text_str = "";
 
@@ -305,24 +305,24 @@ xpDBG_window::xpDBG_window(int   argc,
 	/*
 	 *  open unicorn engine
 	 */
-	xpdbg_log(LOG_VERBOSE, "Opening Unicorn Engine...");
+	medusa_log(LOG_VERBOSE, "Opening Unicorn Engine...");
 	err = uc_open(UC_ARCH_ARM,
 				  UC_MODE_THUMB,
 				  &uc_global);
 	if (err) {
-		xpdbg_log(LOG_ERROR, "Failed on uc_open() with error returned: %u (%s)\n",
+		medusa_log(LOG_ERROR, "Failed on uc_open() with error returned: %u (%s)\n",
 				  err,
 				  uc_strerror(err));
 		return;
 	}
 
-	xpdbg_log(LOG_VERBOSE, "Mapping memory for emulation...");
+	medusa_log(LOG_VERBOSE, "Mapping memory for emulation...");
 	uc_mem_map(uc_global, BASE_ADDY, 0x100000, UC_PROT_ALL);
 	
-	xpdbg_log(LOG_VERBOSE, "Copying executable for emulation...");
+	medusa_log(LOG_VERBOSE, "Copying executable for emulation...");
 	uc_mem_write(uc_global, BASE_ADDY, buf, len);
 
-//	xpdbg_log(LOG_VERBOSE, "Adding instruction hook for emulation...");
+//	medusa_log(LOG_VERBOSE, "Adding instruction hook for emulation...");
 //	uc_hook_add(uc_global, &hook1, UC_HOOK_CODE, (void*)hook_code, NULL, BASE_ADDY, BASE_ADDY + len);
 
 	/*
@@ -333,72 +333,72 @@ xpDBG_window::xpDBG_window(int   argc,
 	/*
 	 *  add text view to scrolledwindow and init scrolledwindow
 	 */
-	xpdbg_log(LOG_VERBOSE, "Initializing ScrolledWindow.");
+	medusa_log(LOG_VERBOSE, "Initializing ScrolledWindow.");
 
 	sw.set_policy(Gtk::POLICY_NEVER, Gtk::POLICY_ALWAYS);
 	sw.set_propagate_natural_width(true);
 
-	xpdbg_log(LOG_VERBOSE, "Adding TextView.");
+	medusa_log(LOG_VERBOSE, "Adding TextView.");
 	sw.add(*our_text_view);
 	sw.show_all_children();
 
-	xpdbg_log(LOG_VERBOSE, "Initializing step button.");
+	medusa_log(LOG_VERBOSE, "Initializing step button.");
 	step_button.set_label("step instruction");
-	step_button.signal_clicked().connect(sigc::mem_fun(*this, &xpDBG_window::step_clicked));
+	step_button.signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::step_clicked));
 
-	xpdbg_log(LOG_VERBOSE, "Initializing Register View.");
+	medusa_log(LOG_VERBOSE, "Initializing Register View.");
 	reg_view.set_editable(false);
 	reg_view.set_monospace(true);
 
-	xpdbg_log(LOG_VERBOSE, "Attaching step button.");
+	medusa_log(LOG_VERBOSE, "Attaching step button.");
 	our_grid.attach(step_button, 0, 0);
 
-	xpdbg_log(LOG_VERBOSE, "Initializing grid.");
+	medusa_log(LOG_VERBOSE, "Initializing grid.");
 	our_grid.set_column_homogeneous(false);
 	our_grid.set_row_homogeneous(false);
 	our_grid.set_margin_right(0);
 	our_grid.set_margin_start(0);
 
-	xpdbg_log(LOG_VERBOSE, "Packing button grid into button box.");
+	medusa_log(LOG_VERBOSE, "Packing button grid into button box.");
 	button_box.pack_start(our_grid);
 
-	xpdbg_log(LOG_VERBOSE, "Packing ScrolledWindow & Register View into emulation box.");
+	medusa_log(LOG_VERBOSE, "Packing ScrolledWindow & Register View into emulation box.");
 	emu_box.pack_start(sw);
 	emu_box.pack_start(reg_view);
 
-	xpdbg_log(LOG_VERBOSE, "Initializing button box.");
+	medusa_log(LOG_VERBOSE, "Initializing button box.");
 	button_box.set_spacing(10);
 	button_box.set_center_widget(our_grid);
 
-	xpdbg_log(LOG_VERBOSE, "Initializing emulation box.");
+	medusa_log(LOG_VERBOSE, "Initializing emulation box.");
 	emu_box.set_spacing(10);
 	emu_box.set_homogeneous(true);
 
-	xpdbg_log(LOG_VERBOSE, "Packing button box and emulation box into main box.");
+	medusa_log(LOG_VERBOSE, "Packing button box and emulation box into main box.");
 	our_box.pack_start(button_box);
 	our_box.pack_start(emu_box);
 
-	xpdbg_log(LOG_VERBOSE, "Initializing main box.");
+	medusa_log(LOG_VERBOSE, "Initializing main box.");
 	our_box.set_homogeneous(false);
 	our_box.set_border_width(10);
 
-	xpdbg_log(LOG_VERBOSE, "Adding ScrolledWinow...");
+	medusa_log(LOG_VERBOSE, "Adding ScrolledWinow...");
 	add(our_box);
 
 	out_str = format_uc(uc_global);
 	reg_view.get_buffer()->set_text(out_str);
 
-	xpdbg_log(LOG_VERBOSE, "Showing...");
+	medusa_log(LOG_VERBOSE, "Showing...");
 	show_all_children();
 }
 
-xpDBG_window::~xpDBG_window() {
+medusa_window::~medusa_window() {
 	/*
 	 *  good little programmers, we are
 	 */
-	xpdbg_log(LOG_VERBOSE, "Closing Capstone handle...");
+	medusa_log(LOG_VERBOSE, "Closing Capstone handle...");
 	cs_close(&handle);
 
-	xpdbg_log(LOG_VERBOSE, "Closing Unicorn Engine...");
+	medusa_log(LOG_VERBOSE, "Closing Unicorn Engine...");
 	uc_close(uc_global);
 }

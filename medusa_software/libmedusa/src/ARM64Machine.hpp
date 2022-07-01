@@ -18,11 +18,11 @@
 #ifndef ARM64MACHINE_HPP
 #define ARM64MACHINE_HPP
 
-#include "libxpdbg.hpp"
+#include "libmedusa.hpp"
 #include "Machine.hpp"
 #include <vector>
 
-namespace libxpdbg {
+namespace libmedusa {
 	class ARM64Machine : public Machine {
 		public:
 			ARM64Machine();

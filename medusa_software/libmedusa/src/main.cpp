@@ -19,7 +19,7 @@
 #include <unicorn/unicorn.h>
 #include "ARMv7Machine.hpp"
 #include <LIEF/LIEF.hpp>
-#include "libxpdbg.hpp"
+#include "libmedusa.hpp"
 #include <cstdio>
 #include <vector>
 
@@ -49,14 +49,14 @@ uint8_t test_arm_thumb_code[] = {
 };
 
 int main(int argc, char* argv[]) {
-	libxpdbg::ARMv7Machine armv7_machine;
+	libmedusa::ARMv7Machine armv7_machine;
 
-	vector<libxpdbg::mem_reg_t> memory_regions = armv7_machine.get_memory_regions();
-	for (libxpdbg::mem_reg_t& i : memory_regions) {
+	vector<libmedusa::mem_reg_t> memory_regions = armv7_machine.get_memory_regions();
+	for (libmedusa::mem_reg_t& i : memory_regions) {
 		printf("%lx %lx %lx\n", i.addr, i.size, i.prot);
 	}
 
-	libxpdbg::mem_reg_t region;
+	libmedusa::mem_reg_t region;
 
 	region.addr = 0x0;
 	region.size = 0x10000;
@@ -66,12 +66,12 @@ int main(int argc, char* argv[]) {
 	armv7_machine.map_memory(region);
 
 	memory_regions = armv7_machine.get_memory_regions();
-	for (libxpdbg::mem_reg_t& i : memory_regions) {
+	for (libmedusa::mem_reg_t& i : memory_regions) {
 		printf("%lx %lx %lx\n", i.addr, i.size, i.prot);
 	}
 
-	vector<libxpdbg::reg_t> registers = armv7_machine.get_registers();
-	for (libxpdbg::reg_t& i : registers) {
+	vector<libmedusa::reg_t> registers = armv7_machine.get_registers();
+	for (libmedusa::reg_t& i : registers) {
 //		printf("%s %s %lx %lx\n", i.reg_description.c_str(), i.reg_name.c_str(), i.reg_id, i.reg_value);
 	}
 
@@ -87,11 +87,11 @@ int main(int argc, char* argv[]) {
 	printf("\n");
 
 	registers = armv7_machine.get_registers();
-	for (libxpdbg::reg_t& i : registers) {
+	for (libmedusa::reg_t& i : registers) {
 //		printf("%s %s %lx %lx\n", i.reg_description.c_str(), i.reg_name.c_str(), i.reg_id, i.reg_value);
 	}
 
-	libxpdbg::reg_t reg;
+	libmedusa::reg_t reg;
 	reg.reg_description = "r0";
 	reg.reg_name = "r0";
 	reg.reg_id = 0;
@@ -100,7 +100,7 @@ int main(int argc, char* argv[]) {
 	armv7_machine.set_register(reg);
 
 	registers = armv7_machine.get_registers();
-	for (libxpdbg::reg_t& i : registers) {
+	for (libmedusa::reg_t& i : registers) {
 //		printf("%s %s %lx %lx\n", i.reg_description.c_str(), i.reg_name.c_str(), i.reg_id, i.reg_value);
 	}
 
@@ -120,15 +120,15 @@ int main(int argc, char* argv[]) {
 		armv7_machine.exec_code_step();
 
 		registers = armv7_machine.get_registers();
-		for (libxpdbg::reg_t& i : registers) {
+		for (libmedusa::reg_t& i : registers) {
 //			printf("%s %s %lx %lx\n", i.reg_description.c_str(), i.reg_name.c_str(), i.reg_id, i.reg_value);
 		}
 	}
 
 	data = armv7_machine.read_memory(0, sizeof(test_arm_thumb_code));
-	vector<libxpdbg::insn_t> disas = armv7_machine.disassemble(data, XP_FLAG_THUMB);
+	vector<libmedusa::insn_t> disas = armv7_machine.disassemble(data, XP_FLAG_THUMB);
 
-	for (libxpdbg::insn_t& i : disas) {
+	for (libmedusa::insn_t& i : disas) {
 		printf("%016lx (%04x): %s %s\n", i.address, i.size, i.mnemonic, i.op_str);
 	}
 
@@ -138,7 +138,7 @@ int main(int argc, char* argv[]) {
 
 	disas = armv7_machine.disassemble(assembled, XP_FLAG_THUMB);
 
-	for (libxpdbg::insn_t& i : disas) {
+	for (libmedusa::insn_t& i : disas) {
 		printf("%016lx (%04x): %s %s\n", i.address, i.size, i.mnemonic, i.op_str);
 	}
 

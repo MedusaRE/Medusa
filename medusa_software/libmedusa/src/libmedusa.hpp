@@ -15,10 +15,10 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef LIBXPDBG_HPP
-#define LIBXPDBG_HPP
+#ifndef LIBMEDUSA_HPP
+#define LIBMEDUSA_HPP
 
-namespace libxpdbg {
+namespace libmedusa {
 	/*
 	 *  empty
 	 */

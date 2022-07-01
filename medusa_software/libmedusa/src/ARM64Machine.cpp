@@ -18,11 +18,11 @@
 #include <capstone/capstone.h>
 #include <unicorn/unicorn.h>
 #include "ARM64Machine.hpp"
-#include "libxpdbg.hpp"
+#include "libmedusa.hpp"
 #include <cstring>
 #include <cstdio>
 
-using namespace libxpdbg;
+using namespace libmedusa;
 
 /*
  *  "normal" registers, contains the registers returned by get_registers.

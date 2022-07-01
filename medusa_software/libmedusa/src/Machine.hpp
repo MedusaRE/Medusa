@@ -29,7 +29,7 @@
 
 #define XP_FLAG_THUMB (1 << 0)
 
-namespace libxpdbg {
+namespace libmedusa {
 	typedef struct {
 		std::string reg_name;
 		std::string reg_description;

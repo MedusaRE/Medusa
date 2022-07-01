@@ -15,7 +15,7 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "xpDBG_window.h"
+#include "medusa_window.h"
 #include "logging.h"
 #include <gtkmm.h>
 #include <cstdio>
@@ -44,28 +44,28 @@ int main(int   argc,
 	fake_argv[0] = argv[0];
 	fake_argv[1] = NULL;
 
-	xpdbg_set_log_level(LOG_VERBOSE);
-	xpdbg_log(LOG_INFO, "xpDBG Loaded.");
+	medusa_set_log_level(LOG_VERBOSE);
+	medusa_log(LOG_INFO, "Medusa Loaded.");
 
 	/*
 	 *  create the app
 	 */
-	xpdbg_log(LOG_INFO, "Creating GTK application...");
+	medusa_log(LOG_INFO, "Creating GTK application...");
 	auto app = Gtk::Application::create(fake_argc,
 										fake_argv,
-										"org.xpdbg.xpdbg");
+										"org.medusa-re.medusa");
 
 	/*
 	 *  create the window object
 	 */
-	xpdbg_log(LOG_INFO, "Creating xpDBG_window...");
-	xpDBG_window window(argc,
-						argv);
+	medusa_log(LOG_INFO, "Creating medusa_window...");
+	medusa_window window(argc,
+						 argv);
 
 
 	/*
 	 *  run it
 	 */
-	xpdbg_log(LOG_INFO, "Running xpDBG_window...");
+	medusa_log(LOG_INFO, "Running medusa_window...");
 	return app->run(window);
 }

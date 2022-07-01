@@ -27,8 +27,8 @@ using namespace std;
 static log_level_t	current_log_level;
 char 				log_char[] = "viwec";
 
-log_status_t xpdbg_log(log_level_t log_level,
-					   const char* fmt, ...) {
+log_status_t medusa_log(log_level_t log_level,
+						const char* fmt, ...) {
 	if (log_level < current_log_level) {
 		/*
 		 *  do not log messages that are less important / more verbose
@@ -69,7 +69,7 @@ log_status_t xpdbg_log(log_level_t log_level,
 		/*
 		 *  print that shit
 		 */
-		printf("[[%c] xpDBG (%s)]: %s\n",
+		printf("[[%c] Medusa (%s)]: %s\n",
 			   log_char[log_level],
 			   asctime_ret,
 			   s_to_print);
@@ -84,7 +84,7 @@ log_status_t xpdbg_log(log_level_t log_level,
 	__builtin_unreachable();
 }
 
-log_status_t xpdbg_set_log_level(log_level_t log_level) {
+log_status_t medusa_set_log_level(log_level_t log_level) {
 	current_log_level = log_level;
 	return LOG_SUCCESS;
 }
