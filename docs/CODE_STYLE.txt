@@ -61,3 +61,5 @@ An exception is given for documentation, which I think should use spaces, as
 GitHub defaults to 8 spaces per tab, and some other reasons I forget.
 I prefer tabs instead of spaces usually because when using a CLI editor like
 nano, soft tabs require more keyboard input to move through than hard tabs.
+
+This file is licensed under the terms of the CC BY-SA 4.0 license.
