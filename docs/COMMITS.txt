@@ -18,3 +18,5 @@ message could be:
 
 An inappropriate message could be:
 "fix buffer overflow shit in frontend"
+
+This file is licensed under the terms of the CC BY-SA 4.0 license.

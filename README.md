@@ -48,6 +48,17 @@ Planned features include:
 - Decompiler support ([Ghidra](https://www.ghidra-sre.org)?)
 - and more!
 
+## License
+Currently, all of the source code written for the Medusa project is licensed
+under Version 2 of the GNU General Public License (GPLv2), without the "any
+later version" clause.
+Other resources are released under CC BY-SA 4.0.
+
+Files should contain a disclaimer indicating their license. If not, (excluding
+submodules) go through the chain of parent folders until you find the first
+parent folder with a `LICENSE` file: that is the license of the file in
+question.
+
 ## Credits
 ```
     spv           - project founding
