@@ -3,7 +3,7 @@
 # Medusa
 ## What is Medusa?
 Medusa is a project to create a cross platform general purpose tool for software
-research, be that reverse engineering, development, analysis, preservation: any
+research, be that reverse engineering, development, analysis, or preservation: any
 form of software research.
 
 All current software research tools have their own problems: Medusa is meant to
