@@ -8,7 +8,6 @@
     - medusa-re.org
 ```
 # Medusa
----
 ### What is Medusa?
 Medusa is a project to create a cross platform debugger, code editor, and
 general development environment, targeting lower level development.
