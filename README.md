@@ -35,7 +35,8 @@ Planned features include:
 - Support for many executable formats (Mach-O, ELF, PE, MZ, JAR)
 - multiple executable formats supported, Mach-O, ELF, PE, Jar, etc. )
 - A disassembler to aid in reverse engineering
-- Decompiler support ([Ghidra](https://www.ghidra-sre.org)?)
+- Decompiler support (for example, [Ghidra](https://www.ghidra-sre.org)'s
+  decompiler)
 - and more!
 
 ## License
@@ -48,6 +49,30 @@ Files should contain a disclaimer indicating their license. If not, (excluding
 submodules) go through the chain of parent folders until you find the first
 parent folder with a `LICENSE` file: that is the license of the file in
 question.
+
+## Folder Structure
+```
+/:                        - the root of the project, the parent folder of this
+                            file
+    res                   - resources, such as GIMP project files, images, and
+                            the like
+    docs                  - documentation for the Medusa Project
+    medusa_software:      - source code for the Medusa Project
+        frontend          - the default frontend for the Medusa Project
+        libmedusa         - a library for controlling emulated and real-silicon
+                            machines programmatically maintained by the Medusa
+                            Project
+        libxparse         - an executable parser maintained by the Medusa
+                            Project
+        medusa_submodules - Git submodules for components maintained by the
+                            Medusa Project (not currently in this repo, but in
+                            case some components are moved outside of this
+                            repository, this is where the submodules for said
+                            components will reside)
+        submodules        - Git submodules not maintained by the Medusa Project
+        work              - work in progress components / sideprojects for the
+                            Medusa Project, such as a text editor
+```
 
 ## Credits
 ```
