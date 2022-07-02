@@ -7,13 +7,17 @@
 
     - medusa-re.org
 ```
+
+![Medusa logo](/res/medusa_logo_lus_rounded.png)
+
 # Medusa
 ### What is Medusa?
-Medusa is a project to create a cross platform debugger, code editor, and
-general development environment, targeting lower level development.
+Medusa is a project to create a cross platform a general purpose tool for
+software research, be that reverse engineering, development, analysis,
+preservation: any form of software research.
 
-The Medusa project also includes the desire to create a better piece of software
-for reverse engineering, as all of them have their own problems.
+All current software research tools have their own problems: Medusa is meant to
+solve these issues.
 
 For example:
 - Cutter: not very featureful, essentially a radare2 GUI, doesn't have
@@ -22,24 +26,26 @@ For example:
   or code editing, and is written in Java (besides the decompiler), which is
   one of my least favorite languages.
 - IDA (Pro): expensive, closed source, does not have emulation support,
-  or code editing
-- Radare2: does not have emulation support, or code editing.
+  or code editing.
+- Radare2: does not have code editing, a GUI, or the level of emulation support
+  which I intend to include in Medusa.
 
 Planned features include:
-- support for multiple architectures
-- assembly editing
+- Support for multiple architectures (armv7, arm64, x86, x84-64, Z80, 6502, 68K,
+  Java bytecode, etc. )
+- Assembly editing
 - C/C++ editing
-- assembling, and compilation support for a large number of architectures
-- a debugger, with the ability to step forward and backward through
+- Assembling support for many architectures
+- Compilation support for many architectures
+- A debugger, with the ability to step forward and backward through
   instructions, view and modify registers, edit memory, scripting support,
   an API for writing things such as syscall handlers, and more.
-- both a GUI and TUI interface, as well as a scripting platform & network
-  support, think of something like LLDB and its ability to debug over a
-  network.
-- binary loading
-- multiple executable formats supported, Mach-O, ELF, PE, etc
-- a disassembler to aid in reverse engineering
-- possibly decompiler support (Ghidra?)
+- Both a GUI and TUI interface
+- Scripting platform & network interface, à la LLDB
+- Support for many executable formats (Mach-O, ELF, PE, MZ, JAR)
+- multiple executable formats supported, Mach-O, ELF, PE, Jar, etc. )
+- A disassembler to aid in reverse engineering
+- Decompiler support ([Ghidra](https://www.ghidra-sre.org)?)
 - and more!
 
 ### Credits
