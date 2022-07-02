@@ -11,7 +11,7 @@
 ![Medusa logo](/res/medusa_logo_lus_rounded.png)
 
 # Medusa
-### What is Medusa?
+## What is Medusa?
 Medusa is a project to create a cross platform a general purpose tool for
 software research, be that reverse engineering, development, analysis,
 preservation: any form of software research.
@@ -48,7 +48,7 @@ Planned features include:
 - Decompiler support ([Ghidra](https://www.ghidra-sre.org)?)
 - and more!
 
-### Credits
+## Credits
 ```
     spv           - project founding
     Capstone Team - Capstone
@@ -60,7 +60,7 @@ Planned features include:
     and probably more...
 ```
 
-### Donations
+## Donations
 Lastly, I've (spv) been asked if I accept donations. I will place some wallet
 addresses at the end of this section, but keep this in mind. I'm doing fine, and
 there are probably organizations more deserving of your money than I am.
