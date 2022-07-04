@@ -3,8 +3,8 @@
 # Medusa
 ## What is Medusa?
 Medusa is a project to create a cross platform general purpose tool for software
-research, be that reverse engineering, development, analysis, or preservation: any
-form of software research.
+and hardware research, like reverse engineering, analysis, emulation,
+development, debugging, and other similar tasks.
 
 All current software research tools have their own problems: Medusa is meant to
 solve these issues.
@@ -19,6 +19,9 @@ For example:
   or code editing.
 - Radare2: does not have code editing, a GUI, or the level of emulation support
   which I intend to include in Medusa.
+
+This list disregards the fact that, to my knowledge, none of those tools have
+support for the sort-of hardware research I'd like to support in Medusa.
 
 Planned features include:
 - Support for multiple architectures (armv7, arm64, x86, x84-64, Z80, 6502, 68K,
