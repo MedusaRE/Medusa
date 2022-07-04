@@ -46,3 +46,5 @@ circumstances. I'm (spv) more accepting of hard-tabs in actual source code, as
 not much editing is done within web-based Git clients, and you *can* change the
 tab stops usually. Since the *default* is 8, and not everyone changes it, making
 the documentation look correct matters more to me than source code in that case.
+
+This file is licensed under the terms of the CC BY-SA 4.0 license.
