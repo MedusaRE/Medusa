@@ -102,7 +102,7 @@ cryptocurrency wallets you could donate to.
 
 ```
 BTC: bc1qjg6jck6c08lqrxdgjnuj5m8c3v0zdrfh7rvjt5
-ETH: Will add once I find a good ETH wallet.
+ETH: 0x628dc9B9deBE999477c39F3054246Bd3A3372458
 XMR: 8BzgGQbbBUybgYw2dEC5EhazQcKGyG6UL6A9bueuDT5Mjhuwo3H7Lg2jEkEEJcrNR7W2MtCKfoRkEBxi3JjztwHj1VwMV2u
 XLM: GBKN2D7ZRBPQDW7GEQCT23ID6PVNZ43A224ULBZSP6G4JBNDEKY42J6C
 ```
