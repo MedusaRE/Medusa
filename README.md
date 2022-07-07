@@ -2,9 +2,9 @@
 
 # Medusa
 ## What is Medusa?
-Medusa is a project to create a cross platform general purpose tool for software
-and hardware research, like reverse engineering, analysis, emulation,
-development, debugging, and other similar tasks.
+Medusa is a project to create a cross platform, free, and general purpose tool
+for software and hardware research, like reverse engineering, analysis,
+emulation, development, debugging, and other similar tasks.
 
 All current software research tools have their own problems: Medusa is meant to
 solve these issues.
@@ -15,7 +15,7 @@ For example:
 - Ghidra: personal favorite currently, still doesn't have emulation support
   or code editing, and is written in Java (besides the decompiler), which is
   one of my least favorite languages.
-- IDA (Pro): expensive, closed source, does not have emulation support,
+- IDA (Pro): expensive, non-free, does not have emulation support,
   or code editing.
 - Radare2: does not have code editing, a GUI, or the level of emulation support
   which I intend to include in Medusa.
