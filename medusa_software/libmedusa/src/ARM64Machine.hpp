@@ -50,6 +50,7 @@ namespace libmedusa {
 			std::vector<reg_t>		registers;
 			csh						handle;
 			uc_engine			   *uc;
+			ks_engine			   *ks;
 	};
 }
 

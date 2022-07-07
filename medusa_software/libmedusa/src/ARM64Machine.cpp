@@ -308,4 +308,11 @@ ARM64Machine::ARM64Machine() {
 	cs_open(CS_ARCH_ARM64,
 			(cs_mode)(CS_MODE_ARM),
 			&handle);
+
+	/*
+	 *  open keystone handles for ARM64 code.
+	 */
+	ks_open(KS_ARCH_ARM64,
+			KS_MODE_LITTLE_ENDIAN,
+			&ks);
 }
