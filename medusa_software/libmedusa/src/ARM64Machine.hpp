@@ -25,21 +25,26 @@
 namespace libmedusa {
 	class ARM64Machine : public Machine {
 		public:
-			ARM64Machine();
 			~ARM64Machine();
+			ARM64Machine();
+			
 			std::vector<reg_t> get_registers();
+			bool set_register(reg_t reg);
+
+			std::vector<uint8_t> read_memory(uint64_t addr, uint64_t size);
+			bool write_memory(uint64_t addr, std::vector<uint8_t> data);
 			std::vector<mem_reg_t> get_memory_regions();
-			bool map_memory(mem_reg_t);
-			bool unmap_memory(mem_reg_t);
 			int find_memory_region(uint64_t addr);
-			bool write_memory(uint64_t addr, uint8_t* data, uint64_t size);
-			bool read_memory(uint64_t addr, uint8_t* data, uint64_t size);
-			bool exec_code_addr(uint64_t addr, uint64_t size);
+			bool unmap_memory(mem_reg_t);
+			bool map_memory(mem_reg_t);
+
 			bool exec_code_addr_ninsns(uint64_t addr, uint64_t num);
+			bool exec_code_addr(uint64_t addr, uint64_t size);
 			bool exec_code_ninsns(uint64_t num);
 			bool exec_code_step();
-			bool set_register(reg_t reg);
-			std::vector<insn_t> disassemble_memory(uint64_t addr, uint64_t size);
+
+			std::vector<uint8_t> assemble(std::string src, uint64_t addr, flag_t flags);
+			std::vector<insn_t> disassemble(std::vector<uint8_t> data, flag_t flags);
 		protected:
 			std::vector<mem_reg_t>	memory_regions;
 			std::vector<reg_t>		registers;
