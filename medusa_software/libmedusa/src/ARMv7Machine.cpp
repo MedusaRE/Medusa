@@ -194,6 +194,9 @@ ARMv7Machine::ARMv7Machine() {
 			(cs_mode)(CS_MODE_THUMB),
 			&handle_thumb);
 
+	/*
+	 *  open keystone handles for ARM and THUMB code.
+	 */
 	ks_open(KS_ARCH_ARM,
 			KS_MODE_ARM,
 			&ks);
