@@ -188,22 +188,22 @@ ARMv7Machine::ARMv7Machine() {
 	 */
 	cs_open(CS_ARCH_ARM,
 			(cs_mode)(CS_MODE_ARM),
-			&handle);
+			&this->handle);
 
 	cs_open(CS_ARCH_ARM,
 			(cs_mode)(CS_MODE_THUMB),
-			&handle_thumb);
+			&this->handle_thumb);
 
 	/*
 	 *  open keystone handles for ARM and THUMB code.
 	 */
 	ks_open(KS_ARCH_ARM,
 			KS_MODE_ARM,
-			&ks);
+			&this->ks);
 	
 	ks_open(KS_ARCH_ARM,
 			KS_MODE_THUMB,
-			&ks_thumb);
+			&this->ks_thumb);
 }
 
 ARMv7Machine::~ARMv7Machine() {
@@ -353,7 +353,7 @@ bool ARMv7Machine::write_memory(uint64_t addr, std::vector<uint8_t> data) {
 bool ARMv7Machine::exec_code_addr(uint64_t addr, uint64_t size) {
 	bool ret = true;
 
-	ret = (uc_emu_start(uc, addr, addr + size, 0, 0) == UC_ERR_OK) ? true : false;
+	ret = (uc_emu_start(this->uc, addr, addr + size, 0, 0) == UC_ERR_OK) ? true : false;
 
 	return ret;
 }
@@ -366,7 +366,7 @@ bool ARMv7Machine::exec_code_addr_ninsns(uint64_t addr, uint64_t num) {
 	 *  so this'll run just until num instructions is hit. (or you just run out
 	 *  of memory)
 	 */
-	ret = (uc_emu_start(uc, addr, 0xffffffffffffffffL, 0, num) == UC_ERR_OK) ? true : false;
+	ret = (uc_emu_start(this->uc, addr, 0xffffffffffffffffL, 0, num) == UC_ERR_OK) ? true : false;
 
 	return ret;
 }
@@ -379,8 +379,8 @@ bool ARMv7Machine::exec_code_ninsns(uint64_t num) {
 	/*
 	 *  read PC and CPSR
 	 */
-	uc_reg_read(uc, UC_ARM_REG_PC, &val);
-	uc_reg_read(uc, UC_ARM_REG_CPSR, &cpsr);
+	uc_reg_read(this->uc, UC_ARM_REG_PC, &val);
+	uc_reg_read(this->uc, UC_ARM_REG_CPSR, &cpsr);
 
 	/*
 	 *  1 << 5 is the bit in CPSR denoting whther currently executing in THUMB
@@ -390,7 +390,7 @@ bool ARMv7Machine::exec_code_ninsns(uint64_t num) {
 		val |= 1;
 	}
 
-	ret = (uc_emu_start(uc, val, 0xffffffffffffffffL, 0, num) == UC_ERR_OK) ? true : false;
+	ret = (uc_emu_start(this->uc, val, 0xffffffffffffffffL, 0, num) == UC_ERR_OK) ? true : false;
 
 	return ret;
 }
@@ -406,7 +406,7 @@ bool ARMv7Machine::set_register(reg_t reg) {
 	 *  no buffer overflows here, sir!
 	 */
 	if (reg.reg_id <= sizeof(normal_regs) / sizeof(normal_regs[0])) {
-		ret = (uc_reg_write(uc, normal_regs[reg.reg_id], &reg.reg_value) == UC_ERR_OK) ? true : false;
+		ret = (uc_reg_write(this->uc, normal_regs[reg.reg_id], &reg.reg_value) == UC_ERR_OK) ? true : false;
 	} else {
 		ret = false;
 	}
@@ -425,14 +425,14 @@ std::vector<insn_t> ARMv7Machine::disassemble(std::vector<uint8_t> data, flag_t 
 	std::copy(data.begin(), data.end(), buf);
 
 	if (flags & XP_FLAG_THUMB) {
-		count = cs_disasm(handle_thumb,
+		count = cs_disasm(this->handle_thumb,
 						  buf,
 						  size,
 						  0,
 						  0,
 						  &insns);
 	} else {
-		count = cs_disasm(handle,
+		count = cs_disasm(this->handle,
 						  buf,
 						  size,
 						  0,
@@ -463,14 +463,14 @@ std::vector<uint8_t> ARMv7Machine::assemble(std::string src, uint64_t addr, flag
 	std::vector<uint8_t>  ret;
 
 	if (flags & XP_FLAG_THUMB) {
-		ks_asm(ks_thumb,
+		ks_asm(this->ks_thumb,
 			   src.c_str(),
 			   addr,
 			   &data,
 			   &size,
 			   &count);
 	} else {
-		ks_asm(ks,
+		ks_asm(this->ks,
 			   src.c_str(),
 			   addr,
 			   &data,
