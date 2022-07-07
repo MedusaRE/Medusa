@@ -184,7 +184,7 @@ ARMv7Machine::ARMv7Machine() {
 	this->registers.push_back(reg);
 
 	/*
-	 *  open capstone handles for ARM code and THUMB code.
+	 *  open capstone handles for ARM and THUMB code.
 	 */
 	cs_open(CS_ARCH_ARM,
 			(cs_mode)(CS_MODE_ARM),
