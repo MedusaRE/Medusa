@@ -382,7 +382,7 @@ medusa_window::medusa_window(int   argc,
 	our_box.set_homogeneous(false);
 	our_box.set_border_width(10);
 
-	medusa_log(LOG_VERBOSE, "Adding ScrolledWinow...");
+	medusa_log(LOG_VERBOSE, "Adding ScrolledWindow...");
 	add(our_box);
 
 	out_str = format_uc(uc_global);
