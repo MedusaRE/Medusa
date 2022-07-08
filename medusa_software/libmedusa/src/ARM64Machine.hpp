@@ -23,9 +23,19 @@
 #include <vector>
 
 namespace libmedusa {
+	/**
+	 *  @brief An implementation of the Machine class for ARM64.
+	 */
 	class ARM64Machine : public Machine {
 		public:
+			/**
+			 *  @brief The destructor for this Machine.
+			 */
 			~ARM64Machine();
+
+			/**
+			 *  @brief The constructor for this Machine.
+			 */
 			ARM64Machine();
 			
 			std::vector<reg_t> get_registers();
@@ -46,10 +56,29 @@ namespace libmedusa {
 			std::vector<uint8_t> assemble(std::string src, uint64_t addr, flag_t flags);
 			std::vector<insn_t> disassemble(std::vector<uint8_t> data, flag_t flags);
 		protected:
+			/**
+			 *  @brief An `std::vector` of all of the memory regions mapped for this Machine.
+			 */
 			std::vector<mem_reg_t>	memory_regions;
+
+			/**
+			 *  @brief An `std::vector` of all ARM64 CPU registers.
+			 */
 			std::vector<reg_t>		registers;
+
+			/**
+			 *  @brief The Capstone handle for disassembly.
+			 */
 			csh						handle;
+
+			/**
+			 *  @brief The Unicorn Engine for ARM64 emulation.
+			 */
 			uc_engine			   *uc;
+
+			/**
+			 *  @brief The Keystone handle for assembly.
+			 */
 			ks_engine			   *ks;
 	};
 }
