@@ -14,3 +14,6 @@ clean:
 #	cd medusa_software/work/lief_testing/; make clean
 	cd medusa_software/work/text_editing/; make clean
 	cd medusa_software/work/unicorn_states/; make clean
+
+install:
+	cd medusa_software/libmedusa; make install
