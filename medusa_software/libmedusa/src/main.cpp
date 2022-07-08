@@ -18,6 +18,7 @@
 #include <capstone/capstone.h>
 #include <unicorn/unicorn.h>
 #include "ARMv7Machine.hpp"
+#include "ARM64Machine.hpp"
 #include <LIEF/LIEF.hpp>
 #include "libmedusa.hpp"
 #include <cstdio>
@@ -46,6 +47,13 @@ uint8_t test_arm_thumb_code[] = {
 	0xA0, 0xEB, 0x01, 0x00,			//	sub		r0,	r0,	r1
 	0x01, 0x44,						//	add		r1,	r1,	r0
 	0x00, 0x00,						//  mov		r0,	r0
+};
+
+uint8_t test_arm64_code[] = {
+	0x20, 0x28, 0x88, 0xD2,
+	0x41, 0x48, 0x88, 0xD2,
+	0x02, 0x00, 0x01, 0x8B,
+	0xE3, 0x03, 0x02, 0xAA,
 };
 
 int main(int argc, char* argv[]) {
@@ -140,6 +148,41 @@ int main(int argc, char* argv[]) {
 
 	for (libmedusa::insn_t& i : disas) {
 		printf("%016lx (%04x): %s %s\n", i.address, i.size, i.mnemonic, i.op_str);
+	}
+
+	libmedusa::ARM64Machine arm64_machine;
+
+	region.addr = 0x0;
+	region.size = 0x10000;
+	region.prot = XP_PROT_READ | XP_PROT_WRITE | XP_PROT_EXEC;
+
+	printf("map\n");
+	arm64_machine.map_memory(region);
+
+	vector<uint8_t> test_arm64_code_vector(test_arm64_code, test_arm64_code + sizeof(test_arm64_code));
+
+	arm64_machine.write_memory(0, test_arm64_code_vector);
+	data = arm64_machine.read_memory(0, sizeof(test_arm64_code));
+
+	for (int i = 0; i < sizeof(test_arm64_code); i++) {
+		printf("%02x", data[i]);
+	}
+	printf("\n");
+
+	reg.reg_description = "pc";
+	reg.reg_name = "pc";
+	reg.reg_id = 0x1f;
+	reg.reg_value = 0x0;
+
+	arm64_machine.set_register(reg);
+
+	for (int i = 0; i < 0x8; i++) {
+		arm64_machine.exec_code_step();
+
+		registers = arm64_machine.get_registers();
+		for (libmedusa::reg_t& i : registers) {
+			printf("%s %s %lx %lx\n", i.reg_description.c_str(), i.reg_name.c_str(), i.reg_id, i.reg_value);
+		}
 	}
 
 	return 0;

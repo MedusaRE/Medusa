@@ -28,7 +28,7 @@ using namespace libmedusa;
 /*
  *  "normal" registers, contains the registers returned by get_registers.
  */
-uc_arm_reg normal_regs[] = {
+uc_arm_reg armv7_normal_regs[] = {
 	UC_ARM_REG_R0,
 	UC_ARM_REG_R1,
 	UC_ARM_REG_R2,
@@ -214,12 +214,12 @@ ARMv7Machine::~ARMv7Machine() {
 
 std::vector<reg_t> ARMv7Machine::get_registers() {
 	/*
-	 *  loop from 0 to the length of normal_regs, read the register, and set the
+	 *  loop from 0 to the length of armv7_normal_regs, read the register, and set the
 	 *  value.
 	 */
-	for (int i = 0; i < sizeof(normal_regs) / sizeof(normal_regs[0]); i++) {
+	for (int i = 0; i < sizeof(armv7_normal_regs) / sizeof(armv7_normal_regs[0]); i++) {
 		uint32_t val;
-		uc_reg_read(this->uc, normal_regs[i], &val);
+		uc_reg_read(this->uc, armv7_normal_regs[i], &val);
 		this->registers[i].reg_value = val;
 	}
 
@@ -405,8 +405,8 @@ bool ARMv7Machine::set_register(reg_t reg) {
 	/*
 	 *  no buffer overflows here, sir!
 	 */
-	if (reg.reg_id <= sizeof(normal_regs) / sizeof(normal_regs[0])) {
-		ret = (uc_reg_write(this->uc, normal_regs[reg.reg_id], &reg.reg_value) == UC_ERR_OK) ? true : false;
+	if (reg.reg_id <= sizeof(armv7_normal_regs) / sizeof(armv7_normal_regs[0])) {
+		ret = (uc_reg_write(this->uc, armv7_normal_regs[reg.reg_id], &reg.reg_value) == UC_ERR_OK) ? true : false;
 	} else {
 		ret = false;
 	}
