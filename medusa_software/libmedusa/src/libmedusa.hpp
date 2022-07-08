@@ -24,9 +24,9 @@ namespace libmedusa {
 	 */
 }
 
+#include <libmedusa/Machine.hpp>
 #include <capstone/capstone.h>
 #include <keystone/keystone.h>
 #include <unicorn/unicorn.h>
-#include "Machine.hpp"
 
 #endif

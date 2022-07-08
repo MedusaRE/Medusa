@@ -18,8 +18,8 @@
 #ifndef ARM64MACHINE_HPP
 #define ARM64MACHINE_HPP
 
-#include "libmedusa.hpp"
-#include "Machine.hpp"
+#include <libmedusa/libmedusa.hpp>
+#include <libmedusa/Machine.hpp>
 #include <vector>
 
 namespace libmedusa {

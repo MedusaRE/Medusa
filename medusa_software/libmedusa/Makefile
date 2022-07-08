@@ -1,10 +1,11 @@
 CPP=clang++
-CPPFLAGS=--std=c++17
+CPPFLAGS=--std=c++17 -fPIC
 
-all: bin bin/main doxygen_out
+all: bin bin/libmedusa.so doxygen_out
 
 bin:
 	sh -c "mkdir bin"
+	sh -c "mkdir bin/libmedusa"
 
 doxygen_out: src/*.cpp src/*.hpp
 	doxygen
@@ -12,8 +13,18 @@ doxygen_out: src/*.cpp src/*.hpp
 clean:
 	rm -rf bin doxygen_out
 
-bin/main: bin/main.o bin/ARMv7Machine.o bin/ARM64Machine.o
-	${CPP} ${CPPFLAGS} -lLIEF -lkeystone -lunicorn -lcapstone $^ -o $@
+tools: bin/main
+
+bin/main: bin/main.o
+	${CPP} ${CPPFLAGS} -lLIEF -lmedusa -lkeystone -lunicorn -lcapstone $^ -o $@
+
+bin/libmedusa.so: bin/ARMv7Machine.o bin/ARM64Machine.o
+	${CPP} -shared -o $@ $^
+
+install: bin/libmedusa.so
+	cp bin/libmedusa.so /usr/lib/
+	cp -R src/*.hpp bin/libmedusa/
+	cp -R bin/libmedusa /usr/include
 
 bin/%.o: src/%.cpp
 	${CPP} ${CPPFLAGS} $< -c -o $@
