@@ -1,4 +1,4 @@
-# Medusa
+# Contributing
 Medusa is free (libre) software, meaning you are free to run, copy, distribute,
 study, change, and improve it. (adapted from
 [this article](https://www.gnu.org/philosophy/free-sw.en.html) from the GNU
