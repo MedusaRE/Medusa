@@ -139,7 +139,7 @@ medusa_window::medusa_window(int   argc,
 	sw.add(*our_text_view);
 	sw.show_all_children();
 
-	medusa_log(LOG_VERBOSE, "Adding ScrolledWinow...");
+	medusa_log(LOG_VERBOSE, "Adding ScrolledWindow...");
 	add(sw);
 
 	medusa_log(LOG_VERBOSE, "Showing...");
