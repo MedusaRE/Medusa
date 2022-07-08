@@ -42,6 +42,32 @@ Planned features include:
   decompiler)
 - and more!
 
+## Installation
+### Requirements
+The exact commands necessary to install the requirements for Medusa will differ
+based on the OS you are running, but in general, you will need to install:
+- [`unicorn`](https://github.com/unicorn-engine/unicorn) (submodule available)
+- [`capstone`](https://github.com/capstone-engine/capstone) (submodule available)
+- [`keystone`](https://github.com/keystone-engine/keystone) (submodule available)
+- [`doxygen`](https://doxygen.nl)
+- gtkmm3
+- gtk3
+### Compilation
+To compile all Medusa components, `cd` into the Medusa folder (the parent folder
+of this `README.md`), and type `make`. Assuming that all requirements are
+installed, all components should be built, including:
+- `frontend`
+- `libmedusa`
+- `libxParse`
+- etc.
+### Installing to your machine
+As Medusa is not a finished project yet, there is not a way to fully install it
+yet. The way that will probably be done is that after running `make`, you would
+run `sudo make install`. Windows will likely have different steps, but I (spv)
+am running GNU/Linux on my personal machine, not Windows, so I have not put much
+work into Windows support yet. (at least for the `frontend`, other components
+should be fine. )
+
 ## License
 Currently, all of the source code written for the Medusa project is licensed
 under Version 2 of the GNU General Public License (GPLv2), without the "any
