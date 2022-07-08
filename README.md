@@ -52,6 +52,7 @@ based on the OS you are running, but in general, you will need to install:
 - [`doxygen`](https://doxygen.nl)
 - gtkmm3
 - gtk3
+
 ### Compilation
 To compile all Medusa components, `cd` into the Medusa folder (the parent folder
 of this `README.md`), and type `make`. Assuming that all requirements are
@@ -60,6 +61,7 @@ installed, all components should be built, including:
 - `libmedusa`
 - `libxParse`
 - etc.
+
 ### Installing to your machine
 As Medusa is not a finished project yet, there is not a way to fully install it
 yet. The way that will probably be done is that after running `make`, you would
