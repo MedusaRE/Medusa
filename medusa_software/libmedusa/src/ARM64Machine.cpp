@@ -316,3 +316,8 @@ ARM64Machine::ARM64Machine() {
 			KS_MODE_LITTLE_ENDIAN,
 			&this->ks);
 }
+
+ARM64Machine::~ARM64Machine() {
+	uc_close(this->uc);
+	ks_close(this->ks);
+}
