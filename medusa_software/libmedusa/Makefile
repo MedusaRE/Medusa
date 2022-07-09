@@ -5,9 +5,8 @@ all: bin bin/libmedusa.so doxygen_out
 
 bin:
 	sh -c "mkdir bin"
-	sh -c "mkdir bin/libmedusa"
 
-doxygen_out: src/*.cpp src/*.hpp
+doxygen_out: src/*.cpp include/*.hpp
 	doxygen
 
 clean:
@@ -23,8 +22,8 @@ bin/libmedusa.so: bin/ARMv7Machine.o bin/ARM64Machine.o
 
 install: bin/libmedusa.so
 	cp bin/libmedusa.so /usr/lib/
-	cp -R src/*.hpp bin/libmedusa/
-	cp -R bin/libmedusa /usr/include
+	rm -rf /usr/include/libmedusa
+	cp -R include /usr/include/libmedusa
 
 bin/%.o: src/%.cpp
 	${CPP} ${CPPFLAGS} $< -c -o $@
