@@ -21,3 +21,8 @@ build
 
 # doxygen
 doxygen_out
+
+# latex
+book.pdf
+book.aux
+book.log
