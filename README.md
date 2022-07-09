@@ -52,6 +52,7 @@ based on the OS you are running, but in general, you will need to install:
 - [`doxygen`](https://doxygen.nl)
 - gtkmm3
 - gtk3
+- glade
 
 ### Compilation
 To compile all Medusa components, `cd` into the Medusa folder (the parent folder
