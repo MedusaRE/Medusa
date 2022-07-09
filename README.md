@@ -50,9 +50,9 @@ based on the OS you are running, but in general, you will need to install:
 - [`capstone`](https://github.com/capstone-engine/capstone) (submodule available)
 - [`keystone`](https://github.com/keystone-engine/keystone) (submodule available)
 - [`doxygen`](https://doxygen.nl)
-- gtkmm3
-- gtk3
-- glade
+- `gtkmm3`
+- `gtk3`
+- `glade`
 
 ### Compilation
 To compile all Medusa components, `cd` into the Medusa folder (the parent folder
