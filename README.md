@@ -39,8 +39,7 @@ Planned features include:
   an API for writing things such as syscall handlers, and more.
 - Both a GUI and TUI interface
 - Scripting platform & network interface, à la LLDB
-- Support for many executable formats (Mach-O, ELF, PE, MZ, JAR, etc)
-- multiple executable formats supported, Mach-O, ELF, PE, Jar, etc. )
+- Support for many executable formats (Mach-O, ELF, PE, MZ, JAR, etc. )
 - A disassembler to aid in reverse engineering
 - Decompiler support (for example, [Ghidra](https://www.ghidra-sre.org)'s
   decompiler)
