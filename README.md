@@ -56,6 +56,7 @@ based on the OS you are running, but in general, you will need to install:
 - `gtkmm3`
 - `gtk3`
 - `glade`
+- `GIMP`
 
 ### Compilation
 To compile all Medusa components, `cd` into the Medusa folder (the parent folder
