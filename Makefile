@@ -5,6 +5,7 @@ all:
 #	cd medusa_software/work/lief_testing/; make
 	cd medusa_software/work/text_editing/; make
 	cd medusa_software/work/unicorn_states/; make
+	cd docs; pdflatex book.tex
 	@ echo "Done, enjoy!"
 
 clean:
