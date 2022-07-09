@@ -19,6 +19,10 @@ For example:
   or code editing.
 - Radare2: does not have code editing, a GUI, or the level of emulation support
   which I intend to include in Medusa.
+- Binary Ninja: I honestly do not have a lot of experience with Binary Ninja,
+  but to my knowledge, it is not free/open-source software, it isn't a full IDE
+  (like Medusa is intended to be), and doesn't have emulation support (like
+  Medusa is intended to). 
 
 This list disregards the fact that, to my knowledge, none of those tools have
 support for the sort-of hardware research I'd like to support in Medusa.
