@@ -58,9 +58,9 @@ based on the OS you are running, but in general, you will need to install:
 To compile all Medusa components, `cd` into the Medusa folder (the parent folder
 of this `README.md`), and type `make`. Assuming that all requirements are
 installed, all components should be built, including:
-- `frontend`
-- `libmedusa`
-- `libxParse`
+- [`frontend`](/medusa_software/frontend)
+- [`libmedusa`](/medusa_software/libmedusa)
+- [`libxParse`](/medusa_software/libxparse)
 - etc.
 
 ### Installing to your machine
