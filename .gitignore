@@ -26,3 +26,8 @@ book.log
 
 # Pillow output
 pil
+
+# node_modules
+node_modules
+
+package*.json

@@ -1,6 +1,8 @@
 ![Medusa logo](/res/medusa_logo_lus_rounded.png)
 
 # Medusa
+![Badge](/res/commit_count.svg)
+![Badge](/res/loc.svg)
 ## What is Medusa?
 Medusa (previously called xp<sup>DBG</sup>) is a project to create a cross
 platform, free, and general purpose tool for software and hardware research,
@@ -61,6 +63,9 @@ based on the OS you are running, but in general, you will need to install:
 - `LaTeX`
 - `python3`
 - `Pillow`
+- `Node`
+- `npm`
+- `badgen`
 
 ### Compilation
 To compile all Medusa components, `cd` into the Medusa folder (the parent folder
