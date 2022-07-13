@@ -31,19 +31,19 @@ int main(int argc, char* argv[]) {
 	vector<uint8_t> assembled = armv7_machine.assemble("mov r0, #0x41\nmov r1, r0\n", 0, 0);
 	armv7_machine.write_memory(0, assembled);
 
-    for (uint8_t& i : assembled) {
-        printf("%02x", i);
-    }
+	for (uint8_t& i : assembled) {
+		printf("%02x", i);
+	}
 
-    printf("\n");
+	printf("\n");
 
-    libmedusa::reg_t reg;
-    reg.reg_name = "pc";
-    reg.reg_description = "pc";
-    reg.reg_id = 0xf;
-    reg.reg_value = 0x0;
+	libmedusa::reg_t reg;
+	reg.reg_name = "pc";
+	reg.reg_description = "pc";
+	reg.reg_id = 0xf;
+	reg.reg_value = 0x0;
 
-    armv7_machine.set_register(reg);
+	armv7_machine.set_register(reg);
 	
 	for (int i = 0; i < 0x8; i++) {
 		vector<libmedusa::reg_t> registers = armv7_machine.get_registers();
@@ -53,7 +53,7 @@ int main(int argc, char* argv[]) {
 		}
 
 		armv7_machine.exec_code_step();
-    }
+	}
 
-    return 0;
+	return 0;
 }
