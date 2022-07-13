@@ -2,9 +2,10 @@
 
 # Medusa
 ## What is Medusa?
-Medusa is a project to create a cross platform, free, and general purpose tool
-for software and hardware research, like reverse engineering, analysis,
-emulation, development, debugging, and other similar tasks.
+Medusa (previously called xp<sup>DBG</sup>) is a project to create a cross
+platform, free, and general purpose tool for software and hardware research,
+like reverse engineering, analysis, emulation, development, debugging, and other
+similar tasks.
 
 All current software research tools have their own problems: Medusa is meant to
 solve these issues.
