@@ -33,7 +33,7 @@ fs.writeFile("res/commit_count.svg", badgen({
 
 fs.writeFile("res/loc.svg", badgen({
 	label: 'lines of code',
-	status: get_output("cloc --exclude-dir=submodules --exclude-dir=doxygen_out . | grep SUM | awk '{ print $NF }'"),
+	status: get_output("cloc --exclude-dir=submodules,doxygen_out,.git --exclude-ext=svg . | grep SUM | awk '{ print $NF }'"),
 	color: 'orange',
 	style: 'classic'
 }), err => {});
