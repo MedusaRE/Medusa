@@ -18,8 +18,25 @@
 #ifndef BINARY_OBJECT_HPP
 #define BINARY_OBJECT_HPP
 
+#include <libmedusa/libmedusa.hpp>
+
 namespace libmedusa {
-    //
+	typedef struct {
+		std::string			  name;
+		uint64_t			  addr;
+		uint64_t			  size;
+		libmedusa::mem_prot_t prot;
+	} section_desc_t;
+
+	typedef struct {
+		libmedusa::section_desc_t section_desc;
+		std::vector<uint8_t>	  data;
+	} section_t;
+
+	class BinaryObject {
+		public:
+			std::vector<libmedusa::section_t> get_section_list() = 0;
+	};
 }
 
 #include <LIEF/LIEF.hpp>
