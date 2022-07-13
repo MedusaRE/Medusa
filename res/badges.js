@@ -25,7 +25,7 @@ const code_exts = [
 ];
 
 fs.writeFile("res/commit_count.svg", badgen({
-	label: 'git commit count',
+	label: 'commit count',
 	status: get_output("git rev-list --all --count"),
 	color: 'red',
 	style: 'classic'
