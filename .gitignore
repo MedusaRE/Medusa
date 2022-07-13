@@ -24,4 +24,5 @@ book.pdf
 book.aux
 book.log
 
+# Pillow output
 pil
