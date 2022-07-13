@@ -1,3 +1,3 @@
 #!/bin/sh
 
-node res/badges.js
+node res/badges/badges.js
