@@ -18,6 +18,16 @@
 #ifndef LIBMEDUSA_HPP
 #define LIBMEDUSA_HPP
 
+#include <cstdint>
+#include <string>
+
+#define XP_PROT_READ (1 << 0)
+#define XP_PROT_WRITE (1 << 1)
+#define XP_PROT_EXEC (1 << 2)
+#define MNEMONIC_SIZE 32
+
+#define XP_FLAG_THUMB (1 << 0)
+
 namespace libmedusa {
 	/*
 	 *  empty

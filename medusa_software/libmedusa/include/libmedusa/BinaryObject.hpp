@@ -19,9 +19,7 @@
 #define BINARY_OBJECT_HPP
 
 namespace libmedusa {
-    class BinaryObject {
-        //
-    };
+    //
 }
 
 #include <LIEF/LIEF.hpp>

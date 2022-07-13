@@ -1,12 +1,12 @@
 CPP=clang++
-CPPFLAGS=--std=c++17 -fPIC
+CPPFLAGS=--std=c++17 -fPIC -Iinclude
 
 all: bin bin/libmedusa.so doxygen_out
 
 bin:
 	sh -c "mkdir bin"
 
-doxygen_out: src/*.cpp include/*.hpp
+doxygen_out: src/*.cpp include/*/*.hpp
 	doxygen
 
 clean:
@@ -23,7 +23,7 @@ bin/libmedusa.so: bin/ARMv7Machine.o bin/ARM64Machine.o
 install: bin/libmedusa.so
 	cp bin/libmedusa.so /usr/lib/
 	rm -rf /usr/include/libmedusa
-	cp -R include /usr/include/libmedusa
+	cp -R include/* /usr/include
 
 bin/%.o: src/%.cpp
 	${CPP} ${CPPFLAGS} $< -c -o $@
