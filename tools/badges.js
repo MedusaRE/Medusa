@@ -37,3 +37,10 @@ fs.writeFile("res/badges/loc.svg", badgen({
 	color: 'orange',
 	style: 'classic'
 }), err => {});
+
+fs.writeFile("res/badges/license.svg", badgen({
+	label: 'license',
+	status: "GPLv2",
+	color: 'yellow',
+	style: 'classic'
+}), err => {});

@@ -3,6 +3,7 @@
 # Medusa
 ![Badge](/res/badges/commit_count.svg)
 ![Badge](/res/badges/loc.svg)
+[![Badge](/res/badges/license.svg)](/LICENSE)
 ## What is Medusa?
 Medusa (previously called xp<sup>DBG</sup>) is a project to create a cross
 platform, free, and general purpose tool for software and hardware research,
