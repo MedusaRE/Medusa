@@ -1,3 +1,5 @@
 #!/bin/sh
 
-node res/badges/badges.js
+FOLDER=$(dirname $(readlink -f $0))
+
+node $FOLDER/badges.js
