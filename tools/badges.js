@@ -24,14 +24,14 @@ const code_exts = [
 	".js",
 ];
 
-fs.writeFile("res/commit_count.svg", badgen({
+fs.writeFile("res/badges/commit_count.svg", badgen({
 	label: 'commit count',
 	status: get_output("git rev-list --all --count"),
 	color: 'red',
 	style: 'classic'
 }), err => {});
 
-fs.writeFile("res/loc.svg", badgen({
+fs.writeFile("res/badges/loc.svg", badgen({
 	label: 'lines of code',
 	status: get_output("cloc --exclude-dir=submodules,doxygen_out,.git --exclude-ext=svg . | grep SUM | awk '{ print $NF }'"),
 	color: 'orange',
