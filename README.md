@@ -1,4 +1,4 @@
-![Medusa logo](/res/medusa_logo_lus_rounded.png)
+![Medusa logo](/res/img/medusa_logo_lus_rounded.png)
 
 # Medusa
 ![Badge](/res/badges/commit_count.svg)
