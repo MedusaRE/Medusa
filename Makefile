@@ -6,6 +6,7 @@ all:
 	cd medusa_software/work/text_editing/; make
 	cd medusa_software/work/unicorn_states/; make
 	cd docs; pdflatex book.tex
+	sh tools/badges/badges.sh
 	@ echo "Done, enjoy!"
 
 clean:
