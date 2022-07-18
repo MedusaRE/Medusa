@@ -68,6 +68,10 @@ based on the OS you are running, but in general, you will need to install:
 - `npm`
 - `badgen`
 
+If you are running an Arch-based distro (such as Arch Linux, Manjaro, or
+others), you can install all of the dependencies for Medusa by running
+`tools/deps_arch.sh` as `root`.
+
 ### Compilation
 To compile all Medusa components, `cd` into the Medusa folder (the parent folder
 of this `README.md`), and type `make`. Assuming that all requirements are
