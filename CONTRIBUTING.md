@@ -9,4 +9,5 @@ would like to implement, if you'd like to fix a bug, or just want to help
 contribute to the Medusa Project, feel free! Submit a merge request with your
 changes, and it will be looked over.
 
+## File License
 This file is licensed under the terms of the CC BY-SA 4.0 license.

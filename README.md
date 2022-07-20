@@ -160,4 +160,5 @@ XMR: 8BzgGQbbBUybgYw2dEC5EhazQcKGyG6UL6A9bueuDT5Mjhuwo3H7Lg2jEkEEJcrNR7W2MtCKfoR
 XLM: GBKN2D7ZRBPQDW7GEQCT23ID6PVNZ43A224ULBZSP6G4JBNDEKY42J6C
 ```
 
+## File License
 This file is licensed under the terms of the CC BY-SA 4.0 license.
