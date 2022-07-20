@@ -104,8 +104,6 @@ question.
 ```
 /:                        - the root of the project, the parent folder of this
                             file
-    res                   - resources, such as GIMP project files, images, and
-                            the like
     docs                  - documentation for the Medusa Project
     medusa_software:      - source code for the Medusa Project
         frontend          - the default frontend for the Medusa Project
@@ -125,6 +123,14 @@ question.
         submodules        - Git submodules not maintained by the Medusa Project
         work              - work in progress components / sideprojects for the
                             Medusa Project, such as a text editor
+    res:                  - resources, such as GIMP project files, images, and
+                            the like
+        badges            - SVG files of badges
+        img:              - images
+            src           - "source" files of images, (like XCFs for GIMP)
+    tools:                - tools for the development of & general work on the
+                            Medusa Project
+        badges            - badge generation code
 ```
 
 ## Credits
