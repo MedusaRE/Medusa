@@ -12,4 +12,13 @@ message could be:
 An inappropriate message could be:
 "fix buffer overflow shit in frontend"
 
+## Abbreviations
+```
+ms    - medusa_software
+```
+
+So, you could write your commit message as:
+"ms/frontend: fix buffer overflow in medusa_window constructor"
+
+## License
 This file is licensed under the terms of the CC BY-SA 4.0 license.
