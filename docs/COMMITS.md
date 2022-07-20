@@ -20,5 +20,5 @@ ms    - medusa_software
 So, you could write your commit message as:
 `ms/frontend: fix buffer overflow in medusa_window constructor`
 
-## License
+## File License
 This file is licensed under the terms of the CC BY-SA 4.0 license.
