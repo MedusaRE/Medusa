@@ -114,6 +114,9 @@ question.
                             Project
         libxparse         - an executable parser maintained by the Medusa
                             Project
+        london            - a subproject of the Medusa Project to create a
+                            native, free (libre) Integrated Development
+                            Environment (IDE)
         medusa_submodules - Git submodules for components maintained by the
                             Medusa Project (not currently in this repo, but in
                             case some components are moved outside of this
