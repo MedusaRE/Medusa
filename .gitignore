@@ -31,3 +31,5 @@ pil
 node_modules
 
 package*.json
+
+ETHICS.md
