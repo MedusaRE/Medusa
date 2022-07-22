@@ -32,7 +32,14 @@ medusa_window::medusa_window(int   argc,
 	auto* tv = new Gtk::TextView;
 	auto tvb = Gtk::TextBuffer::create();
 
+	tvb->create_tag("bold")->property_weight() = Pango::WEIGHT_BOLD;
+	tvb->create_tag("red")->property_foreground() = "#ff0000";
+
 	tvb->set_text("yahtzee");
+	tvb->apply_tag_by_name("bold", tvb->get_iter_at_line_offset(0, 0), tvb->get_iter_at_line_offset(0, 4));
+	tvb->apply_tag_by_name("bold", tvb->get_iter_at_line_offset(0, 2), tvb->get_iter_at_line_offset(0, 6));
+	tvb->apply_tag_by_name("red", tvb->get_iter_at_line_offset(0, 2), tvb->get_iter_at_line_offset(0, 6));
+	tvb->apply_tag_by_name("red", tvb->get_iter_at_line_offset(0, 4), tvb->get_iter_at_line_offset(0, 8));
 	tv->set_buffer(tvb);
 
 	add(*tv);
