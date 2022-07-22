@@ -24,13 +24,23 @@
 
 using namespace std;
 
+Glib::RefPtr<Gtk::TextBuffer> tvb;
+
+void on_changed() {
+	Gtk::TextIter begin, end;
+	
+	tvb->get_bounds(begin, end);
+
+	tvb->apply_tag_by_name("bold", begin, end);
+}
+
 medusa_window::medusa_window(int   argc,
 						   char* argv[]) {
 	medusa_log(LOG_INFO, "Landed in medusa_window.");
 	medusa_log(LOG_VERBOSE, "Showing...");
 
 	auto* tv = new Gtk::TextView;
-	auto tvb = Gtk::TextBuffer::create();
+	tvb = Gtk::TextBuffer::create();
 
 	tvb->create_tag("bold")->property_weight() = Pango::WEIGHT_BOLD;
 	tvb->create_tag("red")->property_foreground() = "#ff0000";
@@ -40,6 +50,9 @@ medusa_window::medusa_window(int   argc,
 	tvb->apply_tag_by_name("bold", tvb->get_iter_at_line_offset(0, 2), tvb->get_iter_at_line_offset(0, 6));
 	tvb->apply_tag_by_name("red", tvb->get_iter_at_line_offset(0, 2), tvb->get_iter_at_line_offset(0, 6));
 	tvb->apply_tag_by_name("red", tvb->get_iter_at_line_offset(0, 4), tvb->get_iter_at_line_offset(0, 8));
+
+	tvb->signal_changed().connect(sigc::ptr_fun(&on_changed));
+
 	tv->set_buffer(tvb);
 
 	add(*tv);
