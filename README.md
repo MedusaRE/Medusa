@@ -157,6 +157,7 @@ Consider donating to these organizations instead:
 - [Amnesty International](https://www.amnesty.org/)
 - [The Humane Society of The United States](https://www.humanesociety.org/)
 - [Feeding America](https://www.feedingamerica.org/)
+- [The American Civil Liberties Union](https://www.aclu.org)
 - More will be added to this list as I find charities I would like to
   support.
 
