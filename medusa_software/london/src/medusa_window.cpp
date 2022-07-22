@@ -25,13 +25,24 @@
 using namespace std;
 
 Glib::RefPtr<Gtk::TextBuffer> tvb;
+bool bold_me = true;
 
 void on_changed() {
 	Gtk::TextIter begin, end;
 	
 	tvb->get_bounds(begin, end);
 
-	tvb->apply_tag_by_name("bold", begin, end);
+	if (bold_me) {
+		tvb->remove_tag_by_name("red", begin, end);
+		tvb->apply_tag_by_name("bold", begin, end);
+		printf("bold\n");
+	} else {
+		tvb->remove_tag_by_name("bold", begin, end);
+		tvb->apply_tag_by_name("red", begin, end);
+		printf("red\n");
+	}
+
+	bold_me = !bold_me;
 }
 
 medusa_window::medusa_window(int   argc,
@@ -44,6 +55,9 @@ medusa_window::medusa_window(int   argc,
 
 	tvb->create_tag("bold")->property_weight() = Pango::WEIGHT_BOLD;
 	tvb->create_tag("red")->property_foreground() = "#ff0000";
+	auto normal_tag = tvb->create_tag("normal");
+	normal_tag->property_weight() = Pango::WEIGHT_NORMAL;
+	normal_tag->property_foreground() = "#ffffff";
 
 	tvb->set_text("yahtzee");
 	tvb->apply_tag_by_name("bold", tvb->get_iter_at_line_offset(0, 0), tvb->get_iter_at_line_offset(0, 4));
