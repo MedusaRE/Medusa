@@ -135,12 +135,16 @@ question.
 
 ## Credits
 ```
-spv           - project founding
-Capstone Team - Capstone
-Unicorn Team  - Unicorn
-Keystone Team - Keystone
-LIEF Project  - LIEF
-QEMU          - QEMU
+spv               - project founding
+Capstone Team     - Capstone
+Unicorn Team      - Unicorn
+Keystone Team     - Keystone
+LIEF Project      - LIEF
+QEMU              - QEMU
+The GNOME Project - GTK
+The GNOME Project - GTKMM? (i'm not sure if this is the case, please correct me
+                            if The GNOME Project is not the principal
+                            developer!)
 
 and probably more...
 ```
