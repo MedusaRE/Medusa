@@ -109,7 +109,16 @@ medusa_window::medusa_window(int   argc,
 	medusa_log(LOG_INFO, "Landed in medusa_window.");
 	medusa_log(LOG_VERBOSE, "Showing...");
 
+	Gsv::init();
+
 	auto* tv = manage (new Gsv::View);
+	auto lm = Gsv::LanguageManager::create();
+	vector<string> langs = lm->get_language_ids();
+	for (auto& i : langs) {
+		printf("%s\n", i.c_str());
+	}
+	tvb = Gsv::Buffer::create(lm->get_language("cpp"));
+	tv->set_buffer(tvb);
 	tvb = tv->get_buffer();
 
 	tv->set_show_line_numbers(true);
