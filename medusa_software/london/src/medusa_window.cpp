@@ -15,15 +15,17 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include "../../submodules/mINI/src/mini/ini.h"
 #include <capstone/capstone.h>
 #include <gtksourceviewmm.h>
 #include <unicorn/unicorn.h>
 #include "medusa_window.h"
 #include "logging.h"
+#include <iostream>
+#include "config.h"
 #include <fstream>
 #include <gtkmm.h>
 #include "lib.h"
-#include <iostream>
 
 using namespace std;
 
@@ -109,17 +111,39 @@ medusa_window::medusa_window(int   argc,
 	medusa_log(LOG_INFO, "Landed in medusa_window.");
 	medusa_log(LOG_VERBOSE, "Showing...");
 
+	mINI::INIFile	   file("/home/spv/.medusa/london.ini");
+	mINI::INIStructure ini;
+
+	london_config_t lct;
+
+	file.read(ini);
+	lct.tab_size = stoi(ini["global"]["tab-size"]);
+	lct.hard_tabs = ini["global"]["hard-tabs"] == "true";
+
+	#if DEBUG_BUILD
+		printf("%d %s\n", lct.tab_size, lct.hard_tabs ? "true" : "false");
+	#endif
+
 	Gsv::init();
 
 	auto* tv = manage (new Gsv::View);
 	auto lm = Gsv::LanguageManager::create();
 	vector<string> langs = lm->get_language_ids();
-	for (auto& i : langs) {
-		printf("%s\n", i.c_str());
-	}
+	
+	#if DEBUG_BUILD
+		for (auto& i : langs) {
+			printf("%s\n", i.c_str());
+		}
+	#endif
+
 	tvb = Gsv::Buffer::create(lm->get_language("cpp"));
 	tv->set_buffer(tvb);
 	tvb = tv->get_buffer();
+
+	tv->set_tab_width(lct.tab_size);
+	tv->set_insert_spaces_instead_of_tabs(!lct.hard_tabs);
+
+	tv->set_monospace(true);
 
 	tv->set_show_line_numbers(true);
 

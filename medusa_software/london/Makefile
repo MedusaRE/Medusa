@@ -2,7 +2,11 @@ export PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/local/lib/pkgconfig
 CPP=clang++
 CPPFLAGS=--std=c++17 `pkg-config gtkmm-3.0 --cflags` `pkg-config gtksourceviewmm-3.0 --cflags`
 
-all: bin bin/main
+all: ~/.medusa/london.ini bin bin/main
+
+~/.medusa/london.ini: ../../res/defaults/.medusa/london.ini
+	mkdir -p ~/.medusa
+	cp $^ $@
 
 bin:
 	sh -c "mkdir bin"

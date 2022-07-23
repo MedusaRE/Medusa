@@ -20,4 +20,9 @@
 
 #define DEBUG_BUILD 1
 
+struct london_config_t {
+    int tab_size;
+    bool hard_tabs;
+};
+
 #endif

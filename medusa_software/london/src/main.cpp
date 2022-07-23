@@ -62,7 +62,6 @@ int main(int   argc,
 	medusa_window window(argc,
 						 argv);
 
-
 	/*
 	 *  run it
 	 */
