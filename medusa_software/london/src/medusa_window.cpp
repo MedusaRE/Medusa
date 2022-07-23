@@ -16,6 +16,7 @@
  */
 
 #include <capstone/capstone.h>
+#include <gtksourceviewmm.h>
 #include <unicorn/unicorn.h>
 #include "medusa_window.h"
 #include "logging.h"
@@ -125,8 +126,10 @@ medusa_window::medusa_window(int   argc,
 	medusa_log(LOG_INFO, "Landed in medusa_window.");
 	medusa_log(LOG_VERBOSE, "Showing...");
 
-	auto* tv = new Gtk::TextView;
-	tvb = Gtk::TextBuffer::create();
+	auto* tv = manage (new Gsv::View);
+	tvb = tv->get_buffer();
+
+	tv->set_show_line_numbers(true);
 
 	tvb->set_text("This is a default text string to preview the font in use.\n"
 				  "And this is a second line of text.\n"
@@ -174,6 +177,7 @@ medusa_window::medusa_window(int   argc,
 	save_btn->set_label("save");
 	save_btn->signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_save_clicked));
 
+//	grid->attach(*view, 0, 1);
 	grid->attach(*tv, 0, 1);
 	grid->attach(*open_btn, 0, 0);
 	grid->attach(*save_btn, 1, 0);
