@@ -27,10 +27,17 @@ using namespace std;
 Glib::RefPtr<Gtk::TextBuffer> tvb;
 bool bold_me = true;
 
-void on_changed() {
+void on_insert(const Gtk::TextIter& pos, const Glib::ustring& text, const int& bytes) {
 	Gtk::TextIter begin, end;
 	
-	tvb->get_bounds(begin, end);
+	begin = pos;
+	end = pos;
+
+	printf("%d %d %d\n", bytes, begin.get_offset(), end.get_offset());
+	begin.set_offset(begin.get_offset() - 1);
+	end.set_offset(end.get_offset() + bytes - 1);
+
+	printf("%d %d %d\n", bytes, begin.get_offset(), end.get_offset());
 
 	if (bold_me) {
 		tvb->remove_tag_by_name("red", begin, end);
@@ -65,14 +72,22 @@ medusa_window::medusa_window(int   argc,
 	tvb->apply_tag_by_name("red", tvb->get_iter_at_line_offset(0, 2), tvb->get_iter_at_line_offset(0, 6));
 	tvb->apply_tag_by_name("red", tvb->get_iter_at_line_offset(0, 4), tvb->get_iter_at_line_offset(0, 8));
 
-	tvb->signal_changed().connect(sigc::ptr_fun(&on_changed));
+	tvb->signal_insert().connect(sigc::ptr_fun(&on_insert));
 
 	tv->set_buffer(tvb);
 
 	auto* grid = new Gtk::Grid;
+	auto* btn = new Gtk::Button;
 
-	grid->attach(*tv, 0, 0);
+	btn->set_label("yahtzee");
+
+	grid->attach(*tv, 0, 1);
+	grid->attach(*btn, 0, 0);
 	grid->show_all();
+	grid->set_row_homogeneous(false);
+	grid->set_column_homogeneous(false);
+	grid->set_hexpand(false);
+	grid->set_vexpand(false);
 
 	add(*grid);
 	set_title("noround");
