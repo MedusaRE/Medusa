@@ -53,7 +53,7 @@ void on_insert(const Gtk::TextIter& pos, const Glib::ustring& text, const int& b
 }
 
 medusa_window::medusa_window(int   argc,
-						   char* argv[]) {
+							 char* argv[]) {
 	medusa_log(LOG_INFO, "Landed in medusa_window.");
 	medusa_log(LOG_VERBOSE, "Showing...");
 
