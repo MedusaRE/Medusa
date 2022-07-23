@@ -27,7 +27,9 @@ using namespace std;
 Glib::RefPtr<Gtk::TextBuffer> tvb;
 bool bold_me = true;
 
-void on_insert(const Gtk::TextIter& pos, const Glib::ustring& text, const int& bytes) {
+void on_insert(const Gtk::TextIter& pos,
+			   const Glib::ustring& text,
+			   const int& bytes) {
 	Gtk::TextIter begin, end;
 	
 	begin = pos;
