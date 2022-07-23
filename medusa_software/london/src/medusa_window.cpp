@@ -72,10 +72,12 @@ medusa_window::medusa_window(int   argc,
 
 	auto* tv = new Gtk::TextView;
 	tvb = Gtk::TextBuffer::create();
-
+	
 	tvb->create_tag("bold")->property_weight() = Pango::WEIGHT_BOLD;
 	tvb->create_tag("red")->property_foreground() = "#ff0000";
+
 	auto normal_tag = tvb->create_tag("normal");
+	
 	normal_tag->property_weight() = Pango::WEIGHT_NORMAL;
 	normal_tag->property_foreground() = "#ffffff";
 
