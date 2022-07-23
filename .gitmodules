@@ -20,5 +20,6 @@
 [submodule "medusa_software/submodules/gtksourceviewmm"]
 	path = medusa_software/submodules/gtksourceviewmm
 	url = https://gitlab.gnome.org/GNOME/gtksourceviewmm.git
+	branch = gtksourceviewmm-3-18
 [submodule "gtksourceviewmm"]
 	branch = gtksourceviewmm-3-18
