@@ -96,11 +96,13 @@ medusa_window::medusa_window(int   argc,
 
 	grid->attach(*tv, 0, 1);
 	grid->attach(*btn, 0, 0);
-	grid->show_all();
+	
 	grid->set_row_homogeneous(false);
 	grid->set_column_homogeneous(false);
 	grid->set_hexpand(false);
 	grid->set_vexpand(false);
+
+	grid->show_all();
 
 	add(*grid);
 	set_title("noround");
