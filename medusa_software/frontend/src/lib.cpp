@@ -107,7 +107,7 @@ std::string file_prompt(enum Gtk::FileChooserAction action, std::string title) {
 			 */
 
 			ret = dialog.get_filename();
-			medusa_log(LOG_VERBOSE, "User chose to open file %s.", ret.c_str());
+			medusa_log(LOG_VERBOSE, "User chose to open %s.", ret.c_str());
 			break;
 		} case (Gtk::RESPONSE_CANCEL): {
 			medusa_log(LOG_VERBOSE, "User cancelled file opening.");
@@ -125,4 +125,11 @@ std::string file_prompt(enum Gtk::FileChooserAction action, std::string title) {
 char* file_prompt_cstr(enum Gtk::FileChooserAction action, std::string title) {
 	std::string ret_str = file_prompt(action, title);
 	return ret_str == "" ? NULL : strdup(ret_str.c_str());
+}
+
+std::string getcwd_str() {
+	char cwd[1024];
+	getcwd(cwd, 1024);
+
+	return std::string(cwd);
 }
