@@ -57,6 +57,7 @@ based on the OS you are running, but in general, you will need to install:
 - [`capstone`](https://github.com/capstone-engine/capstone) (submodule available)
 - [`keystone`](https://github.com/keystone-engine/keystone) (submodule available)
 - [`doxygen`](https://doxygen.nl)
+- [`GtkSourceView`](https://gitlab.gnome.org/GNOME/gtksourceview) (submodule available)
 - `gtkmm3`
 - `gtk3`
 - `glade`

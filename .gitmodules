@@ -14,3 +14,6 @@
 [submodule "medusa_software/submodules/binary-samples"]
 	path = medusa_software/submodules/binary-samples
 	url = https://github.com/JonathanSalwan/binary-samples.git
+[submodule "medusa_software/submodules/gtksourceview"]
+	path = medusa_software/submodules/gtksourceview
+	url = https://gitlab.gnome.org/GNOME/gtksourceview.git
