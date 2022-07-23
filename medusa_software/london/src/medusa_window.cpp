@@ -167,17 +167,20 @@ medusa_window::medusa_window(int   argc,
 	sv->add(*tv);
 	sv->set_hexpand(true);
 	sv->set_vexpand(true);
+
 	grid->attach(*sv, 0, 1);
+	grid->attach(*toolbar, 0, 0);
+
 	toolbar->attach(*open_btn, 0, 0);
 	toolbar->attach(*save_btn, 1, 0);
-	grid->attach(*toolbar, 0, 0);
 	
 	grid->set_row_homogeneous(false);
 	grid->set_column_homogeneous(false);
-	toolbar->set_row_homogeneous(false);
-	toolbar->set_column_homogeneous(false);
 	grid->set_hexpand(false);
 	grid->set_vexpand(false);
+
+	toolbar->set_row_homogeneous(false);
+	toolbar->set_column_homogeneous(false);
 
 	grid->show_all();
 
