@@ -77,7 +77,6 @@ medusa_window::medusa_window(int   argc,
 	tvb->create_tag("red")->property_foreground() = "#ff0000";
 
 	auto normal_tag = tvb->create_tag("normal");
-	
 	normal_tag->property_weight() = Pango::WEIGHT_NORMAL;
 	normal_tag->property_foreground() = "#ffffff";
 
@@ -116,7 +115,7 @@ medusa_window::medusa_window(int   argc,
 	 *  i have this set right now because otherwise it will cut off part of the
 	 *  actual content, as there isn't a toolbar or anything.
 	 */
-	set_title("noround");
+	set_title("London (noround)");
 
 	show_all_children();
 }
