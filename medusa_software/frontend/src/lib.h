@@ -19,6 +19,7 @@
 #define LIB_H
 
 #include <stdarg.h>
+#include <gtkmm.h>
 #include <memory>
 #include <string>
 
@@ -26,5 +27,7 @@
 
 std::string string_format_cstr(const char* fmt_str, ...);
 std::string string_format(const std::string fmt_str, ...);
+std::string file_prompt(enum Gtk::FileChooserAction action, std::string title);
+char* file_prompt_cstr(enum Gtk::FileChooserAction action, std::string title);
 
 #endif

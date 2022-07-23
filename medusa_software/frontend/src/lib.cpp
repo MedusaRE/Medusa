@@ -15,8 +15,10 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include "logging.h"
 #include <stdarg.h>
 #include <string.h>
+#include <gtkmm.h>
 #include <memory>
 #include <string>
 
@@ -86,4 +88,41 @@ string string_format_cstr(const char* fmt_str, ...) {
 	}
 
 	return string(formatted.get());
+}
+
+std::string file_prompt(enum Gtk::FileChooserAction action, std::string title) {
+	Gtk::FileChooserDialog dialog(title,
+									  action);
+	std::string			   ret;
+
+	dialog.add_button("_Cancel",	Gtk::RESPONSE_CANCEL);
+	dialog.add_button("_Open",		Gtk::RESPONSE_OK);
+
+	int result = dialog.run();
+	switch (result) {
+		case (Gtk::RESPONSE_OK): {
+			/*
+			 *  strdup because otherwise it breaks or something
+			 *  god, i love memory management
+			 */
+
+			ret = dialog.get_filename();
+			medusa_log(LOG_VERBOSE, "User chose to open file %s.", ret.c_str());
+			break;
+		} case (Gtk::RESPONSE_CANCEL): {
+			medusa_log(LOG_VERBOSE, "User cancelled file opening.");
+			ret = "";
+			break;
+		} default: {
+			medusa_log(LOG_ERROR, "Something went wrong.");
+			ret = "";
+			break;
+		}
+	}
+	return ret;
+}
+
+char* file_prompt_cstr(enum Gtk::FileChooserAction action, std::string title) {
+	std::string ret_str = file_prompt(action, title);
+	return ret_str == "" ? NULL : strdup(ret_str.c_str());
 }
