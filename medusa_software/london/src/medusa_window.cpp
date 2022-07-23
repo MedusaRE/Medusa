@@ -71,6 +71,13 @@ void on_insert(const Gtk::TextIter& pos,
 	bold_me = !bold_me;
 }
 
+void on_changed() {
+	Gtk::TextIter begin, end;
+
+	tvb->get_bounds(begin, end);
+	tvb->apply_tag_by_name("monospace_default", begin, end);
+}
+
 void medusa_window::on_open_clicked() {
 	Gtk::FileChooserDialog dialog("Please choose a file to edit.",
 								  Gtk::FILE_CHOOSER_ACTION_OPEN);
@@ -196,6 +203,7 @@ medusa_window::medusa_window(int   argc,
 #endif
 
 	tvb->signal_insert().connect(sigc::ptr_fun(&on_insert));
+	tvb->signal_changed().connect(sigc::ptr_fun(&on_changed));
 
 	tv->set_buffer(tvb);
 
