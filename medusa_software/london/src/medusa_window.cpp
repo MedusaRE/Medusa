@@ -160,15 +160,6 @@ medusa_window::medusa_window(int   argc,
 	tvb->get_bounds(begin, end);
 	tvb->apply_tag_by_name("monospace_default", begin, end);
 
-//	tvb->set_text("yahtzee");
-
-#if 0
-	tvb->apply_tag_by_name("bold", tvb->get_iter_at_line_offset(0, 0), tvb->get_iter_at_line_offset(0, 4));
-	tvb->apply_tag_by_name("bold", tvb->get_iter_at_line_offset(0, 2), tvb->get_iter_at_line_offset(0, 6));
-	tvb->apply_tag_by_name("red", tvb->get_iter_at_line_offset(0, 2), tvb->get_iter_at_line_offset(0, 6));
-	tvb->apply_tag_by_name("red", tvb->get_iter_at_line_offset(0, 4), tvb->get_iter_at_line_offset(0, 8));
-#endif
-
 	tvb->signal_insert().connect(sigc::ptr_fun(&on_insert));
 	tvb->signal_changed().connect(sigc::ptr_fun(&on_changed));
 
@@ -186,7 +177,6 @@ medusa_window::medusa_window(int   argc,
 	save_btn->set_label("save");
 	save_btn->signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_save_clicked));
 
-//	grid->attach(*view, 0, 1);
 	sv->add(*tv);
 	sv->set_hexpand(true);
 	sv->set_vexpand(true);
