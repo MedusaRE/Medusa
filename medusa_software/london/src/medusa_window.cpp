@@ -80,7 +80,7 @@ void on_changed() {
 
 void medusa_window::on_open_clicked() {
 	filename = file_prompt_cstr(Gtk::FILE_CHOOSER_ACTION_OPEN, "Please choose a file to edit.");
-	
+
 	ifstream	 f(filename);
 	stringstream ss;
 	
@@ -151,10 +151,11 @@ medusa_window::medusa_window(int   argc,
 
 	tv->set_buffer(tvb);
 
-	auto* grid = new Gtk::Grid;
-	auto* toolbar = new Gtk::Grid;
+	auto* grid	   = new Gtk::Grid;
+	auto* toolbar  = new Gtk::Grid;
 	auto* open_btn = new Gtk::Button;
 	auto* save_btn = new Gtk::Button;
+	auto* sv	   = new Gtk::ScrolledWindow;
 
 	open_btn->set_label("open");
 	open_btn->signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_open_clicked));
@@ -163,7 +164,10 @@ medusa_window::medusa_window(int   argc,
 	save_btn->signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_save_clicked));
 
 //	grid->attach(*view, 0, 1);
-	grid->attach(*tv, 0, 1);
+	sv->add(*tv);
+	sv->set_hexpand(true);
+	sv->set_vexpand(true);
+	grid->attach(*sv, 0, 1);
 	toolbar->attach(*open_btn, 0, 0);
 	toolbar->attach(*save_btn, 1, 0);
 	grid->attach(*toolbar, 0, 0);
