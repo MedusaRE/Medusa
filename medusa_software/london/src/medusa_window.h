@@ -25,6 +25,9 @@ class medusa_window : public Gtk::Window {
 		medusa_window(int   argc,
 					  char* argv[]);
 		virtual ~medusa_window();
+	protected:
+		void on_open_clicked();
+		void on_save_clicked();
 };
 
 #endif

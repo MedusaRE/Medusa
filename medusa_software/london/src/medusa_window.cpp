@@ -19,13 +19,16 @@
 #include <unicorn/unicorn.h>
 #include "medusa_window.h"
 #include "logging.h"
+#include <fstream>
 #include <gtkmm.h>
 #include "lib.h"
+#include <iostream>
 
 using namespace std;
 
-Glib::RefPtr<Gtk::TextBuffer> tvb;
-bool bold_me = true;
+bool						   bold_me = true;
+char						  *filename;
+Glib::RefPtr<Gtk::TextBuffer>  tvb;
 
 void on_insert(const Gtk::TextIter& pos,
 			   const Glib::ustring& text,
@@ -48,14 +51,14 @@ void on_insert(const Gtk::TextIter& pos,
 
 	if (bold_me) {
 		tvb->remove_tag_by_name("red", begin, end);
-		tvb->apply_tag_by_name("bold", begin, end);
+//		tvb->apply_tag_by_name("bold", begin, end);
 
 		#if DEBUG_BUILD
 			printf("bold\n");
 		#endif
 	} else {
 		tvb->remove_tag_by_name("bold", begin, end);
-		tvb->apply_tag_by_name("red", begin, end);
+//		tvb->apply_tag_by_name("red", begin, end);
 		
 		#if DEBUG_BUILD
 			printf("red\n");
@@ -65,6 +68,56 @@ void on_insert(const Gtk::TextIter& pos,
 	bold_me = !bold_me;
 }
 
+void medusa_window::on_open_clicked() {
+	Gtk::FileChooserDialog dialog("Please choose a file to edit.",
+								  Gtk::FILE_CHOOSER_ACTION_OPEN);
+	dialog.set_transient_for(*this);
+
+	dialog.add_button("_Cancel",	Gtk::RESPONSE_CANCEL);
+	dialog.add_button("_Open",		Gtk::RESPONSE_OK);
+
+	int result = dialog.run();
+	switch (result) {
+		case (Gtk::RESPONSE_OK): {
+			/*
+			 *  strdup because otherwise it breaks or something
+			 *  god, i love memory management
+			 */
+
+			medusa_log(LOG_INFO, "User chose to open file.");
+			filename = strdup(dialog.get_filename().c_str());
+			medusa_log(LOG_INFO, "Filename: %s", filename);
+			break;
+		} case (Gtk::RESPONSE_CANCEL): {
+			medusa_log(LOG_INFO, "User cancelled file opening.");
+			filename = NULL;
+			break;
+		} default: {
+			medusa_log(LOG_ERROR, "Something went wrong.");
+			return;
+			break;
+		}
+	}
+
+	ifstream	 f(filename);
+	stringstream ss;
+	
+	ss << f.rdbuf();
+	tvb->set_text(ss.str());
+
+	f.close();
+}
+
+void medusa_window::on_save_clicked() {
+	string		 txt_str = tvb->get_text();
+	const char	*txt	 = txt_str.c_str();
+	ofstream	 f(filename);
+
+	f.write(strdup(txt), strlen(txt));
+
+	f.close();
+}
+
 medusa_window::medusa_window(int   argc,
 							 char* argv[]) {
 	medusa_log(LOG_INFO, "Landed in medusa_window.");
@@ -72,7 +125,7 @@ medusa_window::medusa_window(int   argc,
 
 	auto* tv = new Gtk::TextView;
 	tvb = Gtk::TextBuffer::create();
-	
+
 	tvb->create_tag("bold")->property_weight() = Pango::WEIGHT_BOLD;
 	tvb->create_tag("red")->property_foreground() = "#ff0000";
 
@@ -80,7 +133,7 @@ medusa_window::medusa_window(int   argc,
 	normal_tag->property_weight() = Pango::WEIGHT_NORMAL;
 	normal_tag->property_foreground() = "#ffffff";
 
-	tvb->set_text("yahtzee");
+//	tvb->set_text("yahtzee");
 	tvb->apply_tag_by_name("bold", tvb->get_iter_at_line_offset(0, 0), tvb->get_iter_at_line_offset(0, 4));
 	tvb->apply_tag_by_name("bold", tvb->get_iter_at_line_offset(0, 2), tvb->get_iter_at_line_offset(0, 6));
 	tvb->apply_tag_by_name("red", tvb->get_iter_at_line_offset(0, 2), tvb->get_iter_at_line_offset(0, 6));
@@ -91,12 +144,18 @@ medusa_window::medusa_window(int   argc,
 	tv->set_buffer(tvb);
 
 	auto* grid = new Gtk::Grid;
-	auto* btn = new Gtk::Button;
+	auto* open_btn = new Gtk::Button;
+	auto* save_btn = new Gtk::Button;
 
-	btn->set_label("yahtzee");
+	open_btn->set_label("open");
+	open_btn->signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_open_clicked));
+
+	save_btn->set_label("save");
+	save_btn->signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_save_clicked));
 
 	grid->attach(*tv, 0, 1);
-	grid->attach(*btn, 0, 0);
+	grid->attach(*open_btn, 0, 0);
+	grid->attach(*save_btn, 1, 0);
 	
 	grid->set_row_homogeneous(false);
 	grid->set_column_homogeneous(false);
