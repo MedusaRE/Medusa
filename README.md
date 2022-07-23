@@ -58,6 +58,7 @@ based on the OS you are running, but in general, you will need to install:
 - [`keystone`](https://github.com/keystone-engine/keystone) (submodule available)
 - [`doxygen`](https://doxygen.nl)
 - [`GtkSourceView`](https://gitlab.gnome.org/GNOME/gtksourceview) (submodule available)
+- [`GtkSourceViewMM`](https://gitlab.gnome.org/GNOME/gtksourceviewmm) (submodule available)
 - `gtkmm3`
 - `gtk3`
 - `glade`
