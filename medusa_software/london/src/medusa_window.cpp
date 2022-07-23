@@ -105,6 +105,15 @@ medusa_window::medusa_window(int   argc,
 	grid->show_all();
 
 	add(*grid);
+
+	/*
+	 *  noround is part of my (spv) personal setup.
+	 *  i use rounded corners, and in my picom.conf i have it set so that if a
+	 *  window title contains "noround", it will not have rounded corners.
+	 *
+	 *  i have this set right now because otherwise it will cut off part of the
+	 *  actual content, as there isn't a toolbar or anything.
+	 */
 	set_title("noround");
 
 	show_all_children();
