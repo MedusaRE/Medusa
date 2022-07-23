@@ -69,7 +69,12 @@ medusa_window::medusa_window(int   argc,
 
 	tv->set_buffer(tvb);
 
-	add(*tv);
+	auto* grid = new Gtk::Grid;
+
+	grid->attach(*tv, 0, 0);
+	grid->show_all();
+
+	add(*grid);
 	set_title("noround");
 
 	show_all_children();
