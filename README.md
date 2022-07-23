@@ -79,6 +79,7 @@ installed, all components should be built, including:
 - [`frontend`](/medusa_software/frontend)
 - [`libmedusa`](/medusa_software/libmedusa)
 - [`libxParse`](/medusa_software/libxparse)
+- [`london`](/medusa_software/london)
 - etc.
 
 ### Installing to your machine
