@@ -49,6 +49,8 @@ void on_insert(const Gtk::TextIter& pos,
 		printf("%d %d %d\n", bytes, begin.get_offset(), end.get_offset());
 	#endif
 
+	tvb->apply_tag_by_name("monospace_default", begin, end);
+
 	if (bold_me) {
 		tvb->remove_tag_by_name("red", begin, end);
 //		tvb->apply_tag_by_name("bold", begin, end);
@@ -126,6 +128,14 @@ medusa_window::medusa_window(int   argc,
 	auto* tv = new Gtk::TextView;
 	tvb = Gtk::TextBuffer::create();
 
+	tvb->set_text("This is a default text string to preview the font in use.\n"
+				  "And this is a second line of text.\n"
+				  "\n"
+				  "That was an empty line of text.\n"
+				  "Hopefully this will work!\n"
+				  "\n"
+				  "  - spv\n");
+
 	tvb->create_tag("bold")->property_weight() = Pango::WEIGHT_BOLD;
 	tvb->create_tag("red")->property_foreground() = "#ff0000";
 
@@ -133,11 +143,22 @@ medusa_window::medusa_window(int   argc,
 	normal_tag->property_weight() = Pango::WEIGHT_NORMAL;
 	normal_tag->property_foreground() = "#ffffff";
 
+	auto monospace_tag = tvb->create_tag("monospace_default");
+	monospace_tag->property_font() = "Inconsolata 10";
+
+	Gtk::TextIter begin, end;
+
+	tvb->get_bounds(begin, end);
+	tvb->apply_tag_by_name("monospace_default", begin, end);
+
 //	tvb->set_text("yahtzee");
+
+#if 0
 	tvb->apply_tag_by_name("bold", tvb->get_iter_at_line_offset(0, 0), tvb->get_iter_at_line_offset(0, 4));
 	tvb->apply_tag_by_name("bold", tvb->get_iter_at_line_offset(0, 2), tvb->get_iter_at_line_offset(0, 6));
 	tvb->apply_tag_by_name("red", tvb->get_iter_at_line_offset(0, 2), tvb->get_iter_at_line_offset(0, 6));
 	tvb->apply_tag_by_name("red", tvb->get_iter_at_line_offset(0, 4), tvb->get_iter_at_line_offset(0, 8));
+#endif
 
 	tvb->signal_insert().connect(sigc::ptr_fun(&on_insert));
 
