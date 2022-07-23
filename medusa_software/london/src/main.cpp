@@ -16,9 +16,25 @@
  */
 
 #include "medusa_window.h"
+#include <filesystem>
 #include "logging.h"
 #include <gtkmm.h>
 #include <cstdio>
+
+using namespace std;
+
+namespace fs = std::filesystem;
+
+void ls_dir(std::string path, int indent) {
+	for (const fs::directory_entry& entry : fs::directory_iterator(path)) {
+		printf("%s%s", std::string(indent, '\t').c_str(), entry.path().filename().c_str());
+		if (entry.is_directory()) {
+			printf(":\n");
+			ls_dir(entry.path(), indent + 1);
+		}
+		printf("\n");
+	}
+}
 
 int main(int   argc,
 		 char* argv[]) {
@@ -37,6 +53,9 @@ int main(int   argc,
 	int       fake_argc	= 1;
 	char**    fake_argv	= NULL;
 	fake_argv = (char**)calloc(sizeof(uintptr_t), 2);
+
+//	ls_dir("/home/spv/test", 0);
+//	return 0;
 
 	/*
 	 *  populate the array

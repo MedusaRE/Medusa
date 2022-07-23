@@ -18,6 +18,7 @@
 #ifndef MEDUSA_WINDOW_H
 #define MEDUSA_WINDOW_H
 
+#include "london.h"
 #include <gtkmm.h>
 
 class medusa_window : public Gtk::Window {
@@ -28,6 +29,29 @@ class medusa_window : public Gtk::Window {
 	protected:
 		void on_open_clicked();
 		void on_save_clicked();
+		void on_treeview_row_activated(const Gtk::TreeModel::Path& path,
+									   Gtk::TreeViewColumn*);
+		
+		void open_file(std::string filename);
+
+		void repopulate_directory_tree(Gtk::TreeModel::Row* parent = NULL, std::string path = "");
+		london_config_t lct;
+
+		Glib::RefPtr<Gtk::TreeStore> ref_tree_model;
+		Gtk::TreeView trv;
+
+		class dir_view_column : public Gtk::TreeModel::ColumnRecord {
+			public:
+				dir_view_column() {
+					add(dir_name);
+					add(full_path);
+				}
+
+				Gtk::TreeModelColumn<Glib::ustring> dir_name;
+				Gtk::TreeModelColumn<Glib::ustring> full_path;
+		};
+
+		dir_view_column dir_view_columns;
 };
 
 #endif

@@ -20,6 +20,7 @@
 #include <gtksourceviewmm.h>
 #include <unicorn/unicorn.h>
 #include "medusa_window.h"
+#include <filesystem>
 #include "logging.h"
 #include <iostream>
 #include "config.h"
@@ -29,6 +30,7 @@
 #include "lib.h"
 
 using namespace std;
+namespace fs = std::filesystem;
 
 bool						   bold_me = true;
 char						  *filename;
@@ -81,9 +83,7 @@ void on_changed() {
 	tvb->apply_tag_by_name("monospace_default", begin, end);
 }
 
-void medusa_window::on_open_clicked() {
-	filename = file_prompt_cstr(Gtk::FILE_CHOOSER_ACTION_OPEN, "Please choose a file to edit.");
-
+void medusa_window::open_file(std::string filename) {
 	ifstream	 f(filename);
 	stringstream ss;
 	
@@ -91,6 +91,11 @@ void medusa_window::on_open_clicked() {
 	tvb->set_text(ss.str());
 
 	f.close();
+}
+
+void medusa_window::on_open_clicked() {
+	filename = file_prompt_cstr(Gtk::FILE_CHOOSER_ACTION_OPEN, "Please choose a file to edit.");
+	open_file(filename);
 }
 
 void medusa_window::on_save_clicked() {
@@ -107,12 +112,49 @@ void medusa_window::on_save_clicked() {
 	f.close();
 }
 
+void medusa_window::repopulate_directory_tree(Gtk::TreeModel::Row* parent, std::string path) {
+	if (path == "") {
+		path = lct.default_path;
+	}
+
+	for (const fs::directory_entry& entry : fs::directory_iterator(path)) {
+		Gtk::TreeModel::Row row;
+
+		if (!parent) {
+			row = *(ref_tree_model->append());
+		} else {
+			row = *(ref_tree_model->append(parent->children()));
+		}
+
+		row[dir_view_columns.dir_name] = entry.path().filename().string();
+		printf("%s\n", entry.path().string().c_str());
+		row[dir_view_columns.full_path] = entry.path().string();
+
+		if (entry.is_directory()) {
+			this->repopulate_directory_tree(&row, entry.path());
+		}
+	}
+}
+
+
+void medusa_window::on_treeview_row_activated(const Gtk::TreeModel::Path& path,
+											  Gtk::TreeViewColumn*) {
+	//
+	Gtk::TreeModel::iterator iter = ref_tree_model->get_iter(path);
+	if (iter) {
+		Gtk::TreeModel::Row row = *iter;
+		Glib::ustring str = row.get_value(dir_view_columns.full_path);
+		printf("%s\n", str.c_str());
+		open_file(str);
+	}
+}
+
 medusa_window::medusa_window(int   argc,
 							 char* argv[]) {
 	medusa_log(LOG_INFO, "Landed in medusa_window.");
 	medusa_log(LOG_VERBOSE, "Showing...");
 
-	london_config_t lct = parse_config_file(NULL);
+	lct = parse_config_file(NULL);
 
 	Gsv::init();
 
@@ -170,6 +212,23 @@ medusa_window::medusa_window(int   argc,
 	auto* open_btn = new Gtk::Button;
 	auto* save_btn = new Gtk::Button;
 	auto* sv	   = new Gtk::ScrolledWindow;
+	auto* paned	   = new Gtk::Paned;
+
+	ref_tree_model = Gtk::TreeStore::create(dir_view_columns);
+	trv.set_model(ref_tree_model);
+
+#if 0
+	Gtk::TreeModel::Row row = *(ref_tree_model->append());
+	row[dir_view_columns.dir_name] = "balls";
+
+	Gtk::TreeModel::Row childrow = *(ref_tree_model->append(row.children()));
+	childrow[dir_view_columns.dir_name] = "balls2";
+#endif
+
+	this->repopulate_directory_tree();
+
+	trv.append_column("Directory Browser", dir_view_columns.dir_name);
+	trv.signal_row_activated().connect(sigc::mem_fun(*this, &medusa_window::on_treeview_row_activated));
 
 	open_btn->set_label("open");
 	open_btn->signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_open_clicked));
@@ -181,6 +240,7 @@ medusa_window::medusa_window(int   argc,
 	sv->set_hexpand(true);
 	sv->set_vexpand(true);
 
+	paned->add1(trv);
 	grid->attach(*sv, 0, 1);
 	grid->attach(*toolbar, 0, 0);
 
@@ -197,7 +257,12 @@ medusa_window::medusa_window(int   argc,
 
 	grid->show_all();
 
-	add(*grid);
+//	add(*grid);
+	paned->add2(*grid);
+
+	paned->set_position(256);
+
+	add(*paned);
 
 	/*
 	 *  noround is part of my (spv) personal setup.

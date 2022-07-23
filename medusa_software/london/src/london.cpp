@@ -32,6 +32,7 @@ london_config_t parse_config_file(const char* filename) {
 	file.read(ini);
 	ret.tab_size = stoi(ini["global"]["tab-size"]);
 	ret.hard_tabs = ini["global"]["hard-tabs"] == "true";
+	ret.default_path = ini["global"]["default-path"];
 
 	#if DEBUG_BUILD
 		printf("%d %s\n", ret.tab_size, ret.hard_tabs ? "true" : "false");
