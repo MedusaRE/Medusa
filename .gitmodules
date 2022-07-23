@@ -23,3 +23,6 @@
 	branch = gtksourceviewmm-3-18
 [submodule "gtksourceviewmm"]
 	branch = gtksourceviewmm-3-18
+[submodule "medusa_software/submodules/mINI"]
+	path = medusa_software/submodules/mINI
+	url = https://github.com/pulzed/mINI.git
