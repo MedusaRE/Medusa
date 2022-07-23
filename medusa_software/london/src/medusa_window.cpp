@@ -111,7 +111,7 @@ medusa_window::medusa_window(int   argc,
 	medusa_log(LOG_INFO, "Landed in medusa_window.");
 	medusa_log(LOG_VERBOSE, "Showing...");
 
-	mINI::INIFile	   file("/home/spv/.medusa/london.ini");
+	mINI::INIFile	   file(strcat(getenv("HOME"), "/.medusa/london.ini"));
 	mINI::INIStructure ini;
 
 	london_config_t lct;
@@ -129,7 +129,7 @@ medusa_window::medusa_window(int   argc,
 	auto* tv = manage (new Gsv::View);
 	auto lm = Gsv::LanguageManager::create();
 	vector<string> langs = lm->get_language_ids();
-	
+
 	#if DEBUG_BUILD
 		for (auto& i : langs) {
 			printf("%s\n", i.c_str());
