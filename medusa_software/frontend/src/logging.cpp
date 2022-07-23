@@ -15,6 +15,7 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include <sys/time.h>
 #include "logging.h"
 #include <cstdarg>
 #include <cstring>
@@ -38,27 +39,23 @@ log_status_t medusa_log(log_level_t log_level,
 	} else {
 		va_list		args;
 
-		char	   *asctime_ret = NULL;
-		char	   *s_to_print = NULL;
-		struct	tm *time_info;
-		time_t		raw_time;
+		char			   *asctime_ret	= NULL;
+		char			   *s_to_print	= NULL;
+		char				buf_year[1024];
+		char				buf[1024];
+		struct	tm		   *time_info;
+		time_t				raw_time;
+		struct	timeval		tv;
+
+		gettimeofday(&tv, NULL);
 
 		/*
 		 *  get the time, convert to a string
 		 */
-		time(&raw_time);
+		raw_time = tv.tv_sec;
 		time_info	= localtime(&raw_time);
-		asctime_ret	= asctime(time_info);
-
-		/*
-		 *  asctime adds a newline, remove it.
-		 */
-		for (int i = 0; i < strlen(asctime_ret) + 2; i++) {
-			if (asctime_ret[i] == '\n') {
-				asctime_ret[i] = '\0';
-				break;
-			}
-		}
+		strftime(buf, sizeof(buf), "%a %b %d %H:%M:%S", time_info);
+		strftime(buf_year, sizeof(buf_year), "%Y", time_info);
 
 		/*
 		 *  variadic function stuff
@@ -69,9 +66,11 @@ log_status_t medusa_log(log_level_t log_level,
 		/*
 		 *  print that shit
 		 */
-		printf("[[%c] Medusa (%s)]: %s\n",
+		printf("[[%c] Medusa (%s.%06ld %s)]: %s\n",
 			   log_char[log_level],
-			   asctime_ret,
+			   buf,
+			   tv.tv_usec,
+			   buf_year,
 			   s_to_print);
 
 		va_end(args);
