@@ -45,7 +45,7 @@ int main(int	argc,
 	fake_argv[1] = NULL;
 
 	medusa_set_log_level(LOG_VERBOSE);
-	medusa_log(LOG_INFO, "Medusa Loaded.");
+	medusa_log(LOG_INFO, "Medusa loaded.");
 
 	/*
 	 *  create the app
