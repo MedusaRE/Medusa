@@ -35,25 +35,31 @@ void on_insert(const Gtk::TextIter& pos,
 	begin = pos;
 	end = pos;
 
-#if DEBUG_BUILD
-	printf("%d %d %d\n", bytes, begin.get_offset(), end.get_offset());
-#endif
+	#if DEBUG_BUILD
+		printf("%d %d %d\n", bytes, begin.get_offset(), end.get_offset());
+	#endif
 
 	begin.set_offset(begin.get_offset() - 1);
 	end.set_offset(end.get_offset() + bytes - 1);
 
-#if DEBUG_BUILD
-	printf("%d %d %d\n", bytes, begin.get_offset(), end.get_offset());
-#endif
+	#if DEBUG_BUILD
+		printf("%d %d %d\n", bytes, begin.get_offset(), end.get_offset());
+	#endif
 
 	if (bold_me) {
 		tvb->remove_tag_by_name("red", begin, end);
 		tvb->apply_tag_by_name("bold", begin, end);
-		printf("bold\n");
+
+		#if DEBUG_BUILD
+			printf("bold\n");
+		#endif
 	} else {
 		tvb->remove_tag_by_name("bold", begin, end);
 		tvb->apply_tag_by_name("red", begin, end);
-		printf("red\n");
+		
+		#if DEBUG_BUILD
+			printf("red\n");
+		#endif
 	}
 
 	bold_me = !bold_me;
