@@ -79,36 +79,8 @@ void on_changed() {
 }
 
 void medusa_window::on_open_clicked() {
-	Gtk::FileChooserDialog dialog("Please choose a file to edit.",
-								  Gtk::FILE_CHOOSER_ACTION_OPEN);
-	dialog.set_transient_for(*this);
-
-	dialog.add_button("_Cancel",	Gtk::RESPONSE_CANCEL);
-	dialog.add_button("_Open",		Gtk::RESPONSE_OK);
-
-	int result = dialog.run();
-	switch (result) {
-		case (Gtk::RESPONSE_OK): {
-			/*
-			 *  strdup because otherwise it breaks or something
-			 *  god, i love memory management
-			 */
-
-			medusa_log(LOG_INFO, "User chose to open file.");
-			filename = strdup(dialog.get_filename().c_str());
-			medusa_log(LOG_INFO, "Filename: %s", filename);
-			break;
-		} case (Gtk::RESPONSE_CANCEL): {
-			medusa_log(LOG_INFO, "User cancelled file opening.");
-			filename = NULL;
-			break;
-		} default: {
-			medusa_log(LOG_ERROR, "Something went wrong.");
-			return;
-			break;
-		}
-	}
-
+	filename = file_prompt_cstr(Gtk::FILE_CHOOSER_ACTION_OPEN, "Please choose a file to edit.");
+	
 	ifstream	 f(filename);
 	stringstream ss;
 	
@@ -119,36 +91,8 @@ void medusa_window::on_open_clicked() {
 }
 
 void medusa_window::on_save_clicked() {
-	if (filename == NULL) {
-		Gtk::FileChooserDialog dialog("Please create a file to save to.",
-									  Gtk::FILE_CHOOSER_ACTION_SAVE);
-		dialog.set_transient_for(*this);
-
-		dialog.add_button("_Cancel",	Gtk::RESPONSE_CANCEL);
-		dialog.add_button("_Open",		Gtk::RESPONSE_OK);
-
-		int result = dialog.run();
-		switch (result) {
-			case (Gtk::RESPONSE_OK): {
-				/*
-				 *  strdup because otherwise it breaks or something
-				 *  god, i love memory management
-				 */
-
-				medusa_log(LOG_INFO, "User chose to open file.");
-				filename = strdup(dialog.get_filename().c_str());
-				medusa_log(LOG_INFO, "Filename: %s", filename);
-				break;
-			} case (Gtk::RESPONSE_CANCEL): {
-				medusa_log(LOG_INFO, "User cancelled file opening.");
-				filename = NULL;
-				break;
-			} default: {
-				medusa_log(LOG_ERROR, "Something went wrong.");
-				return;
-				break;
-			}
-		}
+	while (filename == NULL) {
+		filename = file_prompt_cstr(Gtk::FILE_CHOOSER_ACTION_SAVE, "Please create a file to save to.");
 	}
 
 	string		 txt_str = tvb->get_text();
