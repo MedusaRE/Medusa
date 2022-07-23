@@ -14,7 +14,7 @@ bin:
 clean:
 	rm -rf bin
 
-bin/main: bin/main.o bin/lib.o bin/logging.o bin/medusa_window.o
+bin/main: bin/main.o bin/lib.o bin/logging.o bin/medusa_window.o bin/london.o
 	${CPP} ${CPPFLAGS} `pkg-config gtkmm-3.0 --libs` `pkg-config gtksourceviewmm-3.0 --libs` $^ -o $@
 
 bin/%.o: src/%.cpp

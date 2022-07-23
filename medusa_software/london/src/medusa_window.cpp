@@ -23,6 +23,7 @@
 #include "logging.h"
 #include <iostream>
 #include "config.h"
+#include "london.h"
 #include <fstream>
 #include <gtkmm.h>
 #include "lib.h"
@@ -111,18 +112,7 @@ medusa_window::medusa_window(int   argc,
 	medusa_log(LOG_INFO, "Landed in medusa_window.");
 	medusa_log(LOG_VERBOSE, "Showing...");
 
-	mINI::INIFile	   file(strcat(getenv("HOME"), "/.medusa/london.ini"));
-	mINI::INIStructure ini;
-
-	london_config_t lct;
-
-	file.read(ini);
-	lct.tab_size = stoi(ini["global"]["tab-size"]);
-	lct.hard_tabs = ini["global"]["hard-tabs"] == "true";
-
-	#if DEBUG_BUILD
-		printf("%d %s\n", lct.tab_size, lct.hard_tabs ? "true" : "false");
-	#endif
+	london_config_t lct = parse_config_file(NULL);
 
 	Gsv::init();
 
