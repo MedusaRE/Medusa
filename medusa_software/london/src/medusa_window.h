@@ -52,6 +52,9 @@ class medusa_window : public Gtk::Window {
 				Gtk::TreeModelColumn<Glib::ustring> full_path;
 		};
 
+		Glib::RefPtr<Gsv::LanguageManager> lm;
+		Gsv::View* tv;
+
 		dir_view_column dir_view_columns;
 };
 

@@ -60,6 +60,14 @@ void medusa_window::open_file(std::string filename) {
 	stringstream ss;
 	
 	ss << f.rdbuf();
+
+	tvb = Gsv::Buffer::create(lm->guess_language(filename, ""));
+	tv->set_buffer(tvb);
+	tvb = tv->get_buffer();
+
+	auto monospace_tag = tvb->create_tag("monospace_default");
+	monospace_tag->property_font() = "Inconsolata 10";
+
 	tvb->set_text(ss.str());
 
 	f.close();
@@ -142,8 +150,8 @@ medusa_window::medusa_window(int   argc,
 
 	Gsv::init();
 
-	auto* tv = manage (new Gsv::View);
-	auto lm = Gsv::LanguageManager::create();
+	tv = manage (new Gsv::View);
+	lm = Gsv::LanguageManager::create();
 	vector<string> langs = lm->get_language_ids();
 
 	#if DEBUG_BUILD
@@ -152,7 +160,7 @@ medusa_window::medusa_window(int   argc,
 		}
 	#endif
 
-	tvb = Gsv::Buffer::create(lm->get_language("cpp"));
+	tvb = Gsv::Buffer::create();
 	tv->set_buffer(tvb);
 	tvb = tv->get_buffer();
 
