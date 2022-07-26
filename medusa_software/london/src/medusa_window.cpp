@@ -92,6 +92,10 @@ void medusa_window::on_save_clicked() {
 }
 
 void medusa_window::repopulate_directory_tree(Gtk::TreeModel::Row* parent, std::string path) {
+	/*
+	 *  path defaults to "", so i fit is unspecified, it will create a new
+	 *  (blank / empty) TreeStore.
+	 */
 	if (path == "") {
 		ref_tree_model = Gtk::TreeStore::create(dir_view_columns);
 		trv.set_model(ref_tree_model);
