@@ -20,7 +20,7 @@
 
 #include <string>
 
-#define DEBUG_BUILD 1
+#define DEBUG_BUILD 0
 
 struct london_config_t {
     int tab_size;
