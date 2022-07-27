@@ -82,6 +82,7 @@ installed, all components should be built, including:
 - [`libmedusa`](/medusa_software/libmedusa)
 - [`libxParse`](/medusa_software/libxparse)
 - [`london`](/medusa_software/london)
+- [`paris`](/medusa_software/paris)
 - etc.
 
 ### Installing to your machine
