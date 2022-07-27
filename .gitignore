@@ -33,3 +33,5 @@ node_modules
 package*.json
 
 ETHICS.md
+
+motd.txt
