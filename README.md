@@ -123,6 +123,9 @@ question.
                             case some components are moved outside of this
                             repository, this is where the submodules for said
                             components will reside)
+        paris             - a subcomponent of the Medusa Project to develop the
+                            client/server architecture that is intended to be
+                            used in the project.
         submodules        - Git submodules not maintained by the Medusa Project
         work              - work in progress components / sideprojects for the
                             Medusa Project, such as a text editor
