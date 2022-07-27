@@ -18,6 +18,7 @@
 #ifndef MEDUSA_WINDOW_H
 #define MEDUSA_WINDOW_H
 
+#include <gtksourceviewmm.h>
 #include "london.h"
 #include <gtkmm.h>
 
