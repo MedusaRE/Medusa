@@ -128,7 +128,6 @@ void medusa_window::repopulate_directory_tree(Gtk::TreeModel::Row* parent, std::
 	}
 }
 
-
 void medusa_window::on_treeview_row_activated(const Gtk::TreeModel::Path& path,
 											  Gtk::TreeViewColumn*) {
 	Gtk::TreeModel::iterator iter = ref_tree_model->get_iter(path);
