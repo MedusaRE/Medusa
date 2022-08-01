@@ -318,7 +318,7 @@ medusa_window::medusa_window(int   argc,
 
 	medusa_log(LOG_VERBOSE, "Mapping memory for emulation...");
 	uc_mem_map(uc_global, BASE_ADDY, 0x100000, UC_PROT_ALL);
-	
+
 	medusa_log(LOG_VERBOSE, "Copying executable for emulation...");
 	uc_mem_write(uc_global, BASE_ADDY, buf, len);
 
