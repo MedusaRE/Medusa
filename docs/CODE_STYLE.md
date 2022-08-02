@@ -54,7 +54,7 @@ Generally, C++ code would look something like this:
 #include <cstdio>
 
 int main(int   argc,
-         char *argv) {
+         char *argv[]) {
     char     *buf = malloc(0x4000);
     int       ival;
     uint32_t  val;
