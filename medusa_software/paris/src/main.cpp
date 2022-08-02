@@ -67,21 +67,24 @@ int main(int argc, char* argv[]) {
 
 	listen(sock, 1);
 	perror("lol");
-	int data_socket = accept(sock, NULL, NULL);
 
 	while (1) {
-		char c[1];
+		int data_socket = accept(sock, NULL, NULL);
 
-		int n = read(data_socket, c, 1);
-		if (n != 1) {
-			close(data_socket);
-			break;
+		while (1) {
+			char c[1];
+
+			int n = read(data_socket, c, 1);
+			if (n != 1) {
+				close(data_socket);
+				break;
+			}
+
+			printf("%c", c[0]);
 		}
 
-		printf("%c", c[0]);
+		printf("\n");
 	}
-
-	printf("\n");
 
 	return 0;
 }
