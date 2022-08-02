@@ -47,5 +47,32 @@ not much editing is done within web-based Git clients, and you *can* change the
 tab stops usually. Since the *default* is 8, and not everyone changes it, making
 the documentation look correct matters more to me than source code in that case.
 
+Generally, C++ code would look something like this:
+```c++
+#include <cstdint>
+#include <cstdlib>
+#include <cstdio>
+
+int main(int   argc,
+         char *argv) {
+    char     *buf = malloc(0x4000);
+    int       ival;
+    uint32_t  val;
+
+    printf("%p %d 0x%08x\n",
+           buf,
+           ival,
+           val);
+    
+    if (val == 0) {
+        whatever(val);
+    } else {
+        whatever2(val);
+    }
+
+    return 0;
+}
+```
+
 ## File License
 This file is licensed under the terms of the CC BY-SA 4.0 license.
