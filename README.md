@@ -49,6 +49,9 @@ Planned features include:
   decompiler)
 - and more!
 
+If you would like to view a version of this document in another way, type
+`curl medusa-re.org` into your terminal, and press Enter/Return.
+
 ## Installation
 ### Requirements
 The exact commands necessary to install the requirements for Medusa will differ
