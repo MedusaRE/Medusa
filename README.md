@@ -49,7 +49,7 @@ Planned features include:
   decompiler)
 - and more!
 
-If you would like to view a version of this document in another way, type
+If you would like to view a version of this document in another form, type
 `curl medusa-re.org` into your terminal, and press Enter/Return.
 
 ## Installation
