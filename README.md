@@ -116,7 +116,7 @@ question.
         berlin            - a subcomponent of the Medusa Project to create a
                             free (libre) GTK hex editor, eventually to be
                             incorporated into the full Medusa software
-package/suite.
+                            package/suite.
         frontend          - the default frontend for the Medusa Project
         libmedusa         - a library for controlling emulated and real-silicon
                             machines programmatically maintained by the Medusa
