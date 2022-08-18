@@ -18,10 +18,21 @@
 #ifndef __ROME_ROME_HPP
 #define __ROME_ROME_HPP
 
+#include <ncurses.h>
+
+#undef getch
+
 namespace rome {
 	class window {
 		public:
 			window();
+			~window();
+
+			int getch();
+			void putch(int ch);
+
+		private:
+			WINDOW *win;
 	};
 }
 

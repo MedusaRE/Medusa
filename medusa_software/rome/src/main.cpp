@@ -23,5 +23,12 @@ int main(int argc, char* argv[]) {
 
 	rome::window window;
 
+	for (int i = 0; i < 50; i++) {
+		int ch;
+		ch = window.getch();
+
+		window.putch(ch);
+	}
+
 	return 0;
 }

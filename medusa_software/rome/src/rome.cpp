@@ -20,6 +20,29 @@
 
 namespace rome {
 	window::window() {
-		printf("Hello, world!\n");
+		initscr();
+		cbreak();
+		noecho();
+
+		keypad(stdscr, TRUE);
+
+		int cols, rows;
+		getmaxyx(stdscr, cols, rows);
+
+		win = newwin(cols, rows, 0, 0);
+	}
+
+	int window::getch() {
+		return wgetch(win);
+	}
+
+	void window::putch(int ch) {
+		waddch(win, ch);
+	}
+
+	window::~window() {
+		endwin();
+
+		printf("rip\n");
 	}
 }
