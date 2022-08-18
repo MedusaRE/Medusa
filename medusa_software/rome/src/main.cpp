@@ -28,6 +28,7 @@ int main(int argc, char* argv[]) {
 		ch = window.getch();
 
 		window.putch(ch);
+		window.putch(ch, 4, 4);
 	}
 
 	return 0;

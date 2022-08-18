@@ -30,6 +30,7 @@ namespace rome {
 
 			int getch();
 			void putch(int ch);
+			void putch(int ch, int x, int y);
 
 		private:
 			WINDOW *win;

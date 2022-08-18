@@ -40,6 +40,14 @@ namespace rome {
 		waddch(win, ch);
 	}
 
+	void window::putch(int ch, int x, int y) {
+		int curx, cury;
+		getyx(win, cury, curx);
+
+		mvwaddch(win, y, x, ch);
+		wmove(win, cury, curx);
+	}
+
 	window::~window() {
 		endwin();
 
