@@ -19,8 +19,6 @@
 #include <cstdio>
 
 int main(int argc, char* argv[]) {
-//	printf("Hello, world! %d\n", test());
-
 	rome::window window;
 
 	window.addstr("Hello, world! ");
