@@ -19,8 +19,10 @@
 #define __ROME_ROME_HPP
 
 #include <ncurses.h>
+#include <string>
 
 #undef getch
+#undef addstr
 
 namespace rome {
 	class window {
@@ -31,6 +33,9 @@ namespace rome {
 			int getch();
 			void putch(int ch);
 			void putch(int ch, int x, int y);
+
+			void addstr(std::string str);
+			void addstr(std::string str, int x, int y);
 
 		private:
 			WINDOW *win;

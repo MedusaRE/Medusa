@@ -23,6 +23,9 @@ int main(int argc, char* argv[]) {
 
 	rome::window window;
 
+	window.addstr("Hello, world! ");
+	window.addstr("Hello, world! ", 3, 3);
+
 	for (int i = 0; i < 50; i++) {
 		int ch;
 		ch = window.getch();

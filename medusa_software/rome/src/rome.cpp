@@ -17,6 +17,7 @@
 
 #include <rome.hpp>
 #include <cstdio>
+#include <string>
 
 namespace rome {
 	window::window() {
@@ -45,6 +46,18 @@ namespace rome {
 		getyx(win, cury, curx);
 
 		mvwaddch(win, y, x, ch);
+		wmove(win, cury, curx);
+	}
+
+	void window::addstr(std::string str) {
+		waddstr(win, str.c_str());
+	}
+
+	void window::addstr(std::string str, int x, int y) {
+		int curx, cury;
+		getyx(win, cury, curx);
+
+		mvwaddstr(win, y, x, str.c_str());
 		wmove(win, cury, curx);
 	}
 
