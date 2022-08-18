@@ -39,19 +39,11 @@ namespace rome {
 
 		if (ret == 27) {
 			nodelay(win, true);
-
 			ret = wgetch(win);
-
 			nodelay(win, false);
 
 			return (ret == -1) ? KEY_ESC : ret;
 		} else {
-#if 0
-			mvprintw(7, 7, "no 27 man");
-			mvprintw(8, 8, "%d", ret);
-#endif
-			refresh();
-
 			return ret;
 		}
 	}
