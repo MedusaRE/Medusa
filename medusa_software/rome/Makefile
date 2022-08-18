@@ -1,5 +1,5 @@
 CPP=clang++
-CPPFLAGS=--std=c++17 -lncurses
+CPPFLAGS=--std=c++17 -lncurses -Iinclude
 
 all: bin bin/rome.so bin/main
 

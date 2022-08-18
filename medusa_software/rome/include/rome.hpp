@@ -15,13 +15,14 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <rome.hpp>
-#include <cstdio>
+#ifndef __ROME_ROME_HPP
+#define __ROME_ROME_HPP
 
-int main(int argc, char* argv[]) {
-//	printf("Hello, world! %d\n", test());
-
-	rome::window window;
-
-	return 0;
+namespace rome {
+	class window {
+		public:
+			window();
+	};
 }
+
+#endif
