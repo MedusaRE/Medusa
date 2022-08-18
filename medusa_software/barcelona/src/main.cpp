@@ -18,6 +18,8 @@
 #include <ncurses.h>
 #include <cstdio>
 
+#define KEY_ESC 27
+
 int main(int argc, char* argv[]) {
 	initscr();
 	cbreak();
@@ -35,7 +37,7 @@ int main(int argc, char* argv[]) {
 		int ch;
 		ch = wgetch(win);
 
-		if (ch == 27) {
+		if (ch == KEY_ESC) {
 			goto reset;
 		}
 
