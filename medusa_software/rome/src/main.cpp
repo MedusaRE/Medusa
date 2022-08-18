@@ -21,7 +21,7 @@
 int main(int argc, char* argv[]) {
 	rome::window window;
 
-	window.addstr("barcelona test", 3, 1);
+	window.addstr("rome test", 3, 1);
 	window.chgattr(A_REVERSE, 1, 1, -2, 0);
 
 	int esc_count = 0;
