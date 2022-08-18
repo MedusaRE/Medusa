@@ -15,9 +15,35 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include <ncurses.h>
 #include <cstdio>
 
 int main(int argc, char* argv[]) {
-	printf("Hello, world!\n");
+	initscr();
+	cbreak();
+	noecho();
+	keypad(stdscr, TRUE);
+
+	int cols, rows;
+	getmaxyx(stdscr, cols, rows);
+
+	WINDOW *win = newwin(cols, rows, 0, 0);
+
+	wmove(win, 1, 1);
+
+	while (1) {
+		int ch;
+		ch = wgetch(win);
+
+		if (ch == 27) {
+			goto reset;
+		}
+
+		waddch(win, ch);
+	}
+
+reset:
+	endwin();
+
 	return 0;
 }
