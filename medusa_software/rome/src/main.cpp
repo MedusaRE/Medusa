@@ -15,50 +15,35 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <ncurses.h>
-#include <cstring>
+#include <rome.hpp>
 #include <cstdio>
 
-#define KEY_ESC 27
-
 int main(int argc, char* argv[]) {
-	initscr();
-	cbreak();
-	noecho();
+	rome::window window;
 
-	keypad(stdscr, TRUE);
+	window.addstr("rome test", 3, 1);
+	window.chgattr(A_REVERSE, 1, 1, -2, 0);
 
-	int cols, rows;
-	getmaxyx(stdscr, cols, rows);
+	int esc_count = 0;
 
-	WINDOW *win = newwin(cols, rows, 0, 0);
-
-	wmove(win, 1, 3);
-
-	waddstr(win, "barcelona");
-	wmove(win, 1, (rows - strlen("Hello, world!")) / 2);
-    waddstr(win, "Hello, world!");
-
-	wmove(win, 1, (rows - strlen("Second String") - 3));
-    waddstr(win, "Second String");
-
-	mvwchgat(win, 1, 1, rows - 2, A_REVERSE, 0, NULL);
-
-	wmove(win, 3, 1);
+	window.move(1, 3);
 
 	while (1) {
 		int ch;
-		ch = wgetch(win);
+		ch = window.getch();
 
-		if (ch == KEY_ESC) {
-			goto reset;
+		window.putch(ch);
+
+		if (ch == rome::KEY_ESC && (esc_count == 0)) {
+			window.addstr("Are you sure you would like to exit? Press ESCAPE"
+						  " again if so.", 0, 0);
+			esc_count++;
+		} else if (ch == rome::KEY_ESC && (esc_count == 1)) {
+			return 0;
+		} else {
+			esc_count = 0;
 		}
-
-		waddch(win, ch);
 	}
-
-reset:
-	endwin();
 
 	return 0;
 }

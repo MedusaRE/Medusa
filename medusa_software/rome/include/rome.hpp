@@ -15,50 +15,48 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#ifndef __ROME_ROME_HPP
+#define __ROME_ROME_HPP
+
 #include <ncurses.h>
-#include <cstring>
-#include <cstdio>
+#include <string>
 
-#define KEY_ESC 27
+#undef getch
+#undef addstr
+#undef attron
+#undef attroff
 
-int main(int argc, char* argv[]) {
-	initscr();
-	cbreak();
-	noecho();
+namespace rome {
+	static int KEY_ESC = 0x80000000;
 
-	keypad(stdscr, TRUE);
+	typedef struct {
+		int x;
+		int y;
+	} cur_pos_t;
 
-	int cols, rows;
-	getmaxyx(stdscr, cols, rows);
+	class window {
+		public:
+			window();
+			~window();
 
-	WINDOW *win = newwin(cols, rows, 0, 0);
+			int getch();
+			void putch(int ch);
+			void putch(int ch, int x, int y);
 
-	wmove(win, 1, 3);
+			void addstr(std::string str);
+			void addstr(std::string str, int x, int y);
 
-	waddstr(win, "barcelona");
-	wmove(win, 1, (rows - strlen("Hello, world!")) / 2);
-    waddstr(win, "Hello, world!");
+			void attron(int attr);
+			void attroff(int attr);
 
-	wmove(win, 1, (rows - strlen("Second String") - 3));
-    waddstr(win, "Second String");
+			void chgattr(int arr, int x, int y, int n, int color_pair);
 
-	mvwchgat(win, 1, 1, rows - 2, A_REVERSE, 0, NULL);
+			void move(int x, int y);
+			cur_pos_t get_cursor_pos();
 
-	wmove(win, 3, 1);
-
-	while (1) {
-		int ch;
-		ch = wgetch(win);
-
-		if (ch == KEY_ESC) {
-			goto reset;
-		}
-
-		waddch(win, ch);
-	}
-
-reset:
-	endwin();
-
-	return 0;
+		private:
+			WINDOW *win;
+	};
 }
+
+#endif
