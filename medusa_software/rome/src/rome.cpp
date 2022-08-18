@@ -95,6 +95,18 @@ namespace rome {
 		wmove(win, cury, curx);
 	}
 
+	void window::move(int x, int y) {
+		wmove(win, y, x);
+	}
+
+	cur_pos_t window::get_cursor_pos() {
+		cur_pos_t ret;
+
+		getyx(win, ret.y, ret.x);
+
+		return ret;
+	}
+
 	window::~window() {
 		endwin();
 	}

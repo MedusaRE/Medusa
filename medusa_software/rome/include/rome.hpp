@@ -29,6 +29,11 @@
 namespace rome {
 	static int KEY_ESC = 0x80000000;
 
+	typedef struct {
+		int x;
+		int y;
+	} cur_pos_t;
+
 	class window {
 		public:
 			window();
@@ -45,6 +50,9 @@ namespace rome {
 			void attroff(int attr);
 
 			void chgattr(int arr, int x, int y, int n, int color_pair);
+
+			void move(int x, int y);
+			cur_pos_t get_cursor_pos();
 
 		private:
 			WINDOW *win;

@@ -26,6 +26,8 @@ int main(int argc, char* argv[]) {
 
 	int esc_count = 0;
 
+	window.move(1, 3);
+
 	while (1) {
 		int ch;
 		ch = window.getch();
