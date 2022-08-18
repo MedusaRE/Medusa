@@ -35,7 +35,7 @@ int main(int argc, char* argv[]) {
 
 		if (ch == rome::KEY_ESC && (esc_count == 0)) {
 			window.addstr("Are you sure you would like to exit? Press ESCAPE"
-						  "again if so.", 0, 0);
+						  " again if so.", 0, 0);
 			esc_count++;
 		} else if (ch == rome::KEY_ESC && (esc_count == 1)) {
 			return 0;
