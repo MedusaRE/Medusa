@@ -72,6 +72,29 @@ namespace rome {
 		wmove(win, cury, curx);
 	}
 
+	void window::attron(int attr) {
+		attron(attr);
+	}
+
+	void window::attroff(int attr) {
+		attroff(attr);
+	}
+
+	void window::chgattr(int attr, int x, int y, int n, int color_pair) {
+		int curx, cury;
+		getyx(win, cury, curx);
+
+		if (n < 0) {
+			int cols, rows;
+			getmaxyx(stdscr, cols, rows);
+
+			n = (rows + (n));
+		}
+
+		mvwchgat(win, y, x, n, attr, color_pair, NULL);
+		wmove(win, cury, curx);
+	}
+
 	window::~window() {
 		endwin();
 	}

@@ -23,6 +23,8 @@
 
 #undef getch
 #undef addstr
+#undef attron
+#undef attroff
 
 namespace rome {
 	static int KEY_ESC = 0x80000000;
@@ -38,6 +40,11 @@ namespace rome {
 
 			void addstr(std::string str);
 			void addstr(std::string str, int x, int y);
+
+			void attron(int attr);
+			void attroff(int attr);
+
+			void chgattr(int arr, int x, int y, int n, int color_pair);
 
 		private:
 			WINDOW *win;

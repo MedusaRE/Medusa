@@ -21,8 +21,8 @@
 int main(int argc, char* argv[]) {
 	rome::window window;
 
-	window.addstr("Hello, world! ");
-	window.addstr("Hello, world! ", 3, 3);
+	window.addstr("barcelona test", 3, 1);
+	window.chgattr(A_REVERSE, 1, 1, -2, 0);
 
 	int esc_count = 0;
 
@@ -31,7 +31,6 @@ int main(int argc, char* argv[]) {
 		ch = window.getch();
 
 		window.putch(ch);
-		window.putch(ch, 4, 4);
 
 		if (ch == rome::KEY_ESC && (esc_count == 0)) {
 			window.addstr("Are you sure you would like to exit? Press ESCAPE"
