@@ -16,6 +16,7 @@
  */
 
 #include <ncurses.h>
+#include <cstring>
 #include <cstdio>
 
 #define KEY_ESC 27
@@ -35,6 +36,12 @@ int main(int argc, char* argv[]) {
 	wmove(win, 1, 3);
 
 	waddstr(win, "barcelona");
+	wmove(win, 1, (rows - strlen("Hello, world!")) / 2);
+    waddstr(win, "Hello, world!");
+
+	wmove(win, 1, (rows - strlen("Second String") - 3));
+    waddstr(win, "Second String");
+
 	mvwchgat(win, 1, 1, rows - 2, A_REVERSE, 0, NULL);
 
 	wmove(win, 3, 1);
