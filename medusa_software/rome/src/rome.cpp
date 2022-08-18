@@ -37,20 +37,14 @@ namespace rome {
 		int ret;
 		ret = wgetch(win);
 
-		mvprintw(5, 5, "%d", ret);
-		refresh();
-
 		if (ret == 27) {
-#if 0
+			nodelay(win, true);
+
 			ret = wgetch(win);
 
-			mvprintw(6, 6, "%d", ret);
-			mvprintw(7, 7, "27 man");
-			refresh();
+			nodelay(win, false);
 
 			return (ret == -1) ? KEY_ESC : ret;
-#endif
-			return KEY_ESC;
 		} else {
 #if 0
 			mvprintw(7, 7, "no 27 man");
@@ -88,7 +82,5 @@ namespace rome {
 
 	window::~window() {
 		endwin();
-
-		printf("rip\n");
 	}
 }
