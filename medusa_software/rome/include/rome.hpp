@@ -25,6 +25,8 @@
 #undef addstr
 
 namespace rome {
+	static int KEY_ESC = 0x80000000;
+
 	class window {
 		public:
 			window();

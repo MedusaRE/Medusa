@@ -24,12 +24,24 @@ int main(int argc, char* argv[]) {
 	window.addstr("Hello, world! ");
 	window.addstr("Hello, world! ", 3, 3);
 
-	for (int i = 0; i < 50; i++) {
+	int esc_count = 0;
+
+	while (1) {
 		int ch;
 		ch = window.getch();
 
 		window.putch(ch);
 		window.putch(ch, 4, 4);
+
+		if (ch == rome::KEY_ESC && (esc_count == 0)) {
+			window.addstr("Are you sure you would like to exit? Press ESCAPE"
+						  "again if so.", 0, 0);
+			esc_count++;
+		} else if (ch == rome::KEY_ESC && (esc_count == 1)) {
+			return 0;
+		} else {
+			esc_count = 0;
+		}
 	}
 
 	return 0;
