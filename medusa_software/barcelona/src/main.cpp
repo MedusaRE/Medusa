@@ -24,6 +24,7 @@ int main(int argc, char* argv[]) {
 	initscr();
 	cbreak();
 	noecho();
+
 	keypad(stdscr, TRUE);
 
 	int cols, rows;
@@ -31,7 +32,12 @@ int main(int argc, char* argv[]) {
 
 	WINDOW *win = newwin(cols, rows, 0, 0);
 
-	wmove(win, 1, 1);
+	wmove(win, 1, 3);
+
+	waddstr(win, "barcelona");
+	mvwchgat(win, 1, 1, rows - 2, A_REVERSE, 0, NULL);
+
+	wmove(win, 3, 1);
 
 	while (1) {
 		int ch;
