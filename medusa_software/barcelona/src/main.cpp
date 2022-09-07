@@ -51,13 +51,13 @@ int main(int argc, char* argv[]) {
 		ch = wgetch(win);
 
 		if (ch == KEY_ESC) {
-			goto reset;
+			goto out;
 		}
 
 		waddch(win, ch);
 	}
 
-reset:
+out:
 	endwin();
 
 	return 0;
