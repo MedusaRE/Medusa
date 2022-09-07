@@ -35,3 +35,5 @@ package*.json
 ETHICS.md
 
 motd.txt
+
+*.save
