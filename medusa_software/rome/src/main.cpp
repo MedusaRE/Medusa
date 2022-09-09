@@ -29,7 +29,7 @@ int main(int   argc,
 
 	window.move(1, 3);
 
-	while (1) {
+	while (true) {
 		int ch;
 		ch = window.getch();
 
