@@ -41,17 +41,26 @@ namespace rome {
 
 			int getch();
 			void putch(int ch);
-			void putch(int ch, int x, int y);
+			void putch(int ch,
+					   int x,
+					   int y);
 
 			void addstr(std::string str);
-			void addstr(std::string str, int x, int y);
+			void addstr(std::string str,
+						int x,
+						int y);
 
 			void attron(int attr);
 			void attroff(int attr);
 
-			void chgattr(int arr, int x, int y, int n, int color_pair);
+			void chgattr(int arr,
+						 int x,
+						 int y,
+						 int n,
+						 int color_pair);
 
-			void move(int x, int y);
+			void move(int x,
+					  int y);
 			cur_pos_t get_cursor_pos();
 
 		private:
