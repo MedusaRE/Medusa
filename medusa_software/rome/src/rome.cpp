@@ -37,6 +37,9 @@ namespace rome {
 		int ret;
 		ret = wgetch(win);
 
+		/*
+		 *  TODO: document wtf is going on here
+		 */
 		if (ret == 27) {
 			nodelay(win, true);
 			ret = wgetch(win);
