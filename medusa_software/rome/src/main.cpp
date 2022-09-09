@@ -18,7 +18,8 @@
 #include <rome.hpp>
 #include <cstdio>
 
-int main(int argc, char* argv[]) {
+int main(int   argc,
+		 char *argv[]) {
 	rome::window window;
 
 	window.addstr("rome test", 3, 1);
