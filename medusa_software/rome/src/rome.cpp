@@ -52,7 +52,9 @@ namespace rome {
 		waddch(win, ch);
 	}
 
-	void window::putch(int ch, int x, int y) {
+	void window::putch(int ch,
+					   int x,
+					   int y) {
 		int curx, cury;
 		getyx(win, cury, curx);
 
@@ -64,7 +66,9 @@ namespace rome {
 		waddstr(win, str.c_str());
 	}
 
-	void window::addstr(std::string str, int x, int y) {
+	void window::addstr(std::string str,
+						int x,
+						int y) {
 		int curx, cury;
 		getyx(win, cury, curx);
 
@@ -80,7 +84,11 @@ namespace rome {
 		attroff(attr);
 	}
 
-	void window::chgattr(int attr, int x, int y, int n, int color_pair) {
+	void window::chgattr(int attr,
+						 int x,
+						 int y,
+						 int n,
+						 int color_pair) {
 		int curx, cury;
 		getyx(win, cury, curx);
 
@@ -95,7 +103,8 @@ namespace rome {
 		wmove(win, cury, curx);
 	}
 
-	void window::move(int x, int y) {
+	void window::move(int x,
+					  int y) {
 		wmove(win, y, x);
 	}
 
