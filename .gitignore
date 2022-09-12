@@ -37,3 +37,6 @@ ETHICS.md
 motd.txt
 
 *.save
+
+*.class
+*.jar
