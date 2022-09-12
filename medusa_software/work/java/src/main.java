@@ -15,13 +15,13 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-public class java_test {
+public class main {
 	public static void main(String[] args) {
 		System.out.printf("Is this thing on? 0x%08x\n", 0x41424344);
 
-		int total = 0;
+		long total = 0;
 
-		for (int i = 0; i < 0x1000; i++) {
+		for (int i = 0; i < 0x1000000; i++) {
 			total += i;
 		}
 
