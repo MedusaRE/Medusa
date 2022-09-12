@@ -1,5 +1,8 @@
 #!/bin/bash
 
-javac src/**.java
+shopt -s globstar
+
+javac -cp . -cp org **/*.java
 mkdir bin
-jar cf bin/main.jar src/**.class
+jar cmvf META-INF/MANIFEST.MF bin/main.jar **/*.class
+

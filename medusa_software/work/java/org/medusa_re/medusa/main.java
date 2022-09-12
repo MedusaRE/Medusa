@@ -15,6 +15,8 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+package org.medusa_re.medusa;
+
 public class main {
 	public static void main(String[] args) {
 		System.out.printf("Is this thing on? 0x%08x\n", 0x41424344);

@@ -1,0 +1,1 @@
+Main-Class: org.medusa_re.medusa.main
