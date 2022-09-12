@@ -17,6 +17,8 @@
 
 package org.medusa_re.medusa;
 
+import java.util.Scanner;
+
 public class main {
 	public static void main(String[] args) {
 		System.out.printf("Is this thing on? 0x%08x\n", 0x41424344);
@@ -28,5 +30,11 @@ public class main {
 		}
 
 		System.out.printf("total=0x%x\n", total);
+
+		Scanner s = new Scanner(System.in);
+
+		int n = s.nextInt();
+
+		System.out.printf("lol=0x%x (%d)\n", n, n);
 	}
 }
