@@ -25,7 +25,7 @@ public class main {
 
 		long total = 0;
 
-		for (int i = 0; i < 0x1000000; i++) {
+		for (long i = 0; i < 0x1000000; i++) {
 			total += i;
 		}
 
