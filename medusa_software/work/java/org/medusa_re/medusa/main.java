@@ -23,10 +23,13 @@ public class main {
 	public static void main(String[] args) {
 		System.out.printf("Is this thing on? 0x%08x\n", 0x41424344);
 
-		long total = 0;
+		long total = 1;
 
-		for (long i = 0; i < 0x1000000; i++) {
-			total += i;
+		for (long i = 1; i < 0x1000000; i++) {
+			if ((i % total) == 0) {
+				total += i;
+				System.out.printf("%x %x\n", i, total);
+			}
 		}
 
 		System.out.printf("total=0x%x\n", total);
