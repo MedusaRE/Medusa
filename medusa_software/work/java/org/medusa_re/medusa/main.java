@@ -35,7 +35,7 @@ public class main {
 		System.out.printf("total=0x%x\n", total);
 
 		Scanner s = new Scanner(System.in);
-		int n = s.nextInt();
+		long n = s.nextLong();
 
 		System.out.printf("lol=0x%x (%d)\n", n, n);
 	}
