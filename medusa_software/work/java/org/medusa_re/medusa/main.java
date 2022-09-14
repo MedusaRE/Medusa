@@ -27,8 +27,8 @@ public class main {
 
 		for (long i = 1; i < 0x1000000; i++) {
 			if ((i % total) == 0) {
-				total += i;
 				System.out.printf("%x %x\n", i, total);
+				total += i;
 			}
 		}
 
@@ -37,6 +37,6 @@ public class main {
 		Scanner s = new Scanner(System.in);
 		long n = s.nextLong();
 
-		System.out.printf("lol=0x%x (%d)\n", n, n);
+		System.out.printf("lol=0x%x (%d) ((%h))\n", n, n, s);
 	}
 }
