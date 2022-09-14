@@ -17,41 +17,22 @@
 
 package org.medusa_re.medusa;
 
-import org.medusa_re.medusa.Stuff;
-import java.util.Scanner;
+public class Stuff {
+	private long num;
 
-public class main {
-	public static void main(String[] args) {
-		System.out.printf("Is this thing on? 0x%08x\n", 0x41424344);
+	public Stuff() {
+		num = 0;
+	}
 
-		long total = 1;
+	public void set_num(long n) {
+		num = n;
+	}
 
-		for (long i = 1; i < 0x1000000; i++) {
-			if ((i % total) == 0) {
-				System.out.printf("%x %x\n", i, total);
-				total += i;
-			}
-		}
+	public long get_num() {
+		return num;
+	}
 
-		System.out.printf("total=0x%x\n", total);
-
-		Scanner s = new Scanner(System.in);
-		long n = s.nextLong();
-
-		System.out.printf("lol=0x%x (%d) ((%h))\n", n, n, s);
-
-		Stuff stuff = new Stuff();
-
-		stuff.print_num();
-
-		long n1 = stuff.get_num();
-
-		stuff.set_num(n);
-
-		long n2 = stuff.get_num();
-
-		stuff.print_num();
-
-		System.out.printf("%d,%d,%d (%x,%x,%x)\n", n1, n2, stuff.get_num(), n1, n2, stuff.get_num());
+	public void print_num() {
+		System.out.printf("%d\n", num);
 	}
 }

@@ -40,3 +40,6 @@ motd.txt
 
 *.class
 *.jar
+
+# java shit
+sources.txt
