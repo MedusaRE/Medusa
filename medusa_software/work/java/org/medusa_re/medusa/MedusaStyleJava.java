@@ -31,4 +31,8 @@ public class MedusaStyleJava {
 
 		return 0;
 	}
+
+	public void exit(int code) {
+		System.exit(code);
+	}
 }

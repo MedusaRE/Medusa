@@ -58,5 +58,7 @@ public class main {
 		MedusaStyleJava m = new MedusaStyleJava();
 
 		m.printf("is this thing on? %d %d %s\n", 0, 1, "Hello, world!");
+
+		m.exit(69);
 	}
 }
