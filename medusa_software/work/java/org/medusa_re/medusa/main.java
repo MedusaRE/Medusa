@@ -55,7 +55,7 @@ public class main {
 
 		System.out.printf("%d,%d,%d (%x,%x,%x)\n", n1, n2, stuff.get_num(), n1, n2, stuff.get_num());
 
-//		MedusaStyleJava m = new MedusaStyleJava();
+		MedusaStyleJava m = new MedusaStyleJava();
 
 		printf("is this thing on? %d %d %s\n", 0, 1, "Hello, world!");
 
@@ -64,5 +64,7 @@ public class main {
 		printf("%f\n", time());
 		printf("%s %s %s\n", getenv("USER"), getenv("PATH"), getenv("SHELL"));
 		printf("%s\n", getenv());
+
+		test_msj(m);
 	}
 }
