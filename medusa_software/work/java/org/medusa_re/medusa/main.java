@@ -36,10 +36,10 @@ public class main {
 
 		System.out.printf("total=0x%x\n", total);
 
-		Scanner s = new Scanner(System.in);
-		long n = s.nextLong();
+//		Scanner s = new Scanner(System.in);
+		long n = 123;
 
-		System.out.printf("lol=0x%x (%d) ((%h))\n", n, n, s);
+		System.out.printf("lol=0x%x (%d)\n", n, n);
 
 		Stuff stuff = new Stuff();
 
