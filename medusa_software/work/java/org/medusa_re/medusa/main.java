@@ -17,6 +17,7 @@
 
 package org.medusa_re.medusa;
 
+import org.medusa_re.medusa.MedusaStyleJava;
 import org.medusa_re.medusa.Stuff;
 import java.util.Scanner;
 
@@ -53,5 +54,9 @@ public class main {
 		stuff.print_num();
 
 		System.out.printf("%d,%d,%d (%x,%x,%x)\n", n1, n2, stuff.get_num(), n1, n2, stuff.get_num());
+
+		MedusaStyleJava m = new MedusaStyleJava();
+
+		m.printf("is this thing on? %d %d %s\n", 0, 1, "Hello, world!");
 	}
 }
