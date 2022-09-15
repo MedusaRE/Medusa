@@ -17,6 +17,8 @@
 
 package org.medusa_re.medusa;
 
+import java.util.Map;
+
 public class MedusaStyleJava {
 	/*
 	 *  Medusa Style Java
@@ -34,6 +36,10 @@ public class MedusaStyleJava {
 
 	public double time() {
 		return System.currentTimeMillis() / 1000.0;
+	}
+
+	public Map<String, String> getenv() {
+		return System.getenv();
 	}
 
 	public String getenv(String name) {

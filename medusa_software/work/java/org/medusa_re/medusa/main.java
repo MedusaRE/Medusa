@@ -63,5 +63,6 @@ public class main {
 
 		m.printf("%f\n", m.time());
 		m.printf("%s %s %s\n", m.getenv("USER"), m.getenv("PATH"), m.getenv("SHELL"));
+		m.printf("%s\n", m.getenv());
 	}
 }
