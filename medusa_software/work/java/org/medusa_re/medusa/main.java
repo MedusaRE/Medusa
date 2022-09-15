@@ -17,7 +17,7 @@
 
 package org.medusa_re.medusa;
 
-import org.medusa_re.medusa.MedusaStyleJava;
+import static org.medusa_re.medusa.MedusaStyleJava.*;
 import org.medusa_re.medusa.Stuff;
 import java.util.Scanner;
 
@@ -55,14 +55,14 @@ public class main {
 
 		System.out.printf("%d,%d,%d (%x,%x,%x)\n", n1, n2, stuff.get_num(), n1, n2, stuff.get_num());
 
-		MedusaStyleJava m = new MedusaStyleJava();
+//		MedusaStyleJava m = new MedusaStyleJava();
 
-		m.printf("is this thing on? %d %d %s\n", 0, 1, "Hello, world!");
+		printf("is this thing on? %d %d %s\n", 0, 1, "Hello, world!");
 
 //		m.exit(69);
 
-		m.printf("%f\n", m.time());
-		m.printf("%s %s %s\n", m.getenv("USER"), m.getenv("PATH"), m.getenv("SHELL"));
-		m.printf("%s\n", m.getenv());
+		printf("%f\n", time());
+		printf("%s %s %s\n", getenv("USER"), getenv("PATH"), getenv("SHELL"));
+		printf("%s\n", getenv());
 	}
 }
