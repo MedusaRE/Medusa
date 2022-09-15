@@ -32,6 +32,10 @@ public class MedusaStyleJava {
 		return 0;
 	}
 
+	public double time() {
+		return System.currentTimeMillis() / 1000.0;
+	}
+
 	public void exit(int code) {
 		System.exit(code);
 	}
