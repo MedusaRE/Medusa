@@ -15,6 +15,7 @@ An inappropriate message could be:
 ## Abbreviations
 ```
 ms    - medusa_software
+msj   - MedusaStyleJava
 ```
 
 So, you could write your commit message as:
