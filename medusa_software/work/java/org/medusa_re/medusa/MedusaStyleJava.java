@@ -36,6 +36,10 @@ public class MedusaStyleJava {
 		return System.currentTimeMillis() / 1000.0;
 	}
 
+	public String getenv(String name) {
+		return System.getenv(name);
+	}
+
 	public void exit(int code) {
 		System.exit(code);
 	}
