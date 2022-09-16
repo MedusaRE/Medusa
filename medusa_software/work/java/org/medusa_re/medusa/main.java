@@ -38,18 +38,16 @@ public class main {
 
 //		Scanner s = new Scanner(System.in);
 		long n = 123;
+		long n1, n2;
 
 		System.out.printf("lol=0x%x (%d)\n", n, n);
 
 		Stuff stuff = new Stuff();
-
 		stuff.print_num();
 
-		long n1 = stuff.get_num();
-
+		n1 = stuff.get_num();
 		stuff.set_num(n);
-
-		long n2 = stuff.get_num();
+		n2 = stuff.get_num();
 
 		stuff.print_num();
 
@@ -66,5 +64,7 @@ public class main {
 		printf("%s\n", getenv());
 
 		test_msj(m);
+
+		exit(69);
 	}
 }
