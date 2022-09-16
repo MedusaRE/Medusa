@@ -22,6 +22,15 @@ import org.medusa_re.medusa.Stuff;
 import java.util.Scanner;
 
 public class main {
+	public static void msj_test_2() {
+		printf("--------------------------------------------------------------------------------\n");
+		printf("Hello, world!\n");
+
+		String env_name = "HOME";
+
+		printf("getenv(%s) = %s\n", env_name, getenv(env_name));
+	}
+
 	public static void main(String[] args) {
 		System.out.printf("Is this thing on? 0x%08x\n", 0x41424344);
 
@@ -64,6 +73,8 @@ public class main {
 		printf("%s\n", getenv());
 
 		test_msj(m);
+
+		msj_test_2();
 
 		exit(69);
 	}
