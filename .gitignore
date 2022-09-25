@@ -37,3 +37,9 @@ ETHICS.md
 motd.txt
 
 *.save
+
+*.class
+*.jar
+
+# java shit
+sources.txt
