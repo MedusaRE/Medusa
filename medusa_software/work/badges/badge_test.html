@@ -5,26 +5,39 @@
 				background-color: #000000;
 			}
 
-			#badge {
-				position: absolute;
-				top: 0;
-				left: 0;
+			.badge {
 				max-lines: 1;
 				border: 2px #f0f0f0;
 				border-style: solid;
 				padding: 8px;
+				margin: 8px;
 				border-radius: 12px;
 				background-color: #202020;
 				color: #ffffff;
 				font-family: monospace;
+				width: fit-content;
+				float:left;
 			}
 		</style>
 	</head>
 	<body>
-		<div id="badge">
-			<nobr id="name">Test Badge</nobr>
+		<div class="badge">
+			<nobr id="name">License</nobr>
 			|
-			<nobr id="text">Test Badge Text</nobr>
+			<nobr id="text">GPL</nobr>
 		</div>
+
+		<div class="badge">
+			<nobr id="name">License2</nobr>
+			|
+			<nobr id="text">GPL2</nobr>
+		</div>
+
+		<br>
+		<br>
+		<br>
+
+		<img src="pil/pil_test.png"></img>
+		<img src="pil/pil_testaa.png"></img>
 	</body>
 </html>
