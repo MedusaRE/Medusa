@@ -101,11 +101,6 @@ std::string file_prompt(enum Gtk::FileChooserAction action, std::string title) {
 	int result = dialog.run();
 	switch (result) {
 		case (Gtk::RESPONSE_OK): {
-			/*
-			 *  strdup because otherwise it breaks or something
-			 *  god, i love memory management
-			 */
-
 			ret = dialog.get_filename();
 			medusa_log(LOG_VERBOSE, "User chose to open %s.", ret.c_str());
 			break;
