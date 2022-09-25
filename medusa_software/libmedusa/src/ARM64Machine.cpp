@@ -356,10 +356,11 @@ std::vector<mem_reg_t> ARM64Machine::get_memory_regions() {
 		 *  technically UC_PROT shit is the same as XP_PROT shit tmk, but
 		 *  just in case, y'know?
 		 */
-		region.prot = 0;
+		region.prot  = 0;
 		region.prot |= (uc_style_memory_regions[i].perms & UC_PROT_READ) ? XP_PROT_READ : 0;
 		region.prot |= (uc_style_memory_regions[i].perms & UC_PROT_WRITE) ? XP_PROT_WRITE : 0;
 		region.prot |= (uc_style_memory_regions[i].perms & UC_PROT_EXEC) ? XP_PROT_EXEC : 0;
+		region.valid = true;
 		regions.push_back(region);
 	}
 
@@ -395,9 +396,9 @@ bool ARM64Machine::map_memory(mem_reg_t memory_region) {
 /*
  *  unused, i believe
  */
-int ARM64Machine::find_memory_region(uint64_t addr) {
+mem_reg_t ARM64Machine::find_memory_region(uint64_t addr) {
+	mem_reg_t			   fake_reg;
 	std::vector<mem_reg_t> regions;
-	int					   index = 0;
 
 	/*
 	 *  get all of the mapped memory regions
@@ -411,12 +412,13 @@ int ARM64Machine::find_memory_region(uint64_t addr) {
 		uint64_t start_addr = i.addr;
 		uint64_t end_addr = i.addr + i.size;
 		if (addr >= start_addr && addr < end_addr) {
-			return index;
+			return i;
 		}
-		index++;
 	}
 
-	return -1;
+	fake_reg.valid = false;
+
+	return fake_reg;
 }
 
 bool ARM64Machine::unmap_memory(mem_reg_t memory_region) {

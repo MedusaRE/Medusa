@@ -26,3 +26,6 @@
 [submodule "medusa_software/submodules/mINI"]
 	path = medusa_software/submodules/mINI
 	url = https://github.com/pulzed/mINI.git
+[submodule "medusa_software/submodules/source-code-pro"]
+	path = medusa_software/submodules/source-code-pro
+	url = https://github.com/adobe-fonts/source-code-pro.git

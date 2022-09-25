@@ -50,6 +50,7 @@ namespace libmedusa {
 		uint64_t addr;		/**< The address of the beginning of the memory region. */
 		uint64_t size;		/**< The size of the memory region. */
 		mem_prot_t prot;	/**< The protections of this region. */
+		bool valid;			/**< True if valid region, false if invalid. */
 	} mem_reg_t;
 
 	/**
@@ -111,9 +112,9 @@ namespace libmedusa {
 			 *  
 			 *  @param addr	The address to find the region of.
 			 * 
-			 *  @return	int The index of the region this address belongs to, within the `std::vector` returned by get_memory_regions()
+			 *  @return	mem_reg_t An object describing the region this address belongs to.
 			 */
-			virtual int find_memory_region(uint64_t addr) = 0;
+			virtual mem_reg_t find_memory_region(uint64_t addr) = 0;
 
 			/**
 			 *  @brief Write data into the memory of this machine.

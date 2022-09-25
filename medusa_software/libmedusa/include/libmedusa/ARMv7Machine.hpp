@@ -44,7 +44,7 @@ namespace libmedusa {
 			std::vector<uint8_t> read_memory(uint64_t addr, uint64_t size);
 			bool write_memory(uint64_t addr, std::vector<uint8_t> data);
 			std::vector<mem_reg_t> get_memory_regions();
-			int find_memory_region(uint64_t addr);
+			mem_reg_t find_memory_region(uint64_t addr);
 			bool unmap_memory(mem_reg_t);
 			bool map_memory(mem_reg_t);
 

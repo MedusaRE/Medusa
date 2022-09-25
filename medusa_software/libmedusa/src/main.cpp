@@ -56,21 +56,14 @@ uint8_t test_arm64_code[] = {
 	0xE3, 0x03, 0x02, 0xAA,
 };
 
-void second_armv7_machine_demo(void) {
-	libmedusa::ARMv7Machine armv7_machine;
+uint8_t test_arm64_code2[] = {
+	0xd2, 0x88, 0x28, 0x20,
+	0x8b, 0x01, 0x00, 0x02,
+	0xd2, 0x88, 0x48, 0x41,
+	0xaa, 0x02, 0x03, 0xe3,
+};
 
-	libmedusa::mem_reg_t region;
-
-	region.addr = 0x0;
-	region.size = 0x10000;
-	region.prot = XP_PROT_READ | XP_PROT_WRITE | XP_PROT_EXEC;
-
-	armv7_machine.map_memory(region);
-
-	vector<uint8_t> code_vector(test_arm_thumb_code,
-								test_arm_thumb_code + sizeof(test_arm_thumb_code));
-
-	armv7_machine.write_memory(0, code_vector);
+void generic_machine_demo(libmedusa::Machine& generic_machine) {
 
 	libmedusa::reg_t reg;
 
@@ -79,15 +72,22 @@ void second_armv7_machine_demo(void) {
 	reg.reg_id = 15;
 	reg.reg_value = 0x1;
 
-	armv7_machine.set_register(reg);
+	generic_machine.set_register(reg);
+
+	reg.reg_description = "pc";
+	reg.reg_name = "pc";
+	reg.reg_id = 0x1f;
+	reg.reg_value = 0x0;
+
+	generic_machine.set_register(reg);
 
 	for (int i = 0; i < 0x10; i++) {
-		vector<libmedusa::reg_t> registers = armv7_machine.get_registers();
+		vector<libmedusa::reg_t> registers = generic_machine.get_registers();
 		for (libmedusa::reg_t& i : registers) {
 			printf("%s %s %lx %lx\n", i.reg_description.c_str(), i.reg_name.c_str(), i.reg_id, i.reg_value);
 		}
 
-		armv7_machine.exec_code_step();
+		generic_machine.exec_code_step();
 	}
 }
 
@@ -221,7 +221,33 @@ int main(int argc, char* argv[]) {
 	}
 
 	printf("-------\n");
-	second_armv7_machine_demo();
+	libmedusa::ARMv7Machine armv7_machine1;
+	libmedusa::ARM64Machine arm64_machine1;
+
+	region.addr = 0x0;
+	region.size = 0x10000;
+	region.prot = XP_PROT_READ | XP_PROT_WRITE | XP_PROT_EXEC;
+
+	armv7_machine1.map_memory(region);
+
+	vector<uint8_t> code_vector(test_arm_thumb_code,
+								test_arm_thumb_code + sizeof(test_arm_thumb_code));
+
+	armv7_machine1.write_memory(0, code_vector);
+
+	region.addr = 0x0;
+	region.size = 0x10000;
+	region.prot = XP_PROT_READ | XP_PROT_WRITE | XP_PROT_EXEC;
+
+	arm64_machine1.map_memory(region);
+
+	vector<uint8_t> code_vector2(test_arm64_code,
+								test_arm64_code + sizeof(test_arm64_code));
+
+	arm64_machine1.write_memory(0, code_vector2);
+	generic_machine_demo(armv7_machine1);
+	printf("-------\n");
+	generic_machine_demo(arm64_machine1);
 
 	return 0;
 }

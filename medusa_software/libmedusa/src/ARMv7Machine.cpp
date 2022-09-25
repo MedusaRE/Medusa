@@ -285,9 +285,9 @@ bool ARMv7Machine::map_memory(mem_reg_t memory_region) {
 /*
  *  unused, i believe
  */
-int ARMv7Machine::find_memory_region(uint64_t addr) {
+mem_reg_t ARMv7Machine::find_memory_region(uint64_t addr) {
+	mem_reg_t			   fake_reg;
 	std::vector<mem_reg_t> regions;
-	int					   index = 0;
 
 	/*
 	 *  get all of the mapped memory regions
@@ -301,12 +301,13 @@ int ARMv7Machine::find_memory_region(uint64_t addr) {
 		uint64_t start_addr = i.addr;
 		uint64_t end_addr = i.addr + i.size;
 		if (addr >= start_addr && addr < end_addr) {
-			return index;
+			return i;
 		}
-		index++;
 	}
 
-	return -1;
+	fake_reg.valid = false;
+
+	return fake_reg;
 }
 
 bool ARMv7Machine::unmap_memory(mem_reg_t memory_region) {
