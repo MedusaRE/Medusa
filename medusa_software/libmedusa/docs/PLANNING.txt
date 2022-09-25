@@ -28,6 +28,6 @@ platform with Medusa wouldn't have much of a choice otherwise, because it's such
 an obscure platform that no development teams have supported it. (or it's a new
 platform that the person would have to develop the tools for themselves. )
 Instead, they can just create a machine definition for this obscure hardware,
-and use the machine definition with Medusa.Medusa doesn't have to include
+and use the machine definition with Medusa. Medusa doesn't have to include
 support for this hardware, and the developers may never even know of it, but it
-can still interface with, and accurately emulate, and work with, this hardware.
+can still interface with, accurately emulate, and work with, this hardware.
