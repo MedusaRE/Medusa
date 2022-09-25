@@ -66,9 +66,23 @@ int main(int   argc,
     
     if (val == 0) {
         whatever(val);
-    } else {
+    } else if (val == 1) {
         whatever2(val);
+    } else if (val == 2) {
+        whatever3(val);
+    } else {
+        whatever4(val);
     }
+
+    libmedusa::ARMv7Machine armv7_machine;
+    libmedusa::reg_t        reg;
+
+    reg.reg_description = "pc";
+    reg.reg_name = "pc";
+    reg.reg_id = 0xf;
+    reg.reg_value = 0x1;        // |1 means THUMB on ARMv7
+
+    armv7_machine.set_register(reg);
 
     return 0;
 }
