@@ -28,7 +28,7 @@ For example:
 `ms/libmedusa;ms/frontend,docs: use long instead of int for mem addr arg`
 
 Ideally, if you modified something like an API (say, libmedusa), put that
-component as the first item in the list, followed by semi-colon.
+component as the first item in the list, followed by a semi-colon.
 
 ## Abbreviations
 ```
