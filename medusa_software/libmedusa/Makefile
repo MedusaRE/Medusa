@@ -1,7 +1,7 @@
 CPP=clang++
 CPPFLAGS=--std=c++17 -fPIC -Iinclude
 
-all: bin bin/libmedusa.so doxygen_out
+all: bin bin/libmedusa.so bin/main doxygen_out
 
 bin:
 	sh -c "mkdir bin"
@@ -27,3 +27,6 @@ install: bin/libmedusa.so
 
 bin/%.o: src/%.cpp
 	${CPP} ${CPPFLAGS} $< -c -o $@
+
+run: bin/main
+	bin/main
