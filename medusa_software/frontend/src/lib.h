@@ -19,16 +19,29 @@
 #define LIB_H
 
 #include <stdarg.h>
-#include <gtkmm.h>
 #include <memory>
 #include <string>
 
-#define LIST_LEN(l) (sizeof(l) / sizeof(l[0]))
+#ifndef LIB_H_NO_BUILD_GUI
+
+#include <gtkmm.h>
+
+std::string file_prompt(enum Gtk::FileChooserAction action, std::string title);
+char* file_prompt_cstr(enum Gtk::FileChooserAction action, std::string title);
+
+#endif
 
 std::string string_format_cstr(const char* fmt_str, ...);
 std::string string_format(const std::string fmt_str, ...);
-std::string file_prompt(enum Gtk::FileChooserAction action, std::string title);
-char* file_prompt_cstr(enum Gtk::FileChooserAction action, std::string title);
 std::string getcwd_str();
+
+#define LIST_LEN(l) (sizeof(l) / sizeof(l[0]))
+
+#define U8X2_TO_U16(u0, u1)			((u0 << 8) | (u1 << 0))
+#define U8X4_TO_U32(u0, u1, u2, u3)	((U8X2_TO_U16(u0, u1) << 16) \
+									 | (U8X2_TO_U16(u2, u3) << 0))
+#define U8X8_TO_U64(u0, u1, u2, u3, \
+					u4, u5, u6, u7)	(((uint64_t)U8X4_TO_U32(u0, u1, u2, u3) << 32) \
+									 | ((uint64_t)U8X4_TO_U32(u4, u5, u6, u7) << 0))
 
 #endif
