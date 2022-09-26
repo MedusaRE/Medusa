@@ -1,5 +1,5 @@
 CPP=clang++
-CPPFLAGS=--std=c++17
+CPPFLAGS=--std=c++17 -DLIB_H_NO_BUILD_GUI
 
 all: bin bin/main
 

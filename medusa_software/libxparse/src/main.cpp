@@ -22,6 +22,7 @@
 #include "ELF.hpp"
 #include <cstdio>
 #include <vector>
+#include "lib.h"
 
 using namespace std;
 
@@ -33,6 +34,11 @@ int main(int argc, char* argv[]) {
 		fprintf(stderr, "usage: xparse (path to binary)\n");
 		return -1;
 	}
+
+	printf("%x %x %lx\n",
+		   U8X2_TO_U16(0x41, 0x42),
+		   U8X4_TO_U32(0x41, 0x42, 0x43, 0x44),
+		   U8X8_TO_U64(0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48));
 
 	ifstream f(argv[1], ios::binary);
 	vector<uint8_t> buf(istreambuf_iterator<char>(f), {});

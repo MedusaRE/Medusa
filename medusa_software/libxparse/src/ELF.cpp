@@ -24,6 +24,10 @@ using namespace std;
 
 namespace XParse {
 	namespace ELF {
+		/*
+		 *  credit for abi_strs, obj_type_strs, isa_strs, annd general ELF info:
+		 *  Wikipedia (https://en.wikipedia.org/wiki/Executable_and_Linkable_Format)
+		 */
 		std::string abi_strs[] = {
 			"SystemV",
 			"HP-UX",

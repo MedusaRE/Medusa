@@ -15,10 +15,14 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#ifndef LIB_H_NO_BUILD_GUI
 #include "logging.h"
+#include <gtkmm.h>
+#endif
+
 #include <stdarg.h>
 #include <string.h>
-#include <gtkmm.h>
+#include <unistd.h>
 #include <memory>
 #include <string>
 
@@ -90,6 +94,8 @@ string string_format_cstr(const char* fmt_str, ...) {
 	return string(formatted.get());
 }
 
+#ifndef LIB_H_NO_BUILD_GUI
+
 std::string file_prompt(enum Gtk::FileChooserAction action, std::string title) {
 	Gtk::FileChooserDialog dialog(title,
 									  action);
@@ -121,6 +127,8 @@ char* file_prompt_cstr(enum Gtk::FileChooserAction action, std::string title) {
 	std::string ret_str = file_prompt(action, title);
 	return ret_str == "" ? NULL : strdup(ret_str.c_str());
 }
+
+#endif
 
 std::string getcwd_str() {
 	char cwd[1024];
