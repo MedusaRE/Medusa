@@ -29,6 +29,8 @@
 
 #define XP_FLAG_THUMB (1 << 0)
 
+#define step_instruction exec_code_step
+
 namespace libmedusa {
 
 	/**

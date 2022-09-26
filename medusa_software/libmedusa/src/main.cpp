@@ -87,7 +87,7 @@ void generic_machine_demo(libmedusa::Machine& generic_machine) {
 			printf("%s %s %lx %lx\n", i.reg_description.c_str(), i.reg_name.c_str(), i.reg_id, i.reg_value);
 		}
 
-		generic_machine.exec_code_step();
+		generic_machine.step_instruction();
 	}
 }
 
