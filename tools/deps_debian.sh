@@ -5,7 +5,7 @@ if [ $(id -u) != 0 ]; then
     exit -1
 fi
 
-apt-get install git libgtkmm-3.0-dev libgtk-3-dev glade gimp texlive python3 python3-pillow nodejs npm
+apt-get install git libgtkmm-3.0-dev libgtk-3-dev glade gimp texlive python3 python3-pillow nodejs npm doxygen
 npm install badgen
 
 git submodule init
