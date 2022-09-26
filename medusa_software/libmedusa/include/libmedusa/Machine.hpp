@@ -162,8 +162,8 @@ namespace libmedusa {
 			/**
 			 *  @brief Step forward one instruction.
 			 *  
-			 *  @return	true 
-			 *  @return	false 
+			 *  @return	true  success
+			 *  @return	false fail
 			 */
 			virtual bool exec_code_step() = 0;
 
