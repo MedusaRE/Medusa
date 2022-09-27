@@ -29,3 +29,6 @@
 [submodule "medusa_software/submodules/source-code-pro"]
 	path = medusa_software/submodules/source-code-pro
 	url = https://github.com/adobe-fonts/source-code-pro.git
+[submodule "medusa_software/submodules/doxygen-awesome-css"]
+	path = medusa_software/submodules/doxygen-awesome-css
+	url = https://github.com/jothepro/doxygen-awesome-css.git
