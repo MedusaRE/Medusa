@@ -9,3 +9,6 @@ connect\[s] to the server, and provide\[s] a user interface to utilize the serve
 
 The server can be the same machine as the client, and it does not need to be
 over the network (i.e. TCP), it could be a socket, for example.
+
+## File License
+This file is licensed under the terms of the CC BY-SA 4.0 license.
