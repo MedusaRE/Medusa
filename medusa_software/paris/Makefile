@@ -19,3 +19,7 @@ bin/%.o: src/%.cpp
 .PHONY: doxygen_out
 doxygen_out:
 	doxygen
+
+doxygen_web: doxygen_out
+	mkdir -p /var/www/docs.medusa-re.org/paris
+	cp -R doxygen_out/html/* /var/www/docs.medusa-re.org/paris/

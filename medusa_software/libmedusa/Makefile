@@ -30,3 +30,7 @@ bin/%.o: src/%.cpp
 
 run: bin/main
 	bin/main
+
+doxygen_web: doxygen_out
+	mkdir -p /var/www/docs.medusa-re.org/libmedusa
+	cp -R doxygen_out/html/* /var/www/docs.medusa-re.org/libmedusa/
