@@ -25,7 +25,7 @@ namespace paris {
 	 *  @brief	A structure representing a message in the Paris system.
 	 */
 	typedef struct {
-		uint32_t len;			 /**< The length of this message, *including the sid and uid* */
+		uint32_t len;			 /**< The length of this message, *not including the sid and uid* */
 		uint32_t sid;			 /**< The ID of the session that sent this message. */
 		uint32_t uid;			 /**< The UID of the user that sent this message. */
 		uint8_t msg_contents[0]; /**< A variable-length array containing the contents of this message. */
