@@ -35,7 +35,7 @@ london_config_t parse_config_file(const char* filename) {
 	ret.default_path = ini["global"]["default-path"];
 
 	#if DEBUG_BUILD
-		printf("%d %s\n", ret.tab_size, ret.hard_tabs ? "true" : "false");
+		printf("%d %s %s\n", ret.tab_size, ret.hard_tabs ? "true" : "false", ret.default_path);
 	#endif
 
 	return ret;
