@@ -25,12 +25,11 @@ namespace paris {
 	 *  @brief	A structure representing a message in the Paris system.
 	 */
 	typedef struct {
-		uint32_t len;			 /**< The length of this message, *not including
-									  the sid and uid* */
+		uint32_t len;			 /**< The length of #msg_contents. */
 		uint32_t version;		 /**< The version of the Paris standard that
 									  this message uses. Useful for determining
-									  where msg_contents starts and other fields
-									  end. */
+									  where #msg_contents starts and other
+									  fields end. */
 		uint32_t sid;			 /**< The ID of the session that sent this
 									  message. */
 		uint32_t uid;			 /**< The UID of the user that sent this
@@ -40,7 +39,9 @@ namespace paris {
 									  indeed sent by who it claims to have been
 									  sent by. */
 		uint8_t msg_contents[0]; /**< A variable-length array containing the
-									  contents of this message. */
+									  contents of this message. It is assumed
+									  that #msg_contents has a length of
+									  #len. */
 	} paris_message_t;
 }
 
