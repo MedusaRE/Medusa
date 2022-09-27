@@ -16,5 +16,6 @@ bin/%.o: src/%.cpp
 	mkdir -p $(@D)
 	${CPP} ${CPPFLAGS} $< -c -o $@
 
-.PHONY doxygen_out:
+.PHONY: doxygen_out
+doxygen_out:
 	doxygen
