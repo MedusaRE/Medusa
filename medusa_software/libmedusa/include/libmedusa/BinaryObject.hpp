@@ -1,18 +1,24 @@
-/*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
- *
+/**
+ *  @file
+ *  @author  spv <spv@spv.sh>
+ * 
+ *  @section LICENSE
+ * 
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
  *  published by the Free Software Foundation.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License along
- *  with this program; if not, write to the Free Software Foundation, Inc.,
- *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ * 
+ *  This program is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ *  General Public License for more details at
+ *  https://www.gnu.org/copyleft/gpl.html
+ * 
+ *  @section DESCRIPTION
+ * 
+ *  The BinaryObject class is a general object describing a binary/executable
+ *  object like an ELF, PE, Mach-O binary, a shared object, and objects like
+ *  that.
  */
 
 #ifndef BINARY_OBJECT_HPP
@@ -35,6 +41,12 @@ namespace libmedusa {
 
 	class BinaryObject {
 		public:
+			/**
+			 *  @brief Obtain all of the sections in this binary object as an
+			 *  std::vector of section_t's.
+			 * 
+			 *  @return std::vector of all sections as section_t's.
+			 */
 			std::vector<libmedusa::section_t> get_section_list() = 0;
 	};
 }
