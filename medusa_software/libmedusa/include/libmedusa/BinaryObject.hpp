@@ -47,7 +47,7 @@ namespace libmedusa {
 			 * 
 			 *  @return std::vector of all sections as section_t's.
 			 */
-			std::vector<libmedusa::section_t> get_section_list() = 0;
+			virtual std::vector<libmedusa::section_t> get_section_list() = 0;
 	};
 }
 
