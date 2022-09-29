@@ -15,8 +15,10 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include <libmedusa/ExampleComponent.hpp>
 #include <libmedusa/ARMv7Machine.hpp>
 #include <libmedusa/ARM64Machine.hpp>
+#include <libmedusa/Component.hpp>
 #include <libmedusa/libmedusa.hpp>
 #include <capstone/capstone.h>
 #include <unicorn/unicorn.h>
@@ -89,6 +91,17 @@ void generic_machine_demo(libmedusa::Machine& generic_machine) {
 
 		generic_machine.step_instruction();
 	}
+}
+
+void handle_component(libmedusa::Component& component) {
+	libmedusa::component_definition_t component_definition;
+	component_definition = component.get_component_definition();
+
+	printf("%s %s 0x%lx 0x%lx\n",
+		   component_definition.name.c_str(),
+		   component_definition.description.c_str(),
+		   component_definition.component_type,
+		   component_definition.component_id);
 }
 
 int main(int argc, char* argv[]) {
@@ -248,6 +261,10 @@ int main(int argc, char* argv[]) {
 	generic_machine_demo(armv7_machine1);
 	printf("-------\n");
 	generic_machine_demo(arm64_machine1);
+
+	libmedusa::ExampleComponent example_component;
+
+	handle_component(example_component);
 
 	return 0;
 }

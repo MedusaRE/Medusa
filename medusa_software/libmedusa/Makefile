@@ -15,9 +15,9 @@ clean:
 tools: bin/main
 
 bin/main: bin/main.o
-	${CPP} ${CPPFLAGS} -lLIEF -lmedusa -lkeystone -lunicorn -lcapstone $^ -o $@
+	${CPP} ${CPPFLAGS} -Lbin -lLIEF -lmedusa -lkeystone -lunicorn -lcapstone $^ -o $@
 
-bin/libmedusa.so: bin/ARMv7Machine.o bin/ARM64Machine.o
+bin/libmedusa.so: bin/ARMv7Machine.o bin/ARM64Machine.o bin/ExampleComponent.o
 	${CPP} -shared -o $@ $^
 
 install: bin/libmedusa.so
