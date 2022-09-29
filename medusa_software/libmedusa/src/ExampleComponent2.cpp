@@ -28,21 +28,21 @@
 using namespace libmedusa;
 
 component_definition_t ExampleComponent2::get_component_definition() {
-    component_definition_t component_definition;
+	component_definition_t component_definition;
 
-    component_definition.component_id = 0xfeedfacefeedfacf;
-    component_definition.component_type = EXAMPLE_COMPONENT2_TYPE;
-    component_definition.description = "A second example Component to test implementations of the Component class.";
-    component_definition.name = "Example Component2";
+	component_definition.component_id = 0xfeedfacefeedfacf;
+	component_definition.component_type = EXAMPLE_COMPONENT2_TYPE;
+	component_definition.description = "A second example Component to test implementations of the Component class.";
+	component_definition.name = "Example Component2";
 
-    return component_definition;
+	return component_definition;
 }
 
 std::string ExampleComponent2::get_component_string_output() {
-    std::stringstream ss;
-    
-    ss << rand();
-    ss << "str";
+	std::stringstream ss;
+	
+	ss << rand();
+	ss << "str";
 
-    return ss.str();
+	return ss.str();
 }

@@ -27,16 +27,16 @@
 using namespace libmedusa;
 
 component_definition_t ExampleComponent::get_component_definition() {
-    component_definition_t component_definition;
+	component_definition_t component_definition;
 
-    component_definition.component_id = 0xfeedfacefeedface;
-    component_definition.component_type = EXAMPLE_COMPONENT_TYPE;
-    component_definition.description = "An example Component to test implementations of the Component class.";
-    component_definition.name = "Example Component";
+	component_definition.component_id = 0xfeedfacefeedface;
+	component_definition.component_type = EXAMPLE_COMPONENT_TYPE;
+	component_definition.description = "An example Component to test implementations of the Component class.";
+	component_definition.name = "Example Component";
 
-    return component_definition;
+	return component_definition;
 }
 
 int ExampleComponent::get_component_int_output() {
-    return rand();
+	return rand();
 }

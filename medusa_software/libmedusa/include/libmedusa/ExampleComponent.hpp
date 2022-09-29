@@ -33,7 +33,7 @@ namespace libmedusa {
 	class ExampleComponent : public Component {
 		public:
 			component_definition_t get_component_definition();
-            int get_component_int_output();
+			int get_component_int_output();
 	};
 }
 
