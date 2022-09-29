@@ -42,12 +42,7 @@ namespace libmedusa {
 			 *	@brief The constructor for ExampleDisplayComponent.
 			 */
 			ExampleDisplayComponent();
-
-			/**
-			 *	@brief Get the definition of this Component.
-			 *
-			 *	@returns The component definition as a component_definition_t.
-			 */
+			
 			component_definition_t get_component_definition();
 
 			/**
@@ -58,6 +53,9 @@ namespace libmedusa {
 			 */
 			bitmap_t get_component_display_output();
 		private:
+			/**
+			 *	@brief The current contents of this display/framebuffer.
+			 */
 			bitmap_t bitmap;
 	};
 }

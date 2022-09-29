@@ -40,11 +40,23 @@ namespace libmedusa {
 										 section contains. */
 	} section_desc_t;
 
+	/**
+	 *	@brief A structure representing a section description, and the data it
+	 *		   contains.
+	 */
 	typedef struct {
-		libmedusa::section_desc_t section_desc;
-		std::vector<uint8_t>	  data;
+		libmedusa::section_desc_t  section_desc; /**< A description of this
+													  section. */
+		uint8_t					  *data;		 /**< A pointer to the data of
+													  this section. Set to NULL
+													  if the section contains no
+													  data. */
 	} section_t;
 
+	/**
+	 *	@brief A generic class representing a binary object, e.g. ELF, PE, or
+	 *		   Mach-O.
+	 */
 	class BinaryObject {
 		public:
 			/**

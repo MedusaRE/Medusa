@@ -62,8 +62,17 @@ namespace libmedusa {
 												ids. */
 	} component_definition_t;
 
+	/**
+	 *	@brief A generic class representing a Component that an application
+	 *	   utilizing libmedusa could interface with.
+	 */
 	class Component {
 		public:
+			/**
+			 *	@brief Get the definition of this Component.
+			 *
+			 *	@returns The component definition as a component_definition_t.
+			 */
 			virtual component_definition_t get_component_definition() = 0;
 	};
 }
