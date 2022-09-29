@@ -207,7 +207,7 @@ ARMv7Machine::ARMv7Machine() {
 }
 
 ARMv7Machine::~ARMv7Machine() {
-	uc_close(this->uc);
+//	uc_close(this->uc);
 	ks_close(this->ks);
 	ks_close(this->ks_thumb);
 }
