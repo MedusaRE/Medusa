@@ -93,6 +93,10 @@ void generic_machine_demo(libmedusa::Machine& generic_machine) {
 	}
 }
 
+void handle_example_component(libmedusa::ExampleComponent& component) {
+	printf("%d\n", component.get_component_int_output());
+}
+
 void handle_component(libmedusa::Component& component) {
 	libmedusa::component_definition_t component_definition;
 	component_definition = component.get_component_definition();
@@ -102,6 +106,10 @@ void handle_component(libmedusa::Component& component) {
 		   component_definition.description.c_str(),
 		   component_definition.component_type,
 		   component_definition.component_id);
+	
+	if (component_definition.component_type == EXAMPLE_COMPONENT_TYPE) {
+		handle_example_component((libmedusa::ExampleComponent&)component);
+	}
 }
 
 int main(int argc, char* argv[]) {
@@ -264,6 +272,10 @@ int main(int argc, char* argv[]) {
 
 	libmedusa::ExampleComponent example_component;
 
+	handle_component(example_component);
+	handle_component(example_component);
+	handle_component(example_component);
+	handle_component(example_component);
 	handle_component(example_component);
 
 	return 0;

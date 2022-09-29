@@ -27,10 +27,13 @@
 #include <libmedusa/libmedusa.hpp>
 #include <string>
 
+#define EXAMPLE_COMPONENT_TYPE 0x0
+
 namespace libmedusa {
 	class ExampleComponent : public Component {
 		public:
 			component_definition_t get_component_definition();
+            int get_component_int_output();
 	};
 }
 
