@@ -27,11 +27,17 @@
 #include <libmedusa/libmedusa.hpp>
 
 namespace libmedusa {
+	/**
+	 *  @brief A structure representing a section of a binary object.
+	 */
 	typedef struct {
-		std::string			  name;
-		uint64_t			  addr;
-		uint64_t			  size;
-		libmedusa::mem_prot_t prot;
+		std::string			  name; /**< The name of this section, e.g. _TEXT */
+		uint64_t			  addr; /**< The address in memory that this section
+										 is at. */
+		uint64_t			  size; /**< The size in memory of this section,
+										 once mapped. */
+		libmedusa::mem_prot_t prot; /**< The protections of the memory this
+										 section contains. */
 	} section_desc_t;
 
 	typedef struct {
