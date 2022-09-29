@@ -24,6 +24,7 @@
 #ifndef LIBMEDUSA_EXAMPLE_DISPLAY_COMPONENT_HPP
 #define LIBMEDUSA_EXAMPLE_DISPLAY_COMPONENT_HPP
 
+#include <libmedusa/DisplayOutput.hpp>
 #include <libmedusa/Component.hpp>
 #include <libmedusa/libmedusa.hpp>
 #include <string>
@@ -31,22 +32,30 @@
 #define DISPLAY_COMPONENT_TYPE 0x2
 
 namespace libmedusa {
-	typedef struct {
-		uint8_t red;
-		uint8_t green;
-		uint8_t blue;
-	} pixel_t;
-
-	typedef struct {
-		uint32_t width;
-		uint32_t height;
-		pixel_t* pixels;
-	} bitmap_t;
-
-	class ExampleDisplayComponent : public Component {
+	/**
+	 *	@brief A class representing the standard libmedusa API for interacting
+	 *		   with bitmap-type (virtualized) displays.
+	 */
+	class ExampleDisplayComponent : public DisplayOutput {
 		public:
+			/**
+			 *	@brief The constructor for ExampleDisplayComponent.
+			 */
 			ExampleDisplayComponent();
+
+			/**
+			 *	@brief Get the definition of this Component.
+			 *
+			 *	@returns The component definition as a component_definition_t.
+			 */
 			component_definition_t get_component_definition();
+
+			/**
+			 *	@brief Get the display output from this Component.
+			 *
+			 *	@returns The current contents of the display/framebuffer as a
+			 *			 bitmap_t.
+			 */
 			bitmap_t get_component_display_output();
 		private:
 			bitmap_t bitmap;
