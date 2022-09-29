@@ -18,6 +18,7 @@
 #include <libmedusa/ExampleDisplayComponent.hpp>
 #include <libmedusa/ExampleComponent2.hpp>
 #include <libmedusa/ExampleComponent.hpp>
+#include <libmedusa/DisplayOutput.hpp>
 #include <libmedusa/ARMv7Machine.hpp>
 #include <libmedusa/ARM64Machine.hpp>
 #include <libmedusa/Component.hpp>
@@ -187,7 +188,7 @@ void handle_example_component2(libmedusa::ExampleComponent2& component) {
 	printf("%s\n", component.get_component_string_output().c_str());
 }
 
-void handle_display_component(libmedusa::ExampleDisplayComponent& component) {
+void handle_display_component(libmedusa::DisplayOutput& component) {
 	libmedusa::bitmap_t bitmap = component.get_component_display_output();
 
 	generate_bitmap_image((unsigned char*)bitmap.pixels, bitmap.height, bitmap.width, "bin/out.bmp");
@@ -212,7 +213,7 @@ void handle_component(libmedusa::Component& component) {
 	}
 	
 	if (component_definition.component_type == DISPLAY_COMPONENT_TYPE) {
-		handle_display_component((libmedusa::ExampleDisplayComponent&)component);
+		handle_display_component((libmedusa::DisplayOutput&)component);
 	}
 }
 
