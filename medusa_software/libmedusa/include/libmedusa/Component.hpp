@@ -27,11 +27,39 @@
 #include <string>
 
 namespace libmedusa {
+	/**
+	 *	@brief A structure representing basic information about a Component.
+	 */
 	typedef struct {
-		std::string name;
-		std::string description;
-		uint64_t component_type;
-		uint64_t component_id;
+		std::string name;				   /**< The name of this Component type,
+												e.g. "SoundOutput". */
+		std::string description;		   /**< A short description of this
+												Component type, e.g. "Sound
+												output from the C64" */ 
+		std::string component_name;		   /**< The name of this particular
+												Component, e.g. "John's C64's
+												Sound Output". */
+		std::string component_description; /**< A short description of this
+												particular component, e.g. "The
+												sound outputted by John's
+												C64." */
+		uint64_t component_api_type;		  /**< A 64-bit number unique to all
+												Components that share an API,
+												e.g a unique number for
+												SoundOutput, shared with
+												SIDSoundOutput, or a unique
+												number for DisplayOutput, shared
+												with VIC2DisplayOutput. */
+		uint64_t component_type;		   /**< A 64-bit number unique to this
+												type of Component, e.g. a unique
+												number for SoundOutput,
+												SIDSoundOutput, DisplayOutput,
+												and VIC2DisplayOutput. */
+		uint64_t component_id;			   /**< A unique id for this particular
+												Component *instance*, 2
+												different SIDSoundOutput
+												Components should have different
+												ids. */
 	} component_definition_t;
 
 	class Component {
