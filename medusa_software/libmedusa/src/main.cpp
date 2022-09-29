@@ -15,6 +15,7 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include <libmedusa/ExampleComponent2.hpp>
 #include <libmedusa/ExampleComponent.hpp>
 #include <libmedusa/ARMv7Machine.hpp>
 #include <libmedusa/ARM64Machine.hpp>
@@ -97,6 +98,10 @@ void handle_example_component(libmedusa::ExampleComponent& component) {
 	printf("%d\n", component.get_component_int_output());
 }
 
+void handle_example_component2(libmedusa::ExampleComponent2& component) {
+	printf("%s\n", component.get_component_string_output().c_str());
+}
+
 void handle_component(libmedusa::Component& component) {
 	libmedusa::component_definition_t component_definition;
 	component_definition = component.get_component_definition();
@@ -109,6 +114,10 @@ void handle_component(libmedusa::Component& component) {
 	
 	if (component_definition.component_type == EXAMPLE_COMPONENT_TYPE) {
 		handle_example_component((libmedusa::ExampleComponent&)component);
+	}
+	
+	if (component_definition.component_type == EXAMPLE_COMPONENT2_TYPE) {
+		handle_example_component2((libmedusa::ExampleComponent2&)component);
 	}
 }
 
@@ -271,12 +280,19 @@ int main(int argc, char* argv[]) {
 	generic_machine_demo(arm64_machine1);
 
 	libmedusa::ExampleComponent example_component;
+	libmedusa::ExampleComponent2 example_component2;
 
 	handle_component(example_component);
 	handle_component(example_component);
 	handle_component(example_component);
 	handle_component(example_component);
 	handle_component(example_component);
+
+	handle_component(example_component2);
+	handle_component(example_component2);
+	handle_component(example_component2);
+	handle_component(example_component2);
+	handle_component(example_component2);
 
 	return 0;
 }
