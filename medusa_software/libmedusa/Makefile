@@ -1,5 +1,5 @@
 CPP=clang++
-CPPFLAGS=--std=c++17 -fPIC -Iinclude
+CPPFLAGS=--std=c++17 -fPIC -Iinclude -O0 -g
 
 all: bin bin/libmedusa.so bin/main doxygen_out
 
@@ -17,7 +17,7 @@ tools: bin/main
 bin/main: bin/main.o
 	${CPP} ${CPPFLAGS} -Lbin -lLIEF -lmedusa -lkeystone -lunicorn -lcapstone $^ -o $@
 
-bin/libmedusa.so: bin/ARMv7Machine.o bin/ARM64Machine.o bin/ExampleComponent.o bin/ExampleComponent2.o
+bin/libmedusa.so: bin/ARMv7Machine.o bin/ARM64Machine.o bin/ExampleComponent.o bin/ExampleComponent2.o bin/ExampleDisplayComponent.o
 	${CPP} -shared -o $@ $^
 
 install: bin/libmedusa.so
