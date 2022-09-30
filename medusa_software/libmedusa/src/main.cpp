@@ -69,7 +69,6 @@ uint8_t test_arm64_code2[] = {
 };
 
 void generic_machine_demo(libmedusa::Machine& generic_machine) {
-
 	libmedusa::reg_t reg;
 
 	reg.reg_description = "pc";
