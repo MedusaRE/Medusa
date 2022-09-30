@@ -147,6 +147,12 @@ question.
         badges            - badge generation code
 ```
 
+## Documentation
+There is a variety of doxygen-based documentation for Medusa libraries and API's
+available at [docs.medusa-re.org](https://docs.medusa-re.org), and a wiki is
+available for the Medusa Project at
+[wiki.medusa-re.org](https://wiki.medusa-re.org).
+
 ## Credits
 ```
 spv               - project founding
