@@ -71,10 +71,10 @@ florence
 bochum
 utrecht
 wuppertal
-losangeles
+angeles
 nevada
-losvegas
-sanfrancisco
+vegas
+francisco
 cupertino
 syracuse
 sicily
