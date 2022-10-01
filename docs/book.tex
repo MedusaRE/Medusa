@@ -104,21 +104,6 @@
 	\textit{Capstone}, \textit{Keystone}, \textit{LIEF} (\textit{libmedusa}
 	provides an API for parsing formats like ELF), and other libraries.
 
-	\subsubsection{\textit{rome}}
-	This subsubsection is adapted from the \textit{rome} subcomponent's
-	\texttt{README.md} file.
-
-	Rome is a subcomponent of the \textit{Medusa} Project to write a modern C++
-	TUI framework based on \textit{ncurses}. \textit{ncurses} / \textit{curses}
-	is a great framework, but in my (spv) opinion, it feels a bit ancient
-	compared to what could be done with, say, C++. It's a bit low-level, and the
-	code you write with it is, in my opinion, not the best-looking, to put it
-	mildly.
-
-	I do understand the historical reason(s) for the \textit{curses} API
-	essentially using \texttt{(y,x)} instead of \texttt{(x,y)}, but it doesn't
-	make it any less strange to write.
-
 	\subsubsection{\textit{barcelona}}
 	This subsubsection is adapted from the \textit{barcelona} subcomponent /
 	subproject's \texttt{README.md} file.
@@ -140,4 +125,19 @@
 
 	The server can be the same machine as the client, and it does not need to be
 	over the network (i.e. TCP), it could be a socket, for example.
+
+	\subsubsection{\textit{rome}}
+	This subsubsection is adapted from the \textit{rome} subcomponent's
+	\texttt{README.md} file.
+
+	Rome is a subcomponent of the \textit{Medusa} Project to write a modern C++
+	TUI framework based on \textit{ncurses}. \textit{ncurses} / \textit{curses}
+	is a great framework, but in my (spv) opinion, it feels a bit ancient
+	compared to what could be done with, say, C++. It's a bit low-level, and the
+	code you write with it is, in my opinion, not the best-looking, to put it
+	mildly.
+
+	I do understand the historical reason(s) for the \textit{curses} API
+	essentially using \texttt{(y,x)} instead of \texttt{(x,y)}, but it doesn't
+	make it any less strange to write.
 \end{document}
