@@ -12,8 +12,13 @@
 	\maketitle
 
 	\section{Notes}
-	Note: this document is written from the perspective of the Medusa Project's
-	main developer, spv.
+	\begin{enumerate}
+		\item This document is written from the perspective of the
+		\textit{Medusa} Project's main developer, spv.
+		\item All software released by the \textit{Medusa} Project is, whenever
+		possible, released under the GNU General Public License, Version 2
+		(without the "any later version" clause).
+	\end{enumerate}
 
 	\section{Introduction}
 	\textit{Medusa} is a project to create a cross platform, free (libre), and
@@ -51,6 +56,7 @@
 	requiring a VM), but I can appreciate other parts of it.
 
 	\subsection{\textit{Medusa}'s Solutions}
+	\subsubsection{\textit{libmedusa}}
 	For a first example, take \textit{Unicorn}. \textit{Unicorn} is a
 	library/API based on \textit{QEMU}, that provides an interface to control
 	virtualized/emulated CPUs, and general machines. I do appreciate the
@@ -84,4 +90,27 @@
 	It provides an all-in-one API that can replace \textit{Unicorn},
 	\textit{Capstone}, \textit{Keystone}, \textit{LIEF} (\textit{libmedusa}
 	provides an API for parsing formats like ELF), and other libraries.
+
+	\subsubsection{\textit{rome}}
+	This subsubsection is adapted from the \textit{rome} subcomponent's
+	\texttt{README.md} file.
+
+	Rome is a subcomponent of the \textit{Medusa} Project to write a modern C++
+	TUI framework based on \textit{ncurses}. \textit{ncurses} / \textit{curses}
+	is a great framework, but in my (spv) opinion, it feels a bit ancient
+	compared to what could be done with, say, C++. It's a bit low-level, and the
+	code you write with it is, in my opinion, not the best-looking, to put it
+	mildly.
+
+	I do understand the historical reason(s) for the \textit{curses} API
+	essentially using \texttt{(y,x)} instead of \texttt{(x,y)}, but it doesn't
+	make it any less strange to write.
+
+	\subsubsection{\textit{barcelona}}
+	This subsubsection is adapted from the \textit{barcelona} subcomponent /
+	subproject's \texttt{README.md} file.
+
+	\textit{barcelona} is a subproject of the \textit{Medusa} Project to create
+	a TUI (Terminal User Interface)-based IDE (Integrated Development
+	Environment).
 \end{document}
