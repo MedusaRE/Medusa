@@ -15,7 +15,33 @@
 	purpose tool for software and hardware research, like reverse engineering,
 	analysis, emulation, development, debugging, and other similar tasks. I
 	started the \textit{Medusa} project originally under the name of
-	\textit{xp\textsuperscript{DBG}}, as a hobby project to learn about reverse
-	engineering, and because I felt that current development and reverse
-	engineering tools all have their own problems, which I wanted to solve.
+	\textit{xp$^{DBG}$}, as a hobby project to learn about reverse engineering,
+	and because I felt that current development and reverse engineering tools
+	all have their own problems, which I wanted to solve.
+
+	\subsection{Current Tools' Issues}
+	This subsection is partially paraphrased from the \textit{Medusa} Project's
+	\texttt{README.md} file.
+
+	\begin{itemize}
+		\item Cutter: not very featureful, essentially a radare2 GUI, and
+		doesn't have debugger and/or emulation support to my knowledge.
+		\item Ghidra: personal favorite currently, still doesn't have emulation
+		support or code editing, and is written in Java (besides the
+		decompiler), which is one of my least favorite languages*.
+		\item IDA (Pro): expensive, non-free, does not have emulation support,
+		or code editing.
+		\item Radare2: does not have code editing, a GUI, or the level of
+		emulation support which I intend to include in Medusa.
+		\item Binary Ninja: I honestly do not have a lot of experience with
+		Binary Ninja, but to my knowledge, it is not free/open-source software,
+		it isn't a full IDE (like Medusa is intended to be), and doesn't have
+		emulation support (like Medusa is intended to).
+	\end{itemize}
+
+	* Since the writing of \texttt{README.md}, I have changed my opinion slightly
+	in regards to Java. I still dislike parts of the language (particularly,
+	requiring a VM), but I can appreciate other parts of it.
+
+	\subsection{Medusa's Solutions}
 \end{document}
