@@ -113,6 +113,9 @@ question.
                             file
     docs                  - documentation for the Medusa Project
     medusa_software:      - source code for the Medusa Project
+        barcelona         - a subproject of the Medusa Project to create a TUI
+                            (Terminal User Interface)-based IDE (Integrated
+                            Development Environment).
         berlin            - a subcomponent of the Medusa Project to create a
                             free (libre) GTK hex editor, eventually to be
                             incorporated into the full Medusa software
@@ -134,17 +137,21 @@ question.
         paris             - a subcomponent of the Medusa Project to develop the
                             client/server architecture that is intended to be
                             used in the project.
+        rome              - a subcomponent of the Medusa Project to write a
+                            modern C++ TUI framework based on ncurses.
         submodules        - Git submodules not maintained by the Medusa Project
         work              - work in progress components / sideprojects for the
                             Medusa Project, such as a text editor
     res:                  - resources, such as GIMP project files, images, and
                             the like
         badges            - SVG files of badges
+        defaults          - contains default/template files, such as Makefiles
         img:              - images
             src           - "source" files of images, (like XCFs for GIMP)
     tools:                - tools for the development of & general work on the
                             Medusa Project
         badges            - badge generation code
+    wiki                  - git submodule for the Medusa Project Wiki
 ```
 
 ## Documentation
