@@ -3,6 +3,8 @@
 \usepackage[pdftex, pdfborderstyle={/S/U/W 0}, breaklinks=false]{hyperref}
 \usepackage{comment}
 
+\newcommand{\xpDBG}{\textit{xp$^{DBG}$}}
+
 \begin{comment}
 	Add your preferred name to the \author section if you edit this file.
 \end{comment}
@@ -38,9 +40,9 @@
 	general purpose tool for software and hardware research, like reverse
 	engineering, analysis, emulation, development, debugging, and other similar
 	tasks. I started the \textit{Medusa} project originally under the name of
-	\textit{xp$^{DBG}$}, as a hobby project to learn about reverse engineering,
-	and because I felt that current development and reverse engineering tools
-	all have their own problems, which I wanted to solve.
+	\xpDBG, as a hobby project to learn about reverse engineering, and because I
+	felt that current development and reverse engineering tools all have their
+	own problems, which I wanted to solve.
 
 	\subsection{Current Tools' Issues}
 	This subsection is partially paraphrased from the \textit{Medusa} Project's
@@ -138,6 +140,30 @@
 	mildly.
 
 	I do understand the historical reason(s) for the \textit{curses} API
-	essentially using $(y,x)$ instead of $(x,y)$, but it doesn't
-	make it any less strange to write.
+	essentially using $(y,x)$ instead of $(x,y)$, but it doesn't make it any
+	less strange to write.
+
+	\section{History}
+	The \textit{Medusa} Project's history begins with another one of my
+	projects, \textit{p0laris}. I, at the time, was writing shellcode to execute
+	from within kernel-land on iOS 9, and wanted to debug said shellcode. I did
+	not (and still don't, at the time of writing) own a DCSD-cable, or other
+	similar means to debug the shellcode, so I set out to develop a debugger I
+	could run on my computer.
+
+	I discussed \xpDBG in the \textit{Introduction} section, but before even
+	\xpDBG, I created a small project called \textit{ARMistice}.
+	\textit{ARMistice} was a small \textit{Python} script that emulated an
+	\textit{ARMv7} CPU using \textit{Unicorn}, and provided memory editing,
+	assembly, disassembly, and a UI with \textit{ncurses}, \textit{Keystone},
+	and \textit{Capstone}. This little \textit{Python} script was the genesis
+	for what would eventually become the \textit{Medusa} Project.
+	
+	As was stated in the \textit{Introduction} section, the \textit{Medusa}
+	project was started under a different name, \textit{xp$^{DBG}$}.
+	\textit{xp$^{DBG}$} stands (or rather, stood) for "cross (X) Platform
+	DeBuGger", which references the project's goal to create a cross platform
+	suite for software and hardware research. At the start of the project, the
+	goal was not necessarily to create a full suite. In fact, before
+	\textit{xp$^{DBG}$}, 
 \end{document}
