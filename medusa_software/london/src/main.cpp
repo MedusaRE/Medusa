@@ -80,6 +80,7 @@ int main(int   argc,
 	medusa_log(LOG_INFO, "Creating medusa_window...");
 	medusa_window window(argc,
 						 argv);
+	app->signal_startup().connect(sigc::mem_fun(window, &medusa_window::on_startup));
 
 	/*
 	 *  run it

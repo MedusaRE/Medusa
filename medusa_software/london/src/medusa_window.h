@@ -19,6 +19,7 @@
 #define MEDUSA_WINDOW_H
 
 #include <gtksourceviewmm.h>
+#include <gtkmm/box.h>
 #include "london.h"
 #include <gtkmm.h>
 
@@ -26,6 +27,7 @@ class medusa_window : public Gtk::Window {
 	public:
 		medusa_window(int   argc,
 					  char* argv[]);
+		void on_startup();
 		virtual ~medusa_window();
 	protected:
 		void on_open_clicked();

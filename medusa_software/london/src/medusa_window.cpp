@@ -16,10 +16,16 @@
  */
 
 #include "../../submodules/mINI/src/mini/ini.h"
+#include <gtkmm/application.h>
 #include <capstone/capstone.h>
+#include <gtkmm/toolbutton.h>
 #include <gtksourceviewmm.h>
 #include <unicorn/unicorn.h>
+#include <gtkmm/menuitem.h>
 #include "medusa_window.h"
+#include <gtkmm/menubar.h>
+#include <gtkmm/menu.h>
+#include <gtkmm/box.h>
 #include <filesystem>
 #include "logging.h"
 #include <iostream>
@@ -138,6 +144,9 @@ void medusa_window::on_treeview_row_activated(const Gtk::TreeModel::Path& path,
 	}
 }
 
+void medusa_window::on_startup() {
+}
+
 medusa_window::medusa_window(int   argc,
 							 char* argv[]) {
 	medusa_log(LOG_INFO, "Landed in medusa_window.");
@@ -241,7 +250,35 @@ medusa_window::medusa_window(int   argc,
 
 	paned->set_position(256);
 
-	add(*paned);
+	Gtk::Toolbar	*tb	  = new Gtk::Toolbar;
+	Gtk::ToolButton	*open = new Gtk::ToolButton(Gtk::Stock::OPEN);
+	Gtk::ToolButton	*dir  = new Gtk::ToolButton(Gtk::Stock::DIRECTORY);
+	Gtk::ToolButton	*save = new Gtk::ToolButton(Gtk::Stock::SAVE);
+
+	open->signal_clicked().connect(sigc::mem_fun(this, &medusa_window::on_open_clicked));
+	dir->signal_clicked().connect(sigc::mem_fun(this, &medusa_window::on_open_folder_clicked));
+	save->signal_clicked().connect(sigc::mem_fun(this, &medusa_window::on_save_clicked));
+
+	tb->add(*open);
+	tb->add(*dir);
+	tb->add(*save);
+
+//	auto parent_box = new Gtk::Box;
+	auto parent_grid = new Gtk::Grid;
+
+	parent_grid->attach(*tb, 0, 0);
+	parent_grid->attach(*paned, 0, 1);
+
+	parent_grid->set_column_homogeneous(true);
+	parent_grid->set_row_homogeneous(false);
+
+	grid->set_hexpand();
+	grid->set_vexpand();
+
+//	parent_box->pack_start(*tb);
+//	parent_box->pack_start(*paned);
+
+	add(*parent_grid);
 
 	/*
 	 *  noround is part of my (spv) personal setup.
