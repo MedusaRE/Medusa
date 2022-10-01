@@ -23,6 +23,7 @@ doxygen_out
 book.pdf
 book.aux
 book.log
+book.out
 
 # Pillow output
 pil
