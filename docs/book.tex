@@ -24,19 +24,21 @@
 	\texttt{README.md} file.
 
 	\begin{itemize}
-		\item Cutter: not very featureful, essentially a radare2 GUI, and
-		doesn't have debugger and/or emulation support to my knowledge.
-		\item Ghidra: personal favorite currently, still doesn't have emulation
-		support or code editing, and is written in Java (besides the
+		\item \textit{Cutter}: not very featureful, essentially a
+		\textit{radare2} GUI, and doesn't have debugger and/or emulation support
+		to my knowledge.
+		\item \textit{Ghidra}: personal favorite currently, still doesn't have
+		emulation support or code editing, and is written in Java (besides the
 		decompiler), which is one of my least favorite languages*.
-		\item IDA (Pro): expensive, non-free, does not have emulation support,
-		or code editing.
-		\item Radare2: does not have code editing, a GUI, or the level of
-		emulation support which I intend to include in Medusa.
-		\item Binary Ninja: I honestly do not have a lot of experience with
-		Binary Ninja, but to my knowledge, it is not free/open-source software,
-		it isn't a full IDE (like Medusa is intended to be), and doesn't have
-		emulation support (like Medusa is intended to).
+		\item \textit{IDA Pro}: expensive, non-free, does not have emulation
+		support, or code editing.
+		\item \textit{Radare2}: does not have code editing, a GUI, or the level
+		of emulation support which I intend to include in \textit{Medusa}.
+		\item \textit{Binary Ninja}: I honestly do not have a lot of experience
+		with \textit{Binary Ninja}, but to my knowledge, it is not free / 
+		open-source software, it isn't a full IDE (like \textit{Medusa} is
+		intended to be), and doesn't have emulation support (like
+		\textit{Medusa} is intended to).
 	\end{itemize}
 
 	* Since the writing of \texttt{README.md}, I have changed my opinion slightly
@@ -49,4 +51,27 @@
 	virtualized/emulated CPUs, and general machines. I do appreciate the
 	\textit{Unicorn} project's work, but I think it has some flaws. (or rather,
 	it is not the perfect library for the \textit{Medusa} Project's goals.)
+
+	To solve some of \textit{Unicorn}'s issues, the Medusa Project has a
+	subproject / subcomponent called \textit{libmedusa}. \textit{libmedusa} is
+	a C++ library with a "standardized" API for interfacing with emulated
+	machines ("soft silicon", as I call it), as well as real machines ("hard
+	silicon", as I call it). \textit{libmedusa} also provides a "standardized"
+	API for interacting with other types of components, such as displays, sound
+	outputs, and other components useful when controlling, say, an emulated
+	Commodore 64. If you wanted to do so, you could provide an implementation of
+	the \textit{libmedusa} API for emulators for the 6502, SID, VIC-II, and
+	other components. (or even real hardware!) Then, other software can
+	interface with an emulated, or even a real C64, without needing to be
+	specifically written to support it.
+
+	Another way that this API could be useful is if you (or your company) is
+	developing a new piece of hardware. \textit{Medusa} (or other software)
+	probably doesn't support unreleased hardware, and with other software, say
+	\textit{IDA Pro} (or something with emulation support) it may be difficult
+	to emulate your hardware elegantly for testing purposes. With
+	\textit{libmedusa}, you could implement its API for your particular display,
+	sound output, CPU, etc, (or even re-use existing implementations, if, say,
+	you use a standard CPU ISA, like \textit{ARMv8}), and software can interact
+	with your hardware without needing to be specifically written to support it.
 \end{document}
