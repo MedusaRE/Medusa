@@ -81,11 +81,14 @@ install all of the dependencies for Medusa by running `tools/deps_arch.sh` as
 To compile all Medusa components, `cd` into the Medusa folder (the parent folder
 of this `README.md`), and type `make`. Assuming that all requirements are
 installed, all components should be built, including:
+- [`barcelona`](/medusa_software/barcelona)
+- [`berlin`](/medusa_software/berlin)
 - [`frontend`](/medusa_software/frontend)
 - [`libmedusa`](/medusa_software/libmedusa)
-- [`libxParse`](/medusa_software/libxparse)
+- [`libxparse`](/medusa_software/libxparse)
 - [`london`](/medusa_software/london)
 - [`paris`](/medusa_software/paris)
+- [`rome`](/medusa_software/rome)
 - etc.
 
 ### Installing to your machine
