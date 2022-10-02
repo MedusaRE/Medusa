@@ -13,6 +13,8 @@
 
 \lstset{
 	basicstyle=\ttfamily,
+	columns=fullflexible,
+	keepspaces=true,
 	tabsize=4
 }
 
@@ -283,7 +285,7 @@
 	armv7_machine.map_memory(region);
 	\end{verbatim}
 
-	Now, let's copy some ARMv7 code into memory to be executed.
+	Now, let's copy some \textit{ARMv7} code into memory to be executed.
 
 	First, we need to define an array containing our code.
 
@@ -297,6 +299,85 @@ uint8_t test_arm_thumb_code[] = {
 	0x00, 0x00,				//  mov		r0,	r0
 };
 	\end{lstlisting}
+
+	The \textit{libmedusa} API uses \texttt{std::vector}'s for a lot of work
+	that would normally be done by standard arrays or pointers. So, we must
+	create an \texttt{std::vector} containing our \textit{ARMv7} code.
+
+	\begin{lstlisting}
+vector<uint8_t> tmp_vector(test_arm_thumb_code,
+						   test_arm_thumb_code
+						 + sizeof(test_arm_thumb_code));
+	\end{lstlisting}
+
+	Now, let's copy our code \texttt{vector} into the \texttt{ARMv7Machine}'s
+	memory space.
+
+	\begin{lstlisting}
+armv7_machine.write_memory(0, tmp_vector);
+	\end{lstlisting}
+
+	Next, let's set the \texttt{pc} register's value to \texttt{0x1}. Remember,
+	in 32-bit \textit{ARM}, having the LSB set in the \texttt{pc} indicates
+	executing \textit{THUMB} code, rather than \textit{ARM} code.
+
+	\begin{lstlisting}
+/*
+ *  This API should be improved. For now, you have to include the register name
+ *  and description, but in the future, that will probably not be necessary.
+ *  I'll probably write another version of the `set_register' and `get_register`
+ *  functions that take just a register name or id later.
+ *
+ *  reg_t is another libmedusa-specific type. It contains fields describing a
+ *  processor register, with fields such as the name, a short description of the
+ *  register's function, an ID specific to this register (unique per CPU, so 2
+ *  different CPU's can share an ID, as long as it is not shared within the same
+ *  CPU), and the register's value.
+ */
+libmedusa::reg_t reg;
+
+reg.reg_description = "pc";
+reg.reg_name = "pc";
+reg.reg_id = 0xf;
+reg.reg_value = 0x1;
+
+/*
+ *  Machine::set_register(reg_t register) sets the value of a register.
+ */
+armv7_machine.set_register(reg);
+	\end{lstlisting}
+
+	Now, let's step through a few instructions, and print the state of all
+	registers after each step.
+
+	\begin{lstlisting}
+const int number_of_registers_to_step_through = 0x8;
+for (int i = 0;
+		 i < number_of_registers_to_step_through;
+		 i++) {
+	/*
+	 *  Machine::get_registers() returns an `std::vector` of all of the CPU's
+	 *  registers, as `reg_t`'s.
+	 */
+	vector<libmedusa::reg_t> registers = armv7_machine.get_registers();
+	for (libmedusa::reg_t& i : registers) {
+		printf("-----\n"
+			   "%s %s %lx %lx\n",
+			   i.reg_description.c_str(),
+			   i.reg_name.c_str(),
+			   i.reg_id,
+			   i.reg_value);
+	}
+	
+	/*
+	 *  step_instruction is a pre-processor #define for exec_code_step.
+	 *  Machine::exec_code_step() steps forward one instruction on the CPU.
+	 */
+	armv7_machine.step_instruction();
+}
+	\end{lstlisting}
+
+	Congratulations! You just wrote your first program with \textit{libmedusa}.
 
 	\section{Links}
 	This section contains useful links for the \Medusa Project.
