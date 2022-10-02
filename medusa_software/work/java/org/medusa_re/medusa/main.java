@@ -32,36 +32,6 @@ public class main {
 	}
 
 	public static void main(String[] args) {
-		System.out.printf("Is this thing on? 0x%08x\n", 0x41424344);
-
-		long total = 1;
-
-		for (long i = 1; i < 0x1000000; i++) {
-			if ((i % total) == 0) {
-				System.out.printf("%x %x\n", i, total);
-				total += i;
-			}
-		}
-
-		System.out.printf("total=0x%x\n", total);
-
-//		Scanner s = new Scanner(System.in);
-		long n = 123;
-		long n1, n2;
-
-		System.out.printf("lol=0x%x (%d)\n", n, n);
-
-		Stuff stuff = new Stuff();
-		stuff.print_num();
-
-		n1 = stuff.get_num();
-		stuff.set_num(n);
-		n2 = stuff.get_num();
-
-		stuff.print_num();
-
-		System.out.printf("%d,%d,%d (%x,%x,%x)\n", n1, n2, stuff.get_num(), n1, n2, stuff.get_num());
-
 		MedusaStyleJava m = new MedusaStyleJava();
 
 		printf("is this thing on? %d %d %s\n", 0, 1, "Hello, world!");
@@ -70,7 +40,7 @@ public class main {
 
 		printf("%f\n", time());
 		printf("%s %s %s\n", getenv("USER"), getenv("PATH"), getenv("SHELL"));
-		printf("%s\n", getenv());
+//		printf("%s\n", getenv());
 
 		test_msj(m);
 
