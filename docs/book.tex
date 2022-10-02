@@ -2,12 +2,19 @@
 
 \usepackage[pdftex, pdfborderstyle={/S/U/W 0}, breaklinks=false]{hyperref}
 \usepackage{background}
+\usepackage{graphicx}
+\usepackage{listings}
 \usepackage{comment}
 \usepackage{ccicons}
 \usepackage{xspace}
 
 \newcommand{\xpDBG}{\textit{xp$^{DBG}$}\xspace}
 \newcommand{\Medusa}{\textit{Medusa}\xspace}
+
+\lstset{
+	basicstyle=\ttfamily,
+	tabsize=4
+}
 
 \begin{comment}
 	Add your preferred name to the \author section if you edit this file.
@@ -27,6 +34,10 @@
 
 \begin{document}
 	\maketitle
+
+	\begin{center}
+		\includegraphics[width=120px]{../res/img/medusa_logo_lus_rounded.png}
+	\end{center}
 
 	\section{Notes}
 	\begin{enumerate}
@@ -88,7 +99,7 @@
 	(particularly, requiring a VM), but I can appreciate other parts of it.
 
 	\subsection{\textit{Medusa}'s Solutions}
-	\subsubsection{\textit{libmedusa}}
+	\subsubsection{\textit{libmedusa}} \label{solution_libmedusa1}
 	For a first example, take \textit{Unicorn}. \textit{Unicorn} is a
 	library/API based on \textit{QEMU}, that provides an interface to control
 	virtualized/emulated CPUs, and general machines. I do appreciate the
@@ -193,6 +204,99 @@
 	\href{https://xpdbg.com}{xpdbg.com} and \href{https://xpdbg.org}{xpdbg.org},
 	but they (at the time of writing, at least) just contain partially broken
 	versions of the \Medusa website.
+
+	\section{Documentation}
+	\subsection{\textit{libmedusa}}
+	\
+
+	Note: see \ref{solution_libmedusa1} for an introduction to this subsection.
+
+	Note: this code is subject to change.
+
+	\
+
+	This subsection will document code examples for \textit{libmedusa}, a
+	subcomponent / subproject of the \Medusa Project.
+
+	Let's use, for example \texttt{ARMv7Machine}. \texttt{ARMv7Machine} is a
+	class that implements the generic \texttt{Machine} class, which is a
+	"standardized" interface between software utilizing \textit{libmedusa}, and
+	soft-or-hard silicon machines (specifically, CPUs).
+
+	Requirements:
+	\begin{itemize}
+		\item A computer.
+
+		\item \textit{libmedusa} installed on said computer. (Exact directions
+		may differ from OS to OS, but in general, clone the \Medusa Project's
+		\textit{git} repository, cd into
+		\texttt{Medusa/medusa\_software/libmedusa}, and run \texttt{make},
+		followed by \texttt{sudo make install}. This will require
+		\textit{Unicorn}, \textit{Keystone}, \textit{Capstone}, and possibly
+		other components installed. Check \texttt{README.md} for a full list of
+		requirements.)
+
+		\item Your preferred IDE for editing C++ code. (in the future, Medusa
+		will hopefully be able to be used for this purpose. (specifically, the
+		london subproject / subcomponent which will be integrated into the
+		larger tool. ))
+
+		\item A compatible C++ compiler: we use \textit{LLVM / Clang}.
+	\end{itemize}
+
+	Create a new source file, and include \texttt{<libmedusa/libmedusa.hpp>}, \
+
+	\texttt{<libmedusa/Machine.hpp>}, and \texttt{<libmedusa/ARMv7Machine.hpp>}.
+	\
+	
+	\
+
+	To create a new \texttt{ARMv7Machine}, declare it like you would any other
+	instance of a class.
+
+	\begin{verbatim}
+		libmedusa::ARMv7Machine armv7_machine;
+	\end{verbatim}
+
+	Now, let's map some memory to place the code we'd like to emulate in.
+
+	\begin{verbatim}
+	/*
+	 *  a mem_reg_t is a libmedusa type representing a memory region, containing
+	 *  information about its address, size, and memory protections.
+	 */
+	libmedusa::mem_reg_t region;
+
+	/*
+	 *  set region.addr to 0x0, size to 0x10000, and allow RWX in the memory.
+	 *  this describes a memory region at the beginning of the CPU's memory
+	 *  space, that is 0x10000 bytes long, and allows all operations, read,
+	 *  write, and execute.
+	 */
+	region.addr = 0x0;
+	region.size = 0x10000;
+	region.prot = XP_PROT_READ | XP_PROT_WRITE | XP_PROT_EXEC;
+
+	/*
+	 *  Machine::map_memory(mem_reg_t region) will map the region into memory.
+	 */
+	armv7_machine.map_memory(region);
+	\end{verbatim}
+
+	Now, let's copy some ARMv7 code into memory to be executed.
+
+	First, we need to define an array containing our code.
+
+	\begin{lstlisting}
+uint8_t test_arm_thumb_code[] = {
+	0x41, 0x20,						//	movs	r0,	#0x41
+	0x40, 0xF2, 0x20, 0x40,			//	movw	r0,	#0x420
+	0x40, 0xF2, 0x69, 0x01,			//	movw	r1,	#0x69
+	0xA0, 0xEB, 0x01, 0x00,			//	sub		r0,	r0,	r1
+	0x01, 0x44,						//	add		r1,	r1,	r0
+	0x00, 0x00,						//  mov		r0,	r0
+};
+	\end{lstlisting}
 
 	\section{Links}
 	This section contains useful links for the \Medusa Project.
