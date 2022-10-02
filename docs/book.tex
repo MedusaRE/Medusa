@@ -253,7 +253,7 @@
 	Create a new source file, and \texttt{\#include}
 	\texttt{<libmedusa/libmedusa.hpp>}, \
 
-	\texttt{<libmedusa/Machine.hpp>}, and \texttt{<libmedusa/ARMv7Machine.hpp>}.
+	\texttt{<libmedusea/Machine.hpp>}, and \texttt{<libmedusa/ARMv7Machine.hpp>}.
 	\
 	
 	\
@@ -402,6 +402,31 @@ for (int i = 0;
 	\textit{x86(\_64)} processor.
 
 	Let's implement an example \texttt{DisplayOutput} \texttt{Component}.
+	\footnote{
+		\label{ExampleDisplayComponent1}
+		This essentially serves as documentation for both the
+		\texttt{DisplayOutput} generic class, and the
+		\texttt{ExampleDisplayComponent} implementation of said generic class.
+
+		Most code is stolen/paraphrased from the
+		\texttt{ExampleDisplayComponent} implementation.
+	}
+
+	First, we need to install \textit{libmedusa}. See the previous subsection
+	for instructions.
+
+	Create a class implementing the \texttt{DisplayOutput} generic class in a
+	header file.
+
+	\begin{lstlisting}
+class ExampleDisplayComponent : public DisplayOutput {
+	...
+}
+	\end{lstlisting}
+
+	Next, \texttt{\#include} \texttt{<libmedusa/libmedusa.hpp>},
+	\texttt{<libmedusa/Component.hpp>}, and the header file that contains your
+	implementation.
 
 	\subsection{\textit{rome}}
 	As stated previously, \textit{rome} is a subcomponent / subproject of the
