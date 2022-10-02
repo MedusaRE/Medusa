@@ -246,7 +246,8 @@
 		\item A compatible C++ compiler: we use \textit{LLVM / Clang}.
 	\end{itemize}
 
-	Create a new source file, and include \texttt{<libmedusa/libmedusa.hpp>}, \
+	Create a new source file, and \texttt{\#include}
+	\texttt{<libmedusa/libmedusa.hpp>}, \
 
 	\texttt{<libmedusa/Machine.hpp>}, and \texttt{<libmedusa/ARMv7Machine.hpp>}.
 	\
@@ -378,6 +379,84 @@ for (int i = 0;
 	\end{lstlisting}
 
 	Congratulations! You just wrote your first program with \textit{libmedusa}.
+	\
+	
+	\
+
+	\
+
+	\subsection{\textit{rome}}
+	As stated previously, \textit{rome} is a subcomponent / subproject of the
+	\Medusa Project to create a C++ library / API, as a sort-of replacement for
+	\textit{ncurses}. I thought that \textit{ncurses}'s API felt quite dated, so
+	I started the \textit{rome} subproject.
+
+	Let's write some code with \textit{rome}.
+
+	Requirements:
+	\begin{itemize}
+		\item A computer.
+		
+		\item \textit{rome} "installed". Currently, \textit{rome} does not have
+		an install rule in its Makefile, but in the future, \texttt{git clone}
+		the \Medusa Project \textit{git} repository as usual, then \texttt{cd
+		Medusa/medusa\_software/rome}, and \texttt{make}.
+
+		\item Your preferred IDE for editing C++ code. (in the future, Medusa
+		will hopefully be able to be used for this purpose. (specifically, the
+		london subproject / subcomponent which will be integrated into the
+		larger tool. ))
+
+		\item A compatible C++ compiler: we use \textit{LLVM / Clang}.
+	\end{itemize}
+
+	First, \texttt{\#include <rome/rome.hpp>}. Now, create a
+	\texttt{rome::window}.
+
+	\begin{lstlisting}
+rome::window window;
+	\end{lstlisting}
+
+	Now, let's add some text!
+
+	\begin{lstlisting}
+/*
+ *  rome::window::addstr(std::string str, int x, int y) prints a
+ *  string `str` to the screen at position `(x, y)`.
+ */
+window.addstr("This is rome example code.", 3, 1);
+	\end{lstlisting}
+
+	How about we reverse that text, like a titlebar? (Background becomes
+	foreground, and vice versa. )
+
+	\begin{lstlisting}
+/*
+ *  rome::window::chgattr(int attr,
+ *  					  int x,
+ *  					  int y,
+ *  					  int n,
+ *  					  int color_pair) will set the terminal attributes
+ *  `attr` at the location `(x,y)`, for `n` characters, using the `curses` color
+ *  pair `color_pair`. Using a negative number for `n` will change the
+ *  attributes up until `abs(n)` characters from the end of the line.
+ */
+window.chgattr(A_REVERSE, 1, 1, -2, 0);
+	\end{lstlisting}
+
+	Finally, let's wait for a key, and exit the program.
+	\begin{lstlisting}
+/*
+ *  rome::window::getch() returns an `ncurses` `int` key. We discard the actual
+ *  key returned, we just want to wait for a key press.
+ */
+window.getch();
+	\end{lstlisting}
+
+	When the \texttt{rome::window} object is destroyed, the proper / normal
+	terminal state is automatically reset. So, we're done!
+
+	Congratulations! You just wrote your first program with \textit{rome}.
 
 	\section{Links}
 	This section contains useful links for the \Medusa Project.
