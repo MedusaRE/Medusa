@@ -81,11 +81,20 @@ void medusa_window::open_file(std::string filename) {
 
 void medusa_window::on_open_clicked() {
 	filename = file_prompt_cstr(Gtk::FILE_CHOOSER_ACTION_OPEN, "Please choose a file to edit.");
+	if (filename == NULL) {
+		return;
+	}
+
 	open_file(filename);
 }
 
 void medusa_window::on_open_folder_clicked() {
-	std::string folder = file_prompt_cstr(Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER, "Please choose a folder to open.");
+	char* folder_name = file_prompt_cstr(Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER, "Please choose a folder to open.");
+	if (folder_name == NULL) {
+		return;
+	}
+
+	std::string folder = folder_name;
 	chdir(folder.c_str());
 
 	this->repopulate_directory_tree();
@@ -288,7 +297,8 @@ medusa_window::medusa_window(int   argc,
 	 *  i have this set right now because otherwise it will cut off part of the
 	 *  actual content, as there isn't a toolbar or anything.
 	 */
-	set_title("London (noround)");
+//	set_title("London (noround)");
+	set_title("London");
 
 	show_all_children();
 }
