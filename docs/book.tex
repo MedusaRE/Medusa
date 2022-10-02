@@ -244,6 +244,10 @@
 		larger tool. ))
 
 		\item A compatible C++ compiler: we use \textit{LLVM / Clang}.
+		\footnote{
+			\label{llvm_clang1}
+			\href{https://www.llvm.org}{llvm.org}
+		}.
 	\end{itemize}
 
 	Create a new source file, and \texttt{\#include}
@@ -385,6 +389,20 @@ for (int i = 0;
 
 	\
 
+	\subsection{\textit{libmedusa} ~ \texttt{Component}s}
+	\textit{libmedusa}'s emulation / control framework is based on
+	\texttt{Component}s. A \texttt{Component} is a generic class that describes
+	a "thing" that can be controlled, can give output, or both.
+
+	For example, a \texttt{DisplayOutput} \texttt{Component} describes a display
+	output: a framebuffer / bitmap. A \texttt{SoundOutput} \texttt{Component}
+	could provide an interface to a \textit{DAC}, or a \texttt{CPU}
+	\texttt{Component} could provide a generic interface to a \textit{CPU}, that
+	could be implemented by a class to interact with, say, an \textit{ARMv7} or
+	\textit{x86(\_64)} processor.
+
+	Let's implement an example \texttt{DisplayOutput} \texttt{Component}.
+
 	\subsection{\textit{rome}}
 	As stated previously, \textit{rome} is a subcomponent / subproject of the
 	\Medusa Project to create a C++ library / API, as a sort-of replacement for
@@ -408,6 +426,9 @@ for (int i = 0;
 		larger tool. ))
 
 		\item A compatible C++ compiler: we use \textit{LLVM / Clang}.
+		\footnote{
+			See footnote \ref{llvm_clang1}.
+		}
 	\end{itemize}
 
 	First, \texttt{\#include <rome/rome.hpp>}. Now, create a
