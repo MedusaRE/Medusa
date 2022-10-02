@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass{report}
 
 \usepackage[pdftex, pdfborderstyle={/S/U/W 0}, breaklinks=false]{hyperref}
 \usepackage{background}
@@ -39,11 +39,7 @@
 \begin{document}
 	\maketitle
 
-	\begin{center}
-		\includegraphics[width=120px]{../res/img/medusa_logo_lus_rounded.png}
-	\end{center}
-
-	\section{Notes}
+	\chapter{Notes}
 	\begin{enumerate}
 		\item This document / paper / book is mainly written from the
 		perspective of the \textit{Medusa} Project's main developer, spv.
@@ -67,7 +63,7 @@
 		parentheses. For example: My (spv) cat is cute.
 	\end{enumerate}
 
-	\section{Introduction}
+	\chapter{Introduction}
 	\textit{Medusa} is a project to create a cross platform, free (libre), and
 	general purpose tool for software and hardware research, like reverse
 	engineering, analysis, emulation, development, debugging, and other similar
@@ -76,8 +72,8 @@
 	felt that current development and reverse engineering tools all have their
 	own problems, which I wanted to solve.
 
-	\subsection{Current Tools' Issues}
-	This subsection is partially paraphrased from the \textit{Medusa} Project's
+	\section{Current Tools' Issues}
+	This section is partially paraphrased from the \textit{Medusa} Project's
 	\texttt{README.md} file.
 
 	\begin{itemize}
@@ -102,8 +98,8 @@
 	slightly in regards to Java. I still dislike parts of the language
 	(particularly, requiring a VM), but I can appreciate other parts of it.
 
-	\subsection{\textit{Medusa}'s Solutions}
-	\subsubsection{\textit{libmedusa}} \label{solution_libmedusa1}
+	\section{\textit{Medusa}'s Solutions}
+	\subsection{\textit{libmedusa}} \label{solution_libmedusa1}
 	For a first example, take \textit{Unicorn}. \textit{Unicorn} is a
 	library/API based on \textit{QEMU}, that provides an interface to control
 	virtualized/emulated CPUs, and general machines. I do appreciate the
@@ -138,7 +134,7 @@
 	\textit{Capstone}, \textit{Keystone}, \textit{LIEF} (\textit{libmedusa}
 	provides an API for parsing formats like ELF), and other libraries.
 
-	\subsubsection{\textit{barcelona}}
+	\subsection{\textit{barcelona}}
 	This subsubsection is adapted from the \textit{barcelona} subcomponent /
 	subproject's \texttt{README.md} file.
 
@@ -146,7 +142,7 @@
 	a TUI (Terminal User Interface)-based IDE (Integrated Development
 	Environment).
 
-	\subsubsection{\textit{paris}}
+	\subsection{\textit{paris}}
 	This subsubsection is adapted from the \textit{paris} subproject's
 	\texttt{README.md}.
 
@@ -160,7 +156,7 @@
 	The server can be the same machine as the client, and it does not need to be
 	over the network (i.e. TCP), it could be a socket, for example.
 
-	\subsubsection{\textit{rome}}
+	\subsection{\textit{rome}}
 	This subsubsection is adapted from the \textit{rome} subcomponent's
 	\texttt{README.md} file.
 
@@ -175,8 +171,8 @@
 	essentially using $(y,x)$ instead of $(x,y)$, but it doesn't make it any
 	less strange to write.
 
-	\section{History}
-	\subsection{p0laris}
+	\chapter{History}
+	\section{p0laris}
 	The \textit{Medusa} Project's history begins with another one of my
 	projects, \textit{p0laris}. I, at the time, was writing shellcode to execute
 	from within kernel-land on iOS 9, and wanted to debug said shellcode. I did
@@ -184,7 +180,7 @@
 	similar means to debug the shellcode, so I set out to develop a debugger
 	that I could run on my computer.
 
-	\subsection{ARMistice}
+	\section{ARMistice}
 	I discussed \xpDBG in the \textit{Introduction} section, but before even
 	\xpDBG, I created a small project called \textit{ARMistice}.
 	\textit{ARMistice} was a small \textit{Python} script that emulated an
@@ -193,14 +189,14 @@
 	and \textit{Capstone}. This little \textit{Python} script was the genesis
 	for what would eventually become the \textit{Medusa} Project.
 
-	\subsection{\xpDBG}
+	\section{\xpDBG}
 	After \textit{ARMistice}, as was stated in the \textit{Introduction}
 	section, the \textit{Medusa} project was started under a different name,
 	\xpDBG. \xpDBG stands (or rather, stood) for "cross (X) Platform
 	DeBuGger", which references the project's goal to create a cross platform
 	suite for software and hardware research. 
 
-	\subsection{Name change}
+	\section{Name change}
 	I changed the name from \xpDBG to \Medusa mainly for branding reasons. I
 	thought of the name (I forget how), and I thought it sounded cool. I also
 	figured that it was early enough in the project's life that it wouldn't be
@@ -209,8 +205,8 @@
 	but they (at the time of writing, at least) just contain partially broken
 	versions of the \Medusa website.
 
-	\section{Documentation}
-	\subsection{\textit{libmedusa}}
+	\chapter{Documentation}
+	\section{\textit{libmedusa}}
 	\
 
 	Note: see \ref{solution_libmedusa1} for an introduction to this subsection.
@@ -219,13 +215,17 @@
 
 	\
 
-	This subsection will document code examples for \textit{libmedusa}, a
-	subcomponent / subproject of the \Medusa Project.
+	\subsection{\textit{Machine}}
 
-	Let's use, for example \texttt{ARMv7Machine}. \texttt{ARMv7Machine} is a
-	class that implements the generic \texttt{Machine} class, which is a
-	"standardized" interface between software utilizing \textit{libmedusa}, and
-	soft-or-hard silicon machines (specifically, CPUs).
+	This subsection will document code examples for \textit{libmedusa}, a
+	subcomponent / subproject of the \Medusa Project. Let's use, for example
+	\texttt{ARMv7Machine}. \texttt{ARMv7Machine} is a class that implements the
+	generic \texttt{Machine} class, which is a "standardized" interface between
+	software utilizing \textit{libmedusa}, and soft-or-hard silicon machines
+	(specifically, CPUs).
+	\
+
+	\
 
 	Requirements:
 	\begin{itemize}
@@ -430,7 +430,7 @@ class ExampleDisplayComponent : public DisplayOutput {
 	\texttt{<libmedusa/Component.hpp>}, and the header file that contains your
 	implementation.
 
-	\subsection{\textit{rome}}
+	\section{\textit{rome}}
 	As stated previously, \textit{rome} is a subcomponent / subproject of the
 	\Medusa Project to create a C++ library / API, as a sort-of replacement for
 	\textit{ncurses}. I thought that \textit{ncurses}'s API felt quite dated, so
@@ -506,8 +506,9 @@ window.getch();
 
 	Congratulations! You just wrote your first program with \textit{rome}.
 
-	\section{Links}
-	This section contains useful links for the \Medusa Project.
+	\chapter{Links}
+	This chapter contains useful links for the \Medusa Project.
+
 	\begin{enumerate}
 		\item \href{https://www.medusa-re.org}{medusa-re.org} ~ the \Medusa
 		Project's website
@@ -565,7 +566,7 @@ window.getch();
 		\footnote{See footnote \ref{git_note}.}
 	\end{enumerate}
 
-	\section{Contributors}
+	\chapter{Contributors}
 	The \Medusa Project is a pet-project of mine. As such, most
 	contributions have been made by me. All contributors (including me) are
 	listed below.
@@ -574,7 +575,7 @@ window.getch();
 		\item spv (\textit{\href{mailto:spv@spv.sh}{spv@spv.sh}})
 	\end{itemize}
 
-	\section{Credits}
+	\chapter{Credits}
 	The \Medusa Project might not have been possible without the work of many
 	others. A non-exhaustive list of individuals/entities that deserve credit
 	for their work is provided below. Note that none of these entities are
