@@ -261,34 +261,34 @@
 	To create a new \texttt{ARMv7Machine}, declare it like you would any other
 	instance of a class.
 
-	\begin{verbatim}
-		libmedusa::ARMv7Machine armv7_machine;
-	\end{verbatim}
+	\begin{lstlisting}
+libmedusa::ARMv7Machine armv7_machine;
+	\end{lstlisting}
 
 	Now, let's map some memory to place the code we'd like to emulate in.
 
-	\begin{verbatim}
-	/*
-	 *  a mem_reg_t is a libmedusa type representing a memory region, containing
-	 *  information about its address, size, and memory protections.
-	 */
-	libmedusa::mem_reg_t region;
+	\begin{lstlisting}
+/*
+ *  a mem_reg_t is a libmedusa type representing a memory region, containing
+ *  information about its address, size, and memory protections.
+ */
+libmedusa::mem_reg_t region;
 
-	/*
-	 *  set region.addr to 0x0, size to 0x10000, and allow RWX in the memory.
-	 *  this describes a memory region at the beginning of the CPU's memory
-	 *  space, that is 0x10000 bytes long, and allows all operations, read,
-	 *  write, and execute.
-	 */
-	region.addr = 0x0;
-	region.size = 0x10000;
-	region.prot = XP_PROT_READ | XP_PROT_WRITE | XP_PROT_EXEC;
+/*
+ *  set region.addr to 0x0, size to 0x10000, and allow RWX in the memory.
+ *  this describes a memory region at the beginning of the CPU's memory
+ *  space, that is 0x10000 bytes long, and allows all operations, read,
+ *  write, and execute.
+ */
+region.addr = 0x0;
+region.size = 0x10000;
+region.prot = XP_PROT_READ | XP_PROT_WRITE | XP_PROT_EXEC;
 
-	/*
-	 *  Machine::map_memory(mem_reg_t region) will map the region into memory.
-	 */
-	armv7_machine.map_memory(region);
-	\end{verbatim}
+/*
+ *  Machine::map_memory(mem_reg_t region) will map the region into memory.
+ */
+armv7_machine.map_memory(region);
+\end{lstlisting}
 
 	Now, let's copy some \textit{ARMv7} code into memory to be executed.
 
