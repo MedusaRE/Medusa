@@ -186,7 +186,7 @@ ARM64Machine::ARM64Machine() {
 	reg.reg_description = "x15";
 	reg.reg_name = "x15";
 	reg.reg_id++;
-	reg.reg_value = 0;
+	reg.reg_value = 0;f
 	
 	this->registers.push_back(reg);
 

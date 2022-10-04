@@ -99,6 +99,9 @@ const int BYTES_PER_PIXEL = 3; /// red, green, & blue
 const int FILE_HEADER_SIZE = 14;
 const int INFO_HEADER_SIZE = 40;
 
+/*
+ *  BEGIN stolen code from stackoverflow
+ */
 void generate_bitmap_image(unsigned char* image, int height, int width, char* image_file_name);
 unsigned char* create_bitmap_file_header(int height, int stride);
 unsigned char* create_bitmap_info_header(int height, int width);
@@ -178,6 +181,10 @@ unsigned char* create_bitmap_info_header(int height, int width) {
 
 	return info_header;
 }
+
+/*
+ *  END stolen code from stackoverflow
+ */
 
 void handle_example_component(libmedusa::ExampleComponent& component) {
 	printf("%d\n", component.get_component_int_output());
