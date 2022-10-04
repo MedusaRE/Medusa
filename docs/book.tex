@@ -77,34 +77,31 @@
 	\texttt{README.md} file.
 
 	\begin{itemize}
-		\item \textit{Cutter}: not very featureful, essentially a
-		\textit{radare2} GUI, and doesn't have debugger and/or emulation support
-		to my knowledge.
-		\item \textit{Ghidra}: personal favorite currently, still doesn't have
-		emulation support or code editing, and is written in \textit{Java}
-		(besides the decompiler), which is one of my least favorite languages*.
-		\item \textit{IDA Pro}: expensive, non-free, does not have emulation
-		support, or code editing.
-		\item \textit{Radare2}: does not have code editing, a GUI, or the level
+		\item \textit{Cutter} / \textit{iaito} is not very featureful, and
+		essentially a \textit{radare2} / \textit{rizin} GUI. It doesn't have
+		debugger and/or emulation support either, to my knowledge. Finally, it
+		also does not have a built-in IDE.
+		\item \textit{Ghidra} is my personal favorite currently, though it, to
+		my knowledge doesn't have emulation support or code editing.
+		\item \textit{IDA Pro} is expensive, non-free (non-libre), and does not
+		have emulation support, or code editing.
+		\item \textit{Radare2} does not have code editing, a GUI, or the level
 		of emulation support which I intend to include in \textit{Medusa}.
-		\item \textit{Binary Ninja}: I honestly do not have a lot of experience
-		with \textit{Binary Ninja}, but to my knowledge, it is not free / 
-		open-source software, it isn't a full IDE (like \textit{Medusa} is
-		intended to be), and doesn't have emulation support (like
-		\textit{Medusa} is intended to).
+		\item \textit{Binary Ninja} is not a tool that I have a lot of
+		experience with, but to my knowledge, it is not free / open-source
+		software, it isn't a full IDE (like \textit{Medusa} is intended to be),
+		and doesn't have emulation support (like \textit{Medusa} is intended
+		to).
 	\end{itemize}
-
-	* Since the writing of \texttt{README.md}, I have changed my opinion
-	slightly in regards to Java. I still dislike parts of the language
-	(particularly, requiring a VM), but I can appreciate other parts of it.
 
 	\section{\textit{Medusa}'s Solutions}
 	\subsection{\textit{libmedusa}} \label{solution_libmedusa1}
 	For a first example, take \textit{Unicorn}. \textit{Unicorn} is a
 	library/API based on \textit{QEMU}, that provides an interface to control
-	virtualized/emulated CPUs, and general machines. I do appreciate the
-	\textit{Unicorn} project's work, but I think it has some flaws. (or rather,
-	it is not the perfect library for the \textit{Medusa} Project's goals.)
+	virtualized/emulated CPUs, and general machines.\cite{unicorn_github} I do
+	appreciate the \textit{Unicorn} project's work, but I think it has some
+	flaws. (or rather, it is not the perfect library for the \textit{Medusa}
+	Project's goals.)
 
 	To solve some of \textit{Unicorn}'s issues, the \textit{Medusa} Project has
 	a subproject / subcomponent called \textit{libmedusa}. \textit{libmedusa} is
@@ -135,7 +132,7 @@
 	provides an API for parsing formats like ELF), and other libraries.
 
 	\subsection{\textit{barcelona}}
-	This subsubsection is adapted from the \textit{barcelona} subcomponent /
+	This subsection is adapted from the \textit{barcelona} subcomponent /
 	subproject's \texttt{README.md} file.
 
 	\textit{barcelona} is a subproject of the \textit{Medusa} Project to create
@@ -143,7 +140,7 @@
 	Environment).
 
 	\subsection{\textit{paris}}
-	This subsubsection is adapted from the \textit{paris} subproject's
+	This subsection is adapted from the \textit{paris} subproject's
 	\texttt{README.md}.
 
 	\textit{paris} is a subcomponent of the \textit{Medusa} Project to develop
@@ -157,7 +154,7 @@
 	over the network (i.e. TCP), it could be a socket, for example.
 
 	\subsection{\textit{rome}}
-	This subsubsection is adapted from the \textit{rome} subcomponent's
+	This subsection is adapted from the \textit{rome} subcomponent's
 	\texttt{README.md} file.
 
 	Rome is a subcomponent of the \textit{Medusa} Project to write a modern C++
@@ -600,4 +597,14 @@ window.getch();
 		\item The \textit{GNOME} Project
 		(\href{https://www.gnome.org}{gnome.org}) ~ \textit{GTK}, \textit{GTKMM}
 	\end{itemize}
+
+	\begin{thebibliography}{99}
+		\bibitem{unicorn_github}
+			Nguyen Anh Quynh,
+			\textit{Unicorn CPU emulator framework (ARM, AArch64, M68K, Mips,
+			Sparc, PowerPC, RiscV, S390x, TriCore, X86)},
+			\href{https://github.com/unicorn-engine/unicorn}
+				 {github.com/unicorn-engine/unicorn},
+			2015?
+	\end{thebibliography}
 \end{document}
