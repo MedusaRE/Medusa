@@ -95,13 +95,13 @@ void generic_machine_demo(libmedusa::Machine& generic_machine) {
 	}
 }
 
+/*
+ *  BEGIN stolen code from stackoverflow
+ */
 const int BYTES_PER_PIXEL = 3; /// red, green, & blue
 const int FILE_HEADER_SIZE = 14;
 const int INFO_HEADER_SIZE = 40;
 
-/*
- *  BEGIN stolen code from stackoverflow
- */
 void generate_bitmap_image(unsigned char* image, int height, int width, char* image_file_name);
 unsigned char* create_bitmap_file_header(int height, int stride);
 unsigned char* create_bitmap_info_header(int height, int width);
