@@ -15,3 +15,12 @@ bin/main: bin/main.o
 bin/%.o: src/%.cpp
 	mkdir -p $(@D)
 	${CPP} ${CPPFLAGS} $< -c -o $@
+
+res/bin:
+	sh -c "mkdir res/bin"
+
+res/bin/x86_test_shellcode.o: res/src/x86_test_shellcode.c res/bin
+	clang -target x86_64 -ffreestanding $< -c -o $@
+
+res/bin/x86_test_shellcode.bin: res/bin/x86_test_shellcode.o
+	ld -o $@ $< --oformat binary
