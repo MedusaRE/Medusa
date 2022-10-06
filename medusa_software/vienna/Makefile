@@ -1,7 +1,7 @@
 CPP=clang++
 CPPFLAGS=--std=c++17
 
-all: bin bin/main
+all: res/bin bin bin/main
 
 bin:
 	sh -c "mkdir bin"
@@ -19,7 +19,7 @@ bin/%.o: src/%.cpp
 res/bin:
 	sh -c "mkdir res/bin"
 
-res/bin/x86_test_shellcode.o: res/src/x86_test_shellcode.c res/bin
+res/bin/x86_test_shellcode.o: res/src/x86_test_shellcode.c
 	clang -target x86_64 -ffreestanding $< -c -o $@
 
 res/bin/x86_test_shellcode.bin: res/bin/x86_test_shellcode.o
