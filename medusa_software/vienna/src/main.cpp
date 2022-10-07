@@ -20,5 +20,8 @@
 
 int main(int argc, char* argv[]) {
 	printf("Hello, world!\n");
+
+	vienna::test_function();
+
 	return 0;
 }

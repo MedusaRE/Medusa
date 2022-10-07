@@ -15,15 +15,11 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef VIENNA_VIENNA_HPP
-#define VIENNA_VIENNA_HPP
+#include <vienna/vienna.hpp>
+#include <cstdio>
 
-namespace vienna {
-	/*
-	 *  this is simply meant to declare the `vienna` namespace.
-	 */
+using namespace vienna;
 
-	void test_function(void);
+void vienna::test_function(void) {
+	printf("vienna::test_function test printf\n");
 }
-
-#endif
