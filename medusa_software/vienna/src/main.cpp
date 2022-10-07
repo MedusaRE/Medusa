@@ -15,6 +15,7 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include <vienna/vienna.hpp>
 #include <cstdio>
 
 int main(int argc, char* argv[]) {

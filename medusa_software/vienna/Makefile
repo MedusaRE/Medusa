@@ -1,5 +1,5 @@
 CPP=clang++
-CPPFLAGS=--std=c++17
+CPPFLAGS=--std=c++17 -Iinclude
 
 all: res/bin bin bin/main
 
