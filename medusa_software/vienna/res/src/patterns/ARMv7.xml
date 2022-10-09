@@ -23,4 +23,13 @@
 			%a += %b;
 		</pc>
 	</pattern>
+	<pattern>
+		<name>no-arg function call</name>
+		<asm>
+			blx %b
+		</asm>
+		<pc>
+			FUNC_%b();
+		</pc>
+	</pattern>
 </pattern_list>
