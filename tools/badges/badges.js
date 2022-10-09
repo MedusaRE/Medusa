@@ -33,7 +33,7 @@ fs.writeFile("res/badges/commit_count.svg", badgen({
 
 fs.writeFile("res/badges/loc.svg", badgen({
 	label: 'lines of code',
-	status: get_output("git grep -l '' | cat | xargs cloc --exclude-ext=svg | grep SUM | awk '{ print $NF }'"),
+	status: get_output("git grep -l '' | cat | xargs cloc --exclude-ext=svg | grep SUM | awk '{ print $NF }'").replace("\n", ""),
 	color: 'orange',
 	style: 'classic'
 }), err => {});
