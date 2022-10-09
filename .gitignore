@@ -1,25 +1,38 @@
-# built binaries
+################################################################################
+#	 __  __          _                                                         #
+#	|  \/  | ___  __| |_   _ ___  __ _                                         #
+#	| |\/| |/ _ \/ _` | | | / __|/ _` |                                        #
+#	| |  | |  __/ (_| | |_| \__ \ (_| |                                        #
+#	|_|  |_|\___|\__,_|\__,_|___/\__,_|                                        #
+#                                                                              #
+#	------------------------------------------------------------------------   #
+#	                                                                           #
+#		.gitignore                                                             #
+#	                                                                           #
+################################################################################
+
+# `bin` contains binary files & build artifcats
 bin
 
-# .DS_Store files make me want to not be alive
+# .DS_Store are created by macOS (X)
 .DS_Store
 
-# CMake be damned
+# more macOS temporary/garbage files
+._*
+
+# CMake default build folder name
 build
 
-# nano damn you
+# nano swap file name
 *.swp
-
-# fuck macOS for this shit
-._*
 
 # VSCode
 .vscode
 
-# doxygen
+# Doxygen HTML output
 doxygen_out
 
-# latex
+# LaTeX output files
 book.pdf
 book.aux
 book.log
@@ -28,21 +41,28 @@ book.out
 # Pillow output
 pil
 
-# node_modules
+# node_modules contains packages installed by NPM
 node_modules
 
+# package*.json are other files used by NPM that we don't want
 package*.json
 
+# currently untracked as i (spv) drunkenly wrote this file and don't want to
+# commit it until i properly rewrite it
 ETHICS.md
 
+# not committing this file yet, it's from p0laris (p0laris.dev), and contains
+# "humorous" quotes
 motd.txt
 
+# unsure of what this was for, will not remove though.
 *.save
 
+# Java build artifacts
+sources.txt
 *.class
 *.jar
 
-# java shit
-sources.txt
-
-tmp
+# temporary folder for any garbage Medusa work, like running `tree` to pipe into
+# a file
+tmp/*
