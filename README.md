@@ -143,6 +143,9 @@ question.
         rome              - a subcomponent of the Medusa Project to write a
                             modern C++ TUI framework based on ncurses.
         submodules        - Git submodules not maintained by the Medusa Project
+        vienna            - a subcomponent/subproject of the Medusa Project to
+                            develop a free (libre) decompiler for both native
+                            code, and bytecode.
         work              - work in progress components / sideprojects for the
                             Medusa Project, such as a text editor
     res:                  - resources, such as GIMP project files, images, and
