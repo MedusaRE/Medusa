@@ -18,6 +18,9 @@
 #ifndef VIENNA_VIENNA_HPP
 #define VIENNA_VIENNA_HPP
 
+#include <libmedusa/ARMv7Machine.hpp>
+#include <libmedusa/libmedusa.hpp>
+
 namespace vienna {
 	/*
 	 *  this is simply meant to declare the `vienna` namespace.

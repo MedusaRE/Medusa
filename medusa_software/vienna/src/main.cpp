@@ -15,6 +15,8 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include <libmedusa/ARMv7Machine.hpp>
+#include <libmedusa/libmedusa.hpp>
 #include <vienna/vienna.hpp>
 #include <cstdio>
 

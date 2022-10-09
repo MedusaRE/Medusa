@@ -1,5 +1,5 @@
 CPP=clang++
-CPPFLAGS=--std=c++17 -Iinclude
+CPPFLAGS=--std=c++17 -Iinclude -lcapstone -lkeystone -lmedusa -lunicorn -lLIEF
 
 all: res/bin bin bin/libvienna.so bin/main
 
