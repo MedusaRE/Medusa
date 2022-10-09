@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!--
+
+	Remember kids, hand-write your XML!
+
+  -->
+
+<pattern_list>
+	<pattern>
+		<name>uint32_t-ish deref</name>
+		<asm>
+ldr %a, [%b, %c, lsl #2]
+		</asm>
+		<pc>
+%a = %b[%c];
+		</pc>
+	</pattern>
+	<pattern>
+		<name>add 2 registers</name>
+		<asm>
+add %a, %a, %b
+		</asm>
+		<pc>
+%a += %b;
+		</pc>
+	</pattern>
+</pattern_list>
