@@ -42,6 +42,10 @@ void vienna::test_function(void) {
 	std::vector<libmedusa::insn_t> insns = armv7_machine.disassemble(tmp_vector, 0);
 
 	for (int i = 0; i < insns.size(); i++) {
-		printf("0x%016lx (%d): %s %s\n", insns[i].address, insns[i].size, insns[i].mnemonic, insns[i].op_str);
+		printf("0x%016lx (%d): %s %s\n",
+			   insns[i].address,
+			   insns[i].size,
+			   insns[i].mnemonic,
+			   insns[i].op_str);
 	}
 }
