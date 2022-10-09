@@ -1,0 +1,27 @@
+<!-- This file is licensed under the terms of the CC BY-SA 4.0 license. -->
+
+<?xml version="1.0"?>
+
+<!-->
+	> Remember kids, hand-write your XML!
+  -->
+
+<!-->
+	> Vienna's x86 patterns will probably be hell on Earth. x86 is a CISC-type
+	> ISA; mov is turing complete. (https://github.com/xoreaxeaxeax/movfuscator)
+	>
+	> Because of this, I presume that Vienna's decompilation patterns for x86
+	> will be an absolute mess.
+  -->
+
+<pattern_list>
+	<pattern>
+		<name>mov constant into register</name>
+		<asm>
+			mov %a, %b
+		</asm>
+		<pc>
+			%a = %b;
+		</pc>
+	</pattern>
+</pattern_list>
