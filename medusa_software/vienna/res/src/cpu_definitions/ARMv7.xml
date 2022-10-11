@@ -137,7 +137,7 @@
 		<pattern>
 			<name>uint32_t-ish deref</name>
 			<asm>ldr (r[0-9]+), \[(r[0-9]+), (r[0-9]+), lsl #2]</asm>
-			<pc>$0 = $1[$2];</pc>
+			<pc>$1 = $2[$3];</pc>
 		</pattern>
 
 		<pattern>
