@@ -31,14 +31,12 @@ const char* node_types[] = {
 
 struct simple_walker: pugi::xml_tree_walker {
 	virtual bool for_each(pugi::xml_node& node) {
-		for (int i = 0; i < depth(); i++) {
-			printf("\t");
-		}
+		if (strcmp((char*)node.name(), "") != 0) {
+			for (int i = 0; i < depth(); i++) {
+				printf("\t");
+			}
 
-		if (node.name() != "") {
-			printf("%s:\n", node.name());
-		} else {
-			printf("= %s\n", node.value());
+			printf("%s: %s\n", node.name(), node.first_child().value());
 		}
 
 //		std::cout << node_types[node.type()] << ": name='" << node.name() << "', value='" << node.value() << "'\n";
