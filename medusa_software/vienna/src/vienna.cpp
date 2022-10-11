@@ -15,10 +15,12 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include "../../submodules/pugixml/src/pugixml.hpp"
 #include <libmedusa/ARMv7Machine.hpp>
 #include <libmedusa/libmedusa.hpp>
 #include <libmedusa/Machine.hpp>
 #include <vienna/vienna.hpp>
+#include <cstring>
 #include <cstdio>
 #include <vector>
 
@@ -32,6 +34,26 @@ static uint8_t test_arm_code[] = {
 	0x01, 0x00, 0x40, 0xE0,
 	0x00, 0x10, 0x81, 0xE0,
 	0x00, 0x00, 0xA0, 0xE1,
+};
+
+const char* node_types[] = {
+	"null", "document", "element", "pcdata", "cdata", "comment", "pi", "declaration"
+};
+
+struct simple_walker: pugi::xml_tree_walker {
+	virtual bool for_each(pugi::xml_node& node) {
+		if (strcmp((char*)node.name(), "") != 0) {
+			for (int i = 0; i < depth(); i++) {
+				printf("\t");
+			}
+
+			printf("%s: %s\n", node.name(), node.first_child().value());
+		}
+
+//		std::cout << node_types[node.type()] << ": name='" << node.name() << "', value='" << node.value() << "'\n";
+
+		return true;
+	}
 };
 
 void vienna::test_function(void) {
@@ -48,4 +70,14 @@ void vienna::test_function(void) {
 			   insns[i].mnemonic,
 			   insns[i].op_str);
 	}
+
+	pugi::xml_document doc;
+	pugi::xml_parse_result result = doc.load_file("res/src/cpu_definitions/ARMv7.xml");
+
+	if (!result) {
+		return;
+	}
+
+	simple_walker walker;
+	doc.traverse(walker);
 }

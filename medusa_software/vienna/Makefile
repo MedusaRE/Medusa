@@ -1,5 +1,5 @@
 CPP=clang++
-CPPFLAGS=--std=c++17 -Iinclude -lcapstone -lkeystone -lmedusa -lunicorn -lLIEF
+CPPFLAGS=--std=c++17 -Iinclude -lcapstone -lkeystone -lmedusa -lunicorn -lLIEF -fPIC
 
 all: res/bin bin bin/libvienna.so bin/main
 
@@ -10,7 +10,7 @@ clean:
 	rm -rf bin
 
 bin/main: bin/main.o
-	${CPP} ${CPPFLAGS} -Lbin -lvienna $^ -o $@
+	${CPP} ${CPPFLAGS} -Lbin -lvienna ../submodules/pugixml/src/pugixml.cpp $^ -o $@
 
 bin/%.o: src/%.cpp
 	mkdir -p $(@D)
