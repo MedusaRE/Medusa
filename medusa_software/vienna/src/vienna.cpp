@@ -36,10 +36,6 @@ static uint8_t test_arm_code[] = {
 	0x01, 0x01, 0x90, 0xE7,
 };
 
-const char* node_types[] = {
-	"null", "document", "element", "pcdata", "cdata", "comment", "pi", "declaration"
-};
-
 typedef struct {
 	std::string regex;
 	std::string replace;
@@ -56,12 +52,6 @@ struct simple_walker: pugi::xml_tree_walker {
 
 	virtual bool for_each(pugi::xml_node& node) {
 		if (strcmp((char*)node.name(), "") != 0) {
-/*			for (int i = 0; i < depth(); i++) {
-				printf("\t");
-			}
-
-			printf("%s: %s\n", node.name(), node.first_child().value());*/
-
 			if (strcmp(node.first_child().value(), "") != 0) {
 				if (strcmp(node.name(), "asm") == 0) {
 					current.regex = node.first_child().value();
@@ -71,8 +61,6 @@ struct simple_walker: pugi::xml_tree_walker {
 				}
 			}
 		}
-
-//		std::cout << node_types[node.type()] << ": name='" << node.name() << "', value='" << node.value() << "'\n";
 
 		return true;
 	}
