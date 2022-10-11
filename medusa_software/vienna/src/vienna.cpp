@@ -79,9 +79,11 @@ void vienna::test_function(void) {
 			   insns[i].op_str);
 	}
 
-	std::regex regex("")
+	std::regex the_regex("mov r0, r0");
+	std::string asm_out;
+	std::regex_replace(std::back_inserter(asm_out), raw_asm.begin(), raw_asm.end(), the_regex, "[$&]");
 
-	printf("%s\n", raw_asm.c_str());
+	printf("%s\n", asm_out.c_str());
 
 	return;
 
