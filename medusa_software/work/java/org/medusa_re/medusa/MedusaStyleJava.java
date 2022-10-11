@@ -49,8 +49,4 @@ public class MedusaStyleJava {
 	public static void exit(int code) {
 		System.exit(code);
 	}
-
-	public static void test_msj(Object obj) {
-		printf("yahtzee %h\n", obj);
-	}
 }
