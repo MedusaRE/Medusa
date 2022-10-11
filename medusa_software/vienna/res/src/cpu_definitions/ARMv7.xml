@@ -1,0 +1,150 @@
+<!-- This file is licensed under the terms of the CC BY-SA 4.0 license. -->
+
+<?xml version="1.0"?>
+
+<!-->
+	> Remember kids, hand-write your XML!
+  -->
+
+<cpu_definition>
+	<cpu_info>
+		<name>ARMv7</name>
+		<description>A RISC-type ISA.</description>
+	</cpu_info>
+
+	<register_list>
+		<register>
+			<name>r0</name>
+			<description>r0</description>
+			<id>0</id>
+		</register>
+
+		<register>
+			<name>r1</name>
+			<description>r1</description>
+			<id>1</id>
+		</register>
+
+		<register>
+			<name>r2</name>
+			<description>r2</description>
+			<id>2</id>
+		</register>
+
+		<register>
+			<name>r3</name>
+			<description>r3</description>
+			<id>3</id>
+		</register>
+
+		<register>
+			<name>r4</name>
+			<description>r4</description>
+			<id>4</id>
+		</register>
+
+		<register>
+			<name>r5</name>
+			<description>r5</description>
+			<id>5</id>
+		</register>
+
+		<register>
+			<name>r6</name>
+			<description>r6</description>
+			<id>6</id>
+		</register>
+
+		<register>
+			<name>r7</name>
+			<description>r7</description>
+			<id>7</id>
+		</register>
+
+		<register>
+			<name>r8</name>
+			<description>r8</description>
+			<id>8</id>
+		</register>
+
+		<register>
+			<name>r9</name>
+			<description>r9</description>
+			<id>9</id>
+		</register>
+
+		<register>
+			<name>r10</name>
+			<description>r10</description>
+			<id>10</id>
+		</register>
+
+		<register>
+			<name>r11</name>
+			<description>r11</description>
+			<id>11</id>
+		</register>
+
+		<register>
+			<name>ip</name>
+			<description>ip</description>
+			<id>12</id>
+		</register>
+
+		<register>
+			<name>sp</name>
+			<description>sp</description>
+			<id>13</id>
+		</register>
+
+		<register>
+			<name>lr</name>
+			<description>lr</description>
+			<id>14</id>
+		</register>
+
+		<register>
+			<name>pc</name>
+			<description>pc</description>
+			<id>15</id>
+		</register>
+
+		<register>
+			<name>cpsr</name>
+			<description>cpsr</description>
+			<id>16</id>
+		</register>
+	</register_list>
+
+	<pattern_list>
+		<pattern>
+			<name>uint32_t-ish deref</name>
+			<asm>
+				ldr %a, [%b, %c, lsl #2]
+			</asm>
+			<pc>
+				%a = %b[%c];
+			</pc>
+		</pattern>
+
+		<pattern>
+			<name>add 2 registers</name>
+			<asm>
+				add %a, %a, %b
+			</asm>
+			<pc>
+				%a += %b;
+			</pc>
+		</pattern>
+		
+		<pattern>
+			<name>no-arg function call</name>
+			<asm>
+				blx %b
+			</asm>
+			<pc>
+				FUNC_%b();
+			</pc>
+		</pattern>
+	</pattern_list>
+</cpu_definition>

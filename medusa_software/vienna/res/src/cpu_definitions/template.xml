@@ -1,0 +1,40 @@
+<!-- This file is licensed under the terms of the CC BY-SA 4.0 license. -->
+
+<?xml version="1.0"?>
+
+<!-->
+	> Remember kids, hand-write your XML!
+  -->
+
+<cpu_definition>
+	<cpu_info>
+		<name>Template</name>
+		<description>A template ISA.</description>
+	</cpu_info>
+
+	<register_list>
+		<register>
+			<name>register0</name>
+			<description>A first test register.</description>
+			<id>0</id>
+		</register>
+
+		<register>
+			<name>register1</name>
+			<description>A second test register.</description>
+			<id>1</id>
+		</register>
+	</register_list>
+
+	<pattern_list>
+		<pattern>
+			<name>example pattern</name>
+			<asm>
+				whatever %a, %b
+			</asm>
+			<pc>
+				int %a = %b;
+			</pc>
+		</pattern>
+	</pattern_list>
+</cpu_definition>
