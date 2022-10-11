@@ -16,6 +16,7 @@
  */
 
 #include "../../../submodules/rapidxml/rapidxml.hpp"
+#include <cstring>
 #include <fstream>
 #include <sstream>
 #include <cstdio>
@@ -34,13 +35,30 @@ int main(int argc, char* argv[]) {
 	string s = ss.str();
 
 	rapidxml::xml_document<> doc;
-	doc.parse<0>((char*)s.c_str());
+	doc.parse<0>((char*)strdup((char*)s.c_str()));
 
 
-	rapidxml::xml_node<>* node = doc;
+	rapidxml::xml_node<>* node = doc.first_node();
 	int depth = 0;
 
 	do {
+		if (node->type() == 2) {
+			for (int i = 0; i < depth + 1; i++) {
+				printf("\t");
+			}
+			printf("%s\n", node->value());
+			rapidxml::xml_node<>* parent_node = node->parent();
+
+			do {
+				parent_node = parent_node->parent();
+				depth--;
+			} while (parent_node->next_sibling() == NULL);
+
+			node = parent_node->next_sibling();
+			depth--;
+			continue;
+		}
+
 		for (int i = 0; i < depth; i++) {
 			printf("\t");
 		}
