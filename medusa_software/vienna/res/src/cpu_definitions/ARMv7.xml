@@ -142,6 +142,12 @@
 
 		<pattern>
 			<name>add 2 registers</name>
+			<asm>add (r[0-9]+), \1, (r[0-9]+)</asm>
+			<pc>$1 += $2;</pc>
+		</pattern>
+
+		<pattern>
+			<name>add 2 registers</name>
 			<asm>add (r[0-9]+), (r[0-9]+), (r[0-9]+)</asm>
 			<pc>$1 = $2 + $3;</pc>
 		</pattern>
@@ -165,7 +171,13 @@
 		</pattern>
 
 		<pattern>
-			<name>move (wide) val into reg</name>
+			<name>subtract registers</name>
+			<asm>sub (r[0-9]+), \1, (r[0-9]+)</asm>
+			<pc>$1 -= $2;</pc>
+		</pattern>
+
+		<pattern>
+			<name>subtract registers</name>
 			<asm>sub (r[0-9]+), (r[0-9]+), (r[0-9]+)</asm>
 			<pc>$1 = $2 - $3;</pc>
 		</pattern>
