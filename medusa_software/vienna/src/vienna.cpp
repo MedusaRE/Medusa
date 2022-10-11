@@ -43,7 +43,7 @@ typedef struct {
 
 std::vector<regex_replace_t> all_patterns_armv7; // wip
 
-struct simple_walker: pugi::xml_tree_walker {
+struct cpu_definition_walker : pugi::xml_tree_walker {
 	virtual bool begin(pugi::xml_node& node) {
 		return true;
 	}
@@ -69,13 +69,27 @@ struct simple_walker: pugi::xml_tree_walker {
 void vienna::test_function(void) {
 	printf("vienna::test_function test printf\n");
 
+	/*
+	 *  create an ARMv7Machine, and a vector to hold the ARMv7 code.
+	 *
+	 *  then, get the vector of insn_t's from armv7_machine.disassemble(...).
+	 *  pass 0 for no flags. (not THUMB)
+	 */
 	libmedusa::ARMv7Machine armv7_machine;
-	std::vector<uint8_t> tmp_vector(test_arm_code, test_arm_code + sizeof(test_arm_code));
-	std::vector<libmedusa::insn_t> insns = armv7_machine.disassemble(tmp_vector, 0);
-	
+	std::vector<uint8_t> tmp_vector(test_arm_code,
+									test_arm_code + sizeof(test_arm_code));
+	std::vector<libmedusa::insn_t> insns;
+	insns = armv7_machine.disassemble(tmp_vector, 0);
+
+	/*
+	 *  loop through all instructions in the disassembly, and print out the
+	 *  insn, as well as add the mnemonic and op_str to raw_asm for later IR
+	 *  conversion
+	 */
+	printf("--------------------------------------------------------------------------------\n");
+
 	std::string raw_asm;
 
-	printf("--------------------------------------------------------------------------------\n");
 	for (int i = 0; i < insns.size(); i++) {
 		raw_asm += insns[i].mnemonic;
 		raw_asm += " ";
@@ -90,14 +104,25 @@ void vienna::test_function(void) {
 
 	printf("--------------------------------------------------------------------------------\n");
 
+	/*
+	 *  load ARMv7.xml cpu definition
+	 */
 	pugi::xml_document doc;
-	pugi::xml_parse_result result = doc.load_file("res/src/cpu_definitions/ARMv7.xml");
+	pugi::xml_parse_result result;
+	
+	result = doc.load_file("res/src/cpu_definitions/ARMv7.xml");
 
 	if (!result) {
 		return;
 	}
 
-	simple_walker walker;
+	/*
+	 *  `cpu_definition_walker` traverses the XML document, and once it
+	 *  encounters an `asm` value it sets a temporary value to the value in the
+	 *  document. when it finds a `pc` value it sets the temp val to the doc val
+	 *  and pushes it to the back of the `all_patterns_armv7` vector.
+	 */
+	cpu_definition_walker walker;
 	doc.traverse(walker);
 	std::string asm_out = raw_asm;
 
@@ -105,6 +130,11 @@ void vienna::test_function(void) {
 		std::regex the_regex(i.regex);
 		printf("%s %s\n", i.regex.c_str(), i.replace.c_str());
 		std::string tmp;
+
+		/*
+		 *  use the regex_replace format for each pattern to convert as much
+		 *  as possible to IR
+		 */
 		std::regex_replace(std::back_inserter(tmp),
 						   asm_out.begin(),
 						   asm_out.end(),
