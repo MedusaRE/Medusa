@@ -49,10 +49,10 @@ int main(int argc, char* argv[]) {
 			printf("%s\n", node->value());
 			rapidxml::xml_node<>* parent_node = node->parent();
 
-			do {
+			while (parent_node->next_sibling() == NULL) {
 				parent_node = parent_node->parent();
 				depth--;
-			} while (parent_node->next_sibling() == NULL);
+			}
 
 			node = parent_node->next_sibling();
 			depth--;
