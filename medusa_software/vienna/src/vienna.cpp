@@ -75,6 +75,7 @@ void vienna::test_function(void) {
 	
 	std::string raw_asm;
 
+	printf("--------------------------------------------------------------------------------\n");
 	for (int i = 0; i < insns.size(); i++) {
 		raw_asm += insns[i].mnemonic;
 		raw_asm += " ";
@@ -86,6 +87,8 @@ void vienna::test_function(void) {
 			   insns[i].mnemonic,
 			   insns[i].op_str);
 	}
+
+	printf("--------------------------------------------------------------------------------\n");
 
 	pugi::xml_document doc;
 	pugi::xml_parse_result result = doc.load_file("res/src/cpu_definitions/ARMv7.xml");
@@ -109,6 +112,8 @@ void vienna::test_function(void) {
 						   i.replace);
 		asm_out = tmp;
 	}
+
+	printf("--------------------------------------------------------------------------------\n");
 
 	printf("%s\n", asm_out.c_str());
 
