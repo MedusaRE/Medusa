@@ -37,11 +37,25 @@ int main(int argc, char* argv[]) {
 	doc.parse<0>((char*)s.c_str());
 
 
-	rapidxml::xml_node<>* node = doc.first_node()->first_node();
-	
+	rapidxml::xml_node<>* node = doc;
+	int depth = 0;
+
 	do {
+		for (int i = 0; i < depth; i++) {
+			printf("\t");
+		}
+
 		printf("%s\n", node->name());
-		node = node->next_sibling();
+
+		if (node->first_node() != NULL) {
+			node = node->first_node();
+			depth++;
+		} else if (node->next_sibling() != NULL) {
+			node = node->next_sibling();
+		} else {
+			node = node->parent()->next_sibling();
+			depth--;
+		}
 	} while (node != NULL);
 
 
