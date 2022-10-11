@@ -42,14 +42,36 @@ const char* node_types[] = {
 	"null", "document", "element", "pcdata", "cdata", "comment", "pi", "declaration"
 };
 
+typedef struct {
+	std::string regex;
+	std::string replace;
+} regex_replace_t;
+
+std::vector<regex_replace_t> all_patterns_armv7; // wip
+
 struct simple_walker: pugi::xml_tree_walker {
+	virtual bool begin(pugi::xml_node& node) {
+		return true;
+	}
+
+	regex_replace_t current;
+
 	virtual bool for_each(pugi::xml_node& node) {
 		if (strcmp((char*)node.name(), "") != 0) {
-			for (int i = 0; i < depth(); i++) {
+/*			for (int i = 0; i < depth(); i++) {
 				printf("\t");
 			}
 
-			printf("%s: %s\n", node.name(), node.first_child().value());
+			printf("%s: %s\n", node.name(), node.first_child().value());*/
+
+			if (strcmp(node.first_child().value(), "") != 0) {
+				if (strcmp(node.name(), "asm") == 0) {
+					current.regex = node.first_child().value();
+				} else if (strcmp(node.name(), "pc") == 0) {
+					current.replace = node.first_child().value();
+					all_patterns_armv7.push_back(current);
+				}
+			}
 		}
 
 //		std::cout << node_types[node.type()] << ": name='" << node.name() << "', value='" << node.value() << "'\n";
@@ -79,18 +101,6 @@ void vienna::test_function(void) {
 			   insns[i].op_str);
 	}
 
-	std::regex the_regex("add (r[0-9]+), \\1, (r[0-9]+)");
-	std::string asm_out;
-	std::regex_replace(std::back_inserter(asm_out),
-					   raw_asm.begin(),
-					   raw_asm.end(),
-					   the_regex,
-					   "$1 = $2;");
-
-	printf("%s\n", asm_out.c_str());
-
-	return;
-
 	pugi::xml_document doc;
 	pugi::xml_parse_result result = doc.load_file("res/src/cpu_definitions/ARMv7.xml");
 
@@ -100,4 +110,21 @@ void vienna::test_function(void) {
 
 	simple_walker walker;
 	doc.traverse(walker);
+	std::string asm_out = raw_asm;
+
+	for (regex_replace_t& i : all_patterns_armv7) {
+		std::regex the_regex(i.regex);
+		printf("%s %s\n", i.regex.c_str(), i.replace.c_str());
+		std::string tmp;
+		std::regex_replace(std::back_inserter(tmp),
+						   asm_out.begin(),
+						   asm_out.end(),
+						   the_regex,
+						   i.replace);
+		asm_out = tmp;
+	}
+
+	printf("%s\n", asm_out.c_str());
+
+	return;
 }
