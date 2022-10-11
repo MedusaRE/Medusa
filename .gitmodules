@@ -41,3 +41,6 @@
 [submodule "medusa_software/submodules/rapidxml"]
 	path = medusa_software/submodules/rapidxml
 	url = https://github.com/viriuwu/rapidxml.git
+[submodule "medusa_software/submodules/pugixml"]
+	path = medusa_software/submodules/pugixml
+	url = https://github.com/zeux/pugixml.git
