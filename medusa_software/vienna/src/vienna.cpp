@@ -81,7 +81,11 @@ void vienna::test_function(void) {
 
 	std::regex the_regex("add (r[0-9]+), \\1, (r[0-9]+)");
 	std::string asm_out;
-	std::regex_replace(std::back_inserter(asm_out), raw_asm.begin(), raw_asm.end(), the_regex, "$1 = $2;");
+	std::regex_replace(std::back_inserter(asm_out),
+					   raw_asm.begin(),
+					   raw_asm.end(),
+					   the_regex,
+					   "$1 = $2;");
 
 	printf("%s\n", asm_out.c_str());
 
