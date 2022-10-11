@@ -109,7 +109,7 @@ void vienna::test_function(void) {
 	 */
 	pugi::xml_document doc;
 	pugi::xml_parse_result result;
-	
+
 	result = doc.load_file("res/src/cpu_definitions/ARMv7.xml");
 
 	if (!result) {
