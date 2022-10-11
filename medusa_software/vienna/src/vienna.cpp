@@ -20,9 +20,11 @@
 #include <libmedusa/libmedusa.hpp>
 #include <libmedusa/Machine.hpp>
 #include <vienna/vienna.hpp>
+#include <iterator>
 #include <cstring>
 #include <cstdio>
 #include <vector>
+#include <regex>
 
 using namespace vienna;
 
@@ -62,14 +64,26 @@ void vienna::test_function(void) {
 	libmedusa::ARMv7Machine armv7_machine;
 	std::vector<uint8_t> tmp_vector(test_arm_code, test_arm_code + sizeof(test_arm_code));
 	std::vector<libmedusa::insn_t> insns = armv7_machine.disassemble(tmp_vector, 0);
+	
+	std::string raw_asm;
 
 	for (int i = 0; i < insns.size(); i++) {
+		raw_asm += insns[i].mnemonic;
+		raw_asm += " ";
+		raw_asm += insns[i].op_str;
+		raw_asm += "\n";
 		printf("0x%016lx (%d): %s %s\n",
 			   insns[i].address,
 			   insns[i].size,
 			   insns[i].mnemonic,
 			   insns[i].op_str);
 	}
+
+	std::regex regex("")
+
+	printf("%s\n", raw_asm.c_str());
+
+	return;
 
 	pugi::xml_document doc;
 	pugi::xml_parse_result result = doc.load_file("res/src/cpu_definitions/ARMv7.xml");
