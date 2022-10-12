@@ -137,7 +137,13 @@
 		<pattern>
 			<name>le conditional</name>
 			<asm>([a-zA-Z]+)(le)</asm>
-			<pc>if (__compare_flags(le)) $1</pc>
+			<pc>if (__compare_flags($2)) $1</pc>
+		</pattern>
+
+		<pattern>
+			<name>gt conditional</name>
+			<asm>([a-zA-Z]+)(gt)</asm>
+			<pc>if (__compare_flags($2)) $1</pc>
 		</pattern>
 
 		<pattern>
