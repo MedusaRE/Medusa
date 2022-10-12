@@ -181,5 +181,23 @@
 			<asm>sub (r[0-9]+), (r[0-9]+), (r[0-9]+)</asm>
 			<pc>$1 = $2 - $3;</pc>
 		</pattern>
+
+		<pattern>
+			<name>multiply registers</name>
+			<asm>mul (r[0-9]+), \1, (r[0-9]+)</asm>
+			<pc>$1 *= $2;</pc>
+		</pattern>
+
+		<pattern>
+			<name>multiply registers</name>
+			<asm>mul (r[0-9]+), (r[0-9]+), (r[0-9]+)</asm>
+			<pc>$1 = $2 * $3;</pc>
+		</pattern>
+
+		<pattern>
+			<name>compare registers</name>
+			<asm>cmp (r[0-9]+), (r[0-9]+)</asm>
+			<pc>__compare_flags = compare($1, $2);</pc>
+		</pattern>
 	</pattern_list>
 </cpu_definition>
