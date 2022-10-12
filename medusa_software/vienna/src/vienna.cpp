@@ -134,7 +134,7 @@ void vienna::test_function(void) {
 
 	for (regex_replace_t& i : all_patterns_armv7) {
 		std::regex the_regex(i.regex);
-		printf("%s %s\n", i.regex.c_str(), i.replace.c_str());
+		printf("ASM=\"%s\" PC=\"%s\"\n", i.regex.c_str(), i.replace.c_str());
 		std::string tmp;
 
 		/*
