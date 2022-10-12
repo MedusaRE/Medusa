@@ -88,6 +88,8 @@ void vienna::test_function(void) {
 	 *  insn, as well as add the mnemonic and op_str to raw_asm for later IR
 	 *  conversion
 	 */
+	printf("\n");
+	printf("disassembly\n");
 	printf("--------------------------------------------------------------------------------\n");
 
 	std::string raw_asm;
@@ -104,6 +106,8 @@ void vienna::test_function(void) {
 			   insns[i].op_str);
 	}
 
+	printf("\n");
+	printf("disassembly -> IR patterns\n");
 	printf("--------------------------------------------------------------------------------\n");
 
 	/*
@@ -145,6 +149,8 @@ void vienna::test_function(void) {
 		asm_out = tmp;
 	}
 
+	printf("\n");
+	printf("IR\n");
 	printf("--------------------------------------------------------------------------------\n");
 
 	printf("%s\n", asm_out.c_str());
