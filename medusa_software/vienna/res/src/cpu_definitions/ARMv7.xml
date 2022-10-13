@@ -135,6 +135,18 @@
 
 	<pattern_list>
 		<pattern>
+			<name>le conditional</name>
+			<asm>([a-zA-Z]+)(le)</asm>
+			<pc>if (__compare_flags($2)) $1</pc>
+		</pattern>
+
+		<pattern>
+			<name>gt conditional</name>
+			<asm>([a-zA-Z]+)(gt)</asm>
+			<pc>if (__compare_flags($2)) $1</pc>
+		</pattern>
+
+		<pattern>
 			<name>uint32_t-ish deref</name>
 			<asm>ldr (r[0-9]+), \[(r[0-9]+), (r[0-9]+), lsl #2]</asm>
 			<pc>$1 = $2[$3];</pc>
@@ -180,6 +192,30 @@
 			<name>subtract registers</name>
 			<asm>sub (r[0-9]+), (r[0-9]+), (r[0-9]+)</asm>
 			<pc>$1 = $2 - $3;</pc>
+		</pattern>
+
+		<pattern>
+			<name>multiply registers</name>
+			<asm>mul (r[0-9]+), \1, (r[0-9]+)</asm>
+			<pc>$1 *= $2;</pc>
+		</pattern>
+
+		<pattern>
+			<name>multiply registers</name>
+			<asm>mul (r[0-9]+), (r[0-9]+), (r[0-9]+)</asm>
+			<pc>$1 = $2 * $3;</pc>
+		</pattern>
+
+		<pattern>
+			<name>compare registers</name>
+			<asm>cmp (r[0-9]+), (r[0-9]+)</asm>
+			<pc>__compare_flags = compare($1, $2);</pc>
+		</pattern>
+
+		<pattern>
+			<name>bl</name>
+			<asm>bl #(0x[0-9a-fA-F]+)</asm>
+			<pc>UFUNC_$1();</pc>
 		</pattern>
 	</pattern_list>
 </cpu_definition>

@@ -34,6 +34,12 @@ static uint8_t test_arm_code[] = {
 	0x01, 0x00, 0x40, 0xE0,
 	0x00, 0x10, 0x81, 0xE0,
 	0x01, 0x01, 0x90, 0xE7,
+	0x02, 0x00, 0x81, 0xE0,
+	0x00, 0x30, 0xA0, 0xE1,
+	0x90, 0x01, 0x00, 0xE0,
+	0x91, 0x02, 0x00, 0xE0,
+	0x01, 0x00, 0x50, 0xE1,
+	0x0E, 0x00, 0x00, 0xDB,
 };
 
 typedef struct {
@@ -86,6 +92,8 @@ void vienna::test_function(void) {
 	 *  insn, as well as add the mnemonic and op_str to raw_asm for later IR
 	 *  conversion
 	 */
+	printf("\n");
+	printf("disassembly\n");
 	printf("--------------------------------------------------------------------------------\n");
 
 	std::string raw_asm;
@@ -102,6 +110,8 @@ void vienna::test_function(void) {
 			   insns[i].op_str);
 	}
 
+	printf("\n");
+	printf("disassembly -> IR patterns\n");
 	printf("--------------------------------------------------------------------------------\n");
 
 	/*
@@ -109,7 +119,7 @@ void vienna::test_function(void) {
 	 */
 	pugi::xml_document doc;
 	pugi::xml_parse_result result;
-	
+
 	result = doc.load_file("res/src/cpu_definitions/ARMv7.xml");
 
 	if (!result) {
@@ -128,7 +138,7 @@ void vienna::test_function(void) {
 
 	for (regex_replace_t& i : all_patterns_armv7) {
 		std::regex the_regex(i.regex);
-		printf("%s %s\n", i.regex.c_str(), i.replace.c_str());
+		printf("ASM=\"%s\" PC=\"%s\"\n", i.regex.c_str(), i.replace.c_str());
 		std::string tmp;
 
 		/*
@@ -143,6 +153,8 @@ void vienna::test_function(void) {
 		asm_out = tmp;
 	}
 
+	printf("\n");
+	printf("IR\n");
 	printf("--------------------------------------------------------------------------------\n");
 
 	printf("%s\n", asm_out.c_str());
