@@ -1,0 +1,139 @@
+* {
+	font-family: monospace;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	margin: 0;
+	width: 100%;
+}
+
+pre {
+	display: inline;
+}
+
+#enclosure {
+	position: absolute;
+	margin: 0;
+/*	width: 100%;*/
+	width: 35%;
+	border: 2px solid #FFFFFF;
+	border-radius: 32px;
+	padding: 16px;
+/*	left: calc(50vw - (17.5vw));*/
+	justify-content: center;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	top: calc(20vw + 172px);
+	background-color: rgba(32, 32, 32, 1.0);
+/*	align-items: center;*/
+}
+
+#enclosure h3 {
+	text-align: center;
+	font-family: "Arial", sans-serif;
+	justify-content: center;
+}
+
+ul {
+	list-style-position: outside;
+}
+
+#header {
+	align-items: center;
+}
+
+#header * {
+	font-family: "Arial", sans-serif;
+}
+
+#header {
+/*	position: absolute;*
+	top: 0;
+	left: 0;*/
+	width: 100%;
+	height: 96pt;
+	background-color: rgba(32, 32, 32, 1.0);
+}
+
+/*
+#header * {
+	font-family: monospace;
+	font-weight: normal;
+}
+*/
+
+#header_internal {
+	margin-left: 24pt;
+	margin-bottom: 16pt;
+}
+
+.name_text {
+	animation-name: wavy;
+	animation-duration: 1.3s;
+	animation-timing-function: ease;
+	animation-iteration-count: infinite;
+	position: relative;
+}
+
+* {
+	background-color: #202020;
+	color: #ffffff;
+	tab-size: 4;
+}
+
+a {
+	color: #00a0ff;
+}
+
+a:visited {
+	color: #40c040;
+}
+
+#countup {
+	background-color: rgba(32, 32, 32, 1.0);
+}
+
+#header {
+	background-color: rgba(32, 32, 32, 1.0);
+}
+
+#logo {
+	position: absolute;
+	top: 16px;
+	left: calc(40%);
+	width: 20%;
+}
+
+#medusa_name {
+	position: absolute;
+	text-align: center;
+	width: 20%;
+	left: calc(40%);
+	top: calc(20vw + 8px);
+}
+
+#medusa_desc {
+	position: absolute;
+	text-align: center;
+	width: 20%;
+	left: calc(40%);
+	top: calc(20vw + 48px);
+}
+
+#download_button {
+	position: absolute;
+	text-align: center;
+	width: 20%;
+	left: calc(40%);
+	top: calc(20vw + 104px);
+	padding: 16px;
+	padding-left: 0;
+	padding-right: 0;
+	background-color: #ff8020;
+/*	border: 4px solid #404040;*/
+	border-radius: 8px;
+	color: #ffffff;
+	text-decoration: none;
+}

@@ -158,6 +158,7 @@ question.
                             Medusa Project
         badges            - badge generation code
     wiki                  - git submodule for the Medusa Project Wiki
+    www                   - source code for Medusa Project websites
 ```
 
 ## Documentation

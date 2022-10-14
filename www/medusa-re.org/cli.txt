@@ -1,0 +1,65 @@
+ __  __          _                 
+|  \/  | ___  __| |_   _ ___  __ _ 
+| |\/| |/ _ \/ _` | | | / __|/ _` |
+| |  | |  __/ (_| | |_| \__ \ (_| |
+|_|  |_|\___|\__,_|\__,_|___/\__,_|
+
+--------------------------------------------------------------------------------
+Medusa (previously called xpDBG) is a project to create a cross platform, free,
+and general purpose tool for software and hardware research, like reverse
+engineering, analysis, emulation, development, debugging, and other similar
+tasks.
+
+All current software research tools have their own problems: Medusa is meant to
+solve these issues.
+
+For example:
+  - Cutter: not very featureful, essentially a radare2 GUI, doesn't have
+    debugger and/or emulation support to my knowledge, and more.
+  - Ghidra: personal favorite currently, still doesn't have emulation support
+    or code editing, and is written in Java (besides the decompiler), which is
+    one of my least favorite languages.
+  - IDA (Pro): expensive, non-free, does not have emulation support,
+    or code editing.
+  - Radare2: does not have code editing, a GUI, or the level of emulation
+    support which I intend to include in Medusa.
+  - Binary Ninja: I honestly do not have a lot of experience with Binary Ninja,
+    but to my knowledge, it is not free/open-source software, it isn't a full
+    IDE (like Medusa is intended to be), and doesn't have emulation support
+    (like Medusa is intended to). 
+
+This list disregards the fact that, to my knowledge, none of those tools have
+support for the sort-of hardware research I'd like to support in Medusa.
+
+Planned features include:
+  - Support for multiple architectures (armv7, arm64, x86, x84-64, Z80, 6502
+    68K, Java bytecode, etc. )
+  - Assembly editing
+  - C/C++ editing
+  - Assembling support for many architectures
+  - Compilation support for many architectures
+  - A debugger, with the ability to step forward and backward through
+    instructions, view and modify registers, edit memory, scripting support,
+    an API for writing things such as syscall handlers, and more.
+  - Both a GUI and TUI interface
+  - Scripting platform & network interface, à la LLDB
+  - Support for many executable formats (Mach-O, ELF, PE, MZ, JAR, etc. )
+  - A disassembler to aid in reverse engineering
+  - Decompiler support (for example, Ghidra[1]'s decompiler)
+  - and more!
+
+License
+--------------------------------------------------------------------------------
+Currently, all of the source code written for the Medusa project is licensed
+under Version 2 of the GNU General Public License (GPLv2), without the "any
+later version" clause.
+Other resources are released under CC BY-SA 4.0.
+
+Cloning
+--------------------------------------------------------------------------------
+If you would like to clone the Medusa Git repository, run
+`git clone https://gitlab.com/MedusaRE/Medusa.git`.
+
+Links
+--------------------------------------------------------------------------------
+[1] https://www.ghidra-sre.org
