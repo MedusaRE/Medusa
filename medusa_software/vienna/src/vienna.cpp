@@ -136,6 +136,8 @@ void vienna::test_function(void) {
 	doc.traverse(walker);
 	std::string asm_out = raw_asm;
 
+	printf("%s\n", asm_out.c_str());
+
 	for (regex_replace_t& i : all_patterns_armv7) {
 		std::regex the_regex(i.regex);
 		printf("ASM=\"%s\" PC=\"%s\"\n", i.regex.c_str(), i.replace.c_str());
@@ -151,6 +153,10 @@ void vienna::test_function(void) {
 						   the_regex,
 						   i.replace);
 		asm_out = tmp;
+
+		printf("\n");
+		printf("%s\n", asm_out.c_str());
+		printf("--------------------------------------------------------------------------------\n");
 	}
 
 	printf("\n");
