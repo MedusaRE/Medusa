@@ -11,6 +11,7 @@ function check_if_behind() {
 }
 
 MEDUSA_PATH=$(dirname $0)/../..
+cd $MEDUSA_PATH
 
 while true; do
 	if check_if_behind; then
