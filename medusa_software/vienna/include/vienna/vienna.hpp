@@ -22,10 +22,6 @@
 #include <libmedusa/libmedusa.hpp>
 
 namespace vienna {
-	/*
-	 *  this is simply meant to declare the `vienna` namespace.
-	 */
-
 	/**
 	 *	@brief An enum representing an opcode for Vienna's Intermediate
 	 *		   Representation (IR).
