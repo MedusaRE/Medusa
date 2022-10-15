@@ -19,7 +19,10 @@
 #include <vienna/ARMv7Decompiler.hpp>
 #include <libmedusa/libmedusa.hpp>
 #include <vienna/vienna.hpp>
+#include <fstream>
 #include <cstdio>
+
+using namespace std;
 
 static uint8_t test_arm_code[] = {
 	0x20, 0x04, 0x00, 0xE3,
@@ -37,9 +40,9 @@ static uint8_t test_arm_code[] = {
 
 int main(int argc, char* argv[]) {
 	printf("Hello, world!\n");
+	ifstream f("res/bin/armv7_test_shellcode.bin", ios::binary);
+	std::vector<uint8_t> machine_code(std::istreambuf_iterator<char>(f), {});
 
-	std::vector<uint8_t> machine_code(test_arm_code,
-									  test_arm_code + sizeof(test_arm_code));
 	printf("%s\n", vienna::decompile_armv7(machine_code).c_str());
 
 	return 0;
