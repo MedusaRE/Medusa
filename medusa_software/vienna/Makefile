@@ -7,7 +7,7 @@ bin:
 	sh -c "mkdir bin"
 
 clean:
-	rm -rf bin
+	rm -rf bin res/bin
 
 bin/main: bin/main.o
 	${CPP} ${CPPFLAGS} -Lbin -lvienna ../submodules/pugixml/src/pugixml.cpp $^ -o $@
@@ -28,11 +28,17 @@ install: bin/libvienna.so
 	rm -rf /usr/include/vienna
 	cp -R include/* /usr/include
 
-res/bin/x86_test_shellcode.o: res/src/x86_test_shellcode.c
+res/bin/x86_test_shellcode.o: res/src/x86_test_shellcode.c res/bin
 	clang -target x86_64 -ffreestanding $< -c -o $@
 
-res/bin/x86_test_shellcode.bin: res/bin/x86_test_shellcode.o
-	ld -o $@ $< --oformat binary
+res/bin/x86_test_shellcode.bin: res/bin/x86_test_shellcode.o res/bin
+	ld.lld -o $@ $< --oformat binary
+
+res/bin/armv7_test_shellcode.o: res/src/armv7_test_shellcode.c res/bin
+	clang -target arm -ffreestanding $< -c -o $@
+
+res/bin/armv7_test_shellcode.bin: res/bin/armv7_test_shellcode.o res/bin
+	ld.lld -o $@ $< --oformat binary
 
 .PHONY: doxygen_out
 doxygen_out:
