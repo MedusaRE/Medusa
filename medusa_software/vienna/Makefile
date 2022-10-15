@@ -1,7 +1,7 @@
 CPP=clang++
 CPPFLAGS=--std=c++17 -Iinclude -lcapstone -lkeystone -lmedusa -lunicorn -lLIEF -fPIC
 
-all: res/bin bin bin/libvienna.so bin/main
+all: res/bin bin bin/libvienna.so bin/main doxygen_out
 
 bin:
 	sh -c "mkdir bin"
@@ -33,3 +33,11 @@ res/bin/x86_test_shellcode.o: res/src/x86_test_shellcode.c
 
 res/bin/x86_test_shellcode.bin: res/bin/x86_test_shellcode.o
 	ld -o $@ $< --oformat binary
+
+.PHONY: doxygen_out
+doxygen_out:
+	doxygen
+
+doxygen_web: doxygen_out
+	mkdir -p /var/www/docs.medusa-re.org/vienna
+	cp -R doxygen_out/html/* /var/www/docs.medusa-re.org/vienna/

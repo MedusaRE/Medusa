@@ -26,8 +26,12 @@ namespace vienna {
 	 *  this is simply meant to declare the `vienna` namespace.
 	 */
 
+	/**
+	 *	@brief An enum representing an opcode for Vienna's Intermediate
+	 *		   Representation (IR).
+	 */
 	typedef enum {
-		NOP,
+		NOP,		/**< A no-op, an instruction that does nothing. */
 	} ir_opcode_t;
 
 	typedef struct {
