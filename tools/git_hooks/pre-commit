@@ -1,0 +1,4 @@
+#!/bin/bash
+
+touch .commit_in_progress
+exit

@@ -66,3 +66,6 @@ sources.txt
 # temporary folder for any garbage Medusa work, like running `tree` to pipe into
 # a file
 tmp/*
+
+# .commit_in_progress is used by git hooks to stage README.md badges changes
+.commit_in_progress

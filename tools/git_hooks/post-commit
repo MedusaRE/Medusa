@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ -e .commit_in_progress ]; then
+	rm .commit_in_progress
+
+	# ensure MEDUSA_PATH is set
+	export MEDUSA_PATH=$(realpath $(dirname $(realpath $0))/../..)
+
+	$MEDUSA_PATH/tools/badges/badges.sh
+	git add $MEDUSA_PATH/res/badges
+
+	git commit --amend -c HEAD --no-verify
+fi
+
+exit
