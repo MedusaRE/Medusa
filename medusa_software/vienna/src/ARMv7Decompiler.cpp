@@ -17,6 +17,7 @@
 
 #include "../../submodules/pugixml/src/pugixml.hpp"
 #include <libmedusa/ARMv7Machine.hpp>
+#include <vienna/ARMv7Decompiler.hpp>
 #include <libmedusa/libmedusa.hpp>
 #include <libmedusa/Machine.hpp>
 #include <vienna/vienna.hpp>
@@ -27,20 +28,6 @@
 #include <regex>
 
 using namespace vienna;
-
-static uint8_t test_arm_code[] = {
-	0x20, 0x04, 0x00, 0xE3,
-	0x69, 0x10, 0x00, 0xE3,
-	0x01, 0x00, 0x40, 0xE0,
-	0x00, 0x10, 0x81, 0xE0,
-	0x01, 0x01, 0x90, 0xE7,
-	0x02, 0x00, 0x81, 0xE0,
-	0x00, 0x30, 0xA0, 0xE1,
-	0x90, 0x01, 0x00, 0xE0,
-	0x91, 0x02, 0x00, 0xE0,
-	0x01, 0x00, 0x50, 0xE1,
-	0x0E, 0x00, 0x00, 0xDB,
-};
 
 typedef struct {
 	std::string regex;
@@ -72,7 +59,7 @@ struct cpu_definition_walker : pugi::xml_tree_walker {
 	}
 };
 
-void vienna::test_function(void) {
+std::string vienna::decompile_armv7(std::vector<uint8_t> machine_code) {
 	printf("vienna::test_function test printf\n");
 
 	/*
@@ -82,10 +69,10 @@ void vienna::test_function(void) {
 	 *  pass 0 for no flags. (not THUMB)
 	 */
 	libmedusa::ARMv7Machine armv7_machine;
-	std::vector<uint8_t> tmp_vector(test_arm_code,
-									test_arm_code + sizeof(test_arm_code));
 	std::vector<libmedusa::insn_t> insns;
-	insns = armv7_machine.disassemble(tmp_vector, 0);
+	insns = armv7_machine.disassemble(machine_code, 0);
+
+	std::string ret;
 
 	/*
 	 *  loop through all instructions in the disassembly, and print out the
@@ -123,7 +110,7 @@ void vienna::test_function(void) {
 	result = doc.load_file("res/src/cpu_definitions/ARMv7.xml");
 
 	if (!result) {
-		return;
+		return ret;
 	}
 
 	/*
@@ -159,11 +146,13 @@ void vienna::test_function(void) {
 		printf("%s\n", asm_out.c_str());
 	}
 
+	ret = asm_out;
 
 	printf("\n");
 	printf("IR\n");
 	printf("--------------------------------------------------------------------------------\n");
 	printf("%s\n", asm_out.c_str());
 
-	return;
+out:
+	return ret;
 }

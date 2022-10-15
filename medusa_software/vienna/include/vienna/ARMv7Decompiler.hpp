@@ -15,16 +15,14 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef VIENNA_VIENNA_HPP
-#define VIENNA_VIENNA_HPP
+#ifndef VIENNA_ARMV7_DECOMPILER_HPP
+#define VIENNA_ARMV7_DECOMPILER_HPP
 
 #include <libmedusa/ARMv7Machine.hpp>
 #include <libmedusa/libmedusa.hpp>
 
 namespace vienna {
-	/*
-	 *  this is simply meant to declare the `vienna` namespace.
-	 */
+	std::string decompile_armv7(std::vector<uint8_t> machine_code);
 }
 
 #endif
