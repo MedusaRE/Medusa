@@ -25,6 +25,14 @@ namespace vienna {
 	/*
 	 *  this is simply meant to declare the `vienna` namespace.
 	 */
+
+	typedef enum {
+		NOP,
+	} ir_opcode_t;
+
+	typedef struct {
+		ir_opcode_t ir_opcode;
+	} ir_t;
 }
 
 #endif
