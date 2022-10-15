@@ -17,8 +17,8 @@ fi
 # finally, try just reading the val we were passed, like if someone passed the
 # path to rdns.txt directly
 if [ $? -ne 0 ]; then
-	RDNS=$($MEDUSA_PATH/tools/rdns.sh $(cat $1))
-	HOST_OUTPUT=$(host -t txt $RDNS)
+	RDNS=$($MEDUSA_PATH/tools/rdns.sh $(cat $1 2>/dev/null) 2>/dev/null)
+	HOST_OUTPUT=$(host -t txt $RDNS 2>/dev/null)
 fi
 
 OUT_CUT=$(echo "$HOST_OUTPUT" | cut -d " " -f 4-)
