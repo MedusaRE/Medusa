@@ -19,7 +19,7 @@ bin/%.o: src/%.cpp
 res/bin:
 	sh -c "mkdir res/bin"
 
-bin/libvienna.so: bin/vienna.o
+bin/libvienna.so: bin/ARMv7Decompiler.o
 	${CPP} ${CPPFLAGS} -shared -o $@ $^
 
 .PHONY: install
