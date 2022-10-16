@@ -56,6 +56,7 @@ int main(int argc, char* argv[]) {
 	printf("Hello, world!\n");
 	ifstream f("res/bin/armv7_test_shellcode.bin", ios::binary);
 
+#if 0
 #define MB_SIZE 0x1000000
 #define BUF_TO_COPY test_arm_code2
 
@@ -67,6 +68,12 @@ int main(int argc, char* argv[]) {
 
 	std::vector<uint8_t> machine_code(MB_of_code,
 									  MB_of_code + MB_SIZE);
+#endif
+
+	std::vector<uint8_t> machine_code((std::istreambuf_iterator<char>(f)), std::istreambuf_iterator<char>());
+
+	printf("%s\n", vienna::decompile_armv7(machine_code).c_str());
+	return 0;
 
 	DEBUG_INFO();
 	for (int i = 0; i < 0x10; i++) {
