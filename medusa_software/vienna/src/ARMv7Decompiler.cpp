@@ -235,7 +235,10 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 		ret += s + "\n";
 	}
 
+	libmedusa::destroy_insn_t_vector(insns);
+
 	split_str = std::vector<std::string>();
+	insns = std::vector<libmedusa::insn_t>();
 
 	printf("\n");
 	printf("IR\n");
