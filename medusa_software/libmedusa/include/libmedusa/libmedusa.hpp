@@ -26,6 +26,7 @@
 
 #include <cstdint>
 #include <string>
+#include <vector>
 
 #define XP_PROT_READ  (1 << 0)
 #define XP_PROT_WRITE (1 << 1)
@@ -45,5 +46,10 @@ namespace libmedusa {
 #include <capstone/capstone.h>
 #include <keystone/keystone.h>
 #include <unicorn/unicorn.h>
+
+namespace libmedusa {
+	bool destroy_insn_t(libmedusa::insn_t insn);
+	bool destroy_insn_t_vector(std::vector<libmedusa::insn_t> insns);
+}
 
 #endif

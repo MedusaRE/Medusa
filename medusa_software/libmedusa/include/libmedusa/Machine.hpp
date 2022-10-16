@@ -60,6 +60,12 @@ namespace libmedusa {
 		bool valid;			/**< True if valid region, false if invalid. */
 	} mem_reg_t;
 
+#if 0
+		std::vector<uint8_t> bytes;	/**< The bytes, i.e. machine-code of this instruction. */
+		std::string mnemonic;		/**< The instruction mnemonic. (say, `"mov"`) */
+		std::string op_str;			/**< The operation string. (say, `"r1, r0"`) */
+#endif
+
 	/**
 	 *  @brief A structure representing a CPU instruction.
 	 */

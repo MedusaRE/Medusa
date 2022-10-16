@@ -20,7 +20,7 @@ tools: bin/main
 bin/main: bin/main.o
 	${CPP} ${CPPFLAGS} -Lbin -lLIEF -lmedusa -lkeystone -lunicorn -lcapstone $^ -o $@
 
-bin/libmedusa.so: bin/ARMv7Machine.o bin/ARM64Machine.o bin/ExampleComponent.o bin/ExampleComponent2.o bin/ExampleDisplayComponent.o
+bin/libmedusa.so: bin/ARMv7Machine.o bin/ARM64Machine.o bin/ExampleComponent.o bin/ExampleComponent2.o bin/ExampleDisplayComponent.o bin/libmedusa.o
 	${CPP} -shared -o $@ $^
 
 .PHONY: install
