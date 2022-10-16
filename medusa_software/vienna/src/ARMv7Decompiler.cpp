@@ -25,11 +25,12 @@
 #include <algorithm>
 #include <iterator>
 #include <cstring>
+#include <chrono>
 #include <cstdio>
 #include <vector>
 #include <regex>
 #include <lib.h>
-
+#include <set>
 
 using namespace vienna;
 typedef jpcre2::select<char> jp;
@@ -38,6 +39,11 @@ typedef struct {
 	std::string regex;
 	std::string replace;
 } regex_replace_t;
+
+typedef struct {
+	uint64_t addy;
+	std::string ir;
+} wip_ir_t;
 
 std::vector<regex_replace_t> all_patterns_armv7; // wip
 std::vector<regex_replace_t> all_shortcuts_armv7; // wip
@@ -84,8 +90,8 @@ std::string regex_replace_proper(regex_replace_t rr, std::string what) {
 }
 
 std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
+	auto start = std::chrono::high_resolution_clock::now();
 	printf("vienna::test_function test printf\n");
-
 
 	/*
 	 *  create an ARMv7Machine, and a vector to hold the ARMv7 code.
@@ -161,13 +167,11 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 
 //	printf("%s\n", asm_out.c_str());
 
-	fprintf(stderr, "regex\n");
+	fprintf(stderr, "regex %f\n", DEBUG_TIME_FLOAT);
 	for (regex_replace_t& i : all_patterns_armv7) {
 		printf("\n");
 		printf("--------------------------------------------------------------------------------\n");
-		std::regex the_regex(i.regex);
 		printf("ASM=\"%s\" PC=\"%s\"\n", i.regex.c_str(), i.replace.c_str());
-			std::string tmp;
 
 		/*
 		 *  use the regex_replace format for each pattern to convert as much
@@ -178,12 +182,12 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 //		printf("%s\n", asm_out.c_str());
 	}
 
-	fprintf(stderr, "str_split\n");
+	fprintf(stderr, "str_split %f\n", DEBUG_TIME_FLOAT);
 	std::vector<std::string> split_str = str_split(asm_out, '\n');
 
 	std::vector<uint64_t> jumped_to;
 
-	fprintf(stderr, "jumped_to\n");
+	fprintf(stderr, "jumped_to %f\n", DEBUG_TIME_FLOAT);
 	for (std::string& s : split_str) {
 		if (s.find("__jump(") != -1) {
 			std::string tmp = s.substr(s.find("__jump") + 7);
@@ -194,13 +198,15 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 		}
 	}
 
+	std::sort(jumped_to.begin(), jumped_to.end());
+
 	int i = 0;
 
-	fprintf(stderr, "labels\n");
+	fprintf(stderr, "labels %f\n", DEBUG_TIME_FLOAT);
 	for (std::string& s : split_str) {
 //		printf("%s\n", s.substr(0, s.find(" ")).c_str());
 		uint64_t addy = stoi(s.substr(0, s.find(" ")), 0, 16);
-		if (std::find(jumped_to.begin(), jumped_to.end(), addy) != std::end(jumped_to)) {
+		if (std::binary_search(jumped_to.begin(), jumped_to.end(), addy)) {
 			std::string tmp = string_format("__label%d:\n%s", i, s.c_str());
 			s = tmp;
 			i++;
@@ -209,7 +215,7 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 
 	ret = "";
 
-	fprintf(stderr, "regen\n");
+	fprintf(stderr, "regen %f\n", DEBUG_TIME_FLOAT);
 	for (std::string& s : split_str) {
 		ret += s + "\n";
 	}
@@ -218,6 +224,8 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 	printf("IR\n");
 	printf("--------------------------------------------------------------------------------\n");
 //	printf("%s\n", asm_out.c_str());
+
+	DEBUG_INFO();
 
 out:
 	return ret;
