@@ -35,6 +35,7 @@
 
 #define XP_FLAG_THUMB (1 << 0)
 #define XP_FLAG_NOREGNAME (1 << 1)
+#define XP_FLAG_SKIPDATA (1 << 2)
 
 namespace libmedusa {
 	/*

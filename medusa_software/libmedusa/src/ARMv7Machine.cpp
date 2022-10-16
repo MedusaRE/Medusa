@@ -435,6 +435,14 @@ std::vector<insn_t> ARMv7Machine::disassemble(std::vector<uint8_t>& data, flag_t
 		err = cs_option(this->handle, CS_OPT_SYNTAX, CS_OPT_SYNTAX_DEFAULT);
 	}
 
+	if (flags & XP_FLAG_SKIPDATA) {
+		err = cs_option(this->handle_thumb, CS_OPT_SKIPDATA, CS_OPT_ON);
+		err = cs_option(this->handle, CS_OPT_SKIPDATA, CS_OPT_ON);
+	} else {
+		err = cs_option(this->handle_thumb, CS_OPT_SKIPDATA, CS_OPT_OFF);
+		err = cs_option(this->handle, CS_OPT_SKIPDATA, CS_OPT_OFF);
+	}
+
 	if (flags & XP_FLAG_THUMB) {
 		count = cs_disasm(this->handle_thumb,
 						  buf,
