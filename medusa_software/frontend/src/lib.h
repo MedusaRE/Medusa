@@ -51,7 +51,7 @@ std::vector<std::string> str_split(std::string& s, char delim);
 uint64_t get_statm_usage(void);
 
 #define DEBUG_INFO() do { \
-	fprintf(stderr, "%s (%d): mem_usage=%ldKB\n", __FILE__, __LINE__, get_statm_usage()); \
+	fprintf(stderr, "%s (%s @ %d): mem_usage=%ldKB\n", __FILE__, __PRETTY_FUNCTION__, __LINE__, get_statm_usage()); \
 } while(0)
 
 #include <chrono>
