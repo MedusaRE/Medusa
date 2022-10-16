@@ -73,5 +73,6 @@ void entry() {
 }
 
 void func2() {
-	EXAMPLE();
+	void (*ptr)(void) = (void(*)(void))0x41414141;
+	ptr();
 }

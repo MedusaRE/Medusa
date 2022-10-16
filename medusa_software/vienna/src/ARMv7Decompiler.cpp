@@ -110,7 +110,7 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 	DEBUG_INFO();
 	libmedusa::ARMv7Machine armv7_machine;
 	std::vector<libmedusa::insn_t> insns;
-	insns = armv7_machine.disassemble(machine_code, XP_FLAG_NOREGNAME);
+	insns = armv7_machine.disassemble(machine_code, XP_FLAG_NOREGNAME | XP_FLAG_SKIPDATA);
 	DEBUG_INFO();
 
 	std::string ret;
