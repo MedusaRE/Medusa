@@ -39,6 +39,8 @@ res/bin/armv7_test_shellcode.o: res/src/armv7_test_shellcode.c res/bin
 
 res/bin/armv7_test_shellcode.bin: res/bin/armv7_test_shellcode.o res/bin
 	ld.lld -o $@ $< --oformat binary
+	cat $@ | tail -c +17 > $@.tmp
+	mv $@.tmp $@
 
 .PHONY: doxygen_out
 doxygen_out:

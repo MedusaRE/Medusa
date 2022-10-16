@@ -179,6 +179,12 @@
 		</pattern>
 
 		<pattern>
+			<name>ne conditional</name>
+			<asm>([a-zA-Z]+)(ne)</asm>
+			<pc>if (__compare_flags($2)) $1</pc>
+		</pattern>
+
+		<pattern>
 			<name>uint32_t-ish deref</name>
 			<asm>ldr __REGISTER, \[__REGISTER, __REGISTER, lsl #2]</asm>
 			<pc>$1 = $2[$3];</pc>
@@ -209,8 +215,20 @@
 		</pattern>
 
 		<pattern>
-			<name>add 2 registers</name>
+			<name>add 2 registers const</name>
 			<asm>add __REGISTER, __REGISTER, __REGISTER</asm>
+			<pc>$1 = $2 + $3;</pc>
+		</pattern>
+
+		<pattern>
+			<name>add 2 registers const</name>
+			<asm>add __REGISTER, \1, __CONST</asm>
+			<pc>$1 += $2;</pc>
+		</pattern>
+
+		<pattern>
+			<name>add 2 registers</name>
+			<asm>add __REGISTER, __REGISTER, __CONST</asm>
 			<pc>$1 = $2 + $3;</pc>
 		</pattern>
 
@@ -239,8 +257,20 @@
 		</pattern>
 
 		<pattern>
+			<name>subtract const</name>
+			<asm>sub __REGISTER, \1, __CONST</asm>
+			<pc>$1 -= $2;</pc>
+		</pattern>
+
+		<pattern>
 			<name>subtract registers</name>
 			<asm>sub __REGISTER, __REGISTER, __REGISTER</asm>
+			<pc>$1 = $2 - $3;</pc>
+		</pattern>
+
+		<pattern>
+			<name>subtract const</name>
+			<asm>sub __REGISTER, __REGISTER, __CONST</asm>
 			<pc>$1 = $2 - $3;</pc>
 		</pattern>
 
@@ -282,7 +312,7 @@
 
 		<pattern>
 			<name>regular jump</name>
-			<asm>b __HEX_CONST</asm>
+			<asm>b __CONST</asm>
 			<pc>__jump($1);</pc>
 		</pattern>
 
@@ -290,6 +320,18 @@
 			<name>store regular deref</name>
 			<asm>str __REGISTER, \[__REGISTER\]</asm>
 			<pc>*$2 = $1;</pc>
+		</pattern>
+
+		<pattern>
+			<name>store deref const offset</name>
+			<asm>str __REGISTER, \[__REGISTER, __CONST\]</asm>
+			<pc>$2[$3] = $1;</pc>
+		</pattern>
+
+		<pattern>
+			<name>bx lr</name>
+			<asm>bx lr</asm>
+			<pc>__return();</pc>
 		</pattern>
 	</pattern_list>
 </cpu_definition>
