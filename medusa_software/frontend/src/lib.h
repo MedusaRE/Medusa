@@ -54,4 +54,8 @@ uint64_t get_statm_usage(void);
 	fprintf(stderr, "%s (%d): mem_usage=%ldKB\n", __FILE__, __LINE__, get_statm_usage()); \
 } while(0)
 
+#include <chrono>
+#define DEBUG_TIME ((duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - start)).count())
+#define DEBUG_TIME_FLOAT (((double)DEBUG_TIME) / 1000000000.0)
+
 #endif
