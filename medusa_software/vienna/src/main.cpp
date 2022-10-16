@@ -52,9 +52,9 @@ static uint8_t test_arm_code2[] = {
 int main(int argc, char* argv[]) {
 	printf("Hello, world!\n");
 	ifstream f("res/bin/armv7_test_shellcode.bin", ios::binary);
-	std::vector<uint8_t> machine_code(std::istreambuf_iterator<char>(f), {});
-//	std::vector<uint8_t> machine_code(test_arm_code2,
-//									  test_arm_code2 + sizeof(test_arm_code2));
+//	std::vector<uint8_t> machine_code(std::istreambuf_iterator<char>(f), {});
+	std::vector<uint8_t> machine_code(test_arm_code2,
+									  test_arm_code2 + sizeof(test_arm_code2));
 
 	printf("%s\n", vienna::decompile_armv7(machine_code).c_str());
 

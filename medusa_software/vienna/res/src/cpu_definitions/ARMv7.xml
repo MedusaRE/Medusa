@@ -240,6 +240,12 @@
 
 		<pattern>
 			<name>move val into reg</name>
+			<asm>mov __REGISTER, __CONST</asm>
+			<pc>$1 = $2;</pc>
+		</pattern>
+
+		<pattern>
+			<name>move val into reg</name>
 			<asm>movs __REGISTER, \#(0x[0-9]+)</asm>
 			<pc>$1 = $2;</pc>
 		</pattern>
