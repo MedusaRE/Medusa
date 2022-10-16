@@ -137,7 +137,7 @@
 		<shortcut>
 			<name>register</name>
 			<regex>__REGISTER</regex>
-			<replace>((r[0-9]+)|(sp)|(ip)(lr)|(pc)|(fp))</replace>
+			<replace>((r[0-9]+)|(sp)|(ip)|(lr)|(pc)|(fp))</replace>
 		</shortcut>
 	</shortcut_list>
 
