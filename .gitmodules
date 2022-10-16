@@ -47,3 +47,6 @@
 [submodule "medusa_software/submodules/re2"]
 	path = medusa_software/submodules/re2
 	url = https://github.com/google/re2.git
+[submodule "medusa_software/submodules/jpcre2"]
+	path = medusa_software/submodules/jpcre2
+	url = https://github.com/jpcre2/jpcre2.git
