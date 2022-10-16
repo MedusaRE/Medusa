@@ -230,6 +230,8 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 		ret += s + "\n";
 	}
 
+	split_str = std::vector<std::string>();
+
 	printf("\n");
 	printf("IR\n");
 	printf("--------------------------------------------------------------------------------\n");
