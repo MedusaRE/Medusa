@@ -333,5 +333,17 @@
 			<asm>bx lr</asm>
 			<pc>__return();</pc>
 		</pattern>
+
+		<pattern>
+			<name>push</name>
+			<asm>push \{((?:__REGISTER(?:, )?)+)\}</asm>
+			<pc>__push($1);</pc>
+		</pattern>
+
+		<pattern>
+			<name>pop</name>
+			<asm>pop \{((?:__REGISTER(?:, )?)+)\}</asm>
+			<pc>__pop($1);</pc>
+		</pattern>
 	</pattern_list>
 </cpu_definition>

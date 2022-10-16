@@ -68,4 +68,10 @@ typedef unsigned int uint32_t;
  */
 void entry() {
 	EXAMPLE();
+	void func2();
+	func2();
+}
+
+void func2() {
+	EXAMPLE();
 }
