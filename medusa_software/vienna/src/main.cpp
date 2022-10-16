@@ -19,8 +19,10 @@
 #include <vienna/ARMv7Decompiler.hpp>
 #include <libmedusa/libmedusa.hpp>
 #include <vienna/vienna.hpp>
+#include <cstring>
 #include <fstream>
 #include <cstdio>
+#include <sys/mman.h>
 
 using namespace std;
 
@@ -53,8 +55,23 @@ int main(int argc, char* argv[]) {
 	printf("Hello, world!\n");
 	ifstream f("res/bin/armv7_test_shellcode.bin", ios::binary);
 //	std::vector<uint8_t> machine_code(std::istreambuf_iterator<char>(f), {});
-	std::vector<uint8_t> machine_code(test_arm_code2,
-									  test_arm_code2 + sizeof(test_arm_code2));
+
+#if 0
+//	void* a = mmap(NULL, 0x100000, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANON, 0, 0);
+//	fprintf(stderr, "%p %s\n", a, strerror(errno));
+
+//#define MB_SIZE 0x10000
+//#define BUF_TO_COPY test_arm_code2
+
+	uint8_t* MB_of_code = (uint8_t*)calloc(MB_SIZE, 1);
+
+	for (size_t i = 0; i < (MB_SIZE / sizeof(BUF_TO_COPY)); i++) {
+		memcpy(MB_of_code + (i * sizeof(BUF_TO_COPY)), BUF_TO_COPY, sizeof(BUF_TO_COPY));
+	}
+	#endif
+
+	std::vector<uint8_t> machine_code(MB_of_code,
+									  MB_of_code + MB_SIZE);
 
 	printf("%s\n", vienna::decompile_armv7(machine_code).c_str());
 

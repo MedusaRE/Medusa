@@ -22,7 +22,7 @@
 #include <libmedusa/libmedusa.hpp>
 
 namespace vienna {
-	std::string decompile_armv7(std::vector<uint8_t> machine_code);
+	std::string decompile_armv7(std::vector<uint8_t>& machine_code);
 }
 
 #endif
