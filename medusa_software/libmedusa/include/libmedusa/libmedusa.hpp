@@ -33,6 +33,7 @@
 #define MNEMONIC_SIZE  32
 
 #define XP_FLAG_THUMB (1 << 0)
+#define XP_FLAG_NOREGNAME (1 << 1)
 
 namespace libmedusa {
 	/*

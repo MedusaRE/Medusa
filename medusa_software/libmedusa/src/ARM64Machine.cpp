@@ -526,6 +526,12 @@ std::vector<insn_t> ARM64Machine::disassemble(std::vector<uint8_t> data, flag_t 
 
 	std::copy(data.begin(), data.end(), buf);
 
+	if (flags & XP_FLAG_NOREGNAME) {
+		cs_option(this->handle, CS_OPT_SYNTAX, CS_OPT_SYNTAX_NOREGNAME);
+	} else {
+		cs_option(this->handle, CS_OPT_SYNTAX, CS_OPT_SYNTAX_DEFAULT);
+	}
+
 	count = cs_disasm(this->handle,
 					  buf,
 					  size,

@@ -422,8 +422,17 @@ std::vector<insn_t> ARMv7Machine::disassemble(std::vector<uint8_t> data, flag_t 
 	cs_insn				*insns;
 	insn_t				 insn;
 	std::vector<insn_t>	 ret;
+	cs_err err;
 
 	std::copy(data.begin(), data.end(), buf);
+
+	if (flags & XP_FLAG_NOREGNAME) {
+		err = cs_option(this->handle_thumb, CS_OPT_SYNTAX, CS_OPT_SYNTAX_NOREGNAME);
+		err = cs_option(this->handle, CS_OPT_SYNTAX, CS_OPT_SYNTAX_NOREGNAME);
+	} else {
+		err = cs_option(this->handle_thumb, CS_OPT_SYNTAX, CS_OPT_SYNTAX_DEFAULT);
+		err = cs_option(this->handle, CS_OPT_SYNTAX, CS_OPT_SYNTAX_DEFAULT);
+	}
 
 	if (flags & XP_FLAG_THUMB) {
 		count = cs_disasm(this->handle_thumb,

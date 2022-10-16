@@ -35,6 +35,7 @@ typedef struct {
 } regex_replace_t;
 
 std::vector<regex_replace_t> all_patterns_armv7; // wip
+std::vector<regex_replace_t> all_shortcuts_armv7; // wip
 
 struct cpu_definition_walker : pugi::xml_tree_walker {
 	virtual bool begin(pugi::xml_node& node) {
@@ -47,10 +48,19 @@ struct cpu_definition_walker : pugi::xml_tree_walker {
 		if (strcmp((char*)node.name(), "") != 0) {
 			if (strcmp(node.first_child().value(), "") != 0) {
 				if (strcmp(node.name(), "asm") == 0) {
+//					std::regex tmp(node.first_child().value());
 					current.regex = node.first_child().value();
 				} else if (strcmp(node.name(), "pc") == 0) {
 					current.replace = node.first_child().value();
 					all_patterns_armv7.push_back(current);
+				}
+
+				if (strcmp(node.name(), "regex") == 0) {
+					current.regex = node.first_child().value();
+//					current.regex = tmp;
+				} else if (strcmp(node.name(), "replace") == 0) {
+					current.replace = node.first_child().value();
+					all_shortcuts_armv7.push_back(current);
 				}
 			}
 		}
@@ -70,7 +80,7 @@ std::string vienna::decompile_armv7(std::vector<uint8_t> machine_code) {
 	 */
 	libmedusa::ARMv7Machine armv7_machine;
 	std::vector<libmedusa::insn_t> insns;
-	insns = armv7_machine.disassemble(machine_code, 0);
+	insns = armv7_machine.disassemble(machine_code, XP_FLAG_NOREGNAME);
 
 	std::string ret;
 
@@ -121,6 +131,25 @@ std::string vienna::decompile_armv7(std::vector<uint8_t> machine_code) {
 	 */
 	cpu_definition_walker walker;
 	doc.traverse(walker);
+
+	for (regex_replace_t& i : all_patterns_armv7) {
+		std::string i_regex_replaced = i.regex;
+		for (regex_replace_t& j : all_shortcuts_armv7) {
+			std::regex the_regex(j.regex);
+			std::string tmp;
+
+			std::regex_replace(std::back_inserter(tmp),
+							   i_regex_replaced.begin(),
+							   i_regex_replaced.end(),
+							   the_regex,
+							   j.replace);
+
+			i_regex_replaced = tmp;
+		}
+
+		i.regex = i_regex_replaced;
+	}
+
 	std::string asm_out = raw_asm;
 
 	printf("%s\n", asm_out.c_str());

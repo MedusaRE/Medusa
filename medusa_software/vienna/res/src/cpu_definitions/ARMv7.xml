@@ -133,6 +133,14 @@
 		</register>
 	</register_list>
 
+	<shortcut_list>
+		<shortcut>
+			<name>register</name>
+			<regex>__REGISTER</regex>
+			<replace>((r[0-9]+)|(sp)|(ip)(lr)|(pc)|(fp))</replace>
+		</shortcut>
+	</shortcut_list>
+
 	<pattern_list>
 		<pattern>
 			<name>le conditional</name>
@@ -147,9 +155,21 @@
 		</pattern>
 
 		<pattern>
+			<name>eq conditional</name>
+			<asm>([a-zA-Z]+)(eq)</asm>
+			<pc>if (__compare_flags($2)) $1</pc>
+		</pattern>
+
+		<pattern>
 			<name>uint32_t-ish deref</name>
 			<asm>ldr (r[0-9]+), \[(r[0-9]+), (r[0-9]+), lsl #2]</asm>
 			<pc>$1 = $2[$3];</pc>
+		</pattern>
+
+		<pattern>
+			<name>uint32_t-ish deref no-offset</name>
+			<asm>ldr (r[0-9]+), \[(r[0-9]+)]</asm>
+			<pc>$1 = *$2;</pc>
 		</pattern>
 
 		<pattern>
@@ -213,9 +233,33 @@
 		</pattern>
 
 		<pattern>
+			<name>compare registers</name>
+			<asm>cmp (r[0-9]+), #(0x[0-9a-fA-F]+)</asm>
+			<pc>__compare_flags = compare($1, $2);</pc>
+		</pattern>
+
+		<pattern>
+			<name>compare registers</name>
+			<asm>cmp (r[0-9]+), #([0-9]+)</asm>
+			<pc>__compare_flags = compare($1, $2);</pc>
+		</pattern>
+
+		<pattern>
 			<name>bl</name>
 			<asm>bl #(0x[0-9a-fA-F]+)</asm>
 			<pc>UFUNC_$1();</pc>
+		</pattern>
+
+		<pattern>
+			<name>regular jump</name>
+			<asm>b #(0x[0-9a-fA-F]+)</asm>
+			<pc>__jump($1);</pc>
+		</pattern>
+
+		<pattern>
+			<name>store regular deref</name>
+			<asm>str (r[0-9]+), \[(r[0-9]+)\]</asm>
+			<pc>*$2 = $1;</pc>
 		</pattern>
 	</pattern_list>
 </cpu_definition>

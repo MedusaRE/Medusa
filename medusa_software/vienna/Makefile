@@ -1,7 +1,7 @@
 CPP=clang++
 CPPFLAGS=--std=c++17 -Iinclude -lcapstone -lkeystone -lmedusa -lunicorn -lLIEF -fPIC
 
-all: res/bin bin bin/libvienna.so bin/main doxygen_out
+all: res/bin bin bin/libvienna.so bin/main res/bin/x86_test_shellcode.bin res/bin/armv7_test_shellcode.bin doxygen_out
 
 bin:
 	sh -c "mkdir bin"
