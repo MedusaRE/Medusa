@@ -68,7 +68,13 @@ int main(int argc, char* argv[]) {
 	std::vector<uint8_t> machine_code(MB_of_code,
 									  MB_of_code + MB_SIZE);
 
-	printf("%s\n", vienna::decompile_armv7(machine_code).c_str());
+	DEBUG_INFO();
+	for (int i = 0; i < 0x10; i++) {
+		fprintf(stderr, "\n");
+		fprintf(stderr, "--------------------------------------------------------------------------------\n");
+		vienna::decompile_armv7(machine_code);
+		DEBUG_INFO();
+	}
 
 	return 0;
 }
