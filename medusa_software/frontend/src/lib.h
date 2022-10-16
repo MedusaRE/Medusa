@@ -46,7 +46,7 @@ std::string getcwd_str();
 					u4, u5, u6, u7)	(((uint64_t)U8X4_TO_U32(u0, u1, u2, u3) << 32) \
 									 | ((uint64_t)U8X4_TO_U32(u4, u5, u6, u7) << 0))
 
-std::vector<std::string> str_split(std::string s, std::string delim);
+std::vector<std::string> str_split(std::string& s, char delim);
 
 uint64_t get_statm_usage(void);
 

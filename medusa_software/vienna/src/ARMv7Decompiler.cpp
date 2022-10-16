@@ -175,6 +175,7 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 		printf("--------------------------------------------------------------------------------\n");
 		std::regex the_regex(i.regex);
 		printf("ASM=\"%s\" PC=\"%s\"\n", i.regex.c_str(), i.replace.c_str());
+		DEBUG_INFO();
 		std::string tmp;
 
 		/*
@@ -195,7 +196,7 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 	sleep(2);
 	fprintf(stderr, "str_split\n");
 	DEBUG_INFO();
-	std::vector<std::string> split_str = str_split(asm_out, "\n");
+	std::vector<std::string> split_str = str_split(asm_out, '\n');
 
 	std::vector<uint64_t> jumped_to;
 	DEBUG_INFO();

@@ -23,6 +23,7 @@
 #include <stdarg.h>
 #include <string.h>
 #include <unistd.h>
+#include <sstream>
 #include <memory>
 #include <string>
 #include <vector>
@@ -138,16 +139,15 @@ std::string getcwd_str() {
 	return std::string(cwd);
 }
 
-std::vector<std::string> str_split(std::string s, std::string delim) {
+std::vector<std::string> str_split(std::string& s, char delim) {
 	std::vector<std::string> ret;
+	std::stringstream ss(s);
 
-	size_t pos = 0;
 	std::string token;
+	size_t pos = 0;
 
-	while ((pos = s.find(delim)) != std::string::npos) {
-		token = s.substr(0, pos);
+	while (std::getline(ss, token, delim)) {
 		ret.push_back(token);
-		s.erase(0, pos + delim.length());
 	}
 
 	return ret;
