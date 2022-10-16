@@ -152,3 +152,13 @@ std::vector<std::string> str_split(std::string s, std::string delim) {
 
 	return ret;
 }
+
+uint64_t get_statm_usage(void) {
+	FILE* fp = fopen("/proc/self/statm", "r");
+	uint64_t ret;
+
+	fscanf(fp, "%ld", &ret);
+	fclose(fp);
+
+	return ret;
+}

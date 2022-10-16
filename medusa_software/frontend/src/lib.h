@@ -48,11 +48,10 @@ std::string getcwd_str();
 
 std::vector<std::string> str_split(std::string s, std::string delim);
 
+uint64_t get_statm_usage(void);
+
 #define DEBUG_INFO() do { \
-	int __who = RUSAGE_SELF; \
-	struct rusage __usage; \
-	getrusage(__who, &__usage); \
-	fprintf(stderr, "%s (%d): mem_usage=%dKB\n", __FILE__, __LINE__, __usage.ru_maxrss); \
+	fprintf(stderr, "%s (%d): mem_usage=%ldKB\n", __FILE__, __LINE__, get_statm_usage()); \
 } while(0)
 
 #endif
