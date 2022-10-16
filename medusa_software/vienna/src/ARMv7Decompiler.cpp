@@ -21,6 +21,7 @@
 #include <libmedusa/libmedusa.hpp>
 #include <libmedusa/Machine.hpp>
 #include <vienna/vienna.hpp>
+#include <jpcre2.hpp>
 #include <algorithm>
 #include <iterator>
 #include <cstring>
@@ -29,7 +30,9 @@
 #include <regex>
 #include <lib.h>
 
+
 using namespace vienna;
+typedef jpcre2::select<char> jp;
 
 typedef struct {
 	std::string regex;
@@ -70,6 +73,15 @@ struct cpu_definition_walker : pugi::xml_tree_walker {
 		return true;
 	}
 };
+
+std::string regex_replace_proper(regex_replace_t rr, std::string what) {
+	jp::Regex re(rr.regex);
+	jp::RegexReplace jrr(&re);
+	jrr.setSubject(what);
+	jrr.setReplaceWith(rr.replace);
+	jrr.setPcre2Option(PCRE2_SUBSTITUTE_GLOBAL);
+	return jrr.replace();
+}
 
 std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 	printf("vienna::test_function test printf\n");
@@ -139,16 +151,7 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 	for (regex_replace_t& i : all_patterns_armv7) {
 		std::string i_regex_replaced = i.regex;
 		for (regex_replace_t& j : all_shortcuts_armv7) {
-			std::regex the_regex(j.regex);
-			std::string tmp;
-
-			std::regex_replace(std::back_inserter(tmp),
-							   i_regex_replaced.begin(),
-							   i_regex_replaced.end(),
-							   the_regex,
-							   j.replace);
-
-			i_regex_replaced = tmp;
+			i_regex_replaced = regex_replace_proper(j, i_regex_replaced);
 		}
 
 		i.regex = i_regex_replaced;
@@ -170,12 +173,7 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 		 *  use the regex_replace format for each pattern to convert as much
 		 *  as possible to IR
 		 */
-		std::regex_replace(std::back_inserter(tmp),
-						   asm_out.begin(),
-						   asm_out.end(),
-						   the_regex,
-						   i.replace);
-		asm_out = tmp;
+		asm_out = regex_replace_proper(i, asm_out);
 
 //		printf("%s\n", asm_out.c_str());
 	}
