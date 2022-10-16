@@ -38,10 +38,23 @@ static uint8_t test_arm_code[] = {
 	0x0E, 0x00, 0x00, 0xDB,
 };
 
+static uint8_t test_arm_code2[] = {
+	0x40, 0x00, 0x00, 0xE3,
+	0x00, 0x00, 0x40, 0xE3,
+	0x00, 0x10, 0x90, 0xE5,
+	0x01, 0x10, 0x81, 0xE2,
+	0x00, 0x10, 0x80, 0xE5,
+	0x01, 0x2C, 0xA0, 0xE3,
+	0x02, 0x00, 0x51, 0xE1,
+	0xF7, 0xFF, 0xFF, 0x1A,
+};
+
 int main(int argc, char* argv[]) {
-	printf("Hello, world!\n");
-	ifstream f("res/bin/armv7_test_shellcode.bin", ios::binary);
-	std::vector<uint8_t> machine_code(std::istreambuf_iterator<char>(f), {});
+//	printf("Hello, world!\n");
+//	ifstream f("res/bin/armv7_test_shellcode.bin", ios::binary);
+//	std::vector<uint8_t> machine_code(std::istreambuf_iterator<char>(f), {});
+	std::vector<uint8_t> machine_code(test_arm_code2,
+									  test_arm_code2 + sizeof(test_arm_code2));
 
 	printf("%s\n", vienna::decompile_armv7(machine_code).c_str());
 

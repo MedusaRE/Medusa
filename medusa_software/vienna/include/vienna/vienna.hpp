@@ -28,6 +28,7 @@ namespace vienna {
 	 */
 	typedef enum {
 		NOP,		/**< A no-op, an instruction that does nothing. */
+		DEREF,		/**< An operation that dereferences a register. */
 	} ir_opcode_t;
 
 	typedef struct {

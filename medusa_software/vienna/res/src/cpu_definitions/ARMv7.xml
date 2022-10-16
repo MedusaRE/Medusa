@@ -246,8 +246,14 @@
 
 		<pattern>
 			<name>move (wide) val into reg</name>
-			<asm>movw __REGISTER, \#(0x[0-9]+)</asm>
-			<pc>$1 = $2;</pc>
+			<asm>movw __REGISTER, __CONST</asm>
+			<pc>$1.w = $2;</pc>
+		</pattern>
+
+		<pattern>
+			<name>move (wide) val into reg</name>
+			<asm>movt __REGISTER, __CONST</asm>
+			<pc>$1.t = $2;</pc>
 		</pattern>
 
 		<pattern>

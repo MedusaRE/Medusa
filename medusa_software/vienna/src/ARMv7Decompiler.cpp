@@ -26,6 +26,7 @@
 #include <cstdio>
 #include <vector>
 #include <regex>
+#include <lib.h>
 
 using namespace vienna;
 
@@ -96,6 +97,7 @@ std::string vienna::decompile_armv7(std::vector<uint8_t> machine_code) {
 	std::string raw_asm;
 
 	for (int i = 0; i < insns.size(); i++) {
+		raw_asm += string_format("%x ", insns[i].address);
 		raw_asm += insns[i].mnemonic;
 		raw_asm += " ";
 		raw_asm += insns[i].op_str;
