@@ -35,7 +35,7 @@ res/bin/x86_test_shellcode.bin: res/bin/x86_test_shellcode.o res/bin
 	ld.lld -o $@ $< --oformat binary
 
 res/bin/armv7_test_shellcode.o: res/src/armv7_test_shellcode.c res/bin
-	clang -target arm -ffreestanding $< -c -o $@
+	clang -target arm -ffreestanding -g0 $< -c -o $@
 
 res/bin/armv7_test_shellcode.bin: res/bin/armv7_test_shellcode.o res/bin
 	ld.lld -o $@ $< --oformat binary

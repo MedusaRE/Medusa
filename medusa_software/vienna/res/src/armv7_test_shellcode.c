@@ -28,6 +28,41 @@ typedef unsigned int uint32_t;
 	}									 \
 } while (0)
 
+#define EXAMPLE4X() do { \
+	EXAMPLE();			 \
+	EXAMPLE();			 \
+	EXAMPLE();			 \
+	EXAMPLE();			 \
+} while (0)
+
+#define EXAMPLE4X4X() do { \
+	EXAMPLE4X();		   \
+	EXAMPLE4X();		   \
+	EXAMPLE4X();		   \
+	EXAMPLE4X();		   \
+} while (0)
+
+#define EXAMPLE4X4X4X() do { \
+	EXAMPLE4X4X();			 \
+	EXAMPLE4X4X();			 \
+	EXAMPLE4X4X();			 \
+	EXAMPLE4X4X();			 \
+} while (0)
+
+#define EXAMPLE4X4X4X4X() do { \
+	EXAMPLE4X4X4X();		   \
+	EXAMPLE4X4X4X();		   \
+	EXAMPLE4X4X4X();		   \
+	EXAMPLE4X4X4X();		   \
+} while (0)
+
+#define EXAMPLE4X4X4X4X4X() do { \
+	EXAMPLE4X4X4X4X();			 \
+	EXAMPLE4X4X4X4X();			 \
+	EXAMPLE4X4X4X4X();			 \
+	EXAMPLE4X4X4X4X();			 \
+} while (0)
+
 /*
  *  work in progress bullshit
  */
