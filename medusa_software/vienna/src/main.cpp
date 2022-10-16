@@ -23,6 +23,7 @@
 #include <fstream>
 #include <cstdio>
 #include <sys/mman.h>
+#include <lib.h>
 
 using namespace std;
 
@@ -52,8 +53,38 @@ static uint8_t test_arm_code2[] = {
 };
 
 int main(int argc, char* argv[]) {
+	DEBUG_INFO();
+	std::vector<char*> abc;
+
+	for (int i = 0; i < 0x1000; i++) {
+		abc.push_back("Hello, world!\n");
+	}
+
+	DEBUG_INFO();
+
+	for (int i = 0; i < 0x10000; i++) {
+		abc.push_back("Hello, world!\n");
+	}
+
+	DEBUG_INFO();
+
+	for (int i = 0; i < 0x100000; i++) {
+		abc.push_back("Hello, world!\n");
+	}
+
+	DEBUG_INFO();
+
+	printf("%s %s\n", abc.at(0), abc.at(1));
+	char* test = abc.at(0);
+	test[0] = 'G';
+	printf("%s %s\n", abc.at(0), abc.at(1));
+
+	return 0;
+
 	printf("Hello, world!\n");
+	DEBUG_INFO();
 	ifstream f("res/bin/armv7_test_shellcode.bin", ios::binary);
+	DEBUG_INFO();
 //	std::vector<uint8_t> machine_code(std::istreambuf_iterator<char>(f), {});
 
 #if 0
@@ -61,19 +92,27 @@ int main(int argc, char* argv[]) {
 //	fprintf(stderr, "%p %s\n", a, strerror(errno));
 #endif
 
-#define MB_SIZE 0x10000
+#define MB_SIZE 0x100000
 #define BUF_TO_COPY test_arm_code2
 
+	DEBUG_INFO();
 	uint8_t* MB_of_code = (uint8_t*)calloc(MB_SIZE, 1);
+	DEBUG_INFO();
 
 	for (size_t i = 0; i < (MB_SIZE / sizeof(BUF_TO_COPY)); i++) {
 		memcpy(MB_of_code + (i * sizeof(BUF_TO_COPY)), BUF_TO_COPY, sizeof(BUF_TO_COPY));
 	}
+	DEBUG_INFO();
+
+	sleep(2);
+	DEBUG_INFO();
 
 	std::vector<uint8_t> machine_code(MB_of_code,
 									  MB_of_code + MB_SIZE);
+	DEBUG_INFO();
 
 	printf("%s\n", vienna::decompile_armv7(machine_code).c_str());
+	DEBUG_INFO();
 
 	return 0;
 }

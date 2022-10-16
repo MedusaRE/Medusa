@@ -66,7 +66,7 @@ namespace libmedusa {
 	typedef struct {
 		uint32_t id;					/**< The ID of this instruction mnemonic. (will work on in future, capstone stuff) */
 		uint64_t address;				/**< The address of this instruction in memory. */
-		uint16_t size;					/**< The size of this instructiony. */
+		uint16_t size;					/**< The size of this instruction. */
 		uint8_t bytes[64];				/**< The bytes, i.e. machine-code of this instruction. */
 		char mnemonic[MNEMONIC_SIZE];	/**< The instruction mnemonic. (say, `"mov"`) */
 		char op_str[160];				/**< The operation string. (say, `"r1, r0"`) */

@@ -18,6 +18,7 @@
 #ifndef LIB_H
 #define LIB_H
 
+#include <sys/resource.h>
 #include <stdarg.h>
 #include <memory>
 #include <string>
@@ -46,5 +47,12 @@ std::string getcwd_str();
 									 | ((uint64_t)U8X4_TO_U32(u4, u5, u6, u7) << 0))
 
 std::vector<std::string> str_split(std::string s, std::string delim);
+
+#define DEBUG_INFO() do { \
+	int __who = RUSAGE_SELF; \
+	struct rusage __usage; \
+	getrusage(__who, &__usage); \
+	fprintf(stderr, "%s (%d): mem_usage=%dKB\n", __FILE__, __LINE__, __usage.ru_maxrss); \
+} while(0)
 
 #endif

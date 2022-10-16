@@ -462,6 +462,8 @@ std::vector<insn_t> ARMv7Machine::disassemble(std::vector<uint8_t>& data, flag_t
 		ret.push_back(insn);
 	}
 
+	cs_free(insns, count);
+
 	return ret;
 }
 

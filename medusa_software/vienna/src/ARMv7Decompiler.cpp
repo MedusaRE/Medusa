@@ -74,6 +74,8 @@ struct cpu_definition_walker : pugi::xml_tree_walker {
 std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 	printf("vienna::test_function test printf\n");
 
+	DEBUG_INFO();
+
 	/*
 	 *  create an ARMv7Machine, and a vector to hold the ARMv7 code.
 	 *
@@ -82,9 +84,12 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 	 */
 	libmedusa::ARMv7Machine armv7_machine;
 	std::vector<libmedusa::insn_t> insns;
+	DEBUG_INFO();
 	insns = armv7_machine.disassemble(machine_code, XP_FLAG_NOREGNAME);
+	DEBUG_INFO();
 
 	std::string ret;
+	DEBUG_INFO();
 
 	/*
 	 *  loop through all instructions in the disassembly, and print out the
@@ -103,12 +108,13 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 		raw_asm += " ";
 		raw_asm += insns[i].op_str;
 		raw_asm += "\n";
-		printf("0x%016lx (%d): %s %s\n",
-			   insns[i].address,
-			   insns[i].size,
-			   insns[i].mnemonic,
-			   insns[i].op_str);
+//		printf("0x%016lx (%d): %s %s\n",
+//			   insns[i].address,
+//			   insns[i].size,
+//			   insns[i].mnemonic,
+//			   insns[i].op_str);
 	}
+	DEBUG_INFO();
 
 	printf("\n");
 	printf("disassembly -> IR patterns\n");
@@ -119,8 +125,10 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 	 */
 	pugi::xml_document doc;
 	pugi::xml_parse_result result;
+	DEBUG_INFO();
 
 	result = doc.load_file("res/src/cpu_definitions/ARMv7.xml");
+	DEBUG_INFO();
 
 	if (!result) {
 		return ret;
@@ -134,6 +142,7 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 	 */
 	cpu_definition_walker walker;
 	doc.traverse(walker);
+	DEBUG_INFO();
 
 	for (regex_replace_t& i : all_patterns_armv7) {
 		std::string i_regex_replaced = i.regex;
@@ -152,11 +161,14 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 
 		i.regex = i_regex_replaced;
 	}
+	DEBUG_INFO();
 
 	std::string asm_out = raw_asm;
+	DEBUG_INFO();
 
-	printf("%s\n", asm_out.c_str());
+//	printf("%s\n", asm_out.c_str());
 
+	sleep(2);
 	fprintf(stderr, "regex\n");
 	for (regex_replace_t& i : all_patterns_armv7) {
 		printf("\n");
@@ -176,14 +188,19 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 						   i.replace);
 		asm_out = tmp;
 
-		printf("%s\n", asm_out.c_str());
+//		printf("%s\n", asm_out.c_str());
 	}
+	DEBUG_INFO();
 
+	sleep(2);
 	fprintf(stderr, "str_split\n");
+	DEBUG_INFO();
 	std::vector<std::string> split_str = str_split(asm_out, "\n");
 
 	std::vector<uint64_t> jumped_to;
+	DEBUG_INFO();
 
+	sleep(2);
 	fprintf(stderr, "jumped_to\n");
 	for (std::string& s : split_str) {
 		if (s.find("__jump(") != -1) {
@@ -196,7 +213,9 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 	}
 
 	int i = 0;
+	DEBUG_INFO();
 
+	sleep(2);
 	fprintf(stderr, "labels\n");
 	for (std::string& s : split_str) {
 //		printf("%s\n", s.substr(0, s.find(" ")).c_str());
@@ -207,18 +226,21 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 			i++;
 		}
 	}
+	DEBUG_INFO();
 
 	ret = "";
 
+	sleep(2);
 	fprintf(stderr, "regen\n");
 	for (std::string& s : split_str) {
 		ret += s + "\n";
 	}
+	DEBUG_INFO();
 
 	printf("\n");
 	printf("IR\n");
 	printf("--------------------------------------------------------------------------------\n");
-	printf("%s\n", asm_out.c_str());
+//	printf("%s\n", asm_out.c_str());
 
 out:
 	return ret;
