@@ -98,6 +98,9 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 	auto start = std::chrono::high_resolution_clock::now();
 	printf("vienna::test_function test printf\n");
 
+	all_patterns_armv7.clear();
+	all_shortcuts_armv7.clear();
+
 	/*
 	 *  create an ARMv7Machine, and a vector to hold the ARMv7 code.
 	 *
@@ -237,6 +240,7 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 
 	libmedusa::destroy_insn_t_vector(insns);
 
+	jumped_to = std::vector<uint64_t>();
 	split_str = std::vector<std::string>();
 	insns = std::vector<libmedusa::insn_t>();
 
