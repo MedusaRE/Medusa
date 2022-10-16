@@ -72,7 +72,7 @@ int main(int argc, char* argv[]) {
 	for (int i = 0; i < 0x10; i++) {
 		fprintf(stderr, "\n");
 		fprintf(stderr, "--------------------------------------------------------------------------------\n");
-		vienna::decompile_armv7(machine_code);
+		printf("%s\n", vienna::decompile_armv7(machine_code).c_str());
 		DEBUG_INFO();
 	}
 
