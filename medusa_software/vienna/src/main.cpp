@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
 	printf("Hello, world!\n");
 	ifstream f("res/bin/armv7_test_shellcode.bin", ios::binary);
 
-#define MB_SIZE 0x100000
+#define MB_SIZE 0x1000000
 #define BUF_TO_COPY test_arm_code2
 
 	uint8_t* MB_of_code = (uint8_t*)calloc(MB_SIZE, 1);
