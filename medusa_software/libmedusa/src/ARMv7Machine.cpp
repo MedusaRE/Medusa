@@ -416,8 +416,9 @@ bool ARMv7Machine::set_register(reg_t reg) {
 }
 
 std::vector<insn_t> ARMv7Machine::disassemble(std::vector<uint8_t>& data, flag_t flags) {
-	uint32_t			 size = data.size();
-	uint8_t				 buf[size];
+	uint32_t size = data.size();
+
+	uint8_t				*buf = (uint8_t*)calloc(size, 1);
 	size_t				 count;
 	cs_insn				*insns;
 	insn_t				 insn;
