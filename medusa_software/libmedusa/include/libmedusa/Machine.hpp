@@ -132,7 +132,7 @@ namespace libmedusa {
 			 *  @return	true  success
 			 *  @return	false fail
 			 */
-			virtual bool write_memory(uint64_t addr, std::vector<uint8_t> data) = 0;
+			virtual bool write_memory(uint64_t addr, std::vector<uint8_t>& data) = 0;
 
 			/**
 			 *  @brief Read data from the memory of this machine.
@@ -202,7 +202,7 @@ namespace libmedusa {
 			 * 
 			 *  @return	std::vector<insn_t> The disassembled machine-code in the form of an `std::vector` of insn_t's.
 			 */
-			virtual std::vector<insn_t> disassemble(std::vector<uint8_t> data, flag_t flags) = 0;
+			virtual std::vector<insn_t> disassemble(std::vector<uint8_t>& data, flag_t flags) = 0;
 
 			/**
 			 *  @brief Assemble an `std::string` with assembly code into machine-code.

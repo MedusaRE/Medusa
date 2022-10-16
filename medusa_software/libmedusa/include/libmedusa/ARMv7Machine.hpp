@@ -48,7 +48,7 @@ namespace libmedusa {
 			bool set_register(reg_t reg);
 
 			std::vector<uint8_t> read_memory(uint64_t addr, uint64_t size);
-			bool write_memory(uint64_t addr, std::vector<uint8_t> data);
+			bool write_memory(uint64_t addr, std::vector<uint8_t>& data);
 			std::vector<mem_reg_t> get_memory_regions();
 			mem_reg_t find_memory_region(uint64_t addr);
 			bool unmap_memory(mem_reg_t);
@@ -60,7 +60,7 @@ namespace libmedusa {
 			bool exec_code_step();
 
 			std::vector<uint8_t> assemble(std::string src, uint64_t addr, flag_t flags);
-			std::vector<insn_t> disassemble(std::vector<uint8_t> data, flag_t flags);
+			std::vector<insn_t> disassemble(std::vector<uint8_t>& data, flag_t flags);
 		protected:
 			/**
 			 *  @brief An `std::vector` of all of the memory regions mapped for this Machine.

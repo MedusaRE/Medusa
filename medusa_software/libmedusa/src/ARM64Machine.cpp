@@ -450,7 +450,7 @@ std::vector<uint8_t> ARM64Machine::read_memory(uint64_t addr, uint64_t size) {
 	return ret;
 }
 
-bool ARM64Machine::write_memory(uint64_t addr, std::vector<uint8_t> data) {
+bool ARM64Machine::write_memory(uint64_t addr, std::vector<uint8_t>& data) {
 	uint32_t size = data.size();
 	uint8_t	 buf[size];
 	bool	 ret = true;
@@ -516,7 +516,7 @@ bool ARM64Machine::set_register(reg_t reg) {
 	return ret;
 }
 
-std::vector<insn_t> ARM64Machine::disassemble(std::vector<uint8_t> data, flag_t flags) {
+std::vector<insn_t> ARM64Machine::disassemble(std::vector<uint8_t>& data, flag_t flags) {
 	uint32_t			 size = data.size();
 	uint8_t				 buf[size];
 	size_t				 count;

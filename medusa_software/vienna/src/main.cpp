@@ -59,16 +59,16 @@ int main(int argc, char* argv[]) {
 #if 0
 //	void* a = mmap(NULL, 0x100000, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANON, 0, 0);
 //	fprintf(stderr, "%p %s\n", a, strerror(errno));
+#endif
 
-//#define MB_SIZE 0x10000
-//#define BUF_TO_COPY test_arm_code2
+#define MB_SIZE 0x10000
+#define BUF_TO_COPY test_arm_code2
 
 	uint8_t* MB_of_code = (uint8_t*)calloc(MB_SIZE, 1);
 
 	for (size_t i = 0; i < (MB_SIZE / sizeof(BUF_TO_COPY)); i++) {
 		memcpy(MB_of_code + (i * sizeof(BUF_TO_COPY)), BUF_TO_COPY, sizeof(BUF_TO_COPY));
 	}
-	#endif
 
 	std::vector<uint8_t> machine_code(MB_of_code,
 									  MB_of_code + MB_SIZE);

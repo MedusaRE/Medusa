@@ -339,7 +339,7 @@ std::vector<uint8_t> ARMv7Machine::read_memory(uint64_t addr, uint64_t size) {
 	return ret;
 }
 
-bool ARMv7Machine::write_memory(uint64_t addr, std::vector<uint8_t> data) {
+bool ARMv7Machine::write_memory(uint64_t addr, std::vector<uint8_t>& data) {
 	uint32_t size = data.size();
 	bool	 ret = true;
 	uint8_t	 buf[size];
@@ -415,7 +415,7 @@ bool ARMv7Machine::set_register(reg_t reg) {
 	return ret;
 }
 
-std::vector<insn_t> ARMv7Machine::disassemble(std::vector<uint8_t> data, flag_t flags) {
+std::vector<insn_t> ARMv7Machine::disassemble(std::vector<uint8_t>& data, flag_t flags) {
 	uint32_t			 size = data.size();
 	uint8_t				 buf[size];
 	size_t				 count;
