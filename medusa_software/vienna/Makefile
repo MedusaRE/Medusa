@@ -1,5 +1,5 @@
 CPP=clang++
-CPPFLAGS=--std=c++17 -Iinclude -lcapstone -lkeystone -lmedusa -lunicorn -lLIEF -fPIC -DLIB_H_NO_BUILD_GUI
+CPPFLAGS=--std=c++17 -Iinclude -lcapstone -lkeystone -lmedusa -lunicorn -lLIEF -fPIC -DLIB_H_NO_BUILD_GUI -O3
 
 all: res/bin bin bin/libvienna.so bin/main res/bin/x86_test_shellcode.bin res/bin/armv7_test_shellcode.bin doxygen_out
 
