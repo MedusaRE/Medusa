@@ -137,7 +137,25 @@
 		<shortcut>
 			<name>register</name>
 			<regex>__REGISTER</regex>
-			<replace>((r[0-9]+)|(sp)|(ip)|(lr)|(pc)|(fp))</replace>
+			<replace>(r[0-9]+|sp|ip|lr|pc|fp)</replace>
+		</shortcut>
+
+		<shortcut>
+			<name>hex const</name>
+			<regex>__HEX_CONST</regex>
+			<replace>#(0x[0-9a-fA-F]+)</replace>
+		</shortcut>
+
+		<shortcut>
+			<name>hex const</name>
+			<regex>__DEC_CONST</regex>
+			<replace>#([0-9]+)</replace>
+		</shortcut>
+
+		<shortcut>
+			<name>hex const</name>
+			<regex>__CONST</regex>
+			<replace>#(0x[0-9a-fA-F]+|[0-9]+)</replace>
 		</shortcut>
 	</shortcut_list>
 
@@ -162,103 +180,115 @@
 
 		<pattern>
 			<name>uint32_t-ish deref</name>
-			<asm>ldr (r[0-9]+), \[(r[0-9]+), (r[0-9]+), lsl #2]</asm>
+			<asm>ldr __REGISTER, \[__REGISTER, __REGISTER, lsl #2]</asm>
+			<pc>$1 = $2[$3];</pc>
+		</pattern>
+
+		<pattern>
+			<name>uint32_t-ish deref offset no lsl reg</name>
+			<asm>ldr __REGISTER, \[__REGISTER, __REGISTER]</asm>
+			<pc>$1 = $2[$3];</pc>
+		</pattern>
+
+		<pattern>
+			<name>uint32_t-ish deref offset no lsl</name>
+			<asm>ldr __REGISTER, \[__REGISTER, __CONST]</asm>
 			<pc>$1 = $2[$3];</pc>
 		</pattern>
 
 		<pattern>
 			<name>uint32_t-ish deref no-offset</name>
-			<asm>ldr (r[0-9]+), \[(r[0-9]+)]</asm>
+			<asm>ldr __REGISTER, \[__REGISTER]</asm>
 			<pc>$1 = *$2;</pc>
 		</pattern>
 
 		<pattern>
 			<name>add 2 registers</name>
-			<asm>add (r[0-9]+), \1, (r[0-9]+)</asm>
+			<asm>add __REGISTER, \1, __REGISTER</asm>
 			<pc>$1 += $2;</pc>
 		</pattern>
 
 		<pattern>
 			<name>add 2 registers</name>
-			<asm>add (r[0-9]+), (r[0-9]+), (r[0-9]+)</asm>
+			<asm>add __REGISTER, __REGISTER, __REGISTER</asm>
 			<pc>$1 = $2 + $3;</pc>
 		</pattern>
 
 		<pattern>
 			<name>move reg into reg</name>
-			<asm>mov (r[0-9]+), (r[0-9]+)</asm>
+			<asm>mov __REGISTER, __REGISTER</asm>
 			<pc>$1 = $2;</pc>
 		</pattern>
 
 		<pattern>
 			<name>move val into reg</name>
-			<asm>movs (r[0-9]+), \#(0x[0-9]+)</asm>
+			<asm>movs __REGISTER, \#(0x[0-9]+)</asm>
 			<pc>$1 = $2;</pc>
 		</pattern>
 
 		<pattern>
 			<name>move (wide) val into reg</name>
-			<asm>movw (r[0-9]+), \#(0x[0-9]+)</asm>
+			<asm>movw __REGISTER, \#(0x[0-9]+)</asm>
 			<pc>$1 = $2;</pc>
 		</pattern>
 
 		<pattern>
 			<name>subtract registers</name>
-			<asm>sub (r[0-9]+), \1, (r[0-9]+)</asm>
+			<asm>sub __REGISTER, \1, __REGISTER</asm>
 			<pc>$1 -= $2;</pc>
 		</pattern>
 
 		<pattern>
 			<name>subtract registers</name>
-			<asm>sub (r[0-9]+), (r[0-9]+), (r[0-9]+)</asm>
+			<asm>sub __REGISTER, __REGISTER, __REGISTER</asm>
 			<pc>$1 = $2 - $3;</pc>
 		</pattern>
 
 		<pattern>
 			<name>multiply registers</name>
-			<asm>mul (r[0-9]+), \1, (r[0-9]+)</asm>
+			<asm>mul __REGISTER, \1, __REGISTER</asm>
 			<pc>$1 *= $2;</pc>
 		</pattern>
 
 		<pattern>
 			<name>multiply registers</name>
-			<asm>mul (r[0-9]+), (r[0-9]+), (r[0-9]+)</asm>
+			<asm>mul __REGISTER, __REGISTER, __REGISTER</asm>
 			<pc>$1 = $2 * $3;</pc>
 		</pattern>
 
 		<pattern>
 			<name>compare registers</name>
-			<asm>cmp (r[0-9]+), (r[0-9]+)</asm>
+			<asm>cmp __REGISTER, __REGISTER</asm>
 			<pc>__compare_flags = compare($1, $2);</pc>
 		</pattern>
 
 		<pattern>
 			<name>compare registers</name>
-			<asm>cmp (r[0-9]+), #(0x[0-9a-fA-F]+)</asm>
+			<asm>cmp __REGISTER, __HEX_CONST</asm>
 			<pc>__compare_flags = compare($1, $2);</pc>
 		</pattern>
 
 		<pattern>
 			<name>compare registers</name>
-			<asm>cmp (r[0-9]+), #([0-9]+)</asm>
+			<asm>cmp __REGISTER, __DEC_CONST</asm>
 			<pc>__compare_flags = compare($1, $2);</pc>
 		</pattern>
 
 		<pattern>
 			<name>bl</name>
-			<asm>bl #(0x[0-9a-fA-F]+)</asm>
+			<asm>bl __HEX_CONST</asm>
 			<pc>UFUNC_$1();</pc>
 		</pattern>
 
 		<pattern>
 			<name>regular jump</name>
-			<asm>b #(0x[0-9a-fA-F]+)</asm>
+			<asm>b __HEX_CONST</asm>
 			<pc>__jump($1);</pc>
 		</pattern>
 
 		<pattern>
 			<name>store regular deref</name>
-			<asm>str (r[0-9]+), \[(r[0-9]+)\]</asm>
+			<asm>str __REGISTER, \[__REGISTER\]</asm>
 			<pc>*$2 = $1;</pc>
 		</pattern>
 	</pattern_list>
