@@ -135,18 +135,6 @@ namespace libmedusa {
 			virtual bool write_memory(uint64_t addr, std::vector<uint8_t> data) = 0;
 
 			/**
-			 *  @brief Write data into the memory of this machine.
-			 *  
-			 *  @param addr	The memory address to write data to.
-			 *  @param data	The data to write into memory.
-			 *  @param size	The size of the data to write into memory.
-			 * 
-			 *  @return	true  success
-			 *  @return	false fail
-			 */
-			virtual bool write_memory(uint64_t addr, uint8_t* data, uint64_t size) = 0;
-
-			/**
 			 *  @brief Read data from the memory of this machine.
 			 *
 			 *  @param addr	The memory address to read data from.
@@ -155,16 +143,6 @@ namespace libmedusa {
 			 *  @return	std::vector<uint8_t> The data that was read from memory.
 			 */
 			virtual std::vector<uint8_t> read_memory(uint64_t addr, uint64_t size) = 0;
-
-			/**
-			 *  @brief Read data from the memory of this machine.
-			 *
-			 *  @param addr	The memory address to read data from.
-			 *  @param size	The amount of memory to read.
-			 * 
-			 *  @return	std::vector<uint8_t> The data that was read from memory.
-			 */
-			virtual bool read_memory(uint64_t addr, uint64_t size, uint64_t* data) = 0;
 
 			/**
 			 *  @brief Execute code in memory of a specified size at a specified address.
@@ -227,16 +205,6 @@ namespace libmedusa {
 			virtual std::vector<insn_t> disassemble(std::vector<uint8_t> data, flag_t flags) = 0;
 
 			/**
-			 *  @brief Disassemble machine-code into an `std::vector` of insn_t's.
-			 *  
-			 *  @param data	 The machine code to disassemble.
-			 *  @param flags Machine-specific flags that can modify the disassembly. 
-			 * 
-			 *  @return	std::vector<insn_t> The disassembled machine-code in the form of an `std::vector` of insn_t's.
-			 */
-			virtual bool disassemble(uint8_t* data, uint64_t size, insn_t* insns, uint64_t insns_size, flag_t flags) = 0;
-
-			/**
 			 *  @brief Assemble an `std::string` with assembly code into machine-code.
 			 *  
 			 *  @param src	 The source code to assemble.
@@ -246,17 +214,6 @@ namespace libmedusa {
 			 *  @return	std::vector<uint8_t> The assembled machine-code in the form of an `std::vector` of `uint8_t`'s.
 			 */
 			virtual std::vector<uint8_t> assemble(std::string src, uint64_t addr, flag_t flags) = 0;
-
-			/**
-			 *  @brief Assemble an `std::string` with assembly code into machine-code.
-			 *  
-			 *  @param src	 The source code to assemble.
-			 *  @param addr	 The address at which this code would be located.
-			 *  @param flags Machine-specific flags that can modify the machine-code.
-			 * 
-			 *  @return	std::vector<uint8_t> The assembled machine-code in the form of an `std::vector` of `uint8_t`'s.
-			 */
-			virtual bool assemble(std::string src, uint64_t addr, uint8_t* data, uint64_t size, flag_t flags) = 0;
 //			virtual bool step_back() = 0;
 //			virtual bool step_forward() = 0;
 //			virtual bool step_instruction() = 0;

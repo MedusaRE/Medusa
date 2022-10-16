@@ -61,11 +61,6 @@ namespace libmedusa {
 
 			std::vector<uint8_t> assemble(std::string src, uint64_t addr, flag_t flags);
 			std::vector<insn_t> disassemble(std::vector<uint8_t> data, flag_t flags);
-			
-			bool disassemble(uint8_t* data, uint64_t size, insn_t* insns, uint64_t insns_size, flag_t flags);
-			bool assemble(std::string src, uint64_t addr, uint8_t* data, uint64_t size, flag_t flags);
-			bool read_memory(uint64_t addr, uint64_t size, uint64_t* data);
-			bool write_memory(uint64_t addr, uint8_t* data, uint64_t size);
 		protected:
 			/**
 			 *  @brief An `std::vector` of all of the memory regions mapped for this Machine.

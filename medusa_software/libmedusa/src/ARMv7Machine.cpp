@@ -339,20 +339,6 @@ std::vector<uint8_t> ARMv7Machine::read_memory(uint64_t addr, uint64_t size) {
 	return ret;
 }
 
-bool ARMv7Machine::read_memory(uint64_t addr, uint64_t size, uint64_t* data) {
-	bool   ret = true;
-	uc_err err;
-
-	err = uc_mem_read(this->uc, addr, data, size);
-
-	if (err) {
-		fprintf(stderr, "uc_mem_read failed with %u (%s)\n", err, uc_strerror(err));
-		ret = false;
-	}
-
-	return ret;
-}
-
 bool ARMv7Machine::write_memory(uint64_t addr, std::vector<uint8_t> data) {
 	uint32_t size = data.size();
 	bool	 ret = true;
@@ -361,14 +347,6 @@ bool ARMv7Machine::write_memory(uint64_t addr, std::vector<uint8_t> data) {
 	std::copy(data.begin(), data.end(), buf);
 
 	ret = (uc_mem_write(this->uc, addr, buf, size) == UC_ERR_OK) ? true : false;
-
-	return ret;
-}
-
-bool ARMv7Machine::write_memory(uint64_t addr, uint8_t* data, uint64_t size) {
-	bool ret = true;
-
-	ret = (uc_mem_write(this->uc, addr, data, size) == UC_ERR_OK) ? true : false;
 
 	return ret;
 }
@@ -487,60 +465,6 @@ std::vector<insn_t> ARMv7Machine::disassemble(std::vector<uint8_t> data, flag_t 
 	return ret;
 }
 
-bool ARMv7Machine::disassemble(uint8_t* data, uint64_t size, insn_t* insns, uint64_t insns_size, flag_t flags) {
-	bool	 ret = true;
-	cs_insn *cs_insns;
-	size_t	 count;
-	insn_t	 insn;
-	cs_err	 err;
-
-	if (flags & XP_FLAG_NOREGNAME) {
-		err = cs_option(this->handle_thumb, CS_OPT_SYNTAX, CS_OPT_SYNTAX_NOREGNAME);
-		err = cs_option(this->handle, CS_OPT_SYNTAX, CS_OPT_SYNTAX_NOREGNAME);
-	} else {
-		err = cs_option(this->handle_thumb, CS_OPT_SYNTAX, CS_OPT_SYNTAX_DEFAULT);
-		err = cs_option(this->handle, CS_OPT_SYNTAX, CS_OPT_SYNTAX_DEFAULT);
-	}
-
-	if (flags & XP_FLAG_THUMB) {
-		count = cs_disasm(this->handle_thumb,
-						  data,
-						  size,
-						  0,
-						  0,
-						  &cs_insns);
-	} else {
-		count = cs_disasm(this->handle,
-						  data,
-						  size,
-						  0,
-						  0,
-						  &cs_insns);
-	}
-
-	size_t written = 0;
-
-	for (int i = 0; i < count; i++) {
-		if ((i * sizeof(insn_t)) >= insns_size) {
-			break;
-		}
-
-		insn.id = cs_insns[i].id;
-		insn.address = cs_insns[i].address;
-		insn.size = cs_insns[i].size;
-
-		memcpy(insn.bytes, cs_insns[i].bytes, sizeof(insn.bytes));
-		memcpy(insn.mnemonic, cs_insns[i].mnemonic, sizeof(insn.mnemonic));
-		memcpy(insn.op_str, cs_insns[i].op_str, sizeof(insn.op_str));
-
-		memcpy(insns + (i * sizeof(insn_t)), &insn, sizeof(insn_t));
-	}
-
-	cs_free(cs_insns, count);
-
-	return ret;
-}
-
 std::vector<uint8_t> ARMv7Machine::assemble(std::string src, uint64_t addr, flag_t flags) {
 	ks_err				  err_ks;
 	size_t				  count;
@@ -567,36 +491,6 @@ std::vector<uint8_t> ARMv7Machine::assemble(std::string src, uint64_t addr, flag
 	for (int i = 0; i < size; i++) {
 		ret.push_back(data[i]);
 	}
-
-	ks_free(data);
-
-	return ret;
-}
-
-bool ARMv7Machine::assemble(std::string src, uint64_t addr, uint8_t* data, uint64_t size, flag_t flags) {
-	uint8_t *ks_data;
-	size_t	 ks_size;
-	ks_err	 err_ks;
-	size_t	 count;
-	bool	 ret;
-
-	if (flags & XP_FLAG_THUMB) {
-		ks_asm(this->ks_thumb,
-			   src.c_str(),
-			   addr,
-			   &ks_data,
-			   &ks_size,
-			   &count);
-	} else {
-		ks_asm(this->ks,
-			   src.c_str(),
-			   addr,
-			   &ks_data,
-			   &ks_size,
-			   &count);
-	}
-
-	memcpy(data, ks_data, size);
 
 	ks_free(data);
 
