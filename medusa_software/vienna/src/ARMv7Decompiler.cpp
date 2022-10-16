@@ -21,6 +21,7 @@
 #include <libmedusa/libmedusa.hpp>
 #include <libmedusa/Machine.hpp>
 #include <vienna/vienna.hpp>
+#include <algorithm>
 #include <iterator>
 #include <cstring>
 #include <cstdio>
@@ -177,7 +178,37 @@ std::string vienna::decompile_armv7(std::vector<uint8_t> machine_code) {
 		printf("%s\n", asm_out.c_str());
 	}
 
-	ret = asm_out;
+	std::vector<std::string> split_str = str_split(asm_out, "\n");
+
+	std::vector<uint64_t> jumped_to;
+
+	for (std::string& s : split_str) {
+		if (s.find("__jump(") != -1) {
+			std::string tmp = s.substr(s.find("__jump") + 7);
+			tmp = tmp.substr(0, tmp.length() - 2);
+
+			printf("%s %s\n", s.c_str(), tmp.c_str());
+			jumped_to.push_back(std::stoi(tmp, 0, 16));
+		}
+	}
+
+	int i = 0;
+
+	for (std::string& s : split_str) {
+		printf("%s\n", s.substr(0, s.find(" ")).c_str());
+		uint64_t addy = stoi(s.substr(0, s.find(" ")), 0, 16);
+		if (std::find(jumped_to.begin(), jumped_to.end(), addy) != std::end(jumped_to)) {
+			std::string tmp = string_format("__label%d:\n%s", i, s.c_str());
+			s = tmp;
+			i++;
+		}
+	}
+
+	ret = "";
+
+	for (std::string& s : split_str) {
+		ret += s + "\n";
+	}
 
 	printf("\n");
 	printf("IR\n");

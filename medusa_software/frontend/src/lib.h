@@ -21,6 +21,7 @@
 #include <stdarg.h>
 #include <memory>
 #include <string>
+#include <vector>
 
 #ifndef LIB_H_NO_BUILD_GUI
 
@@ -43,5 +44,7 @@ std::string getcwd_str();
 #define U8X8_TO_U64(u0, u1, u2, u3, \
 					u4, u5, u6, u7)	(((uint64_t)U8X4_TO_U32(u0, u1, u2, u3) << 32) \
 									 | ((uint64_t)U8X4_TO_U32(u4, u5, u6, u7) << 0))
+
+std::vector<std::string> str_split(std::string s, std::string delim);
 
 #endif
