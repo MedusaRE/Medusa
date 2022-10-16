@@ -99,9 +99,11 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 	 *  then, get the vector of insn_t's from armv7_machine.disassemble(...).
 	 *  pass 0 for no flags. (not THUMB)
 	 */
+	DEBUG_INFO();
 	libmedusa::ARMv7Machine armv7_machine;
 	std::vector<libmedusa::insn_t> insns;
 	insns = armv7_machine.disassemble(machine_code, XP_FLAG_NOREGNAME);
+	DEBUG_INFO();
 
 	std::string ret;
 
@@ -116,6 +118,7 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 
 	std::string raw_asm;
 
+	DEBUG_INFO();
 	for (int i = 0; i < insns.size(); i++) {
 		raw_asm += string_format("%x ", insns[i].address);
 		raw_asm += insns[i].mnemonic;
@@ -139,6 +142,7 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 	pugi::xml_document doc;
 	pugi::xml_parse_result result;
 
+	DEBUG_INFO();
 	result = doc.load_file("res/src/cpu_definitions/ARMv7.xml");
 
 	if (!result) {
@@ -154,6 +158,7 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 	cpu_definition_walker walker;
 	doc.traverse(walker);
 
+	DEBUG_INFO();
 	for (regex_replace_t& i : all_patterns_armv7) {
 		std::string i_regex_replaced = i.regex;
 		for (regex_replace_t& j : all_shortcuts_armv7) {
@@ -167,6 +172,7 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 
 //	printf("%s\n", asm_out.c_str());
 
+	DEBUG_INFO();
 	fprintf(stderr, "regex %f\n", DEBUG_TIME_FLOAT);
 	for (regex_replace_t& i : all_patterns_armv7) {
 		printf("\n");
@@ -182,11 +188,13 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 //		printf("%s\n", asm_out.c_str());
 	}
 
+	DEBUG_INFO();
 	fprintf(stderr, "str_split %f\n", DEBUG_TIME_FLOAT);
 	std::vector<std::string> split_str = str_split(asm_out, '\n');
 
 	std::vector<uint64_t> jumped_to;
 
+	DEBUG_INFO();
 	fprintf(stderr, "jumped_to %f\n", DEBUG_TIME_FLOAT);
 	for (std::string& s : split_str) {
 		if (s.find("__jump(") != -1) {
@@ -202,6 +210,7 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 
 	int i = 0;
 
+	DEBUG_INFO();
 	fprintf(stderr, "labels %f\n", DEBUG_TIME_FLOAT);
 	for (std::string& s : split_str) {
 //		printf("%s\n", s.substr(0, s.find(" ")).c_str());
@@ -215,6 +224,7 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 
 	ret = "";
 
+	DEBUG_INFO();
 	fprintf(stderr, "regen %f\n", DEBUG_TIME_FLOAT);
 	for (std::string& s : split_str) {
 		ret += s + "\n";
