@@ -455,9 +455,10 @@ std::vector<insn_t> ARMv7Machine::disassemble(std::vector<uint8_t>& data, flag_t
 		insn.address = insns[i].address;
 		insn.size = insns[i].size;
 
-		memcpy(insn.bytes, insns[i].bytes, sizeof(insn.bytes));
-		memcpy(insn.mnemonic, insns[i].mnemonic, sizeof(insn.mnemonic));
-		memcpy(insn.op_str, insns[i].op_str, sizeof(insn.op_str));
+		insn.bytes = (uint8_t*)calloc(insn.size, 1);
+		memcpy(insn.bytes, insns[i].bytes, insn.size);
+		insn.mnemonic = strdup(insns[i].mnemonic);
+		insn.op_str = strdup(insns[i].op_str);
 
 		ret.push_back(insn);
 	}

@@ -53,23 +53,24 @@ static uint8_t test_arm_code2[] = {
 };
 
 int main(int argc, char* argv[]) {
+	#if 0
 	DEBUG_INFO();
 	std::vector<char*> abc;
 
 	for (int i = 0; i < 0x1000; i++) {
-		abc.push_back("Hello, world!\n");
+		abc.push_back(strdup("Hello, world!\n"));
 	}
 
 	DEBUG_INFO();
 
 	for (int i = 0; i < 0x10000; i++) {
-		abc.push_back("Hello, world!\n");
+		abc.push_back(strdup("Hello, world!\n"));
 	}
 
 	DEBUG_INFO();
 
 	for (int i = 0; i < 0x100000; i++) {
-		abc.push_back("Hello, world!\n");
+		abc.push_back(strdup("Hello, world!\n"));
 	}
 
 	DEBUG_INFO();
@@ -80,6 +81,7 @@ int main(int argc, char* argv[]) {
 	printf("%s %s\n", abc.at(0), abc.at(1));
 
 	return 0;
+	#endif
 
 	printf("Hello, world!\n");
 	DEBUG_INFO();
