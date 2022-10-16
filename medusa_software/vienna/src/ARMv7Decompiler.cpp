@@ -80,7 +80,7 @@ struct cpu_definition_walker : pugi::xml_tree_walker {
 	}
 };
 
-std::string regex_replace_proper(regex_replace_t rr, std::string what) {
+std::string regex_replace_proper(regex_replace_t& rr, std::string& what) {
 	jp::Regex re(rr.regex, "S");
 	jp::RegexReplace jrr(&re);
 	jrr.setSubject(what);
