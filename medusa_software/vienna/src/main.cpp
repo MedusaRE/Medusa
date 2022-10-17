@@ -54,10 +54,10 @@ static uint8_t test_arm_code2[] = {
 
 int main(int argc, char* argv[]) {
 	printf("Hello, world!\n");
-	ifstream f("res/bin/armv7_test_shellcode.bin", ios::binary);
+	ifstream f("res/bin/armv7_ls.bin", ios::binary);
 
 #if 0
-#define MB_SIZE 0x1000000
+#define MB_SIZE 65536
 #define BUF_TO_COPY test_arm_code2
 
 	uint8_t* MB_of_code = (uint8_t*)calloc(MB_SIZE, 1);
@@ -76,7 +76,7 @@ int main(int argc, char* argv[]) {
 	return 0;
 
 	DEBUG_INFO();
-	for (int i = 0; i < 0x10; i++) {
+	for (int i = 0; i < 0x1; i++) {
 		fprintf(stderr, "\n");
 		fprintf(stderr, "--------------------------------------------------------------------------------\n");
 		printf("%s\n", vienna::decompile_armv7(machine_code).c_str());
