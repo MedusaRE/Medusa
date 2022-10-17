@@ -205,12 +205,16 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 	//DEBUG_INFO();
 	fprintf(stderr, "jumped_to %f\n", DEBUG_TIME_FLOAT);
 	for (std::string& s : split_str) {
-		if (s.find("__jump(") != -1) {
-			std::string tmp = s.substr(s.find("__jump") + 7);
-			tmp = tmp.substr(0, tmp.length() - 2);
+		try {
+			if (s.find("__jump(") != -1) {
+				std::string tmp = s.substr(s.find("__jump") + 7);
+				tmp = tmp.substr(0, tmp.length() - 2);
 
-//			printf("%s %s\n", s.c_str(), tmp.c_str());
-			jumped_to.push_back(std::stoi(tmp, 0, 16));
+	//			printf("%s %s\n", s.c_str(), tmp.c_str());
+				jumped_to.push_back(std::stoi(tmp, 0, 16));
+			}
+		} catch (...) {
+			fprintf(stderr, "exception thrown in label detection, hopefully a register jump!\n");
 		}
 	}
 
