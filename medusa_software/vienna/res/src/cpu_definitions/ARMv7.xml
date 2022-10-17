@@ -347,6 +347,12 @@
 		</pattern>
 
 		<pattern>
+			<name>bx register</name>
+			<asm>bx __REGISTER</asm>
+			<pc>__jump($1);</pc>
+		</pattern>
+
+		<pattern>
 			<name>push</name>
 			<asm>push \{((?:__REGISTER(?:, )?)+)\}</asm>
 			<pc>__push($1);</pc>
