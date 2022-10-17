@@ -375,5 +375,17 @@
 			<asm>\.byte ((?:__0x_HEX(?:, )?)+)</asm>
 			<pc>__byte($1);</pc>
 		</pattern>
+
+		<pattern>
+			<name>strb</name>
+			<asm>strb __REGISTER, \[__REGISTER\]</asm>
+			<pc>*(byte*)($1) = *(byte*)($2);</pc>
+		</pattern>
+
+		<pattern>
+			<name>strb offset</name>
+			<asm>strb __REGISTER, \[__REGISTER, __CONST\]</asm>
+			<pc>*(byte*)($1) = *(byte*)($2 + $3);</pc>
+		</pattern>
 	</pattern_list>
 </cpu_definition>
