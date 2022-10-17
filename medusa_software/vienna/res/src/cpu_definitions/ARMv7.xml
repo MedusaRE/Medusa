@@ -173,6 +173,12 @@
 		</pattern>
 
 		<pattern>
+			<name>lt conditional</name>
+			<asm>([a-zA-Z]+)(lt)</asm>
+			<pc>if (__compare_flags($2)) $1</pc>
+		</pattern>
+
+		<pattern>
 			<name>gt conditional</name>
 			<asm>([a-zA-Z]+)(gt)</asm>
 			<pc>if (__compare_flags($2)) $1</pc>
@@ -386,6 +392,12 @@
 			<name>strb offset</name>
 			<asm>strb __REGISTER, \[__REGISTER, __CONST\]</asm>
 			<pc>*(byte*)($1) = *(byte*)($2 + $3);</pc>
+		</pattern>
+
+		<pattern>
+			<name>mvn</name>
+			<asm>mvn __REGISTER, __CONST</asm>
+			<pc>$1 = ~($2);</pc>
 		</pattern>
 	</pattern_list>
 </cpu_definition>
