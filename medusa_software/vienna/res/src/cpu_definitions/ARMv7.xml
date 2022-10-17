@@ -147,15 +147,21 @@
 		</shortcut>
 
 		<shortcut>
-			<name>hex const</name>
+			<name>decimal const</name>
 			<regex>__DEC_CONST</regex>
 			<replace>#([0-9]+)</replace>
 		</shortcut>
 
 		<shortcut>
-			<name>hex const</name>
+			<name>const</name>
 			<regex>__CONST</regex>
 			<replace>#(0x[0-9a-fA-F]+|[0-9]+)</replace>
+		</shortcut>
+
+		<shortcut>
+			<name>hex</name>
+			<regex>__0x_HEX</regex>
+			<replace>(0x[0-9a-fA-F]+|[0-9]+)</replace>
 		</shortcut>
 	</shortcut_list>
 
@@ -362,6 +368,12 @@
 			<name>pop</name>
 			<asm>pop \{((?:__REGISTER(?:, )?)+)\}</asm>
 			<pc>__pop($1);</pc>
+		</pattern>
+
+		<pattern>
+			<name>bytes</name>
+			<asm>\.byte ((?:__0x_HEX(?:, )?)+)</asm>
+			<pc>__byte($1);</pc>
 		</pattern>
 	</pattern_list>
 </cpu_definition>
