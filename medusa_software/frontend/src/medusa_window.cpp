@@ -150,6 +150,8 @@ medusa_window::medusa_window(int   argc,
 	uc_err err;
 	int i;
 
+	Gtk::Window::set_default_icon_from_file("../../res/img/medusa_logo.png");
+
 	medusa_log(LOG_INFO, "Landed in medusa_window.");
 	medusa_log(LOG_INFO, "Asking for file for disassembly...");
 	Gtk::FileChooserDialog dialog("Please choose a file for disassembly.",
