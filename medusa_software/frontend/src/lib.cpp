@@ -48,9 +48,7 @@ string string_format(const string fmt_str, ...) {
 		strcpy(&formatted[0], fmt_str.c_str());
 
 		va_start(ap, fmt_str);
-
 		final_n = vsnprintf(&formatted[0], n, fmt_str.c_str(), ap);
-
 		va_end(ap);
 
 		if (final_n < 0 || final_n >= n) {
@@ -81,9 +79,7 @@ string string_format_cstr(const char* fmt_str, ...) {
 		strcpy(&formatted[0], fmt_str);
 
 		va_start(ap, fmt_str);
-
 		final_n = vsnprintf(&formatted[0], n, fmt_str, ap);
-
 		va_end(ap);
 
 		if (final_n < 0 || final_n >= n) {
