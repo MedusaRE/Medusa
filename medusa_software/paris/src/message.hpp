@@ -15,8 +15,8 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef PARIS_MESSAGE_H
-#define PARIS_MESSAGE_H
+#ifndef PARIS_MESSAGE_HPP
+#define PARIS_MESSAGE_HPP
 
 #include <cstdint>
 
@@ -38,6 +38,8 @@ namespace paris {
 									  number to identify that a message was
 									  indeed sent by who it claims to have been
 									  sent by. */
+		uint64_t service_id;	 /**< The ID of the Service this message should
+									  be forwarded to. */
 		uint8_t msg_contents[0]; /**< A variable-length array containing the
 									  contents of this message. It is assumed
 									  that #msg_contents has a length of
