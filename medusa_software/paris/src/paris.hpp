@@ -22,9 +22,18 @@
 #include <thread>
 
 namespace paris {
+	class Server {
+		public:
+			bool start_server();
+			std::thread get_backing_thread();
+		protected:
+			std::thread thread;
+	};
+
 	class Service {
 		public:
 			virtual bool send_message(paris_message_t message) = 0;
+			virtual std::thread get_backing_thread() = 0;
 		protected:
 			std::thread thread;
 	};
