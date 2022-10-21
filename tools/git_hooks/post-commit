@@ -9,6 +9,11 @@ if [ -e .commit_in_progress ]; then
 	$MEDUSA_PATH/tools/badges/badges.sh
 	git add $MEDUSA_PATH/res/badges
 
+	cd $MEDUSA_PATH/wiki
+	git pull origin HEAD:master
+	cd $MEDUSA_PATH
+	git add wiki
+
 	git commit --amend -c HEAD --no-verify
 fi
 
