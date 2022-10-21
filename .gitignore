@@ -71,3 +71,5 @@ tmp/*
 .commit_in_progress
 
 stderr*.txt
+
+*.o
