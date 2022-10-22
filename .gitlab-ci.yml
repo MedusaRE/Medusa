@@ -1,0 +1,9 @@
+all:
+    script:
+        - echo "Hello, world!"
+        - uname -a > /tmp/example.txt
+    artifacts:
+      untracked: false
+      expire_in: "30 days"
+      paths:
+        - /tmp/example.txt
