@@ -38,6 +38,8 @@ namespace paris {
 
 			bool add_service(Service& service);
 			bool send_message(paris_message_t message);
+			bool remove_service(Service& service);
+			bool remove_service(uint64_t service);
 		protected:
 			std::thread thread;
 	};
