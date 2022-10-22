@@ -18,8 +18,10 @@
 #ifndef PARIS_PARIS_HPP
 #define PARIS_PARIS_HPP
 
+#include <condition_variable>
 #include "message.hpp"
 #include <thread>
+#include <mutex>
 #include <queue>
 
 #define THREAD_WAIT() do { std::this_thread::sleep_for(std::chrono::nanoseconds(1)); } while (0)
@@ -40,6 +42,7 @@ namespace paris {
 			std::thread get_backing_thread();
 
 			static void server_mainloop(Server* _this);
+			static bool queue_available(Server* _this);
 
 			bool add_service(Service& service);
 			bool send_message(paris_message_t message);
@@ -48,7 +51,9 @@ namespace paris {
 
 		protected:
 			std::queue<paris_message_t> queue;
+			std::condition_variable cv;
 			std::thread thread;
+			std::mutex mtx;
 	};
 }
 

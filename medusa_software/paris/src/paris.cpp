@@ -15,21 +15,30 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include <condition_variable>
 #include "message.hpp"
 #include "paris.hpp"
 #include <chrono>
 #include <cstdio>
 #include <thread>
+#include <mutex>
 #include <queue>
 
 using namespace paris;
+
+bool Server::queue_available(Server* _this) {
+	return !_this->queue.empty();
+}
 
 void Server::server_mainloop(Server* _this) {
 	paris_message_t message;
 
 	while (1) {
+		std::unique_lock<std::mutex> lck(_this->mtx);
 		while (_this->queue.empty()) {
-			THREAD_WAIT();
+			_this->cv.wait(lck, [&_this]{ return _this->queue.size() != 0; });
+			std::this_thread::yield();
+//			THREAD_WAIT();
 		}
 
 		message = _this->queue.front();
@@ -43,6 +52,7 @@ void Server::server_mainloop(Server* _this) {
 
 bool Server::send_message(paris_message_t message) {
 	this->queue.push(message);
+	this->cv.notify_one();
 
 	return true;
 }
