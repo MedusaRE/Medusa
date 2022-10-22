@@ -6,7 +6,7 @@ if [ $(id -u) != 0 ]; then
 fi
 
 apt-get update
-apt-get -y install git libgtkmm-3.0-dev libgtk-3-dev glade gimp python3 python3-pillow nodejs npm doxygen clang-13
+apt-get -y install git libgtkmm-3.0-dev libgtk-3-dev glade gimp texlive python3 python3-pillow nodejs npm doxygen clang-13
 npm install badgen
 
 git submodule init
