@@ -15,39 +15,41 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef PARIS_PARIS_HPP
-#define PARIS_PARIS_HPP
-
 #include "message.hpp"
+#include "paris.hpp"
+#include <cstdio>
 #include <thread>
 #include <queue>
 
-namespace paris {
-	class Service {
-		public:
-			virtual bool send_message(paris_message_t message) = 0;
-			virtual std::thread get_backing_thread() = 0;
-			virtual uint64_t get_service_id() = 0;
-		protected:
-			std::thread thread;
-	};
+using namespace paris;
 
-	class Server {
-		public:
-			bool start_server();
-			std::thread get_backing_thread();
+std::queue<paris_message_t> Server::queue;
 
-			static void server_mainloop();
+void Server::server_mainloop() {
+	paris_message_t message;
 
-			bool add_service(Service& service);
-			bool send_message(paris_message_t message);
-			bool remove_service(Service& service);
-			bool remove_service(uint64_t service);
+	while (1) {
+		while (Server::queue.empty()) {
+			std::this_thread::yield();
+		}
 
-			static std::queue<paris_message_t> queue;
-		protected:
-			std::thread thread;
-	};
+		message = Server::queue.front();
+		Server::queue.pop();
+
+		printf("%d\n", message.uid);
+	}
+
+	__builtin_unreachable();
 }
 
-#endif
+bool Server::send_message(paris_message_t message) {
+	Server::queue.push(message);
+
+	return true;
+}
+
+bool Server::start_server() {
+	this->thread = std::thread(Server::server_mainloop);
+
+	return true;
+}

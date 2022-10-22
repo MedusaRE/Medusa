@@ -16,11 +16,16 @@
  */
 
 #include <sys/socket.h>
+#include "message.hpp"
+#include "paris.hpp"
 #include <stddef.h>
 #include <stdlib.h>
 #include <sys/un.h>
 #include <unistd.h>
 #include <cstdio>
+#include <thread>
+
+using namespace std;
 
 int connect_main(int argc, char* argv[]) {
 	struct sockaddr_un addr;
@@ -45,6 +50,7 @@ int connect_main(int argc, char* argv[]) {
 }
 
 int main(int argc, char* argv[]) {
+#if 0
 	struct sockaddr_un name;
 	size_t size;
 	int sock;
@@ -85,6 +91,20 @@ int main(int argc, char* argv[]) {
 
 		printf("\n");
 	}
+#endif
+
+	paris::Server server;
+	server.start_server();
+
+	sleep(10);
+	paris::paris_message_t message;
+	message.uid = 420;
+	server.send_message(message);
+	sleep(5);
+	server.send_message(message);
+	sleep(5);
+	message.uid = 69;
+	server.send_message(message);
 
 	return 0;
 }
