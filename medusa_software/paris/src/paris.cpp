@@ -49,6 +49,7 @@ bool Server::send_message(paris_message_t message) {
 
 bool Server::start_server() {
 	this->thread = std::thread(Server::server_mainloop, this);
+	this->thread.detach();
 
 	return true;
 }

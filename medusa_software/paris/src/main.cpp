@@ -96,13 +96,13 @@ int main(int argc, char* argv[]) {
 	paris::Server server;
 	server.start_server();
 
-	sleep(10);
+	sleep(2);
 	paris::paris_message_t message;
 	message.uid = 420;
 	server.send_message(message);
-	sleep(5);
+	sleep(1);
 	server.send_message(message);
-	sleep(5);
+	sleep(1);
 	message.uid = 69;
 	server.send_message(message);
 
