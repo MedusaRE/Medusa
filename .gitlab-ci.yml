@@ -1,9 +1,9 @@
 image: debian
 
 before_script:
+    - tools/deps_debian.sh
     - git submodule init
     - git submodule update
-    - tools/deps_debian.sh
 
 all:
     script:
