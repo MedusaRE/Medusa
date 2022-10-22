@@ -56,6 +56,30 @@ namespace paris {
 			bool run;
 	};
 
+	class ServiceListener : public Service {
+		public:
+			ServiceListener();
+			~ServiceListener();
+			static void service_mainloop(ServiceListener* _this);
+			bool send_message(paris_message_t message);
+			std::thread get_backing_thread();
+			uint64_t get_service_id();
+			bool stop_service();
+			virtual bool process_message(paris_message_t message);
+		protected:
+			std::queue<paris_message_t> queue;
+			std::condition_variable cv;
+			std::thread thread;
+			std::mutex mtx;
+			uint64_t id;
+			bool run;
+	};
+
+	class ExampleService2 : public ServiceListener {
+		public:
+			virtual bool process_message(paris_message_t message);
+	};
+
 	class Server {
 		public:
 			bool start_server();

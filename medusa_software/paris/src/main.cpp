@@ -98,25 +98,32 @@ int main(int argc, char* argv[]) {
 
 	paris::ExampleService service1;
 	paris::ExampleService service2;
+	paris::ExampleService2 service3;
+
 
 	server.add_service(service1);
 	server.add_service(service2);
+	server.add_service(service3);
 
 	sleep(1);
 	paris::paris_message_t message;
 	message.uid = 420;
 	message.service_id = service1.get_service_id();
-	printf("%lx\n", message.service_id);
+	//	printf("%lx\n", message.service_id);
 	server.send_message(message);
 	sleep(1);
 	message.service_id = service2.get_service_id();
-	printf("%lx\n", message.service_id);
+	//	printf("%lx\n", message.service_id);
+	server.send_message(message);
+	sleep(1);
+	message.service_id = service3.get_service_id();
+	//	printf("%lx\n", message.service_id);
 	server.send_message(message);
 	sleep(1);
 
-	printf("%lx\n", message.service_id);
+	//	printf("%lx\n", message.service_id);
 	server.stop_server();
-	printf("%lx\n", message.service_id);
+	//	printf("%lx\n", message.service_id);
 	sleep(1);
 
 	return 0;

@@ -88,6 +88,79 @@ uint64_t ExampleService::get_service_id() {
 	return this->id;
 }
 
+bool ServiceListener::process_message(paris_message_t message) {
+	printf("%lx: %d\n", message.service_id, message.uid);
+
+	return true;
+}
+
+bool ExampleService2::process_message(paris_message_t message) {
+	printf("222! %lx: %d\n", message.service_id, message.uid);
+
+	return true;
+}
+
+void ServiceListener::service_mainloop(ServiceListener* _this) {
+	paris_message_t message;
+
+	while (_this->run) {
+		std::unique_lock<std::mutex> lck(_this->mtx);
+		while (_this->queue.empty()) {
+			_this->cv.wait(lck, [&_this]{ return (_this->queue.size() != 0) || !_this->run; });
+
+			if (!_this->run) {
+				break;
+			}
+		}
+
+		message = _this->queue.front();
+		_this->queue.pop();
+
+		_this->process_message(message);
+	}
+
+	printf("%lx done\n", _this->get_service_id());
+}
+
+bool ServiceListener::send_message(paris_message_t message) {
+	this->queue.push(message);
+	this->cv.notify_one();
+
+	return true;
+}
+
+bool ServiceListener::stop_service() {
+	this->run = false;
+	this->cv.notify_one();
+
+	return true;
+}
+
+std::thread ServiceListener::get_backing_thread() {
+	return std::move(this->thread);
+}
+
+ServiceListener::ServiceListener() {
+	std::random_device rd;
+	std::mt19937_64 gen(rd());
+	std::uniform_int_distribution<uint64_t> dis;
+
+	this->id = dis(gen);
+	this->run = true;
+
+	this->thread = std::thread(ServiceListener::service_mainloop, this);
+	this->thread.detach();
+}
+
+ServiceListener::~ServiceListener() {
+	this->run = false;
+	this->cv.notify_one();
+}
+
+uint64_t ServiceListener::get_service_id() {
+	return this->id;
+}
+
 bool Server::queue_available(Server* _this) {
 	return !_this->queue.empty();
 }
@@ -108,9 +181,9 @@ void Server::server_mainloop(Server* _this) {
 		message = _this->queue.front();
 		_this->queue.pop();
 
-		printf("%d\n", message.uid);
+//		printf("%d\n", message.uid);
 		for (Service*& service : _this->services) {
-			printf("%lx\n", message.service_id);
+//			printf("%lx\n", message.service_id);
 			if (service->get_service_id() == message.service_id) {
 				service->send_message(message);
 			}
