@@ -33,7 +33,7 @@ bool Server::queue_available(Server* _this) {
 void Server::server_mainloop(Server* _this) {
 	paris_message_t message;
 
-	while (1) {
+	while (_this->run) {
 		std::unique_lock<std::mutex> lck(_this->mtx);
 		while (_this->queue.empty()) {
 			_this->cv.wait(lck, [&_this]{ return _this->queue.size() != 0; });
@@ -56,8 +56,16 @@ bool Server::send_message(paris_message_t message) {
 }
 
 bool Server::start_server() {
+	this->run = true;
+
 	this->thread = std::thread(Server::server_mainloop, this);
 	this->thread.detach();
+
+	return true;
+}
+
+bool Server::stop_server() {
+	this->run = false;
 
 	return true;
 }

@@ -106,5 +106,7 @@ int main(int argc, char* argv[]) {
 	message.uid = 69;
 	server.send_message(message);
 
+	server.stop_server();
+
 	return 0;
 }

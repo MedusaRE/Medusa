@@ -39,6 +39,7 @@ namespace paris {
 	class Server {
 		public:
 			bool start_server();
+			bool stop_server();
 			std::thread get_backing_thread();
 
 			static void server_mainloop(Server* _this);
@@ -54,6 +55,7 @@ namespace paris {
 			std::condition_variable cv;
 			std::thread thread;
 			std::mutex mtx;
+			bool run;
 	};
 }
 
