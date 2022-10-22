@@ -3,6 +3,7 @@ all:
         - echo "Hello, world!"
         - uname -a > example.txt
         - hostname >> example.txt
+        - clang++
     artifacts:
       untracked: false
       expire_in: "30 days"
