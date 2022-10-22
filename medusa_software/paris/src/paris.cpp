@@ -37,8 +37,6 @@ void Server::server_mainloop(Server* _this) {
 		std::unique_lock<std::mutex> lck(_this->mtx);
 		while (_this->queue.empty()) {
 			_this->cv.wait(lck, [&_this]{ return _this->queue.size() != 0; });
-			std::this_thread::yield();
-//			THREAD_WAIT();
 		}
 
 		message = _this->queue.front();
