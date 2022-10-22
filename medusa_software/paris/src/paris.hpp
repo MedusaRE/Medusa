@@ -22,6 +22,8 @@
 #include <thread>
 #include <queue>
 
+#define THREAD_WAIT() do { std::this_thread::sleep_for(std::chrono::nanoseconds(1)); } while (0)
+
 namespace paris {
 	class Service {
 		public:
@@ -37,15 +39,15 @@ namespace paris {
 			bool start_server();
 			std::thread get_backing_thread();
 
-			static void server_mainloop();
+			static void server_mainloop(Server* _this);
 
 			bool add_service(Service& service);
 			bool send_message(paris_message_t message);
 			bool remove_service(Service& service);
 			bool remove_service(uint64_t service);
 
-			static std::queue<paris_message_t> queue;
 		protected:
+			std::queue<paris_message_t> queue;
 			std::thread thread;
 	};
 }

@@ -24,18 +24,16 @@
 
 using namespace paris;
 
-std::queue<paris_message_t> Server::queue;
-
-void Server::server_mainloop() {
+void Server::server_mainloop(Server* _this) {
 	paris_message_t message;
 
 	while (1) {
-		while (Server::queue.empty()) {
-			std::this_thread::sleep_for(std::chrono::nanoseconds(1));
+		while (_this->queue.empty()) {
+			THREAD_WAIT();
 		}
 
-		message = Server::queue.front();
-		Server::queue.pop();
+		message = _this->queue.front();
+		_this->queue.pop();
 
 		printf("%d\n", message.uid);
 	}
@@ -44,13 +42,13 @@ void Server::server_mainloop() {
 }
 
 bool Server::send_message(paris_message_t message) {
-	Server::queue.push(message);
+	this->queue.push(message);
 
 	return true;
 }
 
 bool Server::start_server() {
-	this->thread = std::thread(Server::server_mainloop);
+	this->thread = std::thread(Server::server_mainloop, this);
 
 	return true;
 }
