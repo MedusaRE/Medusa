@@ -41,8 +41,6 @@ void ExampleService::service_mainloop(ExampleService* _this) {
 
 		printf("A: 0x%lx 0x%lx\n", message.service_id, _this->get_service_id());
 	}
-
-	__builtin_unreachable();
 }
 
 bool ExampleService::send_message(paris_message_t message) {
@@ -96,8 +94,6 @@ void Server::server_mainloop(Server* _this) {
 			}
 		}
 	}
-
-	__builtin_unreachable();
 }
 
 bool Server::add_service(Service& service) {
