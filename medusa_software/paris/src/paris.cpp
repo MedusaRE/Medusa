@@ -25,10 +25,11 @@
 #include <vector>
 #include <mutex>
 #include <queue>
+
 using namespace paris;
 
 void ExampleService::service_mainloop(ExampleService* _this) {
-	paris_message_t message;
+	paris_message_and_server_t message;
 
 	while (_this->run) {
 		std::unique_lock<std::mutex> lck(_this->mtx);
@@ -43,14 +44,16 @@ void ExampleService::service_mainloop(ExampleService* _this) {
 		message = _this->queue.front();
 		_this->queue.pop();
 
-		printf("A: 0x%lx 0x%lx\n", message.service_id, _this->get_service_id());
+		printf("A: 0x%lx 0x%lx\n", message.message.service_id, _this->get_service_id());
 	}
 
 	printf("%lx done\n", _this->get_service_id());
 }
 
-bool ExampleService::send_message(paris_message_t message) {
-	this->queue.push(message);
+bool ExampleService::send_message(paris_message_t message, Server* server) {
+	paris_message_and_server_t tmp = {message, server};
+
+	this->queue.push(tmp);
 	this->cv.notify_one();
 
 	return true;
@@ -88,20 +91,39 @@ uint64_t ExampleService::get_service_id() {
 	return this->id;
 }
 
-bool ServiceListener::process_message(paris_message_t message) {
+bool ServiceListener::process_message(paris_message_t message, Server* server) {
 	printf("%lx: %d\n", message.service_id, message.uid);
 
 	return true;
 }
 
-bool ExampleService2::process_message(paris_message_t message) {
+bool ExampleService2::process_message(paris_message_t message, Server* server) {
 	printf("222! %lx: %d\n", message.service_id, message.uid);
+
+	if (!server) {
+		return false;
+	}
+
+	std::vector<Service*> services = server->get_services();
+	int i = 0;
+
+	for (Service*& service : services) {
+		if (service->get_service_id() == this->get_service_id()) {
+			continue;
+		}
+
+		paris_message_t msg;
+		msg.service_id = service->get_service_id();
+		msg.uid = i++;
+
+		server->send_message(msg);
+	}
 
 	return true;
 }
 
 void ServiceListener::service_mainloop(ServiceListener* _this) {
-	paris_message_t message;
+	paris_message_and_server_t message;
 
 	while (_this->run) {
 		std::unique_lock<std::mutex> lck(_this->mtx);
@@ -116,14 +138,16 @@ void ServiceListener::service_mainloop(ServiceListener* _this) {
 		message = _this->queue.front();
 		_this->queue.pop();
 
-		_this->process_message(message);
+		_this->process_message(message.message, message.server);
 	}
 
 	printf("%lx done\n", _this->get_service_id());
 }
 
-bool ServiceListener::send_message(paris_message_t message) {
-	this->queue.push(message);
+bool ServiceListener::send_message(paris_message_t message, Server* server) {
+	paris_message_and_server_t tmp = {message, server};
+
+	this->queue.push(tmp);
 	this->cv.notify_one();
 
 	return true;
@@ -185,7 +209,7 @@ void Server::server_mainloop(Server* _this) {
 		for (Service*& service : _this->services) {
 //			printf("%lx\n", message.service_id);
 			if (service->get_service_id() == message.service_id) {
-				service->send_message(message);
+				service->send_message(message, _this);
 			}
 		}
 	}
@@ -222,4 +246,8 @@ bool Server::stop_server() {
 	this->cv.notify_one();
 
 	return true;
+}
+
+std::vector<Service*> Server::get_services() {
+	return this->services;
 }

@@ -28,9 +28,20 @@
 #define THREAD_WAIT() do { std::this_thread::sleep_for(std::chrono::nanoseconds(1)); } while (0)
 
 namespace paris {
+	class Server;
+	class Service;
+	class ExampleService;
+	class ServiceListener;
+	class ExampleService2;
+
+	typedef struct {
+		paris_message_t message;
+		Server* server;
+	} paris_message_and_server_t;
+
 	class Service {
 		public:
-			virtual bool send_message(paris_message_t message) = 0;
+			virtual bool send_message(paris_message_t message, Server* server) = 0;
 			virtual std::thread get_backing_thread() = 0;
 			virtual uint64_t get_service_id() = 0;
 			virtual bool stop_service() = 0;
@@ -43,12 +54,12 @@ namespace paris {
 			ExampleService();
 			~ExampleService();
 			static void service_mainloop(ExampleService* _this);
-			bool send_message(paris_message_t message);
+			bool send_message(paris_message_t message, Server* server);
 			std::thread get_backing_thread();
 			uint64_t get_service_id();
 			bool stop_service();
 		protected:
-			std::queue<paris_message_t> queue;
+			std::queue<paris_message_and_server_t> queue;
 			std::condition_variable cv;
 			std::thread thread;
 			std::mutex mtx;
@@ -61,13 +72,13 @@ namespace paris {
 			ServiceListener();
 			~ServiceListener();
 			static void service_mainloop(ServiceListener* _this);
-			bool send_message(paris_message_t message);
+			bool send_message(paris_message_t message, Server* server);
 			std::thread get_backing_thread();
 			uint64_t get_service_id();
 			bool stop_service();
-			virtual bool process_message(paris_message_t message);
+			virtual bool process_message(paris_message_t message, Server* server);
 		protected:
-			std::queue<paris_message_t> queue;
+			std::queue<paris_message_and_server_t> queue;
 			std::condition_variable cv;
 			std::thread thread;
 			std::mutex mtx;
@@ -77,7 +88,7 @@ namespace paris {
 
 	class ExampleService2 : public ServiceListener {
 		public:
-			virtual bool process_message(paris_message_t message);
+			virtual bool process_message(paris_message_t message, Server* server);
 	};
 
 	class Server {
@@ -93,6 +104,8 @@ namespace paris {
 			bool send_message(paris_message_t message);
 			bool remove_service(Service& service);
 			bool remove_service(uint64_t service);
+
+			std::vector<Service*> get_services();
 		protected:
 			std::queue<paris_message_t> queue;
 			std::vector<Service*> services;
