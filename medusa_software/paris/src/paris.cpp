@@ -17,6 +17,7 @@
 
 #include "message.hpp"
 #include "paris.hpp"
+#include <chrono>
 #include <cstdio>
 #include <thread>
 #include <queue>
@@ -30,7 +31,7 @@ void Server::server_mainloop() {
 
 	while (1) {
 		while (Server::queue.empty()) {
-			std::this_thread::yield();
+			std::this_thread::sleep_for(std::chrono::nanoseconds(1));
 		}
 
 		message = Server::queue.front();
