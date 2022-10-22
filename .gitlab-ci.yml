@@ -1,3 +1,8 @@
+image: debian
+
+before_script:
+    - ls -la
+
 all:
     script:
         - echo "Hello, world!"
