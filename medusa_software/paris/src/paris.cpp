@@ -20,11 +20,57 @@
 #include "paris.hpp"
 #include <chrono>
 #include <cstdio>
+#include <random>
 #include <thread>
+#include <vector>
 #include <mutex>
 #include <queue>
-
 using namespace paris;
+
+void ExampleService::service_mainloop(ExampleService* _this) {
+	paris_message_t message;
+
+	while (_this->run) {
+		std::unique_lock<std::mutex> lck(_this->mtx);
+		while (_this->queue.empty()) {
+			_this->cv.wait(lck, [&_this]{ return _this->queue.size() != 0; });
+		}
+
+		message = _this->queue.front();
+		_this->queue.pop();
+
+		printf("A: 0x%lx 0x%lx\n", message.service_id, _this->get_service_id());
+	}
+
+	__builtin_unreachable();
+}
+
+bool ExampleService::send_message(paris_message_t message) {
+	this->queue.push(message);
+	this->cv.notify_one();
+
+	return true;
+}
+
+std::thread ExampleService::get_backing_thread() {
+	return std::move(this->thread);
+}
+
+ExampleService::ExampleService() {
+	std::random_device rd;
+	std::mt19937_64 gen(rd());
+	std::uniform_int_distribution<uint64_t> dis;
+
+	this->id = dis(gen);
+	this->run = true;
+
+	this->thread = std::thread(ExampleService::service_mainloop, this);
+	this->thread.detach();
+}
+
+uint64_t ExampleService::get_service_id() {
+	return this->id;
+}
 
 bool Server::queue_available(Server* _this) {
 	return !_this->queue.empty();
@@ -43,9 +89,20 @@ void Server::server_mainloop(Server* _this) {
 		_this->queue.pop();
 
 		printf("%d\n", message.uid);
+		for (Service*& service : _this->services) {
+			printf("%lx %lx\n", service, message.service_id);
+			if (service->get_service_id() == message.service_id) {
+				service->send_message(message);
+			}
+		}
 	}
 
 	__builtin_unreachable();
+}
+
+bool Server::add_service(Service& service) {
+	this->services.push_back(&service);
+	return true;
 }
 
 bool Server::send_message(paris_message_t message) {

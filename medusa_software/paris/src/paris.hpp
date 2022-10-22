@@ -21,6 +21,7 @@
 #include <condition_variable>
 #include "message.hpp"
 #include <thread>
+#include <vector>
 #include <mutex>
 #include <queue>
 
@@ -36,6 +37,22 @@ namespace paris {
 			std::thread thread;
 	};
 
+	class ExampleService : public Service {
+		public:
+			ExampleService();
+			static void service_mainloop(ExampleService* _this);
+			bool send_message(paris_message_t message);
+			std::thread get_backing_thread();
+			uint64_t get_service_id();
+		protected:
+			std::queue<paris_message_t> queue;
+			std::condition_variable cv;
+			std::thread thread;
+			std::mutex mtx;
+			uint64_t id;
+			bool run;
+	};
+
 	class Server {
 		public:
 			bool start_server();
@@ -49,9 +66,9 @@ namespace paris {
 			bool send_message(paris_message_t message);
 			bool remove_service(Service& service);
 			bool remove_service(uint64_t service);
-
 		protected:
 			std::queue<paris_message_t> queue;
+			std::vector<Service*> services;
 			std::condition_variable cv;
 			std::thread thread;
 			std::mutex mtx;
