@@ -112,8 +112,12 @@ int main(int argc, char* argv[]) {
 	message.service_id = service2.get_service_id();
 	printf("%lx\n", message.service_id);
 	server.send_message(message);
+	sleep(1);
 
+	printf("%lx\n", message.service_id);
 	server.stop_server();
+	printf("%lx\n", message.service_id);
+	sleep(1);
 
 	return 0;
 }

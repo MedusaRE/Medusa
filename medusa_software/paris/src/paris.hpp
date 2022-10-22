@@ -33,6 +33,7 @@ namespace paris {
 			virtual bool send_message(paris_message_t message) = 0;
 			virtual std::thread get_backing_thread() = 0;
 			virtual uint64_t get_service_id() = 0;
+			virtual bool stop_service() = 0;
 		protected:
 			std::thread thread;
 	};
@@ -40,10 +41,12 @@ namespace paris {
 	class ExampleService : public Service {
 		public:
 			ExampleService();
+			~ExampleService();
 			static void service_mainloop(ExampleService* _this);
 			bool send_message(paris_message_t message);
 			std::thread get_backing_thread();
 			uint64_t get_service_id();
+			bool stop_service();
 		protected:
 			std::queue<paris_message_t> queue;
 			std::condition_variable cv;

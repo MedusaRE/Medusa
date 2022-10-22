@@ -1,5 +1,5 @@
 CPP=clang++
-CPPFLAGS=--std=c++17
+CPPFLAGS=--std=c++17 -g3
 
 all: bin bin/main doxygen_out
 

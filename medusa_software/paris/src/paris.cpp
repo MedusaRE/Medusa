@@ -33,7 +33,11 @@ void ExampleService::service_mainloop(ExampleService* _this) {
 	while (_this->run) {
 		std::unique_lock<std::mutex> lck(_this->mtx);
 		while (_this->queue.empty()) {
-			_this->cv.wait(lck, [&_this]{ return _this->queue.size() != 0; });
+			_this->cv.wait(lck, [&_this]{ return (_this->queue.size() != 0) || !_this->run; });
+
+			if (!_this->run) {
+				break;
+			}
 		}
 
 		message = _this->queue.front();
@@ -41,10 +45,19 @@ void ExampleService::service_mainloop(ExampleService* _this) {
 
 		printf("A: 0x%lx 0x%lx\n", message.service_id, _this->get_service_id());
 	}
+
+	printf("%lx done\n", _this->get_service_id());
 }
 
 bool ExampleService::send_message(paris_message_t message) {
 	this->queue.push(message);
+	this->cv.notify_one();
+
+	return true;
+}
+
+bool ExampleService::stop_service() {
+	this->run = false;
 	this->cv.notify_one();
 
 	return true;
@@ -66,6 +79,11 @@ ExampleService::ExampleService() {
 	this->thread.detach();
 }
 
+ExampleService::~ExampleService() {
+	this->run = false;
+	this->cv.notify_one();
+}
+
 uint64_t ExampleService::get_service_id() {
 	return this->id;
 }
@@ -80,7 +98,11 @@ void Server::server_mainloop(Server* _this) {
 	while (_this->run) {
 		std::unique_lock<std::mutex> lck(_this->mtx);
 		while (_this->queue.empty()) {
-			_this->cv.wait(lck, [&_this]{ return _this->queue.size() != 0; });
+			_this->cv.wait(lck, [&_this]{ return (_this->queue.size() != 0) || !_this->run; });
+
+			if (!_this->run) {
+				break;
+			}
 		}
 
 		message = _this->queue.front();
@@ -88,11 +110,16 @@ void Server::server_mainloop(Server* _this) {
 
 		printf("%d\n", message.uid);
 		for (Service*& service : _this->services) {
-			printf("%lx %lx\n", service, message.service_id);
+			printf("%lx\n", message.service_id);
 			if (service->get_service_id() == message.service_id) {
 				service->send_message(message);
 			}
 		}
+	}
+
+	for (Service*& service : _this->services) {
+		printf("s %lx\n", service->get_service_id());
+		service->stop_service();
 	}
 }
 
@@ -119,6 +146,7 @@ bool Server::start_server() {
 
 bool Server::stop_server() {
 	this->run = false;
+	this->cv.notify_one();
 
 	return true;
 }
