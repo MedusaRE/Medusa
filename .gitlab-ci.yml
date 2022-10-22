@@ -1,16 +1,14 @@
 image: debian
 
 before_script:
-    - ls -la
+    - git submodule init
+    - git submodule update
+    - tools/deps_debian.sh
 
 all:
     script:
         - echo "Hello, world!"
-        - uname -a > example.txt
-        - hostname >> example.txt
         - clang++
     artifacts:
-      untracked: false
-      expire_in: "30 days"
-      paths:
-        - example.txt
+        untracked: false
+        expire_in: "30 days"
