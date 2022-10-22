@@ -98,12 +98,27 @@ int main(int argc, char* argv[]) {
 
 	paris::ExampleService service1;
 	paris::ExampleService service2;
+	paris::ExampleService service4;
+	paris::ExampleService service5;
+	paris::ExampleService service6;
+	paris::ExampleService service7;
+	paris::ExampleService service8;
+	paris::ExampleService service9;
+	paris::ExampleService service10;
+	paris::ExampleService service11;
 	paris::ExampleService2 service3;
-
 
 	server.add_service(service1);
 	server.add_service(service2);
 	server.add_service(service3);
+	server.add_service(service4);
+	server.add_service(service5);
+	server.add_service(service6);
+	server.add_service(service7);
+	server.add_service(service8);
+	server.add_service(service9);
+	server.add_service(service10);
+	server.add_service(service11);
 
 	sleep(1);
 	paris::paris_message_t message;

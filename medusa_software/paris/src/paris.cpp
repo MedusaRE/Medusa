@@ -45,6 +45,7 @@ void ExampleService::service_mainloop(ExampleService* _this) {
 		_this->queue.pop();
 
 		printf("A: 0x%lx 0x%lx\n", message.message.service_id, _this->get_service_id());
+		printf("%d\n", message.message.uid);
 	}
 
 	printf("%lx done\n", _this->get_service_id());
