@@ -26,6 +26,7 @@ namespace paris {
 		public:
 			virtual bool send_message(paris_message_t message) = 0;
 			virtual std::thread get_backing_thread() = 0;
+			virtual uint64_t get_service_id() = 0;
 		protected:
 			std::thread thread;
 	};
