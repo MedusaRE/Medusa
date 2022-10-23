@@ -123,6 +123,12 @@ bool ExampleService2::process_message(paris_message_t message, Server* server) {
 	return true;
 }
 
+bool AnotherExample::process_message(paris_message_t message, Server* server) {
+	DEBUG_PRINTF("AnotherExample LOL! %d\n", message.uid);
+
+	return true;
+}
+
 void ServiceListener::service_mainloop(ServiceListener* _this) {
 	paris_message_and_server_t message;
 

@@ -104,28 +104,16 @@ int main(int argc, char* argv[]) {
 	DEBUG_PRINTF("creating Service's\n");
 	paris::ExampleService service1;
 	paris::ExampleService service2;
-	paris::ExampleService service4;
-	paris::ExampleService service5;
-	paris::ExampleService service6;
-	paris::ExampleService service7;
-	paris::ExampleService service8;
-	paris::ExampleService service9;
-	paris::ExampleService service10;
-	paris::ExampleService service11;
-	paris::ExampleService2 service3;
+	paris::ExampleService service3;
+	paris::ExampleService2 service4;
+
+	paris::AnotherExample example;
 
 	DEBUG_PRINTF("adding Service's\n");
 	server.add_service(service1);
 	server.add_service(service2);
 	server.add_service(service3);
 	server.add_service(service4);
-	server.add_service(service5);
-	server.add_service(service6);
-	server.add_service(service7);
-	server.add_service(service8);
-	server.add_service(service9);
-	server.add_service(service10);
-	server.add_service(service11);
 
 	DEBUG_PRINTF("sending paris_message_t's to services\n");
 	sleep(1);
@@ -138,6 +126,13 @@ int main(int argc, char* argv[]) {
 	server.send_message(message);
 	sleep(1);
 	message.service_id = service3.get_service_id();
+	server.send_message(message);
+	sleep(1);
+	message.service_id = service4.get_service_id();
+	server.send_message(message);
+	sleep(1);
+	message.uid = 69;
+	message.service_id = example.get_service_id();
 	server.send_message(message);
 	sleep(1);
 

@@ -91,6 +91,11 @@ namespace paris {
 			virtual bool process_message(paris_message_t message, Server* server);
 	};
 
+	class AnotherExample : public ServiceListener {
+		public:
+			virtual bool process_message(paris_message_t message, Server* server);
+	};
+
 	class Server {
 		public:
 			bool start_server();
