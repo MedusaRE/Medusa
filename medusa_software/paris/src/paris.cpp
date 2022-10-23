@@ -165,18 +165,15 @@ void Server::server_mainloop(Server* _this) {
 			paris_message_t reply;
 			reply.len = 8;
 			reply.msg_contents = (uint8_t*)calloc(1, 8);
-			std::random_device rd;
-			std::mt19937_64 gen(rd());
-			std::uniform_int_distribution<uint64_t> dis;
 		
-			*(uint64_t*)reply.msg_contents = dis(gen);
+			*(uint64_t*)reply.msg_contents = medusa_rand();
 
 			for (Service*& service : _this->services) {
 				if (service->get_service_id() == message.service_by) {
 					service->send_message(reply, _this);
 				}
 			}
-			
+
 			continue;
 		}
 

@@ -52,7 +52,7 @@ namespace paris {
 
 		paris_message_type_t message_type; /**< The type of message. */
 
-		uint8_t *msg_contents;	/**< A variable-length array containing the
+		uint8_t *msg_contents;	 /**< A variable-length array containing the
 									  contents of this message. It is assumed
 									  that #msg_contents has a length of
 									  #len. */
