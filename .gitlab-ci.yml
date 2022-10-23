@@ -8,10 +8,14 @@ variables:
 #    - git submodule init
 #    - git submodule update
 
-all:
+libmedusa:
     script:
-        - echo "Hello, world!"
-        - clang++
+        - cd medusa_software/libmedusa
+        - make bin
+        - make bin/libmedusa.so
     artifacts:
         untracked: false
         expire_in: "30 days"
+        paths:
+            - medusa_software/libmedusa/bin/libmedusa.so
+            - medusa_software/libmedusa/include
