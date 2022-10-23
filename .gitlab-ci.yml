@@ -8,8 +8,12 @@ variables:
 #    - git submodule init
 #    - git submodule update
 
+<<<<<<< HEAD
 libmedusa_build:
     stage: build
+=======
+libmedusa:
+>>>>>>> fb47bea31c76a3f6c3dffdda918f62808af08a57
     script:
         - cd medusa_software/libmedusa
         - make bin
@@ -19,6 +23,7 @@ libmedusa_build:
         expire_in: "30 days"
         paths:
             - medusa_software/libmedusa/bin/libmedusa.so
+<<<<<<< HEAD
             - medusa_software/libmedusa/include
 
 paris_build:
@@ -32,3 +37,6 @@ london_build:
     script:
         - cd medusa_software/london
         - make all
+=======
+            - medusa_software/libmedusa/include
+>>>>>>> fb47bea31c76a3f6c3dffdda918f62808af08a57
