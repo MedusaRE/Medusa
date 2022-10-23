@@ -40,9 +40,33 @@ int main(int argc, char* argv[]) {
 	paris::ExampleService service1;
 	paris::ExampleService service2;
 
+	paris::DumpMsgContentsToSTDOUTService stdout_service;
+
 	DEBUG_PRINTF("adding Service's\n");
 	server.add_service(service1);
 	server.add_service(service2);
+	server.add_service(stdout_service);
+
+	uint64_t tmp = 0x4142434445464748;
+
+	paris::paris_message_t message;
+	message.service_id = stdout_service.get_service_id();
+	message.len = 8;
+	message.msg_contents = (uint8_t*)&tmp;
+
+	DEBUG_PRINTF("sending stdout test\n");
+	server.send_message(message);
+
+	message.service_id = PARIS_SERVER_SERVICE_ID;
+	message.message_type = paris::REGISTER_SESSION;
+	message.service_by = stdout_service.get_service_id();
+
+	DEBUG_PRINTF("sending REGISTER_SESSION\n");
+	server.send_message(message);
+	sleep(1);
+
+#if 0
+
 
 	DEBUG_PRINTF("sending paris_message_t's to services\n");
 	sleep(1);
@@ -55,6 +79,7 @@ int main(int argc, char* argv[]) {
 	message.service_id = service2.get_service_id();
 	server.send_message(message);
 	sleep(1);
+	#endif
 
 	DEBUG_PRINTF("stopping server\n");
 	server.stop_server();

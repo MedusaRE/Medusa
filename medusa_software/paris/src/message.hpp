@@ -19,8 +19,14 @@
 #define PARIS_MESSAGE_HPP
 
 #include <cstdint>
+#define PARIS_SERVER_SERVICE_ID -1
 
 namespace paris {
+	typedef enum {
+		REGISTER_SESSION,
+		CLOSE_SESSION
+	} paris_message_type_t;
+
 	/**
 	 *  @brief	A structure representing a message in the Paris system.
 	 */
@@ -40,7 +46,13 @@ namespace paris {
 									  sent by. */
 		uint64_t service_id;	 /**< The ID of the Service this message should
 									  be forwarded to. */
-		uint8_t msg_contents[0]; /**< A variable-length array containing the
+
+		uint64_t service_by;	 /**< The ID of the Service this message was
+									  sent by. */
+
+		paris_message_type_t message_type; /**< The type of message. */
+
+		uint8_t *msg_contents;	/**< A variable-length array containing the
 									  contents of this message. It is assumed
 									  that #msg_contents has a length of
 									  #len. */

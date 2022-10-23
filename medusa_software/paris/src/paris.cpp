@@ -21,6 +21,7 @@
 #include <chrono>
 #include <cstdio>
 #include <random>
+#include <string>
 #include <thread>
 #include <vector>
 #include <mutex>
@@ -108,6 +109,38 @@ bool ExampleService::process_message(paris_message_t message, Server* server) {
 	return true;
 }
 
+bool DumpMsgContentsToSTDOUTService::process_message(paris_message_t message, Server* server) {
+	std::string s;
+
+	if (!message.msg_contents) {
+		return false;
+	}
+
+	if (message.len >= 1) {
+		s += string_format("%02x", message.msg_contents[0]);
+	}
+
+	if (message.len >= 2) {
+		s += string_format(" %04x", U8X2_TO_U16(message.msg_contents[1], message.msg_contents[0]));
+	}
+
+	if (message.len >= 4) {
+		s += string_format(" %08x", U8X4_TO_U32(message.msg_contents[3], message.msg_contents[2],
+												message.msg_contents[1], message.msg_contents[0]));
+	}
+
+	if (message.len >= 8) {
+		s += string_format(" %016lx", U8X8_TO_U64(message.msg_contents[7], message.msg_contents[6],
+												  message.msg_contents[5], message.msg_contents[4],
+												  message.msg_contents[3], message.msg_contents[2],
+												  message.msg_contents[1], message.msg_contents[0]));
+	}
+
+	DEBUG_PRINTF("%s\n", s.c_str());
+
+	return true;
+}
+
 bool Server::queue_available(Server* _this) {
 	return !_this->queue.empty();
 }
@@ -127,6 +160,25 @@ void Server::server_mainloop(Server* _this) {
 
 		message = _this->queue.front();
 		_this->queue.pop();
+
+		if (message.service_id == PARIS_SERVER_SERVICE_ID) {
+			paris_message_t reply;
+			reply.len = 8;
+			reply.msg_contents = (uint8_t*)calloc(1, 8);
+			std::random_device rd;
+			std::mt19937_64 gen(rd());
+			std::uniform_int_distribution<uint64_t> dis;
+		
+			*(uint64_t*)reply.msg_contents = dis(gen);
+
+			for (Service*& service : _this->services) {
+				if (service->get_service_id() == message.service_by) {
+					service->send_message(reply, _this);
+				}
+			}
+			
+			continue;
+		}
 
 		for (Service*& service : _this->services) {
 			if (service->get_service_id() == message.service_id) {
