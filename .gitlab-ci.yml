@@ -8,27 +8,22 @@ variables:
 #    - git submodule init
 #    - git submodule update
 
-libmedusa_build:
+build:
     stage: build
     script:
         - cd medusa_software/libmedusa
         - make bin
         - make bin/libmedusa.so
-    artifacts:
-        untracked: false
-        expire_in: "30 days"
-        paths:
-            - medusa_software/libmedusa/bin/libmedusa.so
-            - medusa_software/libmedusa/include
-
-paris_build:
-    stage: build
-    script:
+        - cd ../../
+        - cp -R medusa_software/libmedusa/bin/libmedusa.so bin/
         - cd medusa_software/paris
         - make
-
-london_build:
-    stage: build
-    script:
+        - cd ../../
         - cd medusa_software/london
         - make
+        - cd ../../
+    artifacts:
+        untracked: true
+        expire_in: "30 days"
+        paths:
+            - bin

@@ -34,7 +34,7 @@
 	url = https://github.com/jothepro/doxygen-awesome-css.git
 [submodule "wiki"]
 	path = wiki
-	url = ../wiki.git
+	url = https://git.medusa-re.org/wiki.git
 [submodule "medusa_software/submodules/rapidxml"]
 	path = medusa_software/submodules/rapidxml
 	url = https://github.com/viriuwu/rapidxml.git
