@@ -31,4 +31,4 @@ london_build:
     stage: build
     script:
         - cd medusa_software/london
-        - make all
+        - make
