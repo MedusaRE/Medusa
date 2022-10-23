@@ -25,6 +25,7 @@
 #include <vector>
 #include <mutex>
 #include <queue>
+#include "lib.h"
 
 using namespace paris;
 
@@ -44,11 +45,10 @@ void ExampleService::service_mainloop(ExampleService* _this) {
 		message = _this->queue.front();
 		_this->queue.pop();
 
-		printf("A: 0x%lx 0x%lx\n", message.message.service_id, _this->get_service_id());
-		printf("%d\n", message.message.uid);
+		DEBUG_PRINTF("0x%lx 0x%lx %d\n", message.message.service_id, _this->get_service_id(), message.message.uid);
 	}
 
-	printf("%lx done\n", _this->get_service_id());
+	DEBUG_PRINTF("%lx done\n", _this->get_service_id());
 }
 
 bool ExampleService::send_message(paris_message_t message, Server* server) {
@@ -93,13 +93,13 @@ uint64_t ExampleService::get_service_id() {
 }
 
 bool ServiceListener::process_message(paris_message_t message, Server* server) {
-	printf("%lx: %d\n", message.service_id, message.uid);
+	DEBUG_PRINTF("%lx: %d\n", message.service_id, message.uid);
 
 	return true;
 }
 
 bool ExampleService2::process_message(paris_message_t message, Server* server) {
-	printf("222! %lx: %d\n", message.service_id, message.uid);
+	DEBUG_PRINTF("%lx: %d\n", message.service_id, message.uid);
 
 	if (!server) {
 		return false;
@@ -142,7 +142,7 @@ void ServiceListener::service_mainloop(ServiceListener* _this) {
 		_this->process_message(message.message, message.server);
 	}
 
-	printf("%lx done\n", _this->get_service_id());
+	DEBUG_PRINTF("%lx done\n", _this->get_service_id());
 }
 
 bool ServiceListener::send_message(paris_message_t message, Server* server) {
@@ -206,9 +206,7 @@ void Server::server_mainloop(Server* _this) {
 		message = _this->queue.front();
 		_this->queue.pop();
 
-//		printf("%d\n", message.uid);
 		for (Service*& service : _this->services) {
-//			printf("%lx\n", message.service_id);
 			if (service->get_service_id() == message.service_id) {
 				service->send_message(message, _this);
 			}
@@ -216,7 +214,7 @@ void Server::server_mainloop(Server* _this) {
 	}
 
 	for (Service*& service : _this->services) {
-		printf("s %lx\n", service->get_service_id());
+		DEBUG_PRINTF("stopping %lx\n", service->get_service_id());
 		service->stop_service();
 	}
 }

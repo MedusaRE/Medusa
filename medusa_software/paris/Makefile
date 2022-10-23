@@ -1,5 +1,5 @@
 CPP=clang++
-CPPFLAGS=--std=c++17 -g3
+CPPFLAGS=--std=c++17 -g3 -DLIB_H_NO_BUILD_GUI
 
 all: bin bin/main doxygen_out
 
@@ -9,7 +9,7 @@ bin:
 clean:
 	rm -rf bin
 
-bin/main: bin/main.o bin/paris.o
+bin/main: bin/main.o bin/paris.o bin/lib.o
 	${CPP} ${CPPFLAGS} $^ -o $@
 
 bin/%.o: src/%.cpp

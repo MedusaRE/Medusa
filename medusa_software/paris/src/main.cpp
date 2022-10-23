@@ -24,6 +24,7 @@
 #include <unistd.h>
 #include <cstdio>
 #include <thread>
+#include "lib.h"
 
 using namespace std;
 
@@ -93,9 +94,14 @@ int main(int argc, char* argv[]) {
 	}
 #endif
 
+	DEBUG_PRINTF("creating Server object\n");
+
 	paris::Server server;
 	server.start_server();
 
+	DEBUG_PRINTF("starting server\n");
+
+	DEBUG_PRINTF("creating Service's\n");
 	paris::ExampleService service1;
 	paris::ExampleService service2;
 	paris::ExampleService service4;
@@ -108,6 +114,7 @@ int main(int argc, char* argv[]) {
 	paris::ExampleService service11;
 	paris::ExampleService2 service3;
 
+	DEBUG_PRINTF("adding Service's\n");
 	server.add_service(service1);
 	server.add_service(service2);
 	server.add_service(service3);
@@ -120,25 +127,22 @@ int main(int argc, char* argv[]) {
 	server.add_service(service10);
 	server.add_service(service11);
 
+	DEBUG_PRINTF("sending paris_message_t's to services\n");
 	sleep(1);
 	paris::paris_message_t message;
 	message.uid = 420;
 	message.service_id = service1.get_service_id();
-	//	printf("%lx\n", message.service_id);
 	server.send_message(message);
 	sleep(1);
 	message.service_id = service2.get_service_id();
-	//	printf("%lx\n", message.service_id);
 	server.send_message(message);
 	sleep(1);
 	message.service_id = service3.get_service_id();
-	//	printf("%lx\n", message.service_id);
 	server.send_message(message);
 	sleep(1);
 
-	//	printf("%lx\n", message.service_id);
+	DEBUG_PRINTF("stopping server\n");
 	server.stop_server();
-	//	printf("%lx\n", message.service_id);
 	sleep(1);
 
 	return 0;
