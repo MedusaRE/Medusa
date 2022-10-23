@@ -11,6 +11,7 @@ variables:
 build:
     stage: build
     script:
+        - mkdir bin
         - cd medusa_software/libmedusa
         - make bin
         - make bin/libmedusa.so
