@@ -1,0 +1,21 @@
+image: debian
+
+variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+
+#before_script:
+#    - tools/deps_debian.sh
+#    - git submodule init
+#    - git submodule update
+
+libmedusa:
+    script:
+        - cd medusa_software/libmedusa
+        - make bin
+        - make bin/libmedusa.so
+    artifacts:
+        untracked: false
+        expire_in: "30 days"
+        paths:
+            - medusa_software/libmedusa/bin/libmedusa.so
+            - medusa_software/libmedusa/include
