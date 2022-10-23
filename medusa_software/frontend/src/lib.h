@@ -49,6 +49,7 @@ std::string getcwd_str();
 std::vector<std::string> str_split(std::string& s, char delim);
 
 uint64_t get_statm_usage(void);
+uint64_t medusa_rand(void);
 
 #define DEBUG 1
 

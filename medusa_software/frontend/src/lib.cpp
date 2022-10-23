@@ -25,6 +25,7 @@
 #include <unistd.h>
 #include <sstream>
 #include <memory>
+#include <random>
 #include <string>
 #include <vector>
 
@@ -157,4 +158,12 @@ uint64_t get_statm_usage(void) {
 	fclose(fp);
 
 	return ret;
+}
+
+uint64_t medusa_rand(void) {
+	std::random_device rd;
+	std::mt19937_64 gen(rd());
+	std::uniform_int_distribution<uint64_t> dis;
+
+	return dis(gen);
 }
