@@ -104,16 +104,10 @@ int main(int argc, char* argv[]) {
 	DEBUG_PRINTF("creating Service's\n");
 	paris::ExampleService service1;
 	paris::ExampleService service2;
-	paris::ExampleService service3;
-	paris::ExampleService2 service4;
-
-	paris::AnotherExample example;
 
 	DEBUG_PRINTF("adding Service's\n");
 	server.add_service(service1);
 	server.add_service(service2);
-	server.add_service(service3);
-	server.add_service(service4);
 
 	DEBUG_PRINTF("sending paris_message_t's to services\n");
 	sleep(1);
@@ -122,17 +116,8 @@ int main(int argc, char* argv[]) {
 	message.service_id = service1.get_service_id();
 	server.send_message(message);
 	sleep(1);
-	message.service_id = service2.get_service_id();
-	server.send_message(message);
-	sleep(1);
-	message.service_id = service3.get_service_id();
-	server.send_message(message);
-	sleep(1);
-	message.service_id = service4.get_service_id();
-	server.send_message(message);
-	sleep(1);
 	message.uid = 69;
-	message.service_id = example.get_service_id();
+	message.service_id = service2.get_service_id();
 	server.send_message(message);
 	sleep(1);
 

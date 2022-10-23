@@ -29,106 +29,6 @@
 
 using namespace paris;
 
-void ExampleService::service_mainloop(ExampleService* _this) {
-	paris_message_and_server_t message;
-
-	while (_this->run) {
-		std::unique_lock<std::mutex> lck(_this->mtx);
-		while (_this->queue.empty()) {
-			_this->cv.wait(lck, [&_this]{ return (_this->queue.size() != 0) || !_this->run; });
-
-			if (!_this->run) {
-				break;
-			}
-		}
-
-		message = _this->queue.front();
-		_this->queue.pop();
-
-		DEBUG_PRINTF("0x%lx 0x%lx %d\n", message.message.service_id, _this->get_service_id(), message.message.uid);
-	}
-
-	DEBUG_PRINTF("%lx done\n", _this->get_service_id());
-}
-
-bool ExampleService::send_message(paris_message_t message, Server* server) {
-	paris_message_and_server_t tmp = {message, server};
-
-	this->queue.push(tmp);
-	this->cv.notify_one();
-
-	return true;
-}
-
-bool ExampleService::stop_service() {
-	this->run = false;
-	this->cv.notify_one();
-
-	return true;
-}
-
-std::thread ExampleService::get_backing_thread() {
-	return std::move(this->thread);
-}
-
-ExampleService::ExampleService() {
-	std::random_device rd;
-	std::mt19937_64 gen(rd());
-	std::uniform_int_distribution<uint64_t> dis;
-
-	this->id = dis(gen);
-	this->run = true;
-
-	this->thread = std::thread(ExampleService::service_mainloop, this);
-	this->thread.detach();
-}
-
-ExampleService::~ExampleService() {
-	this->run = false;
-	this->cv.notify_one();
-}
-
-uint64_t ExampleService::get_service_id() {
-	return this->id;
-}
-
-bool ServiceListener::process_message(paris_message_t message, Server* server) {
-	DEBUG_PRINTF("%lx: %d\n", message.service_id, message.uid);
-
-	return true;
-}
-
-bool ExampleService2::process_message(paris_message_t message, Server* server) {
-	DEBUG_PRINTF("%lx: %d\n", message.service_id, message.uid);
-
-	if (!server) {
-		return false;
-	}
-
-	std::vector<Service*> services = server->get_services();
-	int i = 0;
-
-	for (Service*& service : services) {
-		if (service->get_service_id() == this->get_service_id()) {
-			continue;
-		}
-
-		paris_message_t msg;
-		msg.service_id = service->get_service_id();
-		msg.uid = i++;
-
-		server->send_message(msg);
-	}
-
-	return true;
-}
-
-bool AnotherExample::process_message(paris_message_t message, Server* server) {
-	DEBUG_PRINTF("AnotherExample LOL! %d\n", message.uid);
-
-	return true;
-}
-
 void ServiceListener::service_mainloop(ServiceListener* _this) {
 	paris_message_and_server_t message;
 
@@ -190,6 +90,22 @@ ServiceListener::~ServiceListener() {
 
 uint64_t ServiceListener::get_service_id() {
 	return this->id;
+}
+
+bool ServiceListener::process_message(paris_message_t message, Server* server) {
+	DEBUG_PRINTF("%lx: %d\n", message.service_id, message.uid);
+
+	return true;
+}
+
+bool ExampleService::process_message(paris_message_t message, Server* server) {
+	DEBUG_PRINTF("%lx: %d\n", message.service_id, message.uid);
+
+	if (!server) {
+		return false;
+	}
+
+	return true;
 }
 
 bool Server::queue_available(Server* _this) {
