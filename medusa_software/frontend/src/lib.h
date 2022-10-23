@@ -50,9 +50,19 @@ std::vector<std::string> str_split(std::string& s, char delim);
 
 uint64_t get_statm_usage(void);
 
+#define DEBUG 1
+
+#if DEBUG
 #define DEBUG_INFO() do { \
 	fprintf(stderr, "%s (%s @ %d): mem_usage=%ldKB\n", __FILE__, __PRETTY_FUNCTION__, __LINE__, get_statm_usage()); \
 } while(0)
+#define DEBUG_PRINTF(s, ...) do { \
+	fprintf(stderr,  "%s (%s @ %d): " s, __FILE__, __PRETTY_FUNCTION__, __LINE__, ## __VA_ARGS__); \
+} while (0)
+#else
+#define DEBUG_INFO() do { } while (0)
+#define DEBUG_PRINTF(s, ...) do { } while (0)
+#endif
 
 #include <chrono>
 #define DEBUG_TIME ((duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - start)).count())
