@@ -24,7 +24,7 @@ build:
         - make
         - cd ../../
     artifacts:
-        untracked: true
+        untracked: false
         expire_in: "30 days"
         paths:
             - bin
