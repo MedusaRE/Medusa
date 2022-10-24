@@ -49,7 +49,7 @@ res/bin/armv7_ls.bin: ../submodules/binary-samples/elf-Linux-ARMv7-ls res/bin
 #	cat $@ | tail -c +17 > $@.tmp
 #	mv $@.tmp $@
 
-.PHONY: doxygen_out
+#.PHONY: doxygen_out
 doxygen_out:
 	doxygen
 
