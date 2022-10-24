@@ -1,7 +1,7 @@
 CPP=clang++
 CPPFLAGS=--std=c++17 -Iinclude -lcapstone -lkeystone -lmedusa -lunicorn -lLIEF -fPIC -DLIB_H_NO_BUILD_GUI -O3 -lpcre2-8
 
-all: res/bin bin bin/libvienna.so bin/main res/bin/x86_test_shellcode.bin res/bin/armv7_test_shellcode.bin res/bin/armv7_ls.bin doxygen_out
+all: res/bin bin bin/libvienna.so bin/main res/bin/x86_test_shellcode.bin res/bin/armv7_test_shellcode.bin res/bin/armv7_ls.bin
 
 bin:
 	sh -c "mkdir bin"
@@ -49,7 +49,7 @@ res/bin/armv7_ls.bin: ../submodules/binary-samples/elf-Linux-ARMv7-ls res/bin
 #	cat $@ | tail -c +17 > $@.tmp
 #	mv $@.tmp $@
 
-#.PHONY: doxygen_out
+.PHONY: doxygen_out
 doxygen_out:
 	doxygen
 

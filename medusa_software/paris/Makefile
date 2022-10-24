@@ -1,7 +1,7 @@
 CPP=clang++
 CPPFLAGS=--std=c++17 -g3 -DLIB_H_NO_BUILD_GUI
 
-all: bin bin/main doxygen_out
+all: bin bin/main
 
 bin:
 	sh -c "mkdir bin"
@@ -16,7 +16,7 @@ bin/%.o: src/%.cpp
 	mkdir -p $(@D)
 	${CPP} ${CPPFLAGS} $< -c -o $@
 
-#.PHONY: doxygen_out
+.PHONY: doxygen_out
 doxygen_out:
 	doxygen
 
