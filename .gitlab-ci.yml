@@ -12,14 +12,17 @@ build:
     stage: build
     script:
         - mkdir bin
+
         - cd medusa_software/libmedusa
         - make bin
         - make bin/libmedusa.so
         - cd ../../
         - cp -R medusa_software/libmedusa/bin/libmedusa.so bin/
+
         - cd medusa_software/paris
         - make
         - cd ../../
+
         - cd medusa_software/london
         - make
         - cd ../../
