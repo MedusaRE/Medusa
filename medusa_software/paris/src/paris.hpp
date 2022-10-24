@@ -34,16 +34,51 @@ namespace paris {
 	class ServiceListener;
 	class ExampleService2;
 
+	/**
+	 *	@brief A structure containing a paris_message_t & Server.
+	 */
 	typedef struct {
-		paris_message_t message;
-		Server* server;
+		paris_message_t message;	/**< The message that was sent. */
+		Server* server;				/**< The Server that this message was sent
+										 with. */
 	} paris_message_and_server_t;
 
+	/**
+	 *	@brief An abstract class representing an interface for Paris services.
+	 */
 	class Service {
 		public:
+			/**
+			 * 	@brief Send a paris_message_t to this Service.
+			 *	
+			 * 	@param message The paris_message_t to be sent.
+			 * 	@param server The Server with which this message was sent.
+			 * 	@return true  Success.
+			 * 	@return false Fail.
+			 */
 			virtual bool send_message(paris_message_t message, Server* server) = 0;
+
+			/**
+			 *	@brief Get the std::thread that this Service is "backed" by.
+			 *
+			 *	@return std::thread The std::thread that this Service is
+			 			"backed" by.
+			 */
 			virtual std::thread get_backing_thread() = 0;
+
+			/**
+			 *	@brief Get the ID of this Service.
+			 *	
+			 *	@return uint64_t The ID of this Service.
+			 */
 			virtual uint64_t get_service_id() = 0;
+
+			/**
+			 *	@brief Stop this Service.
+			 *	
+			 *	@return true  Success.
+			 *	@return false Fail.
+			 */
 			virtual bool stop_service() = 0;
 		protected:
 			std::thread thread;
