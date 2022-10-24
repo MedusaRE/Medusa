@@ -18,6 +18,7 @@
 #include <sys/socket.h>
 #include "message.hpp"
 #include "paris.hpp"
+#include <iostream>
 #include <stddef.h>
 #include <stdlib.h>
 #include <sys/un.h>
@@ -31,10 +32,14 @@ using namespace std;
 int main(int argc, char* argv[]) {
 	DEBUG_PRINTF("creating Server object\n");
 
+	cin.get();
+
 	paris::Server server;
-	server.start_server();
 
 	DEBUG_PRINTF("starting server\n");
+	server.start_server();
+
+	cin.get();
 
 	DEBUG_PRINTF("creating Service's\n");
 	paris::ExampleService service1;
@@ -42,10 +47,14 @@ int main(int argc, char* argv[]) {
 
 	paris::DumpMsgContentsToSTDOUTService stdout_service;
 
+	cin.get();
+
 	DEBUG_PRINTF("adding Service's\n");
 	server.add_service(service1);
 	server.add_service(service2);
 	server.add_service(stdout_service);
+
+	cin.get();
 
 	uint64_t tmp = 0x4142434445464748;
 
@@ -57,29 +66,28 @@ int main(int argc, char* argv[]) {
 	DEBUG_PRINTF("sending stdout test\n");
 	server.send_message(message);
 
+	cin.get();
+
 	message.service_id = PARIS_SERVER_SERVICE_ID;
 	message.message_type = paris::REGISTER_SESSION;
 	message.service_by = stdout_service.get_service_id();
 
 	DEBUG_PRINTF("sending REGISTER_SESSION\n");
 	server.send_message(message);
-	sleep(1);
+	cin.get();
 
-#if 0
-
-
-	DEBUG_PRINTF("sending paris_message_t's to services\n");
-	sleep(1);
-	paris::paris_message_t message;
-	message.uid = 420;
+	DEBUG_PRINTF("sending message to service1 (%lx)\n", service1.get_service_id());
+	message.uid = 42;
 	message.service_id = service1.get_service_id();
 	server.send_message(message);
-	sleep(1);
-	message.uid = 69;
+
+	cin.get();
+	DEBUG_PRINTF("sending message to service2 (%lx)\n", service2.get_service_id());
+	message.uid = 43;
 	message.service_id = service2.get_service_id();
 	server.send_message(message);
-	sleep(1);
-	#endif
+
+	cin.get();
 
 	DEBUG_PRINTF("stopping server\n");
 	server.stop_server();
