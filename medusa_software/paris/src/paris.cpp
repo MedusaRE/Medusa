@@ -73,11 +73,7 @@ std::thread ServiceListener::get_backing_thread() {
 }
 
 ServiceListener::ServiceListener() {
-	std::random_device rd;
-	std::mt19937_64 gen(rd());
-	std::uniform_int_distribution<uint64_t> dis;
-
-	this->id = dis(gen);
+	this->id = medusa_rand();
 	this->run = true;
 
 	this->thread = std::thread(ServiceListener::service_mainloop, this);
