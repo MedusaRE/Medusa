@@ -88,11 +88,33 @@ namespace paris {
 		public:
 			ServiceListener();
 			~ServiceListener();
-			static void service_mainloop(ServiceListener* _this);
+
 			bool send_message(paris_message_t message, Server* server);
 			std::thread get_backing_thread();
 			uint64_t get_service_id();
 			bool stop_service();
+
+			/**
+			 *	@brief The "mainloop" for this Service &mdash; a function that
+			 *		   listens to the queue and sends the message(s) to
+			 *		   process_message.
+			 *	
+			 *	@param _this The ServiceListener object that we should use
+			 *				 &mdash; service_mainloop must be static for
+			 *				 std::thread usage, so we need to pass this to
+			 *				 access member functions and variables.
+			 */
+			static void service_mainloop(ServiceListener* _this);
+
+			/**
+			 *	@brief Make this Service process a paris_message_t.
+			 *	
+			 *	@param message The paris_message_t to be processed.
+			 *	@param server The Server this message was sent with.
+			 *
+			 *	@return true  Success.
+			 *	@return false Fail.
+			 */
 			virtual bool process_message(paris_message_t message, Server* server);
 		protected:
 			std::queue<paris_message_and_server_t> queue;
