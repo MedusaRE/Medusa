@@ -36,11 +36,8 @@ public class main {
 
 		printf("is this thing on? %d %d %s\n", 0, 1, "Hello, world!");
 
-//		m.exit(69);
-
 		printf("%f\n", time());
 		printf("%s %s %s\n", getenv("USER"), getenv("PATH"), getenv("SHELL"));
-//		printf("%s\n", getenv());
 
 		test_msj(m);
 
