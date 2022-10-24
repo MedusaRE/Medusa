@@ -165,7 +165,7 @@ void Server::server_mainloop(Server* _this) {
 			paris_message_t reply;
 			reply.len = 8;
 			reply.msg_contents = (uint8_t*)calloc(1, 8);
-		
+
 			*(uint64_t*)reply.msg_contents = medusa_rand();
 
 			for (Service*& service : _this->services) {
@@ -213,6 +213,7 @@ bool Server::start_server() {
 
 bool Server::stop_server() {
 	this->run = false;
+
 	this->cv.notify_one();
 
 	return true;
