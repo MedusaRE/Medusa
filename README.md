@@ -165,6 +165,10 @@ question.
 ### How do you pronounce Medusa?
 ![/məˈdusə/](/res/audio/medusa.ogg)
 
+## Community
+If you would like to join the Matrix room for Medusa, join
+[#general:medusa-re.org](https://matrix.to/#/#general:medusa-re.org).
+
 ## Documentation
 There is a variety of doxygen-based documentation for Medusa libraries and API's
 available at [docs.medusa-re.org](https://docs.medusa-re.org), and a wiki is
