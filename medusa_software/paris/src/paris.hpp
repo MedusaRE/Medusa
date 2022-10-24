@@ -84,6 +84,10 @@ namespace paris {
 			std::thread thread;
 	};
 
+	/**
+	 *	@brief A semi-abstract class representing and implementing code for
+	 *		   listening to messages and processing them.
+	 */
 	class ServiceListener : public Service {
 		public:
 			ServiceListener();
@@ -125,30 +129,110 @@ namespace paris {
 			bool run;
 	};
 
+	/**
+	 *	@brief An example Service based on ServiceListener.
+	 */
 	class ExampleService : public ServiceListener {
 		public:
 			virtual bool process_message(paris_message_t message, Server* server);
 	};
 
+	/**
+	 *	@brief A service that dumps the msg_contents of paris_message_t's that
+	 *		   it receives to stdout.
+	 */
 	class DumpMsgContentsToSTDOUTService : public ServiceListener {
 		public:
 			virtual bool process_message(paris_message_t message, Server* server);
 	};
 
+	/**
+	 *	@brief A class implementing a Server for the Paris backend.
+	 */
 	class Server {
 		public:
+			/**
+			 *	@brief Start this Server.
+			 *	
+			 *	@return true  Success.
+			 *	@return false Fail.
+			 */
 			bool start_server();
+
+			/**
+			 *	@brief Stop this Server.
+			 *	
+			 *	@return true  Success.
+			 *	@return false Fail.
+			 */
 			bool stop_server();
+
+			/**
+			 *	@brief Get the std::thread that this Server is "backed" by.
+			 *
+			 *	@return std::thread The std::thread that this Server is "backed"
+			 *			by.
+			 */
 			std::thread get_backing_thread();
 
+
+			/**
+			 *	@brief The "mainloop" for this Server &mdash; a function that
+			 *		   listens to the queue and sends the message(s) to
+			 *		   the appropriate Service's.
+			 *	
+			 *	@param _this The Server object that we should use &mdash;
+			 *				 service_mainloop must be static for std::thread
+			 *				 usage, so we need to pass this to access member
+			 *				 functions and variables.
+			 */
 			static void server_mainloop(Server* _this);
 			static bool queue_available(Server* _this);
 
+			/**
+			 *	@brief Add/connect a Service to this Server.
+			 *	
+			 *	@param service The Service to add.
+			 *
+			 *	@return true  Success.
+			 *	@return false Fail.
+			 */
 			bool add_service(Service& service);
+
+			/**
+			 *	@brief Send a paris_message_t to a Service on this Server.
+			 *	
+			 *	@param message The message to send.
+			 *	@return true  Success.
+			 *	@return false Fail.
+			 */
 			bool send_message(paris_message_t message);
+
+			/**
+			 *	@brief Remove/disconnect a Service from this Server.
+			 *	
+			 *	@param service The Service to remove/disconnect.
+			 *	@return true  Success.
+			 *	@return false Fail.
+			 */
 			bool remove_service(Service& service);
+
+			/**
+			 *	@brief Remove/disconnect a Service from this Server.
+			 *	
+			 *	@param service The Service to remove/disconnect.
+			 *	@return true  Success.
+			 *	@return false Fail.
+			 */
 			bool remove_service(uint64_t service);
 
+			/**
+			 *	@brief Get an std::vector of pointers to all Service's connected
+			 *		   to this Server.
+			 *	
+			 *	@return std::vector<Service*> An std::vector of pointers to all
+			 *			Service's connected to this Server.
+			 */
 			std::vector<Service*> get_services();
 		protected:
 			std::queue<paris_message_t> queue;
