@@ -9,7 +9,7 @@ hamburg
 warsaw
 budapest
 ~ barcelona
-munich
+~ munich
 milan
 sofia
 prague
