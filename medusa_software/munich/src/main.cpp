@@ -16,6 +16,7 @@
  */
 
 #include <medusa/munich.hpp>
+#include <iostream>
 #include <cstdio>
 
 using namespace munich;
@@ -23,7 +24,7 @@ using namespace munich;
 int main(int argc, char* argv[]) {
 	string s("Hello, world! %x", 0x41424344);
 
-	printf("%s\n", s.c_str());
+	printf("%s\n", s);
 
 	return 0;
 }

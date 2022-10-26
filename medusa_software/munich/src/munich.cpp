@@ -24,8 +24,6 @@ using namespace munich;
 
 template<typename... arg_type>
 string::string(const char* s, arg_type... args) {
-	printf("%s\n", "abc");
-
 	this->assign(string_format_cstr(s, args...));
 }
 #endif

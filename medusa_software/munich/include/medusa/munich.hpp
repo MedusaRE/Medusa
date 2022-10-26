@@ -18,19 +18,37 @@
 #ifndef MEDUSA_MUNICH_HPP
 #define MEDUSA_MUNICH_HPP
 
-#include <string>
 #include "../../src/lib.h"
+#include <iostream>
+#include <string>
 
 namespace munich {
 	class string : public std::string {
 		public:
 			template<typename... arg_type>
 			string(const char* s, arg_type... args) {
-				printf("%s\n", "abc");
-
 				this->assign(string_format_cstr(s, args...));
 			}
+
+			operator const char*() {
+				return this->c_str();
+			}
+
+			operator char*() const {
+				return (char*)this->c_str();
+			}
 	};
+
+    template<typename... arg_type>
+	int printf(const char* s, arg_type... args) {
+		int n;
+
+		for (const auto arg : {args...}) {
+			std::cout << typeid(arg).name() << ": " << arg << std::endl;
+		}
+
+		return n;
+	}
 }
 
 #endif
