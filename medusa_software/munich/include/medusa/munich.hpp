@@ -40,12 +40,14 @@ namespace munich {
 	};
 
     template<typename... arg_type>
-	int printf(const char* s, arg_type... args) {
+	int printf(arg_type... args) {
+		int i = 0;
 		int n;
 
-		for (const auto arg : {args...}) {
-			std::cout << typeid(arg).name() << ": " << arg << std::endl;
-		}
+		([&] {
+			std::cout << i << ": " << typeid(args).name() << ": " << args << std::endl;
+			i++;
+		} (), ...);
 
 		return n;
 	}

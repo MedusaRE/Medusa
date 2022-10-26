@@ -24,7 +24,7 @@ using namespace munich;
 int main(int argc, char* argv[]) {
 	string s("Hello, world! %x", 0x41424344);
 
-	printf("%s\n", s);
+	printf("%s\n", s, 0x41424344);
 
 	return 0;
 }
