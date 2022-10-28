@@ -90,13 +90,13 @@ uint64_t ServiceListener::get_service_id() {
 }
 
 bool ServiceListener::process_message(paris_message_t message, Server* server) {
-	DEBUG_PRINTF("%lx: %d\n", message.service_id, message.uid);
+	DEBUG_PRINTF("%lx: %lu\n", message.service_id, message.uid);
 
 	return true;
 }
 
 bool ExampleService::process_message(paris_message_t message, Server* server) {
-	DEBUG_PRINTF("%lx: %d\n", message.service_id, message.uid);
+	DEBUG_PRINTF("%lx: %lu\n", message.service_id, message.uid);
 
 	if (!server) {
 		return false;
