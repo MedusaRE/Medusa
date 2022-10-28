@@ -167,7 +167,7 @@ void Server::server_mainloop(Server* _this) {
 
 		if (message.service_id == PARIS_SERVER_SERVICE_ID) {
 			/*
-			 *  TODO: use something better than `calloc` for things like this!
+			 *	TODO: use something better than `calloc` for things like this!
 			 */
 			paris_session_t* session = (paris_session_t*)calloc(1, sizeof(paris_session_t));
 			paris_message_t reply;
@@ -192,6 +192,13 @@ void Server::server_mainloop(Server* _this) {
 		}
 
 		for (Service*& service : _this->services) {
+			/*
+			 *	segfaults be damned!
+			 */
+			if (!service) {
+				continue;
+			}
+
 			if (service->get_service_id() == message.service_id) {
 				service->send_message(message, _this);
 			}
