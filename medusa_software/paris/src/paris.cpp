@@ -166,6 +166,9 @@ void Server::server_mainloop(Server* _this) {
 		_this->queue.pop();
 
 		if (message.service_id == PARIS_SERVER_SERVICE_ID) {
+			/*
+			 *  TODO: use something better than `calloc` for things like this!
+			 */
 			paris_session_t* session = (paris_session_t*)calloc(1, sizeof(paris_session_t));
 			paris_message_t reply;
 
