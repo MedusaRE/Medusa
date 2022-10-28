@@ -146,6 +146,12 @@ namespace paris {
 			virtual bool process_message(paris_message_t message, Server* server);
 	};
 
+	typedef struct {
+		uint64_t session_id;
+		uint64_t uid;
+		uint64_t cookie[4];
+	} paris_session_t;
+
 	/**
 	 *	@brief A class implementing a Server for the Paris backend.
 	 */
