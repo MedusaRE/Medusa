@@ -90,13 +90,13 @@ uint64_t ServiceListener::get_service_id() {
 }
 
 bool ServiceListener::process_message(paris_message_t message, Server* server) {
-	DEBUG_PRINTF("%lx: %d\n", message.service_id, message.uid);
+	DEBUG_PRINTF("%lx: %lu\n", message.service_id, message.uid);
 
 	return true;
 }
 
 bool ExampleService::process_message(paris_message_t message, Server* server) {
-	DEBUG_PRINTF("%lx: %d\n", message.service_id, message.uid);
+	DEBUG_PRINTF("%lx: %lu\n", message.service_id, message.uid);
 
 	if (!server) {
 		return false;
@@ -132,6 +132,14 @@ bool DumpMsgContentsToSTDOUTService::process_message(paris_message_t message, Se
 												  message.msg_contents[1], message.msg_contents[0]));
 	}
 
+	s += " (";
+
+	for (int i = 0; i < message.len; i++) {
+		s += string_format("%02x, ", message.msg_contents[i]);
+	}
+
+	s = s.substr(0, s.length() - 2) + ")";
+
 	DEBUG_PRINTF("%s\n", s.c_str());
 
 	return true;
@@ -158,11 +166,21 @@ void Server::server_mainloop(Server* _this) {
 		_this->queue.pop();
 
 		if (message.service_id == PARIS_SERVER_SERVICE_ID) {
+			/*
+			 *	TODO: use something better than `calloc` for things like this!
+			 */
+			paris_session_t* session = (paris_session_t*)calloc(1, sizeof(paris_session_t));
 			paris_message_t reply;
-			reply.len = 8;
-			reply.msg_contents = (uint8_t*)calloc(1, 8);
 
-			*(uint64_t*)reply.msg_contents = medusa_rand();
+			session->session_id = medusa_rand();
+			session->uid = -1;
+
+			for (int i = 0; i < (sizeof(session->cookie) / sizeof(session->cookie[0])); i++) {
+				session->cookie[i] = medusa_rand();
+			}
+
+			reply.len = sizeof(paris_session_t);
+			reply.msg_contents = (uint8_t*)session;
 
 			for (Service*& service : _this->services) {
 				if (service->get_service_id() == message.service_by) {
@@ -174,6 +192,13 @@ void Server::server_mainloop(Server* _this) {
 		}
 
 		for (Service*& service : _this->services) {
+			/*
+			 *	segfaults be damned!
+			 */
+			if (!service) {
+				continue;
+			}
+
 			if (service->get_service_id() == message.service_id) {
 				service->send_message(message, _this);
 			}

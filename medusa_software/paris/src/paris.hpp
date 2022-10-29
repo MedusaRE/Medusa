@@ -50,7 +50,7 @@ namespace paris {
 		public:
 			/**
 			 * 	@brief Send a paris_message_t to this Service.
-			 *	
+			 *
 			 * 	@param message The paris_message_t to be sent.
 			 * 	@param server The Server with which this message was sent.
 			 * 	@return true  Success.
@@ -68,14 +68,14 @@ namespace paris {
 
 			/**
 			 *	@brief Get the ID of this Service.
-			 *	
+			 *
 			 *	@return uint64_t The ID of this Service.
 			 */
 			virtual uint64_t get_service_id() = 0;
 
 			/**
 			 *	@brief Stop this Service.
-			 *	
+			 *
 			 *	@return true  Success.
 			 *	@return false Fail.
 			 */
@@ -102,7 +102,7 @@ namespace paris {
 			 *	@brief The "mainloop" for this Service &mdash; a function that
 			 *		   listens to the queue and sends the message(s) to
 			 *		   process_message.
-			 *	
+			 *
 			 *	@param _this The ServiceListener object that we should use
 			 *				 &mdash; service_mainloop must be static for
 			 *				 std::thread usage, so we need to pass this to
@@ -112,7 +112,7 @@ namespace paris {
 
 			/**
 			 *	@brief Make this Service process a paris_message_t.
-			 *	
+			 *
 			 *	@param message The paris_message_t to be processed.
 			 *	@param server The Server this message was sent with.
 			 *
@@ -146,6 +146,12 @@ namespace paris {
 			virtual bool process_message(paris_message_t message, Server* server);
 	};
 
+	typedef struct {
+		uint64_t session_id;
+		uint64_t uid;
+		uint64_t cookie[4];
+	} paris_session_t;
+
 	/**
 	 *	@brief A class implementing a Server for the Paris backend.
 	 */
@@ -153,7 +159,7 @@ namespace paris {
 		public:
 			/**
 			 *	@brief Start this Server.
-			 *	
+			 *
 			 *	@return true  Success.
 			 *	@return false Fail.
 			 */
@@ -161,7 +167,7 @@ namespace paris {
 
 			/**
 			 *	@brief Stop this Server.
-			 *	
+			 *
 			 *	@return true  Success.
 			 *	@return false Fail.
 			 */
@@ -180,7 +186,7 @@ namespace paris {
 			 *	@brief The "mainloop" for this Server &mdash; a function that
 			 *		   listens to the queue and sends the message(s) to
 			 *		   the appropriate Service's.
-			 *	
+			 *
 			 *	@param _this The Server object that we should use &mdash;
 			 *				 service_mainloop must be static for std::thread
 			 *				 usage, so we need to pass this to access member
@@ -191,7 +197,7 @@ namespace paris {
 
 			/**
 			 *	@brief Add/connect a Service to this Server.
-			 *	
+			 *
 			 *	@param service The Service to add.
 			 *
 			 *	@return true  Success.
@@ -201,7 +207,7 @@ namespace paris {
 
 			/**
 			 *	@brief Send a paris_message_t to a Service on this Server.
-			 *	
+			 *
 			 *	@param message The message to send.
 			 *	@return true  Success.
 			 *	@return false Fail.
@@ -210,7 +216,7 @@ namespace paris {
 
 			/**
 			 *	@brief Remove/disconnect a Service from this Server.
-			 *	
+			 *
 			 *	@param service The Service to remove/disconnect.
 			 *	@return true  Success.
 			 *	@return false Fail.
@@ -219,7 +225,7 @@ namespace paris {
 
 			/**
 			 *	@brief Remove/disconnect a Service from this Server.
-			 *	
+			 *
 			 *	@param service The Service to remove/disconnect.
 			 *	@return true  Success.
 			 *	@return false Fail.
@@ -229,7 +235,7 @@ namespace paris {
 			/**
 			 *	@brief Get an std::vector of pointers to all Service's connected
 			 *		   to this Server.
-			 *	
+			 *
 			 *	@return std::vector<Service*> An std::vector of pointers to all
 			 *			Service's connected to this Server.
 			 */

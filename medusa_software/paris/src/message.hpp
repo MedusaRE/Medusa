@@ -36,9 +36,9 @@ namespace paris {
 									  this message uses. Useful for determining
 									  where #msg_contents starts and other
 									  fields end. */
-		uint32_t sid;			 /**< The ID of the session that sent this
+		uint64_t sid;			 /**< The ID of the session that sent this
 									  message. */
-		uint32_t uid;			 /**< The UID of the user that sent this
+		uint64_t uid;			 /**< The UID of the user that sent this
 									  message. */
 		uint64_t cookie[4];		 /**< Secret session cookie - a unique 256-bit
 									  number to identify that a message was
