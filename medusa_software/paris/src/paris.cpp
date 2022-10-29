@@ -30,6 +30,17 @@
 
 using namespace paris;
 
+/*
+ *	Basically, this is how/why this function/method works.
+ *
+ *	We could just spin-check on a separate thread, but that would be pretty
+ *	inefficient. Instead, we use an std::condition_variable. The need for the
+ *	(relatively) complex lambda function is so that we can cleanly shutdown the
+ *	Paris server when we're done -- and not necessarily have to send another
+ *	message to do so. The ServiceListener::stop_service function/method sets
+ *	this->run to false, and then notifies `cv`, meaning that it will be able to
+ *	cleanly shut down the service.
+ */
 void ServiceListener::service_mainloop(ServiceListener* _this) {
 	paris_message_and_server_t message;
 
