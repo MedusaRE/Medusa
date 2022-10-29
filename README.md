@@ -52,6 +52,13 @@ Planned features include:
 If you would like to view a version of this document in another form, type
 `curl medusa-re.org` into your terminal, and press Enter/Return.
 
+## Learning
+If you've just learned of the Medusa Project and would like to begin working on
+/ with it, I can suggest a few resources.
+- Visit [the Medusa Project website](https://www.medusa-re.org).
+- Read [the book](https://www.medusa-re.org/book_wip.pdf). (WIP)
+- Read [the documentation](https://docs.medusa-re.org).
+
 ## Installation
 ### Requirements
 The exact commands necessary to install the requirements for Medusa will differ
@@ -100,7 +107,7 @@ work into Windows support yet. (at least for the `frontend`, other components
 should be fine. )
 
 ## License
-Currently, all of the source code written for the Medusa project is licensed
+Currently, all of the source code written for the Medusa Project is licensed
 under Version 2 of the GNU General Public License (GPLv2), without the "any
 later version" clause.
 Other resources are released under CC BY-SA 4.0.
