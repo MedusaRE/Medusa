@@ -26,4 +26,10 @@ template<typename... arg_type>
 string::string(const char* s, arg_type... args) {
 	this->assign(string_format_cstr(s, args...));
 }
+
+string::operator const char *() const {
+	return this->c_str();
+}
+
+template string::string(const char *, int);
 #endif

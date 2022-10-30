@@ -22,7 +22,7 @@
 using namespace munich;
 
 int main(int argc, char* argv[]) {
-	string s("Hello, world! %x", 0x41424344);
+	string s("Hello, world! %x %d", 0x41424344, 123);
 
 	printf("%s %x\n", s, 0x41424344);
 

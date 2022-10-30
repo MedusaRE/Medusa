@@ -23,6 +23,9 @@
 #include <string>
 
 namespace munich {
+	/**
+	 *	@brief A class representing a string of characters.
+	 */
 	class string : public std::string {
 		public:
 			template<typename... arg_type>
