@@ -1,7 +1,22 @@
 \documentclass{report}
 
-\usepackage[pdftex, pdfborderstyle={/S/U/W 0}, breaklinks=false]{hyperref}
-\usepackage{background}
+\InputIfFileExists{book_create_html}%
+	{
+		\providecommand{\pgfsyspdfmark}[3]{}
+	}
+	{
+		\usepackage[pdftex, pdfborderstyle={/S/U/W 0}, breaklinks=false]{hyperref}
+		\usepackage{background}
+		\SetBgContents{\textnormal{This file is licensed under the terms of the CC BY-SA
+								   4.0 license. \ccbysa}}
+		\SetBgScale{1}
+		\SetBgAngle{0}
+		\SetBgOpacity{1}
+		\SetBgColor{black}
+		\SetBgPosition{current page.south}
+		\SetBgVshift{1cm}
+	}
+\usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{comment}
@@ -27,15 +42,6 @@
 \title{The Medusa Project}
 \author{spv}
 
-\SetBgContents{\textnormal{This file is licensed under the terms of the CC BY-SA
-						   4.0 license. \ccbysa}}
-\SetBgScale{1}
-\SetBgAngle{0}
-\SetBgOpacity{1}
-\SetBgColor{black}
-\SetBgPosition{current page.south}
-\SetBgVshift{1cm}
-
 \begin{document}
 	\maketitle
 
@@ -52,7 +58,6 @@
 		order to learn \LaTeX.
 
 		\item Documentation for \textit{Medusa} Project API's can be found at
-		
 		\href{https://docs.medusa-re.org}{docs.medusa-re.org}.
 
 		\item A wiki for the \textit{Medusa} Project can be found at

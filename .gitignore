@@ -76,3 +76,15 @@ stderr*.txt
 builds
 
 *.hist
+
+book*.html
+book*.svg
+book.css
+book.dvi
+book.idv
+book.lg
+book.tmp
+book.xref
+book.4ct
+book.4tc
+book_create_html
