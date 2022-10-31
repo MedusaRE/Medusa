@@ -15,7 +15,9 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include <paris/message.hpp>
 #include "medusa_window.h"
+#include <paris/paris.hpp>
 #include "logging.h"
 #include <gtkmm.h>
 #include <cstdio>
@@ -37,6 +39,25 @@ int main(int   argc,
 	int       fake_argc	= 1;
 	char**    fake_argv	= NULL;
 	fake_argv = (char**)calloc(sizeof(uintptr_t), 2);
+
+	paris::Server server;
+	paris::ExampleService es;
+
+	server.start_server();
+
+	server.add_service(es);
+	paris::paris_message_t pm;
+
+	pm.service_id = es.get_service_id();
+	pm.uid = 420;
+
+	server.send_message(pm);
+
+	usleep(1000);
+	server.stop_server();
+	usleep(1000);
+
+	return 0;
 
 	/*
 	 *  populate the array
@@ -61,7 +82,6 @@ int main(int   argc,
 	medusa_log(LOG_INFO, "Creating medusa_window...");
 	medusa_window window(argc,
 						 argv);
-
 
 	/*
 	 *  run it
