@@ -26,6 +26,10 @@ build:
         - cd medusa_software/london
         - make
         - cd ../../
+
+        - cd medusa_software/frontend
+        - make
+        - cd ../../
     artifacts:
         untracked: false
         expire_in: "30 days"
