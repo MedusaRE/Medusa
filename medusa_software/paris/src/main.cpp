@@ -15,9 +15,9 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include <paris/message.hpp>
+#include <paris/paris.hpp>
 #include <sys/socket.h>
-#include "message.hpp"
-#include "paris.hpp"
 #include <iostream>
 #include <stddef.h>
 #include <stdlib.h>

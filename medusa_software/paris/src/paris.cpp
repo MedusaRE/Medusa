@@ -16,8 +16,8 @@
  */
 
 #include <condition_variable>
-#include "message.hpp"
-#include "paris.hpp"
+#include <paris/message.hpp>
+#include <paris/paris.hpp>
 #include <chrono>
 #include <cstdio>
 #include <random>
