@@ -42,7 +42,7 @@ namespace munich {
 			}
 	};
 
-    template<typename... arg_type>
+	template<typename... arg_type>
 	int printf(arg_type... args) {
 		int i = 0;
 		int n;
