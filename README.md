@@ -81,6 +81,8 @@ based on the OS you are running, but in general, you will need to install:
 - [`badgen`](https://www.npmjs.com/package/badgen)
 - [`GNU Make`](https://www.gnu.org/software/make/)
 - [`clang`](https://clang.llvm.org/) / [`LLVM`](https://llvm.org/)
+- [`CMake`](https://www.cmake.org)
+- [`cloc`](https://github.com/AlDanial/cloc)
 
 If you are running Arch Linux, or an Arch-based distro, such as Manjaro, you can
 install all of the dependencies for Medusa by running `tools/deps_arch.sh` as
