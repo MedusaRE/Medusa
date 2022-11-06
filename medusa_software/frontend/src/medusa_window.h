@@ -18,12 +18,21 @@
 #ifndef MEDUSA_WINDOW_H
 #define MEDUSA_WINDOW_H
 
+#include <paris/paris.hpp>
 #include <gtkmm.h>
+
+class TextTestService : public paris::ServiceListener {
+	public:
+		virtual bool process_message(paris::paris_message_t message, paris::Server* server);
+		Glib::RefPtr<Gtk::TextBuffer> our_text_buffer;
+};
 
 class medusa_window : public Gtk::Window {
 	public:
 		medusa_window();
 		virtual ~medusa_window();
+		TextTestService service;
+		paris::Server server;
 	protected:
 		Gtk::Button step_button;
 		Gtk::ScrolledWindow sw;

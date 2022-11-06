@@ -18,11 +18,41 @@
 #include <capstone/capstone.h>
 #include <unicorn/unicorn.h>
 #include "medusa_window.h"
+#include <paris/paris.hpp>
 #include "logging.h"
+#include <cstring>
 #include <gtkmm.h>
+#include <thread>
 #include "lib.h"
 
 using namespace std;
+
+bool TextTestService::process_message(paris::paris_message_t message, paris::Server* server) {
+	this->our_text_buffer->set_text((const char*)message.msg_contents);
+	printf("%s\n", (const char*)message.msg_contents);
+
+	return true;
+}
+
+void service_thread(paris::Server& server, uint64_t service_id) {
+	sleep(5);
+	paris::paris_message_t msg;
+
+	msg.service_id = service_id;
+	msg.msg_contents = (uint8_t*)"Hello, world!";
+	msg.len = strlen((const char *)msg.msg_contents);
+
+	server.send_message(msg);
+
+	sleep(5);
+
+	msg.msg_contents = (uint8_t*)"Hello, world! part 2";
+	msg.len = strlen((const char *)msg.msg_contents);
+
+	server.send_message(msg);
+
+	sleep(5);
+}
 
 medusa_window::medusa_window() {
 	Gtk::Window::set_default_icon_from_file("../../res/img/icon.png");
@@ -110,6 +140,16 @@ medusa_window::medusa_window() {
 
 	medusa_log(LOG_VERBOSE, "Showing...");
 	show_all_children();
+
+	server.start_server();
+
+	this->service.our_text_buffer = our_text_buffer;
+
+	server.add_service(this->service);
+
+	std::thread our_thread(service_thread, std::ref(server), this->service.get_service_id());
+
+	our_thread.detach();
 }
 
 medusa_window::~medusa_window() {
