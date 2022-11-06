@@ -47,6 +47,62 @@ not much editing is done within web-based Git clients, and you *can* change the
 tab stops usually. Since the *default* is 8, and not everyone changes it, making
 the documentation look correct matters more to me than source code in that case.
 
+Use snake_case for variables, class members, and such. Use PascalCase for class
+names.
+
+Write:
+```c++
+class ExampleClass {
+    ...
+    int this_is_a_variable;
+    ...
+};
+```
+
+Instead of:
+```c++
+class example_class {
+    ...
+    int thisIsAVariable;
+    ...
+}
+```
+
+Indent access specifiers like `public`, `protected`, and `private` 1 tab-stop
+past `class`.
+
+Write:
+```c++
+namespace example {
+    class ExampleClass {
+        public:
+            int variable;
+        private:
+            int a_second_variable;
+    };
+}
+```
+
+Instead of this, :
+```c++
+namespace example {
+    class ExampleClass {
+    public:
+        ...
+    };
+}
+```
+
+Or this:
+```c++
+namespace example {
+    class ExampleClass {
+public:
+        ...
+    }
+}
+```
+
 Generally, C++ code would look something like this:
 ```c++
 #include <cstdint>
