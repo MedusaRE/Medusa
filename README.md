@@ -69,20 +69,26 @@ based on the OS you are running, but in general, you will need to install:
 - [`doxygen`](https://doxygen.nl)
 - [`GtkSourceView`](https://gitlab.gnome.org/GNOME/gtksourceview) (submodule available)
 - [`GtkSourceViewMM`](https://gitlab.gnome.org/GNOME/gtksourceviewmm) (submodule available)
-- `gtkmm3`
-- `gtk3`
-- `glade`
-- `GIMP`
-- `LaTeX`
-- `python3`
-- `Pillow`
-- `Node`
-- `npm`
-- `badgen`
+- [`gtkmm3`](https://www.gtkmm.org)
+- [`gtk3`](https://www.gtk.org)
+- [`glade`](https://glade.gnome.org)
+- [`GIMP`](https://www.gimp.org)
+- [`LaTeX`](https://www.latex-project.org)
+- [`python3`](https://www.ptrgon.org)
+- [`Pillow`](https://python-pillow.org)
+- [`Node`](https://www.nodejs.org)
+- [`npm`](https://www.npmjs.com)
+- [`badgen`](https://www.npmjs.com/package/badgen)
+- [`GNU Make`](https://www.gnu.org/software/make/)
+- [`clang`](https://clang.llvm.org/) / [`LLVM`](https://llvm.org/)
 
 If you are running Arch Linux, or an Arch-based distro, such as Manjaro, you can
 install all of the dependencies for Medusa by running `tools/deps_arch.sh` as
 `root`.
+
+If you are running Debian, or a Debian-based distro, such as Ubuntu, Pop!_OS, or
+Kali, you can install all of the dependencies for Medusa by running
+`tools/deps_debian.sh` as root.
 
 ### Compilation
 To compile all Medusa components, `cd` into the Medusa folder (the parent folder
