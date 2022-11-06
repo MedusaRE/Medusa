@@ -1,28 +1,26 @@
 all:
-	cd medusa_software/barcelona/; make
-	cd medusa_software/berlin/; make
-	cd medusa_software/frontend/; make
-	cd medusa_software/libmedusa/; make
-	cd medusa_software/libxparse/; make
-	cd medusa_software/london/; make
-#	cd medusa_software/work/lief_testing/; make
-	cd medusa_software/paris/; make
-	cd medusa_software/rome/; make
-	cd medusa_software/work/java/; make
-	cd medusa_software/work/libmedusa_testing/; make
-	cd medusa_software/work/text_editing/; make
-	cd medusa_software/work/unicorn_states/; make
-	cd docs; pdflatex book.tex
-	sh tools/badges/badges.sh
+	$(MAKE) -C medusa_software/barcelona
+	$(MAKE) -C medusa_software/barcelona
+	$(MAKE) -C medusa_software/berlin
+	$(MAKE) -C medusa_software/frontend
+	$(MAKE) -C medusa_software/libmedusa
+	$(MAKE) -C medusa_software/libxparse
+	$(MAKE) -C medusa_software/london
+	$(MAKE) -C medusa_software/paris
+	$(MAKE) -C medusa_software/rome
+	$(MAKE) -C medusa_software/work/libmedusa_testing
+	$(MAKE) -C medusa_software/work/text_editing
+	$(MAKE) -C medusa_software/work/unicorn_states
+	$(MAKE) -C docs
 	@ echo "Done, enjoy!"
 
 clean:
-	cd medusa_software/frontend/; make clean
-	cd medusa_software/libmedusa/; make clean
-	cd medusa_software/libxparse/; make clean
-#	cd medusa_software/work/lief_testing/; make clean
-	cd medusa_software/work/text_editing/; make clean
-	cd medusa_software/work/unicorn_states/; make clean
+	$(MAKE) -C medusa_software/frontend
+	$(MAKE) -C medusa_software/libmedusa
+	$(MAKE) -C medusa_software/libxparse
+	$(MAKE) -C medusa_software/work/text_editing
+	$(MAKE) -C medusa_software/work/unicorn_states
+	$(MAKE) -C docs clean
 
 install:
-	cd medusa_software/libmedusa; make install
+	$(MAKE) -C medusa_software/libmedusa install
