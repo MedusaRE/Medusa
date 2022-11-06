@@ -22,7 +22,7 @@ if [ $(id -u) != 0 ]; then
 fi
 
 apt-get update
-apt-get -y install git libgtkmm-3.0-dev libgtk-3-dev glade gimp texlive python3 python3-pillow nodejs doxygen clang cmake cloc libgtksourceviewmm-3.0-dev
+apt-get -y install git libgtkmm-3.0-dev libgtk-3-dev glade gimp texlive texlive-full python3 python3-pillow nodejs doxygen clang cmake cloc libgtksourceviewmm-3.0-dev
 npm install badgen
 
 git submodule init
