@@ -3,33 +3,14 @@ image: debian
 variables:
     GIT_SUBMODULE_STRATEGY: recursive
 
-#before_script:
-#    - tools/deps_debian.sh
-#    - git submodule init
-#    - git submodule update
-
 build:
     stage: build
     script:
         - mkdir bin
 
-        - cd medusa_software/libmedusa
-        - make bin
-        - make bin/libmedusa.so
-        - cd ../../
+        - make
+
         - cp -R medusa_software/libmedusa/bin/libmedusa.so bin/
-
-        - cd medusa_software/paris
-        - make
-        - cd ../../
-
-        - cd medusa_software/london
-        - make
-        - cd ../../
-
-        - cd medusa_software/frontend
-        - make
-        - cd ../../
     artifacts:
         untracked: false
         expire_in: "30 days"
