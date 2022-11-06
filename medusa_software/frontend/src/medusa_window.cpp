@@ -24,8 +24,7 @@
 
 using namespace std;
 
-medusa_window::medusa_window(int   argc,
-						   char* argv[]) {
+medusa_window::medusa_window() {
 	Gtk::Window::set_default_icon_from_file("../../res/img/icon.png");
 
 	medusa_log(LOG_INFO, "Landed in medusa_window.");

@@ -15,16 +15,17 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#ifndef MEDUSA_WINDOW_H
-#define MEDUSA_WINDOW_H
+#ifndef MEDUSA_APPLICATION_H
+#define MEDUSA_APPLICATION_H
 
 #include <gtkmm.h>
 
+class medusa_window;
+
 class medusa_application : public Gtk::Application {
 	public:
-		medusa_application(int   argc,
-						   char* argv[]);
-		static Glib::RefPtr<ExampleApplication> create();
+		medusa_application();
+		static Glib::RefPtr<medusa_application> create();
 	protected:
 		Gtk::Button step_button;
 		Gtk::ScrolledWindow sw;
@@ -35,6 +36,9 @@ class medusa_application : public Gtk::Application {
 		Gtk::Box our_box;
 	
 		void step_clicked();
+		void on_activate() override;
+	private:
+		medusa_window* create_appwindow();
 };
 
 #endif

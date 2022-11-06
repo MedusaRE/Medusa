@@ -22,8 +22,7 @@
 
 class medusa_window : public Gtk::Window {
 	public:
-		medusa_window(int   argc,
-					  char* argv[]);
+		medusa_window();
 		virtual ~medusa_window();
 	protected:
 		Gtk::Button step_button;

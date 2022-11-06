@@ -19,12 +19,12 @@
 #include "medusa_window.h"
 #include <gtkmm.h>
 
-medusa_application::medusa_application() : Gtk::Application("org.medusa-re.medusa.frontend", Gio::Application::Flags::HANDLES_OPEN) {
+medusa_application::medusa_application() {
 	//
 }
 
 Glib::RefPtr<medusa_application> medusa_application::create() {
-	return Glib::make_refptr_for_instance<medusa_application>(new medusa_application());
+	return Glib::RefPtr<medusa_application>(new medusa_application());
 }
 
 medusa_window* medusa_application::create_appwindow() {
@@ -33,4 +33,9 @@ medusa_window* medusa_application::create_appwindow() {
 	add_window(*appwindow);
 
 	return appwindow;
+}
+
+void medusa_application::on_activate() {
+	auto appwindow = create_appwindow();
+	appwindow->present();
 }

@@ -15,6 +15,7 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include "medusa_application.h"
 #include <paris/message.hpp>
 #include "medusa_window.h"
 #include <paris/paris.hpp>
@@ -40,6 +41,7 @@ int main(int   argc,
 	char**    fake_argv	= NULL;
 	fake_argv = (char**)calloc(sizeof(uintptr_t), 2);
 
+#if 0
 	paris::Server server;
 	paris::ExampleService es;
 
@@ -88,4 +90,9 @@ int main(int   argc,
 	 */
 	medusa_log(LOG_INFO, "Running medusa_window...");
 	return app->run(window);
+#endif
+
+	auto application = medusa_application::create();
+
+	return application->run(argc, argv);
 }
