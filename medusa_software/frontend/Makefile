@@ -1,5 +1,5 @@
 CPP=clang++
-CPPFLAGS=--std=c++17 `pkg-config gtkmm-3.0 --cflags` -lparis -I../paris/include/ -L../paris/bin/
+CPPFLAGS=--std=c++20 `pkg-config gtkmm-3.0 --cflags` -lparis -I../paris/include/ -L../paris/bin/
 
 all: bin bin/main
 
