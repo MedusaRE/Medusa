@@ -1,5 +1,5 @@
 CPP=clang++
-CPPFLAGS=--std=c++17 `pkg-config gtkmm-3.0 --cflags`
+CPPFLAGS=--std=c++17 `pkg-config gtkmm-3.0 --cflags` -L../../libmedusa/bin -I../../libmedusa/include
 
 all: bin bin/main
 
