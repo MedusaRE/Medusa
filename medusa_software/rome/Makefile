@@ -4,7 +4,7 @@ CPPFLAGS=--std=c++17 -lncurses -Iinclude
 all: bin bin/rome.so bin/main
 
 bin:
-	sh -c "mkdir bin"
+	mkdir -p bin
 
 clean:
 	rm -rf bin

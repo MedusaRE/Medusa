@@ -4,7 +4,7 @@ CPPFLAGS=--std=c++17 -g3 -DLIB_H_NO_BUILD_GUI -fPIC -Iinclude
 all: bin bin/libparis.so bin/main
 
 bin:
-	sh -c "mkdir bin"
+	mkdir -p bin
 
 clean:
 	rm -rf bin

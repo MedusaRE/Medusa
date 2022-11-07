@@ -4,7 +4,7 @@ CPPFLAGS=--std=c++17 -lpcre2-8
 all: bin bin/main
 
 bin:
-	sh -c "mkdir bin"
+	mkdir -p bin
 
 clean:
 	rm -rf bin

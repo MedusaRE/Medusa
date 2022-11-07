@@ -4,7 +4,7 @@ CPPFLAGS=--std=c++17 -Iinclude -lcapstone -lkeystone -lmedusa -lunicorn -lLIEF -
 all: res/bin bin bin/libvienna.so bin/main res/bin/x86_test_shellcode.bin res/bin/armv7_test_shellcode.bin res/bin/armv7_ls.bin
 
 bin:
-	sh -c "mkdir bin"
+	mkdir -p bin
 
 clean:
 	rm -rf bin res/bin

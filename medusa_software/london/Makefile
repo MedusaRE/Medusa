@@ -9,7 +9,7 @@ all: ~/.medusa/london.ini bin bin/main
 	cp $^ $@
 
 bin:
-	sh -c "mkdir bin"
+	mkdir -p bin
 
 clean:
 	rm -rf bin

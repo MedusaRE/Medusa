@@ -4,7 +4,7 @@ CPPFLAGS=--std=c++17 -Iinclude -DLIB_H_NO_BUILD_GUI
 all: bin bin/main
 
 bin:
-	sh -c "mkdir bin"
+	mkdir -p bin
 
 clean:
 	rm -rf bin
