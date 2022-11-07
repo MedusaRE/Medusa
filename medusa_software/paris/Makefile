@@ -9,8 +9,8 @@ bin:
 clean:
 	rm -rf bin
 
-bin/main: bin/main.o
-	${CPP} ${CPPFLAGS} -Lbin -lparis $^ -o $@
+bin/main: bin/main.o bin/libparis.so
+	${CPP} ${CPPFLAGS} -Lbin -lparis $< -o $@
 
 bin/%.o: src/%.cpp
 	mkdir -p $(@D)
