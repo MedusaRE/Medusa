@@ -1,5 +1,5 @@
 CPP=clang++
-CPPFLAGS=--std=c++17 -g3 -DLIB_H_NO_BUILD_GUI -fPIC -Iinclude
+CPPFLAGS=--std=c++17 -g3 -DLIB_H_NO_BUILD_GUI -fPIC -Iinclude -Lbin
 
 all: bin bin/libparis.so bin/main
 
