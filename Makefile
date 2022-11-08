@@ -1,3 +1,5 @@
+include res/make/vars/tools.mk
+
 all:
 	$(MAKE) -j`nproc` -C medusa_software/paris
 	$(MAKE) -j`nproc` -C medusa_software/libxparse
