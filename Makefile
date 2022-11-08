@@ -1,5 +1,6 @@
 include res/make/vars/tools.mk
 
+.PHONY: all
 all:
 	$(MAKE) -j`nproc` -C medusa_software/paris
 	$(MAKE) -j`nproc` -C medusa_software/libxparse
@@ -15,6 +16,7 @@ all:
 	$(MAKE) -j`nproc` -C medusa_software/work/unicorn_states
 	$(MAKE) -j`nproc` -C docs
 
+.PHONY: clean
 clean:
 	$(MAKE) -j`nproc` -C medusa_software/paris clean
 	$(MAKE) -j`nproc` -C medusa_software/libxparse clean
@@ -30,5 +32,6 @@ clean:
 	$(MAKE) -j`nproc` -C medusa_software/work/unicorn_states clean
 	$(MAKE) -j`nproc` -C docs
 
+.PHONY: install
 install:
 	$(MAKE) -j`nproc` -C medusa_software/libmedusa install
