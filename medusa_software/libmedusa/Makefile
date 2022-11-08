@@ -5,7 +5,7 @@ CPPFLAGS=--std=c++17 -fPIC -Iinclude -O0 -g
 all: bin bin/libmedusa.so bin/main doxygen_out
 
 bin:
-	sh -c "mkdir bin"
+	mkdir -p bin
 
 doxygen_out: src/*.cpp include/*/*.hpp
 	doxygen

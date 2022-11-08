@@ -4,7 +4,7 @@ CPPFLAGS=--std=c++17 `pkg-config gtkmm-3.0 --cflags` -L../../libmedusa/bin -I../
 all: bin bin/main
 
 bin:
-	sh -c "mkdir bin"
+	mkdir -p bin
 
 clean:
 	rm -rf bin

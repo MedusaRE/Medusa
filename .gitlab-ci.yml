@@ -6,8 +6,9 @@ variables:
 build:
     stage: build
     script:
-        - mkdir bin
+        - make clean
 
+        - mkdir bin
         - make
 
         - cp -R medusa_software/libmedusa/bin/libmedusa.so bin/

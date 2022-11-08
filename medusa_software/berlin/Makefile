@@ -4,7 +4,7 @@ CPPFLAGS=
 all: bin bin/main
 
 bin:
-	sh -c "mkdir bin"
+	mkdir -p bin
 
 clean:
 	rm -rf bin

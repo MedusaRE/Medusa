@@ -1,16 +1,16 @@
 CPP=clang++
-CPPFLAGS=--std=c++17 -g3 -DLIB_H_NO_BUILD_GUI -fPIC -Iinclude
+CPPFLAGS=--std=c++17 -g3 -DLIB_H_NO_BUILD_GUI -fPIC -Iinclude -Lbin
 
 all: bin bin/libparis.so bin/main
 
 bin:
-	sh -c "mkdir bin"
+	mkdir -p bin
 
 clean:
 	rm -rf bin
 
-bin/main: bin/main.o
-	${CPP} ${CPPFLAGS} -Lbin -lparis $^ -o $@
+bin/main: bin/main.o bin/libparis.so
+	${CPP} ${CPPFLAGS} -Lbin -lparis $< -o $@
 
 bin/%.o: src/%.cpp
 	mkdir -p $(@D)
