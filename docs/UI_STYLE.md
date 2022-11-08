@@ -3,7 +3,7 @@
 This document will lay out general practices for GUI applications written by the
 [Medusa Project](https://medusa-re.org).
 
-### Fonts
+## Fonts
 For `monospace` fonts, use [`Inconsolata`](https://github.com/google/fonts/tree/main/ofl/inconsolata).
 I (spv) personally prefer [`Consolas`](https://learn.microsoft.com/en-US/typography/font-list/consolas),
 but as a proprietary font I don't believe that it is appropriate to use/require
