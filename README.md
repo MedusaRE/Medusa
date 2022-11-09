@@ -89,6 +89,7 @@ based on the OS you are running, but in general, you will need to install:
 - [`clang`](https://clang.llvm.org/) / [`LLVM`](https://llvm.org/)
 - [`CMake`](https://www.cmake.org)
 - [`cloc`](https://github.com/AlDanial/cloc)
+- [`gtest`](https://github.com/google/googletest)
 
 If you are running Arch Linux, or an Arch-based distro, such as Manjaro, you can
 install all of the dependencies for Medusa by running `tools/deps_arch.sh` as
