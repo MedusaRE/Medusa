@@ -54,6 +54,19 @@ void service_thread(paris::Server& server, uint64_t service_id) {
 	sleep(5);
 }
 
+int n = 0;
+
+void medusa_window::on_clicked() {
+	paris::paris_message_t msg;
+
+	msg.service_id = this->service.get_service_id();
+	msg.msg_contents = (uint8_t*)strdup(string_format("Click event over Paris messages #%d.", n).c_str());
+	msg.len = strlen((const char *)msg.msg_contents);
+
+	this->server.send_message(msg);
+	n++;
+}
+
 medusa_window::medusa_window() {
 	Gtk::Window::set_default_icon_from_file("../../res/img/icon.png");
 
@@ -106,6 +119,8 @@ medusa_window::medusa_window() {
 	medusa_log(LOG_VERBOSE, "Attaching step button.");
 	our_grid.attach(step_button, 0, 0);
 
+	step_button.signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_clicked));
+
 	medusa_log(LOG_VERBOSE, "Initializing grid.");
 	our_grid.set_column_homogeneous(false);
 	our_grid.set_row_homogeneous(false);
@@ -147,9 +162,13 @@ medusa_window::medusa_window() {
 
 	server.add_service(this->service);
 
-	std::thread our_thread(service_thread, std::ref(server), this->service.get_service_id());
+#if 0
+	std::thread our_thread(service_thread,
+						   std::ref(server),
+						   this->service.get_service_id());
 
 	our_thread.detach();
+#endif
 }
 
 medusa_window::~medusa_window() {

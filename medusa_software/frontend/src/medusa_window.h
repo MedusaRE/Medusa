@@ -33,6 +33,8 @@ class medusa_window : public Gtk::Window {
 		virtual ~medusa_window();
 		TextTestService service;
 		paris::Server server;
+
+		void on_clicked();
 	protected:
 		Gtk::Button step_button;
 		Gtk::ScrolledWindow sw;
