@@ -28,6 +28,8 @@ int main(int   argc,
 	medusa_set_log_level(LOG_VERBOSE);
 	medusa_log(LOG_INFO, "Medusa loaded.");
 
+	gdk_threads_init();
+
 	auto application = medusa_application::create();
 	medusa_log(LOG_INFO, "Created medusa_application object.");
 

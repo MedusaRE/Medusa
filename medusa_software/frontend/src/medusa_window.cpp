@@ -22,13 +22,17 @@
 #include "logging.h"
 #include <cstring>
 #include <gtkmm.h>
+#include <chrono>
 #include <thread>
 #include "lib.h"
 
 using namespace std;
 
 bool TextTestService::process_message(paris::paris_message_t message, paris::Server* server) {
+	gdk_threads_enter();
 	this->our_text_buffer->set_text((const char*)message.msg_contents);
+	gdk_threads_leave();
+
 	printf("%s\n", (const char*)message.msg_contents);
 
 	return true;
@@ -58,6 +62,7 @@ int n = 0;
 
 void medusa_window::on_clicked() {
 	paris::paris_message_t msg;
+	auto start = std::chrono::high_resolution_clock::now();
 
 	msg.service_id = this->service.get_service_id();
 	msg.msg_contents = (uint8_t*)strdup(string_format("Click event over Paris messages #%d.", n).c_str());
@@ -65,6 +70,10 @@ void medusa_window::on_clicked() {
 
 	this->server.send_message(msg);
 	n++;
+
+	auto end = std::chrono::high_resolution_clock::now();
+
+	printf("%f\n", (duration_cast<std::chrono::nanoseconds>(end-start).count()) / 1000000000.0);
 }
 
 medusa_window::medusa_window() {
