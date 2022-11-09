@@ -28,6 +28,11 @@ int main(int   argc,
 	medusa_set_log_level(LOG_VERBOSE);
 	medusa_log(LOG_INFO, "Medusa loaded.");
 
+	/*
+	 *	TODO: use something that isn't deprecated!
+	 *
+	 *	gdk_threads_init(void); is deprecated.
+	 */
 	gdk_threads_init();
 
 	auto application = medusa_application::create();

@@ -29,6 +29,11 @@
 using namespace std;
 
 bool TextTestService::process_message(paris::paris_message_t message, paris::Server* server) {
+	/*
+	 *	TODO: use something that isn't deprecated!
+	 *
+	 *	gdk_threads_enter(void); & gdk_threads_leave(void); are deprecated.
+	 */
 	gdk_threads_enter();
 	this->our_text_buffer->set_text((const char*)message.msg_contents);
 	gdk_threads_leave();
