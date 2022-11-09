@@ -10,10 +10,7 @@ but as a proprietary font I don't believe that it is appropriate to use/require
 it. Inconsolata is reasonably similar to Consolas, and is licensed under the SIL
 Open Font License (OFL), so it is a free font.
 
-[//]: # (TODO: Think about whether Noto Sans is the best font to use. I'll have)
-[//]: # (      to check what font is used by default on my machine.)
-
-For sans-serif variable width fonts, use [`Noto Sans`](https://fonts.google.com/noto/specimen/Noto+Sans).
+For sans-serif variable width fonts, use [`Noto Sans Display`](https://github.com/notofonts/NotoSansDisplay).
 
 ## File License
 This file is licensed under the terms of the CC BY-SA 4.0 license.
