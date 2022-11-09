@@ -186,6 +186,15 @@ question.
 ### How do you pronounce Medusa?
 ![/məˈdusə/](/res/audio/medusa.ogg)
 
+### How should I report an issue/bug I find?
+File an issue on [the GitLab repository](https://git.medusa-re.org/Medusa).
+
+### How can I contact the team?
+The "team" just consists of me (spv) for now, so you can email me @
+[spv@spv.sh](mailto:spv@spv.sh).
+
+See [CONTACT.md](/CONTACT.md) for more details.
+
 ## Community
 If you would like to join the Matrix room for Medusa, join
 [#general:medusa-re.org](https://matrix.to/#/#general:medusa-re.org).
