@@ -31,10 +31,10 @@ clean:
 	$(MAKE) -j`nproc` -C medusa_software/work/libmedusa_testing clean
 	$(MAKE) -j`nproc` -C medusa_software/work/text_editing clean
 	$(MAKE) -j`nproc` -C medusa_software/work/unicorn_states clean
-	$(MAKE) -j`nproc` -C docs
-	$(MAKE) -j`nproc` -C www
+	$(MAKE) -j`nproc` -C docs clean
+	$(MAKE) -j`nproc` -C www clean
 
 .PHONY: install
 install:
 	$(MAKE) -j`nproc` -C medusa_software/libmedusa install
-	$(MAKE) -j`nproc` -C www
+	$(MAKE) -j`nproc` -C www install
