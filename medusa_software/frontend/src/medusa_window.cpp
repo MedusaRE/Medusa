@@ -124,16 +124,16 @@ medusa_window::medusa_window() {
 	sw.show_all_children();
 
 	medusa_log(LOG_VERBOSE, "Initializing step button.");
-	step_button.set_label("step instruction");
+	paris_test_button.set_label("Paris Test Button #1");
 
 	medusa_log(LOG_VERBOSE, "Initializing Register View.");
 	reg_view.set_editable(false);
 	reg_view.set_monospace(true);
 
-	medusa_log(LOG_VERBOSE, "Attaching step button.");
-	our_grid.attach(step_button, 0, 0);
+	medusa_log(LOG_VERBOSE, "Attaching paris test button.");
+	our_grid.attach(paris_test_button, 0, 0);
 
-	step_button.signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_clicked));
+	paris_test_button.signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_clicked));
 
 	medusa_log(LOG_VERBOSE, "Initializing grid.");
 	our_grid.set_column_homogeneous(false);

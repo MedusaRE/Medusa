@@ -27,7 +27,7 @@ class medusa_application : public Gtk::Application {
 		medusa_application();
 		static Glib::RefPtr<medusa_application> create();
 	protected:
-		Gtk::Button step_button;
+		Gtk::Button paris_test_button;
 		Gtk::ScrolledWindow sw;
 		Gtk::TextView reg_view;
 		Gtk::Box button_box;

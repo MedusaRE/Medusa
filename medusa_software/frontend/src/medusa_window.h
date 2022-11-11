@@ -36,7 +36,7 @@ class medusa_window : public Gtk::Window {
 
 		void on_clicked();
 	protected:
-		Gtk::Button step_button;
+		Gtk::Button paris_test_button;
 		Gtk::ScrolledWindow sw;
 		Gtk::TextView reg_view;
 		Gtk::Box button_box;
