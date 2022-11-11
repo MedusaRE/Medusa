@@ -4,13 +4,13 @@
 THIS FILE IS A WORK IN PROGRESS
 ================================================================================
   --->
-In general, (`git`) branches should be named as follows:
+In general, `git` branches should be named as follows:
 
 ```
 master                 ~ master
   child                ~ child.master
   other-child          ~ other-child.child.master
-    grandchild         ~ grandchild.other-child.child.master
+    grandchild         ~ grandchild.other-achild.child.master
       great-grandchild ~ great-grandchild.other-child.child.master
   etc.
 ```
