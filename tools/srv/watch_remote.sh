@@ -33,7 +33,7 @@ while true; do
 	if check_if_behind; then
 		echo "Copying."
 		git pull
-		make -C $MEDUSA_PATH/www
+		make
 		cp -R $MEDUSA_PATH/www/* /var/www
 	else
 		echo "Up to date."
