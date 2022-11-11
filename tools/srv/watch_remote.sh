@@ -26,15 +26,21 @@ function check_if_behind() {
 	return 1
 }
 
+function pull_and_copy() {
+	git pull
+	make
+	cp -R $MEDUSA_PATH/www/* /var/www
+}
+
 MEDUSA_PATH=$(dirname $0)/../..
 cd $MEDUSA_PATH
+
+pull_and_copy
 
 while true; do
 	if check_if_behind; then
 		echo "Copying."
-		git pull
-		make
-		cp -R $MEDUSA_PATH/www/* /var/www
+		pull_and_copy
 	else
 		echo "Up to date."
 	fi
