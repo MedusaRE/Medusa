@@ -126,9 +126,11 @@ medusa_window::medusa_window() {
 	medusa_log(LOG_VERBOSE, "Initializing step button.");
 	paris_test_button.set_label("Paris Test Button #1");
 
+#if 0
 	medusa_log(LOG_VERBOSE, "Initializing Register View.");
 	reg_view.set_editable(false);
 	reg_view.set_monospace(true);
+#endif
 
 	medusa_log(LOG_VERBOSE, "Attaching paris test button.");
 	our_grid.attach(paris_test_button, 0, 0);
@@ -141,24 +143,31 @@ medusa_window::medusa_window() {
 	our_grid.set_margin_right(0);
 	our_grid.set_margin_start(0);
 
+#if 0
 	medusa_log(LOG_VERBOSE, "Packing button grid into button box.");
 	button_box.pack_start(our_grid);
 
+//#if 0
 	medusa_log(LOG_VERBOSE, "Packing ScrolledWindow & Register View into emulation box.");
 	emu_box.pack_start(sw);
 	emu_box.pack_start(reg_view);
+//#endif
 
 	medusa_log(LOG_VERBOSE, "Initializing button box.");
 	button_box.set_spacing(10);
 	button_box.set_center_widget(our_grid);
 
+//#if 0
 	medusa_log(LOG_VERBOSE, "Initializing emulation box.");
 	emu_box.set_spacing(10);
 	emu_box.set_homogeneous(true);
+#endif
 
 	medusa_log(LOG_VERBOSE, "Packing button box and emulation box into main box.");
-	our_box.pack_start(button_box);
-	our_box.pack_start(emu_box);
+	our_box.pack_start(our_grid, false, false);
+	our_box.pack_start(sw, true, true);
+
+	our_box.set_center_widget(sw);
 
 	medusa_log(LOG_VERBOSE, "Initializing main box.");
 	our_box.set_homogeneous(false);
