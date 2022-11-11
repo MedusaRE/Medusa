@@ -15,6 +15,7 @@ all:
 	$(MAKE) -j`nproc` -C medusa_software/work/text_editing
 	$(MAKE) -j`nproc` -C medusa_software/work/unicorn_states
 	$(MAKE) -j`nproc` -C docs
+	$(MAKE) -j`nproc` -C www
 
 .PHONY: clean
 clean:
@@ -31,7 +32,9 @@ clean:
 	$(MAKE) -j`nproc` -C medusa_software/work/text_editing clean
 	$(MAKE) -j`nproc` -C medusa_software/work/unicorn_states clean
 	$(MAKE) -j`nproc` -C docs
+	$(MAKE) -j`nproc` -C www
 
 .PHONY: install
 install:
 	$(MAKE) -j`nproc` -C medusa_software/libmedusa install
+	$(MAKE) -j`nproc` -C www
