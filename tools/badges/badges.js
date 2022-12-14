@@ -28,6 +28,25 @@ function get_output(cmd) {
 	return data_ret;
 }
 
+function get_return(cmd) {
+	const exec_obj = spawnSync("/bin/bash", ["-c", cmd]);
+
+	return exec_obj.status;
+}
+
+function get_build_status() {
+//	return get_return("make gitlab-runner_build");
+	return get_return("make");
+}
+
+function build_color(status) {
+	return (status == 0) ? "green" : "red";
+}
+
+function build_label(status) {
+	return (status == 0) ? "passing" : "failing";
+}
+
 const code_exts = [
 	".py",
 	".c",
@@ -60,4 +79,27 @@ fs.writeFile("res/badges/license.svg", badgen({
 	status: "GPLv2",
 	color: 'yellow',
 	style: 'classic'
+}), err => {});
+
+var build_status = get_build_status();
+
+fs.writeFile("res/badges/build.svg", badgen({
+	label:  'build',
+	status: build_label(build_status),
+	color:  build_color(build_status),
+	style:  'classic'
+}), err => {});
+
+fs.writeFile("res/badges/commit.svg", badgen({
+	label:  'last commit',
+	status: get_output("git rev-parse --short HEAD"),
+	color:  "blue",
+	style:  'classic'
+}), err => {});
+
+fs.writeFile("res/badges/branches.svg", badgen({
+	label:  'no. of branches',
+	status: get_output("git branch -l | wc -l"),
+	color:  "purple",
+	style:  'classic'
 }), err => {});
