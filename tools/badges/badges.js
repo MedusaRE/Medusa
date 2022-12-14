@@ -92,7 +92,7 @@ fs.writeFile("res/badges/build.svg", badgen({
 
 fs.writeFile("res/badges/commit.svg", badgen({
 	label:  'last commit',
-	status: get_output("git rev-parse --short HEAD"),
+	status: get_output("git rev-parse --short HEAD\^"),
 	color:  "blue",
 	style:  'classic'
 }), err => {});
