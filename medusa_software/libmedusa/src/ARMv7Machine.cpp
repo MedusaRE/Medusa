@@ -458,6 +458,14 @@ std::vector<insn_t> ARMv7Machine::disassemble(std::vector<uint8_t>& data, flag_t
 						  0,
 						  &insns);
 	}
+	
+	if (!insns) {
+		goto out;
+	}
+
+	if (!count) {
+		goto out;
+	}
 
 	for (int i = 0; i < count; i++) {
 		insn.id = insns[i].id;
@@ -472,8 +480,9 @@ std::vector<insn_t> ARMv7Machine::disassemble(std::vector<uint8_t>& data, flag_t
 		ret.push_back(insn);
 	}
 
-	cs_free(insns, count);
-	free(buf);
+out:
+	if (insns) cs_free(insns, count);
+	if (buf) free(buf);
 
 	return ret;
 }
@@ -501,11 +510,24 @@ std::vector<uint8_t> ARMv7Machine::assemble(std::string src, uint64_t addr, flag
 			   &count);
 	}
 
+	if (!data) {
+		goto out;
+	}
+
+	if (!size) {
+		goto out;
+	}
+
+	if (!count) {
+		goto out;
+	}
+
 	for (int i = 0; i < size; i++) {
 		ret.push_back(data[i]);
 	}
 
 	ks_free(data);
 
+out:
 	return ret;
 }
