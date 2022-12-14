@@ -21,7 +21,7 @@ if [ $(id -u) != 0 ]; then
     exit -1
 fi
 
-pacman -S git gtkmm3 gtk3 glade gimp texlive-most python3 python-pillow node npm doxygen cmake cloc gtksourceviewmm gtest
+pacman -S git gtkmm3 gtk3 glade gimp texlive-most python3 python-pillow nodejs npm doxygen cmake cloc gtksourceviewmm gtest
 npm install badgen
 
 git submodule init
