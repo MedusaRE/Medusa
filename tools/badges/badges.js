@@ -99,7 +99,7 @@ fs.writeFile("res/badges/commit.svg", badgen({
 
 fs.writeFile("res/badges/branches.svg", badgen({
 	label:  'no. of branches',
-	status: get_output("git branch -l | wc -l"),
+	status: get_output("git ls-remote --heads -q | wc -l"),
 	color:  "purple",
 	style:  'classic'
 }), err => {});
