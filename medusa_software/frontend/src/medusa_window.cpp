@@ -83,6 +83,7 @@ void medusa_window::on_clicked() {
 
 medusa_window::medusa_window() {
 	Gtk::Window::set_default_icon_from_file("../../res/img/icon.png");
+	Gtk::Window::set_title("Medusa");
 
 	medusa_log(LOG_INFO, "Landed in medusa_window.");
 
