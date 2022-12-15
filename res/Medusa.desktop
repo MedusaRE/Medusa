@@ -3,6 +3,5 @@ Type=Application
 Version=1.0
 Name=Medusa
 Comment=a project to create the ultimate software & hardware research tool
-Path=/
-Exec=xeyes
+Exec=medusa_frontend
 Icon=medusa
