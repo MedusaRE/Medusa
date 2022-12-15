@@ -38,6 +38,7 @@ clean:
 install:
 	$(MAKE) -j`nproc` -C medusa_software/libmedusa install
 	$(MAKE) -j`nproc` -C www install
+	$(MAKE) -j`nproc` -C medusa_software/frontend install
 
 .PHONY: gitlab-runner_build
 gitlab-runner_build:
