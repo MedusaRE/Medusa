@@ -23,7 +23,7 @@ tools a Medusa developer may) written in [Python](https://python.org),
 and shell scripts.
 
 For example:
-- Cutter: not very featureful, essentially a radare2 GUI, doesn't have
+- Cutter / iaito: not very featureful, essentially a radare2 GUI, doesn't have
   debugger and/or emulation support to my knowledge, and more.
 - Ghidra: personal favorite currently, still doesn't have emulation support
   or code editing, and is written in Java (besides the decompiler), which is
