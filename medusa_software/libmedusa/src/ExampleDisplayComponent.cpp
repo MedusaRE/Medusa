@@ -45,6 +45,11 @@ ExampleDisplayComponent::ExampleDisplayComponent() {
 }
 
 bitmap_t ExampleDisplayComponent::get_component_display_output() {
+	/*
+	 *	this example component illustrates that a component doesn't need to have
+	 *	a framebuffer that's passively read from, it can just generate the
+	 *	framebuffer when necessary (if that is desired).
+	 */
 	for (int x = 0; x < this->bitmap.width; x++) {
 		for (int y = 0; y < this->bitmap.height; y++) {
 			this->bitmap.pixels[(y * this->bitmap.width) + x].red = ((x) % 256);
