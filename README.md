@@ -59,7 +59,8 @@ Planned features include:
 - and more!
 
 If you would like to view a version of this document in another form, type
-`curl medusa-re.org` into your terminal, and press Enter/Return.
+`curl medusa-re.org` into your terminal, and press <kbd>Enter</kbd> /
+<kbd>Return</kbd>.
 
 ## Learning
 If you've just learned of the Medusa Project and would like to begin working on
