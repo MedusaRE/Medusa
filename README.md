@@ -16,9 +16,8 @@ other similar tasks.
 All current software research tools have their own problems: Medusa is meant to
 solve these issues.
 
-Medusa is mainly written in C/[C++](https://www.isocpp.org), with some
-development tools (i.e. not the software an end user will interact with, but
-tools a Medusa developer may) written in [Python](https://python.org),
+Medusa is mainly written in C/[C++](https://www.isocpp.org), with some tools for
+developing Medusa written in [Python](https://python.org),
 [JavaScript](http://www.ecma-international.org/publications-and-standards/standards/ecma-262/),
 and shell scripts.
 
