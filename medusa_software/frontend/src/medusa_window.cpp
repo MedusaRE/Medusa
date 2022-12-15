@@ -40,6 +40,8 @@ bool TextTestService::process_message(paris::paris_message_t message, paris::Ser
 
 	printf("%s\n", (const char*)message.msg_contents);
 
+	free(message.msg_contents);
+
 	return true;
 }
 
@@ -74,6 +76,7 @@ void medusa_window::on_clicked() {
 	msg.len = strlen((const char *)msg.msg_contents);
 
 	this->server.send_message(msg);
+	
 	n++;
 
 	auto end = std::chrono::high_resolution_clock::now();
