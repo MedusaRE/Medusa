@@ -78,7 +78,7 @@ void medusa_window::on_clicked() {
 
 	auto end = std::chrono::high_resolution_clock::now();
 
-	printf("%f\n", (duration_cast<std::chrono::nanoseconds>(end-start).count()) / 1000000000.0);
+	printf("%.9f\n", (duration_cast<std::chrono::nanoseconds>(end-start).count()) / 1000000000.0);
 }
 
 medusa_window::medusa_window() {
