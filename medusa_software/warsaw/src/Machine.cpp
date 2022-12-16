@@ -15,31 +15,19 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <warsaw/ARMv7Machine.hpp>
 #include <warsaw/Machine.hpp>
 #include <paris/message.hpp>
 #include <paris/paris.hpp>
-#include <unistd.h>
-#include <cstdio>
 
-int main(int argc, char* argv[]) {
-	paris::Server server;
+bool warsaw::Machine::process_message(paris::paris_message_t message,
+										   paris::Server* server) {
+	printf("Machine! (placeholder) %lx: %lu\n", message.service_id, message.uid);
 
-	warsaw::ARMv7Machine armv7_machine_service;
+	return true;
+}
 
-	server.start_server();
+bool warsaw::Machine::builtin_init(paris::Server* server) {
+	printf("Machine!\n");
 
-	server.add_service(armv7_machine_service);
-
-	paris::paris_message_t msg;
-
-	msg.service_id = armv7_machine_service.get_service_id();
-	msg.uid = 420;
-
-	server.send_message(msg);
-
-	sleep(1);
-	server.stop_server();
-
-	return 0;
+	return true;
 }
