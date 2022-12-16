@@ -15,6 +15,12 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/*
+ *	TODO!
+ *	  This file is a massive fucking hack, I need to clean it up and generally
+ *	  work on decompiler performance and quality *heavily*.
+ */
+
 #include "../../submodules/pugixml/src/pugixml.hpp"
 #include <libmedusa/ARMv7Machine.hpp>
 #include <vienna/ARMv7Decompiler.hpp>
@@ -241,6 +247,8 @@ std::string vienna::decompile_armv7(std::vector<uint8_t>& machine_code) {
 	for (std::string& s : split_str) {
 		ret += s + "\n";
 	}
+
+	// TODO: more decomp passes, loop detection
 
 	libmedusa::destroy_insn_t_vector(insns);
 
