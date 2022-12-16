@@ -11,6 +11,7 @@ all:
 	$(MAKE) -j`nproc` -C medusa_software/frontend
 	$(MAKE) -j`nproc` -C medusa_software/london
 	$(MAKE) -j`nproc` -C medusa_software/rome
+	$(MAKE) -j`nproc` -C medusa_software/warsaw
 	$(MAKE) -j`nproc` -C medusa_software/work/libmedusa_testing
 	$(MAKE) -j`nproc` -C medusa_software/work/text_editing
 	$(MAKE) -j`nproc` -C medusa_software/work/unicorn_states
@@ -28,6 +29,7 @@ clean:
 	$(MAKE) -j`nproc` -C medusa_software/frontend clean
 	$(MAKE) -j`nproc` -C medusa_software/london clean
 	$(MAKE) -j`nproc` -C medusa_software/rome clean
+	$(MAKE) -j`nproc` -C medusa_software/warsaw clean
 	$(MAKE) -j`nproc` -C medusa_software/work/libmedusa_testing clean
 	$(MAKE) -j`nproc` -C medusa_software/work/text_editing clean
 	$(MAKE) -j`nproc` -C medusa_software/work/unicorn_states clean
