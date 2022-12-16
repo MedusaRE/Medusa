@@ -142,6 +142,12 @@
 
 		<shortcut>
 			<name>hex const</name>
+			<regex>__HEX</regex>
+			<replace>([0-9a-fA-F]+)</replace>
+		</shortcut>
+
+		<shortcut>
+			<name>hex const</name>
 			<regex>__HEX_CONST</regex>
 			<replace>#(0x[0-9a-fA-F]+)</replace>
 		</shortcut>
@@ -398,6 +404,13 @@
 			<name>mvn</name>
 			<asm>mvn __REGISTER, __CONST</asm>
 			<pc>$1 = ~($2);</pc>
+		</pattern>
+
+		<pattern>
+			<name>compound compare if ne</name>
+			<asm>__compare_flags = compare\(__REGISTER, __REGISTER\);
+__HEX if \(__compare_flags\(ne\)\)</asm>
+			<pc>if ($1 != $2)</pc>
 		</pattern>
 	</pattern_list>
 </cpu_definition>
