@@ -1,4 +1,4 @@
-# codenames, ~ means used
++# codenames, ~ means used
 ~ berlin
 madrid
 ~ rome
@@ -6,7 +6,7 @@ bucharest
 ~ paris
 ~ vienna
 hamburg
-warsaw
+~ warsaw
 budapest
 ~ barcelona
 ~ munich
