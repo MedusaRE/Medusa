@@ -28,6 +28,8 @@
 #include <paris/paris.hpp>
 
 namespace warsaw {
+	// TODO: write the rest of the (machine_op_t::*)_args struct typedef's
+
 	typedef enum {
 		GET_REGS,
 		SET_REG,

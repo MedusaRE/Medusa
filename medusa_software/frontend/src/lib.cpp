@@ -93,6 +93,7 @@ string string_format_cstr(const char* fmt_str, ...) {
 	return string(formatted.get());
 }
 
+// TODO: this #include guard bullshit is pretty ugly, find a better solution
 #ifndef LIB_H_NO_BUILD_GUI
 
 std::string file_prompt(enum Gtk::FileChooserAction action, std::string title) {

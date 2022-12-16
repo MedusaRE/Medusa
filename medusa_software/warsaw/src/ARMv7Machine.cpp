@@ -22,6 +22,7 @@
 #include <vector>
 #include <cstring>
 
+// TODO: implement the rest of (machine_op_t::*) msg op's
 bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 										   paris::Server* server) {
 	printf("ARMv7Machine! %lx: %lu\n", message.service_id, message.uid);

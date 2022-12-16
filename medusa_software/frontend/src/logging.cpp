@@ -49,6 +49,8 @@ log_status_t medusa_log(log_level_t log_level,
 
 		gettimeofday(&tv, NULL);
 
+		// TODO: cleanup this function, it's pretty ugly
+
 		/*
 		 *  get the time, convert to a string
 		 */

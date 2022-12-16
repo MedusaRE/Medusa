@@ -21,6 +21,12 @@
  *  for the libmedusa namespace.
  */
 
+/*
+ *	TODO:
+ *		  * implement more component APIs and example components to go along
+ *			with them.
+ */
+
 #ifndef LIBMEDUSA_HPP
 #define LIBMEDUSA_HPP
 

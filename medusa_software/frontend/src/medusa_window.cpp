@@ -15,6 +15,15 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+/*
+ *	TODO:
+ *		  * once [warsaw](/medusa_software/warsaw) has been worked on more,
+ *			integrate warsaw services into frontend.
+ *		  * work on integrating IDE features from
+ *			[london](/medusa_software/london) into
+ *			[frontend](/medusa_software/frontend)
+ */
+
 #include <capstone/capstone.h>
 #include <unicorn/unicorn.h>
 #include "medusa_window.h"
