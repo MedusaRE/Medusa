@@ -38,10 +38,13 @@ bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 	} else if (msg.op == GET_REGS) {
 		std::vector<libmedusa::reg_t> regs = this->armv7_machine.get_registers();
 		paris::paris_message_t reply_message;
+
 		reply_message.service_id = message.service_by;
 		reply_message.len = regs.size() * sizeof(libmedusa::reg_t);
 		reply_message.msg_contents = (uint8_t*)calloc(regs.size(), sizeof(libmedusa::reg_t));
+
 		memcpy((void*)reply_message.msg_contents, regs.data(), reply_message.len);
+
 		server->send_message(reply_message);
 	}
 
