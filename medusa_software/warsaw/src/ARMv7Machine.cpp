@@ -35,9 +35,7 @@ bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 	if (msg.op == SET_REG) {
 		SET_REG_args set_reg_args = *(SET_REG_args*)msg.data;
 		this->armv7_machine.set_register(set_reg_args.reg);
-	}
-
-	if (msg.op == GET_REGS) {
+	} else if (msg.op == GET_REGS) {
 		std::vector<libmedusa::reg_t> regs = this->armv7_machine.get_registers();
 		paris::paris_message_t reply_message;
 		reply_message.service_id = message.service_by;

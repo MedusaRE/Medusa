@@ -1,23 +1,23 @@
-<svg width="130.9" height="20" viewBox="0 0 1309 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="last commit: 67d7d9f
+<svg width="132.4" height="20" viewBox="0 0 1324 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="last commit: 7bec522
 ">
-  <title>last commit: 67d7d9f
+  <title>last commit: 7bec522
 </title>
   <linearGradient id="a" x2="0" y2="100%">
     <stop offset="0" stop-opacity=".1" stop-color="#EEE"/>
     <stop offset="1" stop-opacity=".1"/>
   </linearGradient>
-  <mask id="m"><rect width="1309" height="200" rx="30" fill="#FFF"/></mask>
+  <mask id="m"><rect width="1324" height="200" rx="30" fill="#FFF"/></mask>
   <g mask="url(#m)">
     <rect width="752" height="200" fill="#555"/>
-    <rect width="557" height="200" fill="#08C" x="752"/>
-    <rect width="1309" height="200" fill="url(#a)"/>
+    <rect width="572" height="200" fill="#08C" x="752"/>
+    <rect width="1324" height="200" fill="url(#a)"/>
   </g>
   <g aria-hidden="true" fill="#fff" text-anchor="start" font-family="Verdana,DejaVu Sans,sans-serif" font-size="110">
     <text x="60" y="148" textLength="652" fill="#000" opacity="0.25">last commit</text>
     <text x="50" y="138" textLength="652">last commit</text>
-    <text x="807" y="148" textLength="457" fill="#000" opacity="0.25">67d7d9f
+    <text x="807" y="148" textLength="472" fill="#000" opacity="0.25">7bec522
 </text>
-    <text x="797" y="138" textLength="457">67d7d9f
+    <text x="797" y="138" textLength="472">7bec522
 </text>
   </g>
   
