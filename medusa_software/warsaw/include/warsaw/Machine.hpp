@@ -29,6 +29,7 @@
 
 namespace warsaw {
 	// TODO: write the rest of the (machine_op_t::*)_args struct typedef's
+	// TODO: doxygen doc the structs
 
 	typedef enum {
 		GET_REGS,
@@ -54,6 +55,21 @@ namespace warsaw {
 	typedef struct {
 		libmedusa::reg_t reg;
 	} SET_REG_args;
+
+	typedef struct {
+		uint64_t addr;
+		uint64_t size;
+	} READ_MEM_args;
+
+	typedef struct {
+		uint64_t addr;
+		uint64_t size;
+		uint8_t	 data[0];
+	} WRITE_MEM_args;
+
+	typedef struct {
+		libmedusa::mem_reg_t mem_reg;
+	} MAP_MEM_args;
 
 	typedef struct {
 		uint64_t len;

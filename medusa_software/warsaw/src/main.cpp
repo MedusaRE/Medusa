@@ -48,7 +48,8 @@ int main(int argc, char* argv[]) {
 	paris::Server server;
 
 	warsaw::ARMv7Machine armv7_machine_service;
-	WarsawTestService service;
+//	WarsawTestService service;
+	paris::DumpMsgContentsToSTDOUTService service;
 
 	server.start_server();
 
@@ -78,6 +79,42 @@ int main(int argc, char* argv[]) {
 	machine_msg_obj.len = 0;
 	machine_msg_obj.data = NULL;
 	machine_msg_obj.op = GET_REGS;
+	server.send_message(msg);
+
+	usleep(10000);
+
+	MAP_MEM_args map_mem_args;
+	map_mem_args.mem_reg.addr = 0;
+	map_mem_args.mem_reg.size = 0x1000;
+	map_mem_args.mem_reg.prot = XP_PROT_READ | XP_PROT_WRITE | XP_PROT_EXEC;
+
+	msg.service_by = service.get_service_id();
+	machine_msg_obj.len = 0;
+	machine_msg_obj.data = (void*)&map_mem_args;
+	machine_msg_obj.op = MAP_MEM;
+	server.send_message(msg);
+
+	usleep(10000);
+
+	READ_MEM_args mem_args;
+	mem_args.addr = 0;
+	mem_args.size = 8;
+
+	msg.service_by = service.get_service_id();
+	machine_msg_obj.len = 0;
+	machine_msg_obj.data = (void*)&mem_args;
+	machine_msg_obj.op = READ_MEM;
+	server.send_message(msg);
+
+	usleep(10000);
+
+	mem_args.addr = 0;
+	mem_args.size = 128;
+
+	msg.service_by = service.get_service_id();
+	machine_msg_obj.len = 0;
+	machine_msg_obj.data = (void*)&mem_args;
+	machine_msg_obj.op = READ_MEM;
 	server.send_message(msg);
 
 	sleep(1);

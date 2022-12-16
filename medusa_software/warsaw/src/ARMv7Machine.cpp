@@ -40,6 +40,8 @@ bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 		std::vector<libmedusa::reg_t> regs = this->armv7_machine.get_registers();
 		paris::paris_message_t reply_message;
 
+		// TODO: re-factor paris to allow free-ing parts like msg_contents
+
 		reply_message.service_id = message.service_by;
 		reply_message.len = regs.size() * sizeof(libmedusa::reg_t);
 		reply_message.msg_contents = (uint8_t*)calloc(regs.size(), sizeof(libmedusa::reg_t));
@@ -51,6 +53,27 @@ bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 		memcpy((void*)reply_message.msg_contents, regs.data(), reply_message.len);
 
 		server->send_message(reply_message);
+	} else if (msg.op == READ_MEM) {
+		READ_MEM_args args = *(READ_MEM_args*)msg.data;
+		paris::paris_message_t reply_message;
+
+		std::vector<uint8_t> vec = this->armv7_machine.read_memory(args.addr, args.size);
+
+		reply_message.service_id = message.service_by;
+		reply_message.len = vec.size();
+		reply_message.msg_contents = (uint8_t*)calloc(vec.size(), 1);
+
+		memcpy((void*)reply_message.msg_contents, vec.data(), reply_message.len);
+
+		server->send_message(reply_message);
+	} else if (msg.op == WRITE_MEM) {
+		WRITE_MEM_args args = *(WRITE_MEM_args*)msg.data;
+
+		std::vector<uint8_t> vec(args.data, args.data + args.size);
+		this->armv7_machine.write_memory(args.addr, vec);
+	} else if (msg.op == MAP_MEM) {
+		MAP_MEM_args args = *(MAP_MEM_args*)msg.data;
+		this->armv7_machine.map_memory(args.mem_reg);
 	}
 
 	return true;
