@@ -37,6 +37,8 @@
 #define step_instruction exec_code_step
 
 namespace libmedusa {
+	// TODO: replace std::string's with char arrays for network-usage
+
 	/**
 	 *  @brief A structure representing a CPU register.
 	 */
