@@ -37,7 +37,6 @@
 #define step_instruction exec_code_step
 
 namespace libmedusa {
-
 	/**
 	 *  @brief A structure representing a CPU register.
 	 */
