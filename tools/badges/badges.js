@@ -31,6 +31,10 @@ function get_output(cmd) {
 function get_return(cmd) {
 	const exec_obj = spawnSync("/bin/bash", ["-c", cmd]);
 
+	console.log(exec_obj.stdout.toString());
+	console.log(exec_obj.stderr.toString());
+	console.log(exec_obj.status);
+
 	return exec_obj.status;
 }
 
