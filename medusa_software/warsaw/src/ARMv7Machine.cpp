@@ -44,6 +44,10 @@ bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 		reply_message.len = regs.size() * sizeof(libmedusa::reg_t);
 		reply_message.msg_contents = (uint8_t*)calloc(regs.size(), sizeof(libmedusa::reg_t));
 
+		if (!reply_message.msg_contents) {
+			return false;
+		}
+
 		memcpy((void*)reply_message.msg_contents, regs.data(), reply_message.len);
 
 		server->send_message(reply_message);
