@@ -24,11 +24,31 @@
 
 using namespace warsaw;
 
+class WarsawTestService : public paris::ServiceListener {
+	public:
+		virtual bool process_message(paris::paris_message_t msg, paris::Server* server) {
+			libmedusa::reg_t* regs = (libmedusa::reg_t*)msg.msg_contents;
+			uint64_t reg_count = msg.len / sizeof(libmedusa::reg_t);
+			if (!regs) {
+				printf("regs = NULL!\n");
+				return false;
+			}
+
+			for (int i = 0; i < reg_count; i++) {
+				printf("%s %s %016llx %016llx\n", regs[i].reg_name.c_str(),
+												  regs[i].reg_description.c_str(),
+												  regs[i].reg_id,
+												  regs[i].reg_value);
+			}
+			return true;
+		}
+};
+
 int main(int argc, char* argv[]) {
 	paris::Server server;
 
 	warsaw::ARMv7Machine armv7_machine_service;
-	paris::DumpMsgContentsToSTDOUTService service;
+	WarsawTestService service;
 
 	server.start_server();
 
