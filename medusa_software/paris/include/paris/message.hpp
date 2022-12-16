@@ -24,7 +24,8 @@
 namespace paris {
 	typedef enum {
 		REGISTER_SESSION,
-		CLOSE_SESSION
+		CLOSE_SESSION,
+		PARIS_INIT_MSG,
 	} paris_message_type_t;
 
 	/**

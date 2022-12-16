@@ -120,6 +120,19 @@ namespace paris {
 			 *	@return false Fail.
 			 */
 			virtual bool process_message(paris_message_t message, Server* server);
+
+			/**
+			 *	@brief An override-able function to initialize Service-specific
+			 *		   data / objects. This is called when the service is added
+			 *		   to a Server. (or really, when it receives a
+			 *		   PARIS_INIT_MSG message.)
+			 *
+			 *	@param	server The Server on which this Service was added to. 
+			 *
+			 *	@return true  Success.
+			 *	@return false Fail.
+			 */
+			virtual bool builtin_init(paris::Server* server);
 		protected:
 			std::queue<paris_message_and_server_t> queue;
 			std::condition_variable cv;

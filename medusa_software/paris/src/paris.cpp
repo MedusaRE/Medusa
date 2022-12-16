@@ -57,6 +57,11 @@ void ServiceListener::service_mainloop(ServiceListener* _this) {
 		message = _this->queue.front();
 		_this->queue.pop();
 
+		if (message.message.message_type == PARIS_INIT_MSG) {
+			_this->builtin_init(message.server);
+			continue;
+		}
+
 		_this->process_message(message.message, message.server);
 	}
 
@@ -98,6 +103,10 @@ ServiceListener::~ServiceListener() {
 
 uint64_t ServiceListener::get_service_id() {
 	return this->id;
+}
+
+bool ServiceListener::builtin_init(paris::Server* server) {
+	return true;
 }
 
 bool ServiceListener::process_message(paris_message_t message, Server* server) {
@@ -224,6 +233,12 @@ void Server::server_mainloop(Server* _this) {
 
 bool Server::add_service(Service& service) {
 	this->services.push_back(&service);
+
+	paris_message_t msg;
+
+	msg.message_type = PARIS_INIT_MSG;
+
+	service.send_message(msg, this);
 	return true;
 }
 
