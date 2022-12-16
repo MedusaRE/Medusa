@@ -28,6 +28,37 @@
 #include <paris/paris.hpp>
 
 namespace warsaw {
+	typedef enum {
+		GET_REGS,
+		SET_REG,
+
+		READ_MEM,
+		WRITE_MEM,
+
+		GET_MEM_REGIONS,
+		FIND_MEMORY_REGION,
+		UNMAP_MEM,
+		MAP_MEM,
+
+		EXEC_CODE_ADDR_NINSNS,
+		EXEC_CODE_ADDR,
+		EXEC_CODE_NINSNS,
+		EXEC_CODE_STEP,
+
+		ASSEMBLE,
+		DISASSEMBLE,
+	} machine_op_t;
+
+	typedef struct {
+		libmedusa::reg_t reg;
+	} SET_REG_args;
+
+	typedef struct {
+		uint64_t len;
+		machine_op_t op;
+		void* data;
+	} machine_msg;
+
 	/**
 	 *	@brief A Paris service for libmedusa::Machine.
 	 */

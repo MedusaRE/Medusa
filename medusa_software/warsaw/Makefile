@@ -1,5 +1,5 @@
 CPP=clang++
-CPPFLAGS=--std=c++17 -lparis -Iinclude
+CPPFLAGS=--std=c++17 -lparis -Iinclude -lmedusa -lunicorn -lkeystone -lcapstone
 
 all: bin bin/warsaw
 

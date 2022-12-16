@@ -22,24 +22,47 @@
 #include <unistd.h>
 #include <cstdio>
 
+using namespace warsaw;
+
 int main(int argc, char* argv[]) {
 	paris::Server server;
 
 	warsaw::ARMv7Machine armv7_machine_service;
+	paris::DumpMsgContentsToSTDOUTService service;
 
 	server.start_server();
 
 	server.add_service(armv7_machine_service);
+	server.add_service(service);
 
 	paris::paris_message_t msg;
 
+	SET_REG_args args;
+	args.reg.reg_id = 0;
+	args.reg.reg_value = 0x41424344;
+
+	machine_msg machine_msg_obj;
+	machine_msg_obj.len = sizeof(SET_REG_args);
+	machine_msg_obj.data = (void*)&args;
+	machine_msg_obj.op = SET_REG;
+
 	msg.service_id = armv7_machine_service.get_service_id();
 	msg.uid = 420;
+	msg.msg_contents = (uint8_t*)&machine_msg_obj;
 
+	server.send_message(msg);
+
+	usleep(10000);
+
+	msg.service_by = service.get_service_id();
+	machine_msg_obj.len = 0;
+	machine_msg_obj.data = NULL;
+	machine_msg_obj.op = GET_REGS;
 	server.send_message(msg);
 
 	sleep(1);
 	server.stop_server();
+	sleep(1);
 
 	return 0;
 }

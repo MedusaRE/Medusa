@@ -19,10 +19,33 @@
 #include <warsaw/Machine.hpp>
 #include <paris/message.hpp>
 #include <paris/paris.hpp>
+#include <vector>
+#include <cstring>
 
 bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 										   paris::Server* server) {
 	printf("ARMv7Machine! %lx: %lu\n", message.service_id, message.uid);
+
+	if (!message.msg_contents) {
+		return false;
+	}
+
+	machine_msg msg = *(machine_msg*)message.msg_contents;
+
+	if (msg.op == SET_REG) {
+		SET_REG_args set_reg_args = *(SET_REG_args*)msg.data;
+		this->armv7_machine.set_register(set_reg_args.reg);
+	}
+
+	if (msg.op == GET_REGS) {
+		std::vector<libmedusa::reg_t> regs = this->armv7_machine.get_registers();
+		paris::paris_message_t reply_message;
+		reply_message.service_id = message.service_by;
+		reply_message.len = regs.size() * sizeof(libmedusa::reg_t);
+		reply_message.msg_contents = (uint8_t*)calloc(regs.size(), sizeof(libmedusa::reg_t));
+		memcpy((void*)reply_message.msg_contents, regs.data(), reply_message.len);
+		server->send_message(reply_message);
+	}
 
 	return true;
 }

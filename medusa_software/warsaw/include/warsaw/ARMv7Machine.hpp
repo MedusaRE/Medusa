@@ -23,6 +23,7 @@
 #ifndef WARSAW_ARMV7_MACHINE_HPP
 #define WARSAW_ARMV7_MACHINE_HPP
 
+#include <libmedusa/ARMv7Machine.hpp>
 #include <libmedusa/Machine.hpp>
 #include <warsaw/Machine.hpp>
 #include <paris/message.hpp>
@@ -38,6 +39,8 @@ namespace warsaw {
 										 paris::Server* server);
 
 			virtual bool builtin_init(paris::Server* server);
+		protected:
+			libmedusa::ARMv7Machine armv7_machine;
 	};
 }
 
