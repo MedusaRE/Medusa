@@ -13,8 +13,8 @@ platform, free, and general purpose tool for software and hardware research,
 such as reverse engineering, analysis, emulation, development, debugging, and
 other similar tasks.
 
-All current software research tools have their own problems: Medusa is meant to
-solve these issues.
+All current software research tools have their own problems &mdash; Medusa is
+meant to solve these issues.
 
 Medusa is mainly written in C/[C++](https://www.isocpp.org), with some tools for
 developing Medusa written in [Python](https://python.org),
