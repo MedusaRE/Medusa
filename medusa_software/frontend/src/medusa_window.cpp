@@ -232,6 +232,34 @@ medusa_window::medusa_window() {
 	server.add_service(this->service);
 	server.add_service(this->armv7_machine);
 
+	paris::paris_message_t msg;
+	warsaw::machine_msg machine_msg_obj;
+
+	msg.service_id = this->armv7_machine.get_service_id();
+	msg.msg_contents = (uint8_t*)&machine_msg_obj;
+	msg.service_by = service.get_service_id();
+
+	warsaw::MAP_MEM_args map_mem_args;
+	map_mem_args.mem_reg.addr = 0;
+	map_mem_args.mem_reg.size = 0x1000;
+	map_mem_args.mem_reg.prot = XP_PROT_READ | XP_PROT_WRITE | XP_PROT_EXEC;
+
+	machine_msg_obj.len = sizeof(map_mem_args);
+	machine_msg_obj.op = warsaw::MAP_MEM;
+	machine_msg_obj.data = (void*)&map_mem_args;
+	server.send_message(msg);
+
+	usleep(10000);
+
+	warsaw::SET_REG_args set_reg_args;
+	set_reg_args.reg.reg_id = 0xf;
+	set_reg_args.reg.reg_value = 0x0;
+
+	machine_msg_obj.len = sizeof(set_reg_args);
+	machine_msg_obj.op = warsaw::SET_REG;
+	machine_msg_obj.data = (void*)&set_reg_args;
+//	server.send_message(msg);
+
 #if 0
 	std::thread our_thread(service_thread,
 						   std::ref(server),
