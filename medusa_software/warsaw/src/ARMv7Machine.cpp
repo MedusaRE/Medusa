@@ -78,6 +78,8 @@ bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 	} else if (msg.op == MAP_MEM) {
 		MAP_MEM_args args = *(MAP_MEM_args*)msg.data;
 		this->armv7_machine.map_memory(args.mem_reg);
+	} else if (msg.op == EXEC_CODE_STEP) {
+		printf("%s\n", this->armv7_machine.exec_code_step() ? "true" : "false");
 	}
 
 	return true;

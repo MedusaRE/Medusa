@@ -48,13 +48,14 @@ int main(int argc, char* argv[]) {
 	paris::Server server;
 
 	warsaw::ARMv7Machine armv7_machine_service;
-//	WarsawTestService service;
+	WarsawTestService wservice;
 	paris::DumpMsgContentsToSTDOUTService service;
 
 	server.start_server();
 
 	server.add_service(armv7_machine_service);
 	server.add_service(service);
+	server.add_service(wservice);
 
 	paris::paris_message_t msg;
 
@@ -75,7 +76,7 @@ int main(int argc, char* argv[]) {
 
 	usleep(10000);
 
-	msg.service_by = service.get_service_id();
+	msg.service_by = wservice.get_service_id();
 	machine_msg_obj.len = 0;
 	machine_msg_obj.data = NULL;
 	machine_msg_obj.op = GET_REGS;
@@ -108,15 +109,15 @@ int main(int argc, char* argv[]) {
 
 	usleep(10000);
 
-	WRITE_MEM_args* wmem_args = (WRITE_MEM_args*)calloc(1, sizeof(WRITE_MEM_args) + 8);
+	WRITE_MEM_args* wmem_args = (WRITE_MEM_args*)calloc(1, sizeof(WRITE_MEM_args) + 2);
 	wmem_args->addr = 0;
-	wmem_args->size = 8;
-	*(uint64_t*)wmem_args->data = 0x4142434445464748;
+	wmem_args->size = 2;
+	*(uint32_t*)wmem_args->data = 0x2041;
 
 	printf("%016lx\n", *(uint64_t*)wmem_args->data);
 
 	msg.service_by = service.get_service_id();
-	machine_msg_obj.len = sizeof(WRITE_MEM_args) + 8;
+	machine_msg_obj.len = sizeof(WRITE_MEM_args) + 2;
 	machine_msg_obj.data = (void*)wmem_args;
 	machine_msg_obj.op = WRITE_MEM;
 	server.send_message(msg);
@@ -131,6 +132,28 @@ int main(int argc, char* argv[]) {
 	machine_msg_obj.data = (void*)&mem_args;
 	machine_msg_obj.op = READ_MEM;
 	server.send_message(msg);
+
+	usleep(10000);
+
+	mem_args.addr = 0;
+	mem_args.size = 16;
+
+	for (int i = 0; i < 2; i++) {
+		msg.service_by = service.get_service_id();
+		machine_msg_obj.len = 0;
+		machine_msg_obj.op = EXEC_CODE_STEP;
+		server.send_message(msg);
+
+		usleep(10000);
+
+		msg.service_by = wservice.get_service_id();
+		machine_msg_obj.len = 0;
+		machine_msg_obj.data = NULL;
+		machine_msg_obj.op = GET_REGS;
+		server.send_message(msg);
+
+		usleep(10000);
+	}
 
 	sleep(1);
 	server.stop_server();
