@@ -76,7 +76,7 @@ bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 		std::vector<uint8_t> vec(args->data, args->data + args->size);
 		this->armv7_machine.write_memory(args->addr, vec);
 	} else if (msg.op == MAP_MEM) {
-		MAP_MEM_args* args = *MAP_MEM_args*)msg.data;
+		MAP_MEM_args* args = (MAP_MEM_args*)msg.data;
 
 		if (!args) {
 			return false;
