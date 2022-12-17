@@ -76,26 +76,31 @@ bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 		std::vector<uint8_t> vec(args->data, args->data + args->size);
 		this->armv7_machine.write_memory(args->addr, vec);
 	} else if (msg.op == MAP_MEM) {
-		MAP_MEM_args args = *(MAP_MEM_args*)msg.data;
+		MAP_MEM_args* args = *MAP_MEM_args*)msg.data;
 
 		if (!args) {
 			return false;
 		}
 
-		this->armv7_machine.map_memory(args.mem_reg);
+		this->armv7_machine.map_memory(args->mem_reg);
 	} else if (msg.op == UNMAP_MEM) {
-		UNMAP_MEM_args args = *(UNMAP_MEM_args*)msg.data;
-		this->armv7_machine.unmap_memory(args);
+		UNMAP_MEM_args* args = (UNMAP_MEM_args*)msg.data;
+
+		if (!args) {
+			return false;
+		}
+
+		this->armv7_machine.unmap_memory(*args);
 	} else if (msg.op == EXEC_CODE_STEP) {
 		printf("%s\n", this->armv7_machine.exec_code_step() ? "true" : "false");
 	} else if (msg.op == EXEC_CODE_ADDR) {
-		EXEC_CODE_ADDR_args args = *(EXEC_CODE_ADDR_args*)msg.data;
+		EXEC_CODE_ADDR_args* args = (EXEC_CODE_ADDR_args*)msg.data;
 
 		if (!args) {
 			return false;
 		}
 
-		printf("%s\n", this->armv7_machine.exec_code_addr(args.addr, args.size) ? "true" : "false");
+		printf("%s\n", this->armv7_machine.exec_code_addr(args->addr, args->size) ? "true" : "false");
 	}
 
 	return true;
