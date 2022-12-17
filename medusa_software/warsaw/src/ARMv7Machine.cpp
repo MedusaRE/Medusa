@@ -90,7 +90,7 @@ bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 			return false;
 		}
 
-		this->armv7_machine.unmap_memory(*args);
+		this->armv7_machine.unmap_memory(args->mem_reg);
 	} else if (msg.op == EXEC_CODE_STEP) {
 		printf("%s\n", this->armv7_machine.exec_code_step() ? "true" : "false");
 	} else if (msg.op == EXEC_CODE_ADDR) {
