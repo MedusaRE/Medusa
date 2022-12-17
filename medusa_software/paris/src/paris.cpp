@@ -54,6 +54,10 @@ void ServiceListener::service_mainloop(ServiceListener* _this) {
 			}
 		}
 
+		if (!_this->run) {
+			break;
+		}
+
 		message = _this->queue.front();
 		_this->queue.pop();
 
