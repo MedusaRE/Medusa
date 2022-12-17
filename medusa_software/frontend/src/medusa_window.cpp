@@ -24,7 +24,9 @@
  *			[frontend](/medusa_software/frontend)
  */
 
+#include <warsaw/ARMv7Machine.hpp>
 #include <capstone/capstone.h>
+#include <warsaw/Machine.hpp>
 #include <unicorn/unicorn.h>
 #include "medusa_window.h"
 #include <paris/paris.hpp>
@@ -38,18 +40,34 @@
 using namespace std;
 
 bool TextTestService::process_message(paris::paris_message_t message, paris::Server* server) {
+	libmedusa::reg_t* regs = (libmedusa::reg_t*)message.msg_contents;
+	uint64_t reg_count = message.len / sizeof(libmedusa::reg_t);
+	if (!regs) {
+		printf("regs = NULL!\n");
+		return false;
+	}
+
+	std::string tmp;
+
+	for (int i = 0; i < reg_count; i++) {
+		tmp += string_format("%s %s %016llx %016llx\n", regs[i].reg_name.c_str(),
+														regs[i].reg_description.c_str(),
+														regs[i].reg_id,
+														regs[i].reg_value);
+	}
+
 	/*
 	 *	TODO: use something that isn't deprecated!
 	 *
 	 *	gdk_threads_enter(void); & gdk_threads_leave(void); are deprecated.
 	 */
 	gdk_threads_enter();
-	this->our_text_buffer->set_text((const char*)message.msg_contents);
+	this->our_text_buffer->set_text(tmp);
 	gdk_threads_leave();
 
-	printf("%s\n", (const char*)message.msg_contents);
+	printf("%s\n", tmp.c_str());
 
-	free(message.msg_contents);
+//	free(message.msg_contents);
 
 	return true;
 }
@@ -80,13 +98,28 @@ void medusa_window::on_clicked() {
 	paris::paris_message_t msg;
 	auto start = std::chrono::high_resolution_clock::now();
 
+#if 0
 	msg.service_id = this->service.get_service_id();
 	msg.msg_contents = (uint8_t*)strdup(string_format("Click event over Paris messages #%d.", n).c_str());
 	msg.len = strlen((const char *)msg.msg_contents);
 
 	this->server.send_message(msg);
-	
-	n++;
+#endif
+	warsaw::machine_msg machine_msg_obj;
+
+	msg.service_id = this->armv7_machine.get_service_id();
+	msg.msg_contents = (uint8_t*)&machine_msg_obj;
+	msg.service_by = service.get_service_id();
+
+	machine_msg_obj.len = 0;
+	machine_msg_obj.op = warsaw::EXEC_CODE_STEP;
+	server.send_message(msg);
+
+	usleep(10000);
+
+	machine_msg_obj.len = 0;
+	machine_msg_obj.op = warsaw::GET_REGS;
+	server.send_message(msg);
 
 	auto end = std::chrono::high_resolution_clock::now();
 
@@ -197,6 +230,7 @@ medusa_window::medusa_window() {
 	this->service.our_text_buffer = our_text_buffer;
 
 	server.add_service(this->service);
+	server.add_service(this->armv7_machine);
 
 #if 0
 	std::thread our_thread(service_thread,

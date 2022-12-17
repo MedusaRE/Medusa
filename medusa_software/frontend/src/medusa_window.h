@@ -18,6 +18,8 @@
 #ifndef MEDUSA_WINDOW_H
 #define MEDUSA_WINDOW_H
 
+#include <warsaw/ARMv7Machine.hpp>
+#include <warsaw/Machine.hpp>
 #include <paris/paris.hpp>
 #include <gtkmm.h>
 
@@ -33,6 +35,7 @@ class medusa_window : public Gtk::Window {
 		virtual ~medusa_window();
 		TextTestService service;
 		paris::Server server;
+		warsaw::ARMv7Machine armv7_machine;
 
 		void on_clicked();
 	protected:
