@@ -67,10 +67,14 @@ bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 
 		server->send_message(reply_message);
 	} else if (msg.op == WRITE_MEM) {
-		WRITE_MEM_args args = *(WRITE_MEM_args*)msg.data;
+		WRITE_MEM_args* args = (WRITE_MEM_args*)msg.data;
 
-		std::vector<uint8_t> vec(args.data, args.data + args.size);
-		this->armv7_machine.write_memory(args.addr, vec);
+		if (!args) {
+			return false;
+		}
+
+		std::vector<uint8_t> vec(args->data, args->data + args->size);
+		this->armv7_machine.write_memory(args->addr, vec);
 	} else if (msg.op == MAP_MEM) {
 		MAP_MEM_args args = *(MAP_MEM_args*)msg.data;
 		this->armv7_machine.map_memory(args.mem_reg);

@@ -98,7 +98,7 @@ int main(int argc, char* argv[]) {
 
 	READ_MEM_args mem_args;
 	mem_args.addr = 0;
-	mem_args.size = 8;
+	mem_args.size = 16;
 
 	msg.service_by = service.get_service_id();
 	machine_msg_obj.len = 0;
@@ -108,8 +108,23 @@ int main(int argc, char* argv[]) {
 
 	usleep(10000);
 
+	WRITE_MEM_args* wmem_args = (WRITE_MEM_args*)calloc(1, sizeof(WRITE_MEM_args) + 8);
+	wmem_args->addr = 0;
+	wmem_args->size = 8;
+	*(uint64_t*)wmem_args->data = 0x4142434445464748;
+
+	printf("%016lx\n", *(uint64_t*)wmem_args->data);
+
+	msg.service_by = service.get_service_id();
+	machine_msg_obj.len = sizeof(WRITE_MEM_args) + 8;
+	machine_msg_obj.data = (void*)wmem_args;
+	machine_msg_obj.op = WRITE_MEM;
+	server.send_message(msg);
+
+	usleep(10000);
+
 	mem_args.addr = 0;
-	mem_args.size = 128;
+	mem_args.size = 16;
 
 	msg.service_by = service.get_service_id();
 	machine_msg_obj.len = 0;
