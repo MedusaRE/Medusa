@@ -64,12 +64,21 @@ namespace warsaw {
 	typedef struct {
 		uint64_t addr;
 		uint64_t size;
+	} EXEC_CODE_ADDR_args;
+
+	typedef struct {
+		uint64_t addr;
+		uint64_t size;
 		uint8_t	 data[0];
 	} WRITE_MEM_args;
 
 	typedef struct {
 		libmedusa::mem_reg_t mem_reg;
 	} MAP_MEM_args;
+
+	typedef struct {
+		libmedusa::mem_reg_t mem_reg;
+	} UNMAP_MEM_args;
 
 	typedef struct {
 		uint64_t len;
