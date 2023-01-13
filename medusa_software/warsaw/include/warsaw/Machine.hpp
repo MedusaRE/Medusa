@@ -81,6 +81,10 @@ namespace warsaw {
 	} UNMAP_MEM_args;
 
 	typedef struct {
+		uint64_t num_insns;
+	} EXEC_CODE_NINSNS_args;
+
+	typedef struct {
 		uint64_t len;
 		machine_op_t op;
 		void* data;

@@ -101,6 +101,14 @@ bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 		}
 
 		printf("%s\n", this->armv7_machine.exec_code_addr(args->addr, args->size) ? "true" : "false");
+	} else if (msg.op == EXEC_CODE_NINSNS) {
+		EXEC_CODE_NINSNS_args* args = (EXEC_CODE_NINSNS_args*)msg.data;
+
+		if (!args) {
+			return false;
+		}
+
+		printf("%s\n", this->armv7_machine.exec_code_ninsns(args->num_insns) ? "true" : "false");
 	}
 
 	return true;
