@@ -41,7 +41,8 @@ component_definition_t ExampleDisplayComponent::get_component_definition() {
 ExampleDisplayComponent::ExampleDisplayComponent() {
 	this->bitmap.width = 320;
 	this->bitmap.height = 240;
-	this->bitmap.pixels = (pixel_t*)calloc(this->bitmap.width * this->bitmap.height, sizeof(pixel_t));
+	this->bitmap.pixels = (pixel_t*)calloc(this->bitmap.width
+										 * this->bitmap.height, sizeof(pixel_t));
 }
 
 bitmap_t ExampleDisplayComponent::get_component_display_output() {
