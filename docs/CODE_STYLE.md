@@ -103,6 +103,57 @@ public:
 }
 ```
 
+For comments, line up the `*`'s of `/*` and `*/`.
+
+Write this:
+```
+/*
+ ...
+ */
+```
+
+Instead of this:
+```
+/*
+ ...
+*/
+```
+
+As well, start each line of a multi-line comment with `[space]*`.
+
+Write this:
+```
+/*
+ *
+ */
+```
+
+Instead of this:
+```
+/*
+
+ */
+```
+
+Finally with comments, keep lines under 80 chars whenever possible, and after
+each `*` to start a line, place 2 spaces.
+
+Write this:
+```
+/*
+ *  Hello, world! I see you're reading this document. Oh no this line is going
+ *  to wrap! Oh ok, we're fine. Goodbye!
+ */
+```
+
+Instead of this:
+```
+/*
+ * Hello, world! I see you're reading this document. Oh no this line is going to
+ * wrap! Oh ok, we're fine. Goodbye!
+ */
+ ```
+
 Generally, C++ code would look something like this:
 ```c++
 #include <cstdint>
