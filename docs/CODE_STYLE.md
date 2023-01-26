@@ -135,6 +135,7 @@ Instead of this:
  */
 ```
 
+<!--
 Finally with comments, keep lines under 80 chars whenever possible, and after
 each `*` to start a line, place 2 spaces.
 
@@ -153,6 +154,11 @@ Instead of this:
  * wrap! Oh ok, we're fine. Goodbye!
  */
  ```
+
+(i'd like to do it this way, but sadly clang-format doesn't support this from
+what i can tell)
+
+-->
 
 Generally, C++ code would look something like this:
 ```c++

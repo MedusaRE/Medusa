@@ -1,0 +1,172 @@
+# Medusa Project clang-format file
+#
+# message from spv:
+#   i have no idea if this file is legally copyrightable, or if i can put a
+#   license on it. if it's not licensable, have fun, otherwise, CC BY-SA 4.0. 
+#
+#  have fun!
+
+---
+IndentWidth: 4
+TabWidth: 4
+AccessModifierOffset: 0
+AlignAfterOpenBracket: Align
+AlignArrayOfStructures: Right
+AlignConsecutiveAssignments:
+    Enabled: true
+    AcrossEmptyLines: false
+    AcrossComments: false
+    AlignCompound: true
+    PadOperators: true
+AlignConsecutiveBitFields:
+    Enabled: true
+    AcrossEmptyLines: false
+    AcrossComments: false
+AlignConsecutiveDeclarations:
+    Enabled: true
+    AcrossEmptyLines: false
+    AcrossComments: false
+AlignConsecutiveMacros:
+    Enabled: true
+    AcrossEmptyLines: false
+    AcrossComments: false
+AlignEscapedNewlines: Left
+AlignOperands: AlignAfterOperator
+BreakBeforeTernaryOperators: true
+BreakBeforeBinaryOperators: NonAssignment
+# AlignTrailingComments:
+#     Kind: Always
+#     OverEmptyLines: 1
+AlignTrailingComments: true
+AllowAllArgumentsOnNextLine: false
+AllowAllParametersOfDeclarationOnNextLine: false
+AllowShortBlocksOnASingleLine: Empty
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLambdasOnASingleLine: Inline
+AllowShortLoopsOnASingleLine: true
+AlwaysBreakAfterReturnType: None
+AlwaysBreakBeforeMultilineStrings: false
+AlwaysBreakTemplateDeclarations: MultiLine # TODO: maybe select no?
+BinPackArguments: false
+BinPackParameters: false
+BitFieldColonSpacing: Both
+BreakBeforeBraces: Custom
+BraceWrapping:
+    AfterCaseLabel: false
+    AfterClass: false
+    AfterControlStatement: Never
+    AfterEnum: false
+    AfterFunction: false
+    AfterNamespace: false
+    AfterStruct: false
+    AfterUnion: false
+    AfterExternBlock: false
+    BeforeCatch: false
+    BeforeElse: false
+    BeforeLambdaBody: false
+    BeforeWhile: false
+    IndentBraces: false
+    SplitEmptyFunction: false
+    SplitEmptyRecord: false
+    SplitEmptyNamespace: false
+#BreakAfterAttributes: Leave # TODO: come back to this
+BreakBeforeConceptDeclarations: Never
+#BreakBeforeInlineASMColon: Always
+BreakConstructorInitializers: AfterColon
+BreakInheritanceList: AfterColon
+BreakStringLiterals: false # allow grepping, like Linux :P
+ColumnLimit: 80
+CommentPragmas: "^([ \n])*[NF]" # possibly broken
+CompactNamespaces: false
+#ConstructorInitializerIndentWidth: 1
+Cpp11BracedListStyle: true
+DerivePointerAlignment: false
+EmptyLineAfterAccessModifier: Never
+EmptyLineBeforeAccessModifier: LogicalBlock
+FixNamespaceComments: true
+#ForEachMacros add here
+#IfMacros add here
+IncludeBlocks: Regroup
+#IncludeCategories add here
+#IncludeIsMainRegex add here
+#IncludeIsMainSourceRegex add here
+IndentAccessModifiers: true
+IndentCaseBlocks: true
+IndentCaseLabels: true
+IndentExternBlock: Indent
+IndentGotoLabels: false
+IndentPPDirectives: BeforeHash
+IndentRequiresClause: true
+IndentWrappedFunctionNames: false
+InsertBraces: true
+#InsertNewlineAtEOF: true # TODO UPDATE ONCE USING CLANG-FORMAT 16!!!
+#IntegerLiteralSeparator: # clang-format 16 required!
+#    Binary: 0
+#    Decimal: 0
+#    Hex: 0
+KeepEmptyLinesAtTheStartOfBlocks: false
+LambdaBodyIndentation: Signature
+Language: Cpp
+#LineEnding: LE_LF # clang-format 16
+#MacroBlockBegin add here
+#MacroBlockEnd add here
+MaxEmptyLinesToKeep: 3
+NamespaceIndentation: All
+#NamespaceMacros add here
+#ObjCBinPackProtocolList add here
+PackConstructorInitializers: Never
+PenaltyBreakAssignment: 1000
+PenaltyBreakBeforeFirstCallParameter: 1000
+PenaltyBreakComment: 10
+#PenaltyBreakFirstLessLess no idea
+PenaltyBreakOpenParenthesis: 1000
+PenaltyBreakString: 1000
+PenaltyBreakTemplateDeclaration: 0
+PenaltyExcessCharacter: 1
+PenaltyIndentedWhitespace: 0
+PenaltyReturnTypeOnItsOwnLine: 1000
+PointerAlignment: Right
+QualifierAlignment: Left
+#QualifierOrder: ['static', 'inline', 'volatile', 'const', 'type'] broken idk
+#RawStringFormats todo
+ReferenceAlignment: Left
+ReflowComments: true
+RemoveBracesLLVM: false
+#RemoveSemicolon: true # clang-format 16
+RequiresClausePosition: WithPreceding
+#RequiresExpressionIndentation: Keyword # clang-format 16
+SeparateDefinitionBlocks: Always
+ShortNamespaceLines: 1 # i guess?
+SortIncludes: CaseSensitive
+#SortUsingDeclarations: Lexicographic # broken idk
+SpaceAfterCStyleCast: false
+SpaceAfterLogicalNot: false
+SpaceAfterTemplateKeyword: false
+SpaceAroundPointerQualifiers: Default
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeCaseColon: false
+SpaceBeforeCpp11BracedList: false
+SpaceBeforeCtorInitializerColon: false
+SpaceBeforeInheritanceColon: false
+SpaceBeforeParens: ControlStatements # maybe come back to this?
+SpaceBeforeRangeBasedForLoopColon: false
+SpaceBeforeSquareBrackets: false
+SpaceInEmptyBlock: false
+SpaceInEmptyParentheses: false
+SpacesBeforeTrailingComments: 1
+SpacesInAngles: Never
+SpacesInCStyleCastParentheses: false
+SpacesInConditionalStatement: false
+#SpacesInContainerLiterals add here
+SpacesInLineCommentPrefix:
+    Minimum: 2
+SpacesInParentheses: false
+#Standard: Cpp20 # broken idk
+#StatementAttributeLikeMacros add here
+#StatementMacros add here
+#TypenameMacros add here
+UseTab: Always
+#WhitespaceSensitiveMacros add here
