@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -25,13 +25,13 @@ typedef enum {
 	LOG_ERROR,
 	LOG_CRITICAL,
 } log_level_t;
+
 typedef enum {
 	LOG_UNIMPORTANT,
 	LOG_SUCCESS,
 } log_status_t;
 
-log_status_t medusa_log(log_level_t log_level,
-						const char* fmt, ...);
+log_status_t medusa_log(log_level_t log_level, const char *fmt, ...);
 log_status_t medusa_set_log_level(log_level_t log_level);
 
 #endif

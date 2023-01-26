@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -20,14 +20,14 @@
 
 #include <gtkmm.h>
 
-class medusa_window : public Gtk::Window {
+class medusa_window: public Gtk::Window {
 	public:
-		medusa_window(int   argc,
-					  char* argv[]);
+		medusa_window(int argc, char *argv[]);
 		virtual ~medusa_window();
+
 	protected:
-		Gtk::ScrolledWindow           sw;
-		Gtk::TextView*                our_text_view;
+		Gtk::ScrolledWindow			  sw;
+		Gtk::TextView				 *our_text_view;
 		Glib::RefPtr<Gtk::TextBuffer> our_text_buffer;
 };
 

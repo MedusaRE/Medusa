@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -15,13 +15,13 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include <algorithm>
+#include <capstone/capstone.h>
+#include <cstdio>
+#include <cstring>
 #include <libmedusa/ARMv7Machine.hpp>
 #include <libmedusa/libmedusa.hpp>
-#include <capstone/capstone.h>
 #include <unicorn/unicorn.h>
-#include <algorithm>
-#include <cstring>
-#include <cstdio>
 
 using namespace libmedusa;
 
@@ -55,9 +55,7 @@ ARMv7Machine::ARMv7Machine() {
 	/*
 	 *  open unicorn handle as thumb, that works for ARM code as well.
 	 */
-	err = uc_open(UC_ARCH_ARM,
-				  UC_MODE_THUMB,
-				  &this->uc);
+	err = uc_open(UC_ARCH_ARM, UC_MODE_THUMB, &this->uc);
 
 	reg.reg_id = -1;
 
@@ -65,157 +63,149 @@ ARMv7Machine::ARMv7Machine() {
 	 *  create descriptions for all of the registers we intend to "publish"
 	 */
 	reg.reg_description = "r0";
-	reg.reg_name = "r0";
+	reg.reg_name		= "r0";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "r1";
-	reg.reg_name = "r1";
+	reg.reg_name		= "r1";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "r2";
-	reg.reg_name = "r2";
+	reg.reg_name		= "r2";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "r3";
-	reg.reg_name = "r3";
+	reg.reg_name		= "r3";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "r4";
-	reg.reg_name = "r4";
+	reg.reg_name		= "r4";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "r5";
-	reg.reg_name = "r5";
+	reg.reg_name		= "r5";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "r6";
-	reg.reg_name = "r6";
+	reg.reg_name		= "r6";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "r7";
-	reg.reg_name = "r7";
+	reg.reg_name		= "r7";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "r8";
-	reg.reg_name = "r8";
+	reg.reg_name		= "r8";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "r9";
-	reg.reg_name = "r9";
+	reg.reg_name		= "r9";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "r10";
-	reg.reg_name = "r10";
+	reg.reg_name		= "r10";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "r11";
-	reg.reg_name = "r11";
+	reg.reg_name		= "r11";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "ip";
-	reg.reg_name = "ip";
+	reg.reg_name		= "ip";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "sp";
-	reg.reg_name = "sp";
+	reg.reg_name		= "sp";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "lr";
-	reg.reg_name = "lr";
+	reg.reg_name		= "lr";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "pc";
-	reg.reg_name = "pc";
+	reg.reg_name		= "pc";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "cpsr";
-	reg.reg_name = "cpsr";
+	reg.reg_name		= "cpsr";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	/*
 	 *  open capstone handles for ARM and THUMB code.
 	 */
-	cs_open(CS_ARCH_ARM,
-			(cs_mode)(CS_MODE_ARM),
-			&this->handle);
+	cs_open(CS_ARCH_ARM, (cs_mode)(CS_MODE_ARM), &this->handle);
 
-	cs_open(CS_ARCH_ARM,
-			(cs_mode)(CS_MODE_THUMB),
-			&this->handle_thumb);
+	cs_open(CS_ARCH_ARM, (cs_mode)(CS_MODE_THUMB), &this->handle_thumb);
 
 	/*
 	 *  open keystone handles for ARM and THUMB code.
 	 */
-	ks_open(KS_ARCH_ARM,
-			KS_MODE_ARM,
-			&this->ks);
-	
-	ks_open(KS_ARCH_ARM,
-			KS_MODE_THUMB,
-			&this->ks_thumb);
+	ks_open(KS_ARCH_ARM, KS_MODE_ARM, &this->ks);
+
+	ks_open(KS_ARCH_ARM, KS_MODE_THUMB, &this->ks_thumb);
 }
 
 ARMv7Machine::~ARMv7Machine() {
-//	uc_close(this->uc);
+	//	uc_close(this->uc);
 	ks_close(this->ks);
 	ks_close(this->ks_thumb);
 }
 
 std::vector<reg_t> ARMv7Machine::get_registers() {
 	/*
-	 *  loop from 0 to the length of armv7_normal_regs, read the register, and set the
-	 *  value.
+	 *  loop from 0 to the length of armv7_normal_regs, read the register, and
+	 * set the value.
 	 */
 	for (int i = 0; i < sizeof(armv7_normal_regs) / sizeof(armv7_normal_regs[0]); i++) {
 		uint32_t val;
@@ -227,9 +217,9 @@ std::vector<reg_t> ARMv7Machine::get_registers() {
 }
 
 std::vector<mem_reg_t> ARMv7Machine::get_memory_regions() {
-	std::vector<mem_reg_t>	regions;
-	uc_mem_region		   *uc_style_memory_regions;
-	uint32_t				count;
+	std::vector<mem_reg_t> regions;
+	uc_mem_region		  *uc_style_memory_regions;
+	uint32_t			   count;
 
 	/*
 	 *  get memory regions from unicorn, my good lord above
@@ -257,7 +247,7 @@ std::vector<mem_reg_t> ARMv7Machine::get_memory_regions() {
 }
 
 bool ARMv7Machine::map_memory(mem_reg_t memory_region) {
-	bool	 ret = true;
+	bool	 ret  = true;
 	uint32_t prot = 0;
 	uc_err	 err;
 
@@ -297,9 +287,9 @@ mem_reg_t ARMv7Machine::find_memory_region(uint64_t addr) {
 	/*
 	 *  check if addr is inside the region's range
 	 */
-	for (mem_reg_t& i : regions) {
+	for (mem_reg_t& i: regions) {
 		uint64_t start_addr = i.addr;
-		uint64_t end_addr = i.addr + i.size;
+		uint64_t end_addr	= i.addr + i.size;
 		if (addr >= start_addr && addr < end_addr) {
 			return i;
 		}
@@ -316,7 +306,9 @@ bool ARMv7Machine::unmap_memory(mem_reg_t memory_region) {
 	/*
 	 *  unmap the memory
 	 */
-	ret = (uc_mem_unmap(this->uc, memory_region.addr, memory_region.size) == UC_ERR_OK) ? true : false;
+	ret = (uc_mem_unmap(this->uc, memory_region.addr, memory_region.size) == UC_ERR_OK)
+			? true
+			: false;
 
 	return ret;
 }
@@ -341,7 +333,7 @@ std::vector<uint8_t> ARMv7Machine::read_memory(uint64_t addr, uint64_t size) {
 
 bool ARMv7Machine::write_memory(uint64_t addr, std::vector<uint8_t>& data) {
 	uint32_t size = data.size();
-	bool	 ret = true;
+	bool	 ret  = true;
 	uint8_t	 buf[size];
 
 	std::copy(data.begin(), data.end(), buf);
@@ -407,7 +399,9 @@ bool ARMv7Machine::set_register(reg_t reg) {
 	 *  no buffer overflows here, sir!
 	 */
 	if (reg.reg_id <= sizeof(armv7_normal_regs) / sizeof(armv7_normal_regs[0])) {
-		ret = (uc_reg_write(this->uc, armv7_normal_regs[reg.reg_id], &reg.reg_value) == UC_ERR_OK) ? true : false;
+		ret = (uc_reg_write(this->uc, armv7_normal_regs[reg.reg_id], &reg.reg_value) == UC_ERR_OK)
+				? true
+				: false;
 	} else {
 		ret = false;
 	}
@@ -418,12 +412,12 @@ bool ARMv7Machine::set_register(reg_t reg) {
 std::vector<insn_t> ARMv7Machine::disassemble(std::vector<uint8_t>& data, flag_t flags) {
 	uint32_t size = data.size();
 
-	uint8_t				*buf = (uint8_t*)calloc(size, 1);
-	size_t				 count;
-	cs_insn				*insns;
-	insn_t				 insn;
-	std::vector<insn_t>	 ret;
-	cs_err err;
+	uint8_t			   *buf = (uint8_t *)calloc(size, 1);
+	size_t				count;
+	cs_insn			   *insns;
+	insn_t				insn;
+	std::vector<insn_t> ret;
+	cs_err				err;
 
 	std::copy(data.begin(), data.end(), buf);
 
@@ -444,21 +438,11 @@ std::vector<insn_t> ARMv7Machine::disassemble(std::vector<uint8_t>& data, flag_t
 	}
 
 	if (flags & XP_FLAG_THUMB) {
-		count = cs_disasm(this->handle_thumb,
-						  buf,
-						  size,
-						  0,
-						  0,
-						  &insns);
+		count = cs_disasm(this->handle_thumb, buf, size, 0, 0, &insns);
 	} else {
-		count = cs_disasm(this->handle,
-						  buf,
-						  size,
-						  0,
-						  0,
-						  &insns);
+		count = cs_disasm(this->handle, buf, size, 0, 0, &insns);
 	}
-	
+
 	if (!insns) {
 		goto out;
 	}
@@ -468,46 +452,40 @@ std::vector<insn_t> ARMv7Machine::disassemble(std::vector<uint8_t>& data, flag_t
 	}
 
 	for (int i = 0; i < count; i++) {
-		insn.id = insns[i].id;
+		insn.id		 = insns[i].id;
 		insn.address = insns[i].address;
-		insn.size = insns[i].size;
+		insn.size	 = insns[i].size;
 
-		insn.bytes = (uint8_t*)calloc(insn.size, 1);
+		insn.bytes = (uint8_t *)calloc(insn.size, 1);
 		memcpy(insn.bytes, insns[i].bytes, insn.size);
 		insn.mnemonic = strdup(insns[i].mnemonic);
-		insn.op_str = strdup(insns[i].op_str);
+		insn.op_str	  = strdup(insns[i].op_str);
 
 		ret.push_back(insn);
 	}
 
 out:
-	if (insns) cs_free(insns, count);
-	if (buf) free(buf);
+	if (insns) {
+		cs_free(insns, count);
+	}
+	if (buf) {
+		free(buf);
+	}
 
 	return ret;
 }
 
 std::vector<uint8_t> ARMv7Machine::assemble(std::string src, uint64_t addr, flag_t flags) {
-	ks_err				  err_ks;
-	size_t				  count;
-	size_t				  size;
-	uint8_t				 *data;
-	std::vector<uint8_t>  ret;
+	ks_err				 err_ks;
+	size_t				 count;
+	size_t				 size;
+	uint8_t				*data;
+	std::vector<uint8_t> ret;
 
 	if (flags & XP_FLAG_THUMB) {
-		ks_asm(this->ks_thumb,
-			   src.c_str(),
-			   addr,
-			   &data,
-			   &size,
-			   &count);
+		ks_asm(this->ks_thumb, src.c_str(), addr, &data, &size, &count);
 	} else {
-		ks_asm(this->ks,
-			   src.c_str(),
-			   addr,
-			   &data,
-			   &size,
-			   &count);
+		ks_asm(this->ks, src.c_str(), addr, &data, &size, &count);
 	}
 
 	if (!data) {

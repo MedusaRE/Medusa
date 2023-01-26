@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -15,18 +15,19 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include "lib.h"
+
+#include <chrono>
 #include <condition_variable>
+#include <cstdio>
+#include <mutex>
 #include <paris/message.hpp>
 #include <paris/paris.hpp>
-#include <chrono>
-#include <cstdio>
+#include <queue>
 #include <random>
 #include <string>
 #include <thread>
 #include <vector>
-#include <mutex>
-#include <queue>
-#include "lib.h"
 
 using namespace paris;
 
@@ -41,13 +42,15 @@ using namespace paris;
  *	this->run to false, and then notifies `cv`, meaning that it will be able to
  *	cleanly shut down the service.
  */
-void ServiceListener::service_mainloop(ServiceListener* _this) {
+void ServiceListener::service_mainloop(ServiceListener *_this) {
 	paris_message_and_server_t message;
 
 	while (_this->run) {
 		std::unique_lock<std::mutex> lck(_this->mtx);
 		while (_this->queue.empty()) {
-			_this->cv.wait(lck, [&_this]{ return (_this->queue.size() != 0) || !_this->run; });
+			_this->cv.wait(lck, [&_this] {
+				return (_this->queue.size() != 0) || !_this->run;
+			});
 
 			if (!_this->run) {
 				break;
@@ -72,7 +75,7 @@ void ServiceListener::service_mainloop(ServiceListener* _this) {
 	DEBUG_PRINTF("%lx done\n", _this->get_service_id());
 }
 
-bool ServiceListener::send_message(paris_message_t message, Server* server) {
+bool ServiceListener::send_message(paris_message_t message, Server *server) {
 	paris_message_and_server_t tmp = {message, server};
 
 	this->queue.push(tmp);
@@ -93,7 +96,7 @@ std::thread ServiceListener::get_backing_thread() {
 }
 
 ServiceListener::ServiceListener() {
-	this->id = medusa_rand();
+	this->id  = medusa_rand();
 	this->run = true;
 
 	this->thread = std::thread(ServiceListener::service_mainloop, this);
@@ -109,17 +112,17 @@ uint64_t ServiceListener::get_service_id() {
 	return this->id;
 }
 
-bool ServiceListener::builtin_init(paris::Server* server) {
+bool ServiceListener::builtin_init(paris::Server *server) {
 	return true;
 }
 
-bool ServiceListener::process_message(paris_message_t message, Server* server) {
+bool ServiceListener::process_message(paris_message_t message, Server *server) {
 	DEBUG_PRINTF("%lx: %lu\n", message.service_id, message.uid);
 
 	return true;
 }
 
-bool ExampleService::process_message(paris_message_t message, Server* server) {
+bool ExampleService::process_message(paris_message_t message, Server *server) {
 	DEBUG_PRINTF("%lx: %lu\n", message.service_id, message.uid);
 
 	if (!server) {
@@ -129,7 +132,7 @@ bool ExampleService::process_message(paris_message_t message, Server* server) {
 	return true;
 }
 
-bool DumpMsgContentsToSTDOUTService::process_message(paris_message_t message, Server* server) {
+bool DumpMsgContentsToSTDOUTService::process_message(paris_message_t message, Server *server) {
 	std::string s;
 
 	if (!message.msg_contents) {
@@ -141,19 +144,28 @@ bool DumpMsgContentsToSTDOUTService::process_message(paris_message_t message, Se
 	}
 
 	if (message.len >= 2) {
-		s += string_format(" %04x", U8X2_TO_U16(message.msg_contents[1], message.msg_contents[0]));
+		s += string_format(" %04x",
+						   U8X2_TO_U16(message.msg_contents[1], message.msg_contents[0]));
 	}
 
 	if (message.len >= 4) {
-		s += string_format(" %08x", U8X4_TO_U32(message.msg_contents[3], message.msg_contents[2],
-												message.msg_contents[1], message.msg_contents[0]));
+		s += string_format(" %08x",
+						   U8X4_TO_U32(message.msg_contents[3],
+									   message.msg_contents[2],
+									   message.msg_contents[1],
+									   message.msg_contents[0]));
 	}
 
 	if (message.len >= 8) {
-		s += string_format(" %016lx", U8X8_TO_U64(message.msg_contents[7], message.msg_contents[6],
-												  message.msg_contents[5], message.msg_contents[4],
-												  message.msg_contents[3], message.msg_contents[2],
-												  message.msg_contents[1], message.msg_contents[0]));
+		s += string_format(" %016lx",
+						   U8X8_TO_U64(message.msg_contents[7],
+									   message.msg_contents[6],
+									   message.msg_contents[5],
+									   message.msg_contents[4],
+									   message.msg_contents[3],
+									   message.msg_contents[2],
+									   message.msg_contents[1],
+									   message.msg_contents[0]));
 	}
 
 	s += " (";
@@ -169,17 +181,19 @@ bool DumpMsgContentsToSTDOUTService::process_message(paris_message_t message, Se
 	return true;
 }
 
-bool Server::queue_available(Server* _this) {
+bool Server::queue_available(Server *_this) {
 	return !_this->queue.empty();
 }
 
-void Server::server_mainloop(Server* _this) {
+void Server::server_mainloop(Server *_this) {
 	paris_message_t message;
 
 	while (_this->run) {
 		std::unique_lock<std::mutex> lck(_this->mtx);
 		while (_this->queue.empty()) {
-			_this->cv.wait(lck, [&_this]{ return (_this->queue.size() != 0) || !_this->run; });
+			_this->cv.wait(lck, [&_this] {
+				return (_this->queue.size() != 0) || !_this->run;
+			});
 
 			if (!_this->run) {
 				break;
@@ -193,20 +207,20 @@ void Server::server_mainloop(Server* _this) {
 			/*
 			 *	TODO: use something better than `calloc` for things like this!
 			 */
-			paris_session_t* session = (paris_session_t*)calloc(1, sizeof(paris_session_t));
+			paris_session_t *session = (paris_session_t *)calloc(1, sizeof(paris_session_t));
 			paris_message_t reply;
 
 			session->session_id = medusa_rand();
-			session->uid = -1;
+			session->uid		= -1;
 
 			for (int i = 0; i < (sizeof(session->cookie) / sizeof(session->cookie[0])); i++) {
 				session->cookie[i] = medusa_rand();
 			}
 
-			reply.len = sizeof(paris_session_t);
-			reply.msg_contents = (uint8_t*)session;
+			reply.len		   = sizeof(paris_session_t);
+			reply.msg_contents = (uint8_t *)session;
 
-			for (Service*& service : _this->services) {
+			for (Service *& service: _this->services) {
 				if (service->get_service_id() == message.service_by) {
 					service->send_message(reply, _this);
 				}
@@ -215,7 +229,7 @@ void Server::server_mainloop(Server* _this) {
 			continue;
 		}
 
-		for (Service*& service : _this->services) {
+		for (Service *& service: _this->services) {
 			/*
 			 *	segfaults be damned!
 			 */
@@ -229,7 +243,7 @@ void Server::server_mainloop(Server* _this) {
 		}
 	}
 
-	for (Service*& service : _this->services) {
+	for (Service *& service: _this->services) {
 		DEBUG_PRINTF("stopping %lx\n", service->get_service_id());
 		service->stop_service();
 	}
@@ -270,6 +284,6 @@ bool Server::stop_server() {
 	return true;
 }
 
-std::vector<Service*> Server::get_services() {
+std::vector<Service *> Server::get_services() {
 	return this->services;
 }

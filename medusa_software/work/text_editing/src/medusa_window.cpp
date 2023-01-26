@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -16,71 +16,72 @@
  */
 
 #include "medusa_window.h"
+
 #include "logging.h"
+
 #include <gtkmm.h>
 
 using namespace std;
 
 #define BORDER_WIDTH 10
 
-medusa_window::medusa_window(int   argc,
-							 char* argv[]) {
-	char*    filename;
-	size_t   count;
-	uint8_t* buf;
-	size_t   len;
-	int      i;
+medusa_window::medusa_window(int argc, char *argv[]) {
+	char	*filename;
+	size_t	 count;
+	uint8_t *buf;
+	size_t	 len;
+	int		 i;
 
 	medusa_log(LOG_INFO, "Landed in medusa_window.");
 	medusa_log(LOG_INFO, "Asking for file to edit...");
-	Gtk::FileChooserDialog dialog("Please choose a file to edit.",
-								  Gtk::FILE_CHOOSER_ACTION_OPEN);
+	Gtk::FileChooserDialog dialog("Please choose a file to edit.", Gtk::FILE_CHOOSER_ACTION_OPEN);
 	dialog.set_transient_for(*this);
 
-	dialog.add_button("_Cancel",	Gtk::RESPONSE_CANCEL);
-	dialog.add_button("_Open",		Gtk::RESPONSE_OK);
+	dialog.add_button("_Cancel", Gtk::RESPONSE_CANCEL);
+	dialog.add_button("_Open", Gtk::RESPONSE_OK);
 
 	int result = dialog.run();
 	switch (result) {
-		case (Gtk::RESPONSE_OK): {
-			/*
-			 *  strdup because otherwise it breaks or something
-			 *  god, i love memory management
-			 */
+		case (Gtk::RESPONSE_OK):
+			{
+				/*
+				 *  strdup because otherwise it breaks or something
+				 *  god, i love memory management
+				 */
 
-			medusa_log(LOG_INFO, "User chose to open file.");
-			filename = strdup(dialog.get_filename().c_str());
-			medusa_log(LOG_INFO, "Filename: %s", filename);
-			break;
-		} case (Gtk::RESPONSE_CANCEL): {
-			medusa_log(LOG_INFO, "User cancelled file opening.");
-			filename = NULL;
-			break;
-		} default: {
-			medusa_log(LOG_ERROR, "Something went wrong.");
-			return;
-			break;
-		}
+				medusa_log(LOG_INFO, "User chose to open file.");
+				filename = strdup(dialog.get_filename().c_str());
+				medusa_log(LOG_INFO, "Filename: %s", filename);
+				break;
+			}
+		case (Gtk::RESPONSE_CANCEL):
+			{
+				medusa_log(LOG_INFO, "User cancelled file opening.");
+				filename = NULL;
+				break;
+			}
+		default:
+			{
+				medusa_log(LOG_ERROR, "Something went wrong.");
+				return;
+				break;
+			}
 	}
 
 	if (filename == NULL) {
 		medusa_log(LOG_INFO, "Using empty file.");
 		filename = strdup("new file");
-		len = 1;
-		buf = (uint8_t*)calloc(len,
-							   len / sizeof(uint8_t));
+		len		 = 1;
+		buf		 = (uint8_t *)calloc(len, len / sizeof(uint8_t));
 	} else {
-		medusa_log(LOG_INFO, "Opening %s...",
-				  filename);
-		FILE   *fp	= fopen(filename, "rb");
+		medusa_log(LOG_INFO, "Opening %s...", filename);
+		FILE *fp = fopen(filename, "rb");
 
 		fseek(fp, 0, SEEK_END);
-		len	= ftell(fp);
+		len = ftell(fp);
 		rewind(fp);
 
-		medusa_log(LOG_INFO, "File is %d bytes (0x%x in hex) long.",
-				  len,
-				  len);
+		medusa_log(LOG_INFO, "File is %d bytes (0x%x in hex) long.", len, len);
 
 		/*
 		 *  i'm aware that sizeof(uint8_t); should be 1 on any normal system,
@@ -92,25 +93,20 @@ medusa_window::medusa_window(int   argc,
 
 		medusa_log(LOG_VERBOSE, "Allocating memory...");
 
-		buf	= (uint8_t*)calloc(len,
-							   len / sizeof(uint8_t));
-		fread(buf,
-			  sizeof(uint8_t),
-			  len / sizeof(uint8_t),
-			  fp);
+		buf = (uint8_t *)calloc(len, len / sizeof(uint8_t));
+		fread(buf, sizeof(uint8_t), len / sizeof(uint8_t), fp);
 		fclose(fp);
 	}
 
 	set_title(filename);
-	set_default_size(640,
-					 480);
+	set_default_size(640, 480);
 
 	/*
 	 *  create a TextView for the text view, as well as a TextBuffer for
 	 *  containing the text
 	 */
 	medusa_log(LOG_VERBOSE, "Creating GTK TextView and TextBuffer...");
-	our_text_view   = new Gtk::TextView();
+	our_text_view	= new Gtk::TextView();
 	our_text_buffer = Gtk::TextBuffer::create();
 
 	/*
@@ -125,7 +121,7 @@ medusa_window::medusa_window(int   argc,
 	/*
 	 *  set the actual thing
 	 */
-	our_text_buffer->set_text((char*)buf);
+	our_text_buffer->set_text((char *)buf);
 
 	/*
 	 *  add text view to scrolledwindow and init scrolledwindow

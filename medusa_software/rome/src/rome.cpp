@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -15,8 +15,8 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <rome/rome.hpp>
 #include <cstdio>
+#include <rome/rome.hpp>
 #include <string>
 
 namespace rome {
@@ -55,9 +55,7 @@ namespace rome {
 		waddch(win, ch);
 	}
 
-	void window::putch(int ch,
-					   int x,
-					   int y) {
+	void window::putch(int ch, int x, int y) {
 		int curx, cury;
 		getyx(win, cury, curx);
 
@@ -69,9 +67,7 @@ namespace rome {
 		waddstr(win, str.c_str());
 	}
 
-	void window::addstr(std::string str,
-						int x,
-						int y) {
+	void window::addstr(std::string str, int x, int y) {
 		int curx, cury;
 		getyx(win, cury, curx);
 
@@ -87,11 +83,7 @@ namespace rome {
 		attroff(attr);
 	}
 
-	void window::chgattr(int attr,
-						 int x,
-						 int y,
-						 int n,
-						 int color_pair) {
+	void window::chgattr(int attr, int x, int y, int n, int color_pair) {
 		int curx, cury;
 		getyx(win, cury, curx);
 
@@ -106,8 +98,7 @@ namespace rome {
 		wmove(win, cury, curx);
 	}
 
-	void window::move(int x,
-					  int y) {
+	void window::move(int x, int y) {
 		wmove(win, y, x);
 	}
 
@@ -122,4 +113,4 @@ namespace rome {
 	window::~window() {
 		endwin();
 	}
-}
+} //  namespace rome

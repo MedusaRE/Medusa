@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -27,13 +27,13 @@ namespace vienna {
 	 *		   Representation (IR).
 	 */
 	typedef enum {
-		NOP,		/**< A no-op, an instruction that does nothing. */
-		DEREF,		/**< An operation that dereferences a register. */
+		NOP,   /**< A no-op, an instruction that does nothing. */
+		DEREF, /**< An operation that dereferences a register. */
 	} ir_opcode_t;
 
 	typedef struct {
-		ir_opcode_t ir_opcode;
+			ir_opcode_t ir_opcode;
 	} ir_t;
-}
+} //  namespace vienna
 
 #endif

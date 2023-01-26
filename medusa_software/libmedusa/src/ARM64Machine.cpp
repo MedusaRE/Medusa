@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -15,12 +15,12 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include <capstone/capstone.h>
+#include <cstdio>
+#include <cstring>
 #include <libmedusa/ARM64Machine.hpp>
 #include <libmedusa/libmedusa.hpp>
-#include <capstone/capstone.h>
 #include <unicorn/unicorn.h>
-#include <cstring>
-#include <cstdio>
 
 using namespace libmedusa;
 
@@ -28,38 +28,14 @@ using namespace libmedusa;
  *  "normal" registers, contains the registers returned by get_registers.
  */
 uc_arm64_reg arm64_normal_regs[] = {
-	UC_ARM64_REG_X0,
-	UC_ARM64_REG_X1,
-	UC_ARM64_REG_X2,
-	UC_ARM64_REG_X3,
-	UC_ARM64_REG_X4,
-	UC_ARM64_REG_X5,
-	UC_ARM64_REG_X6,
-	UC_ARM64_REG_X7,
-	UC_ARM64_REG_X8,
-	UC_ARM64_REG_X9,
-	UC_ARM64_REG_X10,
-	UC_ARM64_REG_X11,
-	UC_ARM64_REG_X12,
-	UC_ARM64_REG_X13,
-	UC_ARM64_REG_X14,
-	UC_ARM64_REG_X15,
-	UC_ARM64_REG_X16,
-	UC_ARM64_REG_X17,
-	UC_ARM64_REG_X18,
-	UC_ARM64_REG_X19,
-	UC_ARM64_REG_X20,
-	UC_ARM64_REG_X21,
-	UC_ARM64_REG_X22,
-	UC_ARM64_REG_X23,
-	UC_ARM64_REG_X24,
-	UC_ARM64_REG_X25,
-	UC_ARM64_REG_X26,
-	UC_ARM64_REG_X27,
-	UC_ARM64_REG_X28,
-	UC_ARM64_REG_FP,
-	UC_ARM64_REG_SP,
-	UC_ARM64_REG_PC,
+	UC_ARM64_REG_X0,  UC_ARM64_REG_X1,	UC_ARM64_REG_X2,  UC_ARM64_REG_X3,
+	UC_ARM64_REG_X4,  UC_ARM64_REG_X5,	UC_ARM64_REG_X6,  UC_ARM64_REG_X7,
+	UC_ARM64_REG_X8,  UC_ARM64_REG_X9,	UC_ARM64_REG_X10, UC_ARM64_REG_X11,
+	UC_ARM64_REG_X12, UC_ARM64_REG_X13, UC_ARM64_REG_X14, UC_ARM64_REG_X15,
+	UC_ARM64_REG_X16, UC_ARM64_REG_X17, UC_ARM64_REG_X18, UC_ARM64_REG_X19,
+	UC_ARM64_REG_X20, UC_ARM64_REG_X21, UC_ARM64_REG_X22, UC_ARM64_REG_X23,
+	UC_ARM64_REG_X24, UC_ARM64_REG_X25, UC_ARM64_REG_X26, UC_ARM64_REG_X27,
+	UC_ARM64_REG_X28, UC_ARM64_REG_FP,	UC_ARM64_REG_SP,  UC_ARM64_REG_PC,
 };
 
 ARM64Machine::ARM64Machine() {
@@ -69,9 +45,7 @@ ARM64Machine::ARM64Machine() {
 	/*
 	 *  open unicorn handle as thumb, that works for ARM code as well.
 	 */
-	err = uc_open(UC_ARCH_ARM64,
-				  UC_MODE_ARM,
-				  &this->uc);
+	err = uc_open(UC_ARCH_ARM64, UC_MODE_ARM, &this->uc);
 	/*
 	 *  create descriptions for all of the registers we intend to "publish"
 	 */
@@ -79,242 +53,238 @@ ARM64Machine::ARM64Machine() {
 	reg.reg_id = -1;
 
 	reg.reg_description = "x0";
-	reg.reg_name = "x0";
+	reg.reg_name		= "x0";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x1";
-	reg.reg_name = "x1";
+	reg.reg_name		= "x1";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x2";
-	reg.reg_name = "x2";
+	reg.reg_name		= "x2";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x3";
-	reg.reg_name = "x3";
+	reg.reg_name		= "x3";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x4";
-	reg.reg_name = "x4";
+	reg.reg_name		= "x4";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x5";
-	reg.reg_name = "x5";
+	reg.reg_name		= "x5";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x6";
-	reg.reg_name = "x6";
+	reg.reg_name		= "x6";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x7";
-	reg.reg_name = "x7";
+	reg.reg_name		= "x7";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x8";
-	reg.reg_name = "x8";
+	reg.reg_name		= "x8";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x9";
-	reg.reg_name = "x9";
+	reg.reg_name		= "x9";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x10";
-	reg.reg_name = "x10";
+	reg.reg_name		= "x10";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x11";
-	reg.reg_name = "x11";
+	reg.reg_name		= "x11";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x12";
-	reg.reg_name = "x12";
+	reg.reg_name		= "x12";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x13";
-	reg.reg_name = "x13";
+	reg.reg_name		= "x13";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x14";
-	reg.reg_name = "x14";
+	reg.reg_name		= "x14";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x15";
-	reg.reg_name = "x15";
+	reg.reg_name		= "x15";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x16";
-	reg.reg_name = "x16";
+	reg.reg_name		= "x16";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x17";
-	reg.reg_name = "x17";
+	reg.reg_name		= "x17";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x18";
-	reg.reg_name = "x18";
+	reg.reg_name		= "x18";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x19";
-	reg.reg_name = "x19";
+	reg.reg_name		= "x19";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x20";
-	reg.reg_name = "x20";
+	reg.reg_name		= "x20";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x21";
-	reg.reg_name = "x21";
+	reg.reg_name		= "x21";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x22";
-	reg.reg_name = "x22";
+	reg.reg_name		= "x22";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x23";
-	reg.reg_name = "x23";
+	reg.reg_name		= "x23";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x24";
-	reg.reg_name = "x24";
+	reg.reg_name		= "x24";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x25";
-	reg.reg_name = "x25";
+	reg.reg_name		= "x25";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x26";
-	reg.reg_name = "x26";
+	reg.reg_name		= "x26";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x27";
-	reg.reg_name = "x27";
+	reg.reg_name		= "x27";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "x28";
-	reg.reg_name = "x28";
+	reg.reg_name		= "x28";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "fp";
-	reg.reg_name = "fp";
+	reg.reg_name		= "fp";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "sp";
-	reg.reg_name = "sp";
+	reg.reg_name		= "sp";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	reg.reg_description = "pc";
-	reg.reg_name = "pc";
+	reg.reg_name		= "pc";
 	reg.reg_id++;
 	reg.reg_value = 0;
-	
+
 	this->registers.push_back(reg);
 
 	/*
 	 *  open capstone handles for ARM64 code.
 	 */
-	cs_open(CS_ARCH_ARM64,
-			(cs_mode)(CS_MODE_ARM),
-			&this->handle);
+	cs_open(CS_ARCH_ARM64, (cs_mode)(CS_MODE_ARM), &this->handle);
 
 	/*
 	 *  open keystone handles for ARM64 code.
 	 */
-	ks_open(KS_ARCH_ARM64,
-			KS_MODE_LITTLE_ENDIAN,
-			&this->ks);
+	ks_open(KS_ARCH_ARM64, KS_MODE_LITTLE_ENDIAN, &this->ks);
 }
 
 ARM64Machine::~ARM64Machine() {
@@ -324,8 +294,8 @@ ARM64Machine::~ARM64Machine() {
 
 std::vector<reg_t> ARM64Machine::get_registers() {
 	/*
-	 *  loop from 0 to the length of arm64_normal_regs, read the register, and set the
-	 *  value.
+	 *  loop from 0 to the length of arm64_normal_regs, read the register, and
+	 * set the value.
 	 */
 	for (int i = 0; i < sizeof(arm64_normal_regs) / sizeof(arm64_normal_regs[0]); i++) {
 		uint64_t val;
@@ -337,9 +307,9 @@ std::vector<reg_t> ARM64Machine::get_registers() {
 }
 
 std::vector<mem_reg_t> ARM64Machine::get_memory_regions() {
-	std::vector<mem_reg_t>	regions;
-	uc_mem_region		   *uc_style_memory_regions;
-	uint32_t				count;
+	std::vector<mem_reg_t> regions;
+	uc_mem_region		  *uc_style_memory_regions;
+	uint32_t			   count;
 
 	/*
 	 *  get memory regions from unicorn, my good lord above
@@ -356,7 +326,7 @@ std::vector<mem_reg_t> ARM64Machine::get_memory_regions() {
 		 *  technically UC_PROT shit is the same as XP_PROT shit tmk, but
 		 *  just in case, y'know?
 		 */
-		region.prot  = 0;
+		region.prot = 0;
 		region.prot |= (uc_style_memory_regions[i].perms & UC_PROT_READ) ? XP_PROT_READ : 0;
 		region.prot |= (uc_style_memory_regions[i].perms & UC_PROT_WRITE) ? XP_PROT_WRITE : 0;
 		region.prot |= (uc_style_memory_regions[i].perms & UC_PROT_EXEC) ? XP_PROT_EXEC : 0;
@@ -368,7 +338,7 @@ std::vector<mem_reg_t> ARM64Machine::get_memory_regions() {
 }
 
 bool ARM64Machine::map_memory(mem_reg_t memory_region) {
-	bool	 ret = true;
+	bool	 ret  = true;
 	uint32_t prot = 0;
 	uc_err	 err;
 
@@ -408,9 +378,9 @@ mem_reg_t ARM64Machine::find_memory_region(uint64_t addr) {
 	/*
 	 *  check if addr is inside the region's range
 	 */
-	for (mem_reg_t& i : regions) {
+	for (mem_reg_t& i: regions) {
 		uint64_t start_addr = i.addr;
-		uint64_t end_addr = i.addr + i.size;
+		uint64_t end_addr	= i.addr + i.size;
 		if (addr >= start_addr && addr < end_addr) {
 			return i;
 		}
@@ -427,7 +397,9 @@ bool ARM64Machine::unmap_memory(mem_reg_t memory_region) {
 	/*
 	 *  unmap the memory
 	 */
-	ret = (uc_mem_unmap(this->uc, memory_region.addr, memory_region.size) == UC_ERR_OK) ? true : false;
+	ret = (uc_mem_unmap(this->uc, memory_region.addr, memory_region.size) == UC_ERR_OK)
+			? true
+			: false;
 
 	return ret;
 }
@@ -508,7 +480,9 @@ bool ARM64Machine::set_register(reg_t reg) {
 	 *  no buffer overflows here, sir!
 	 */
 	if (reg.reg_id <= sizeof(arm64_normal_regs) / sizeof(arm64_normal_regs[0])) {
-		ret = (uc_reg_write(this->uc, arm64_normal_regs[reg.reg_id], &reg.reg_value) == UC_ERR_OK) ? true : false;
+		ret = (uc_reg_write(this->uc, arm64_normal_regs[reg.reg_id], &reg.reg_value) == UC_ERR_OK)
+				? true
+				: false;
 	} else {
 		ret = false;
 	}
@@ -517,12 +491,12 @@ bool ARM64Machine::set_register(reg_t reg) {
 }
 
 std::vector<insn_t> ARM64Machine::disassemble(std::vector<uint8_t>& data, flag_t flags) {
-	uint32_t			 size = data.size();
-	uint8_t				 buf[size];
-	size_t				 count;
-	cs_insn				*insns;
-	insn_t				 insn;
-	std::vector<insn_t>	 ret;
+	uint32_t			size = data.size();
+	uint8_t				buf[size];
+	size_t				count;
+	cs_insn			   *insns;
+	insn_t				insn;
+	std::vector<insn_t> ret;
 
 	std::copy(data.begin(), data.end(), buf);
 
@@ -532,13 +506,8 @@ std::vector<insn_t> ARM64Machine::disassemble(std::vector<uint8_t>& data, flag_t
 		cs_option(this->handle, CS_OPT_SYNTAX, CS_OPT_SYNTAX_DEFAULT);
 	}
 
-	count = cs_disasm(this->handle,
-					  buf,
-					  size,
-					  0,
-					  0,
-					  &insns);
-	
+	count = cs_disasm(this->handle, buf, size, 0, 0, &insns);
+
 	if (!insns) {
 		goto out;
 	}
@@ -548,14 +517,14 @@ std::vector<insn_t> ARM64Machine::disassemble(std::vector<uint8_t>& data, flag_t
 	}
 
 	for (int i = 0; i < count; i++) {
-		insn.id = insns[i].id;
+		insn.id		 = insns[i].id;
 		insn.address = insns[i].address;
-		insn.size = insns[i].size;
+		insn.size	 = insns[i].size;
 
-		insn.bytes = (uint8_t*)calloc(insn.size, 1);
+		insn.bytes = (uint8_t *)calloc(insn.size, 1);
 		memcpy(insn.bytes, insns[i].bytes, insn.size);
 		insn.mnemonic = strdup(insns[i].mnemonic);
-		insn.op_str = strdup(insns[i].op_str);
+		insn.op_str	  = strdup(insns[i].op_str);
 
 		ret.push_back(insn);
 	}
@@ -565,19 +534,14 @@ out:
 }
 
 std::vector<uint8_t> ARM64Machine::assemble(std::string src, uint64_t addr, flag_t flags) {
-	ks_err				  err_ks;
-	size_t				  count;
-	size_t				  size;
-	uint8_t				 *data;
-	std::vector<uint8_t>  ret;
+	ks_err				 err_ks;
+	size_t				 count;
+	size_t				 size;
+	uint8_t				*data;
+	std::vector<uint8_t> ret;
 
-	ks_asm(this->ks,
-		   src.c_str(),
-		   addr,
-		   &data,
-		   &size,
-		   &count);
-	
+	ks_asm(this->ks, src.c_str(), addr, &data, &size, &count);
+
 	if (!data) {
 		goto out;
 	}

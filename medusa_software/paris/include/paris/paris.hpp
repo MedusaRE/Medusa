@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -18,14 +18,18 @@
 #ifndef PARIS_PARIS_HPP
 #define PARIS_PARIS_HPP
 
-#include <condition_variable>
 #include "message.hpp"
-#include <thread>
-#include <vector>
+
+#include <condition_variable>
 #include <mutex>
 #include <queue>
+#include <thread>
+#include <vector>
 
-#define THREAD_WAIT() do { std::this_thread::sleep_for(std::chrono::nanoseconds(1)); } while (0)
+#define THREAD_WAIT()                                             \
+	do {                                                          \
+		std::this_thread::sleep_for(std::chrono::nanoseconds(1)); \
+	} while (0)
 
 namespace paris {
 	class Server;
@@ -38,9 +42,9 @@ namespace paris {
 	 *	@brief A structure containing a paris_message_t & Server.
 	 */
 	typedef struct {
-		paris_message_t message;	/**< The message that was sent. */
-		Server* server;				/**< The Server that this message was sent
-										 with. */
+			paris_message_t message; /**< The message that was sent. */
+			Server		   *server;	 /**< The Server that this message was sent
+										  with. */
 	} paris_message_and_server_t;
 
 	/**
@@ -56,13 +60,13 @@ namespace paris {
 			 * 	@return true  Success.
 			 * 	@return false Fail.
 			 */
-			virtual bool send_message(paris_message_t message, Server* server) = 0;
+			virtual bool send_message(paris_message_t message, Server *server) = 0;
 
 			/**
 			 *	@brief Get the std::thread that this Service is "backed" by.
 			 *
 			 *	@return std::thread The std::thread that this Service is
-			 			"backed" by.
+						"backed" by.
 			 */
 			virtual std::thread get_backing_thread() = 0;
 
@@ -80,6 +84,7 @@ namespace paris {
 			 *	@return false Fail.
 			 */
 			virtual bool stop_service() = 0;
+
 		protected:
 			std::thread thread;
 	};
@@ -88,15 +93,15 @@ namespace paris {
 	 *	@brief A semi-abstract class representing and implementing code for
 	 *		   listening to messages and processing them.
 	 */
-	class ServiceListener : public Service {
+	class ServiceListener: public Service {
 		public:
 			ServiceListener();
 			~ServiceListener();
 
-			bool send_message(paris_message_t message, Server* server);
+			bool		send_message(paris_message_t message, Server *server);
 			std::thread get_backing_thread();
-			uint64_t get_service_id();
-			bool stop_service();
+			uint64_t	get_service_id();
+			bool		stop_service();
 
 			/**
 			 *	@brief The "mainloop" for this Service &mdash; a function that
@@ -108,7 +113,7 @@ namespace paris {
 			 *				 std::thread usage, so we need to pass this to
 			 *				 access member functions and variables.
 			 */
-			static void service_mainloop(ServiceListener* _this);
+			static void service_mainloop(ServiceListener *_this);
 
 			/**
 			 *	@brief Make this Service process a paris_message_t.
@@ -119,7 +124,7 @@ namespace paris {
 			 *	@return true  Success.
 			 *	@return false Fail.
 			 */
-			virtual bool process_message(paris_message_t message, Server* server);
+			virtual bool process_message(paris_message_t message, Server *server);
 
 			/**
 			 *	@brief An override-able function to initialize Service-specific
@@ -127,42 +132,43 @@ namespace paris {
 			 *		   to a Server. (or really, when it receives a
 			 *		   PARIS_INIT_MSG message.)
 			 *
-			 *	@param	server The Server on which this Service was added to. 
+			 *	@param	server The Server on which this Service was added to.
 			 *
 			 *	@return true  Success.
 			 *	@return false Fail.
 			 */
-			virtual bool builtin_init(paris::Server* server);
+			virtual bool builtin_init(paris::Server *server);
+
 		protected:
 			std::queue<paris_message_and_server_t> queue;
-			std::condition_variable cv;
-			std::thread thread;
-			std::mutex mtx;
-			uint64_t id;
-			bool run;
+			std::condition_variable				   cv;
+			std::thread							   thread;
+			std::mutex							   mtx;
+			uint64_t							   id;
+			bool								   run;
 	};
 
 	/**
 	 *	@brief An example Service based on ServiceListener.
 	 */
-	class ExampleService : public ServiceListener {
+	class ExampleService: public ServiceListener {
 		public:
-			virtual bool process_message(paris_message_t message, Server* server);
+			virtual bool process_message(paris_message_t message, Server *server);
 	};
 
 	/**
 	 *	@brief A service that dumps the msg_contents of paris_message_t's that
 	 *		   it receives to stdout.
 	 */
-	class DumpMsgContentsToSTDOUTService : public ServiceListener {
+	class DumpMsgContentsToSTDOUTService: public ServiceListener {
 		public:
-			virtual bool process_message(paris_message_t message, Server* server);
+			virtual bool process_message(paris_message_t message, Server *server);
 	};
 
 	typedef struct {
-		uint64_t session_id;
-		uint64_t uid;
-		uint64_t cookie[4];
+			uint64_t session_id;
+			uint64_t uid;
+			uint64_t cookie[4];
 	} paris_session_t;
 
 	/**
@@ -205,8 +211,8 @@ namespace paris {
 			 *				 usage, so we need to pass this to access member
 			 *				 functions and variables.
 			 */
-			static void server_mainloop(Server* _this);
-			static bool queue_available(Server* _this);
+			static void server_mainloop(Server *_this);
+			static bool queue_available(Server *_this);
 
 			/**
 			 *	@brief Add/connect a Service to this Server.
@@ -252,15 +258,16 @@ namespace paris {
 			 *	@return std::vector<Service*> An std::vector of pointers to all
 			 *			Service's connected to this Server.
 			 */
-			std::vector<Service*> get_services();
+			std::vector<Service *> get_services();
+
 		protected:
 			std::queue<paris_message_t> queue;
-			std::vector<Service*> services;
-			std::condition_variable cv;
-			std::thread thread;
-			std::mutex mtx;
-			bool run;
+			std::vector<Service *>		services;
+			std::condition_variable		cv;
+			std::thread					thread;
+			std::mutex					mtx;
+			bool						run;
 	};
-}
+} //  namespace paris
 
 #endif

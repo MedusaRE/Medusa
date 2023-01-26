@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -18,33 +18,35 @@
 #ifndef MEDUSA_WINDOW_H
 #define MEDUSA_WINDOW_H
 
-#include <gtksourceviewmm.h>
-#include <gtkmm/box.h>
 #include "london.h"
-#include <gtkmm.h>
 
-class medusa_window : public Gtk::Window {
+#include <gtkmm.h>
+#include <gtkmm/box.h>
+#include <gtksourceviewmm.h>
+
+class medusa_window: public Gtk::Window {
 	public:
-		medusa_window(int   argc,
-					  char* argv[]);
+		medusa_window(int argc, char *argv[]);
 		void on_startup();
 		virtual ~medusa_window();
+
 	protected:
 		void on_open_clicked();
 		void on_open_folder_clicked();
 		void on_save_clicked();
 		void on_treeview_row_activated(const Gtk::TreeModel::Path& path,
-									   Gtk::TreeViewColumn*);
-		
+									   Gtk::TreeViewColumn *);
+
 		void open_file(std::string filename);
 
-		void repopulate_directory_tree(Gtk::TreeModel::Row* parent = NULL, std::string path = "");
+		void repopulate_directory_tree(Gtk::TreeModel::Row *parent = NULL,
+									   std::string			path   = "");
 		london_config_t lct;
 
 		Glib::RefPtr<Gtk::TreeStore> ref_tree_model;
-		Gtk::TreeView trv;
+		Gtk::TreeView				 trv;
 
-		class dir_view_column : public Gtk::TreeModel::ColumnRecord {
+		class dir_view_column: public Gtk::TreeModel::ColumnRecord {
 			public:
 				dir_view_column() {
 					add(dir_name);
@@ -56,7 +58,7 @@ class medusa_window : public Gtk::Window {
 		};
 
 		Glib::RefPtr<Gsv::LanguageManager> lm;
-		Gsv::View* tv;
+		Gsv::View						  *tv;
 
 		dir_view_column dir_view_columns;
 };

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -15,13 +15,13 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "medusa_window.h"
 #include "logging.h"
-#include <gtkmm.h>
-#include <cstdio>
+#include "medusa_window.h"
 
-int main(int	argc,
-		 char  *argv[]) {
+#include <cstdio>
+#include <gtkmm.h>
+
+int main(int argc, char *argv[]) {
 	/*
 	 *  TODO: make this code look better, it looks like shit.
 	 *
@@ -31,12 +31,12 @@ int main(int	argc,
 	 *
 	 *  spv@jkek420:/.../xpdbg/xpdbg_software$ bin/main res/test1.bin
 	 *
-	 *  (main:13170): GLib-GIO-CRITICAL **: 14:22:18.291: This application can not open files.
-	 *  spv@jkek420:/.../xpdbg/xpdbg_software$
+	 *  (main:13170): GLib-GIO-CRITICAL **: 14:22:18.291: This application can
+	 * not open files. spv@jkek420:/.../xpdbg/xpdbg_software$
 	 */
-	int			fake_argc	= 1;
-	char	  **fake_argv	= NULL;
-	fake_argv				= (char**)calloc(sizeof(uintptr_t), 2);
+	int	   fake_argc = 1;
+	char **fake_argv = NULL;
+	fake_argv		 = (char **)calloc(sizeof(uintptr_t), 2);
 
 	/*
 	 *  populate the array
@@ -51,16 +51,13 @@ int main(int	argc,
 	 *  create the app
 	 */
 	medusa_log(LOG_INFO, "Creating GTK application...");
-	auto app = Gtk::Application::create(fake_argc,
-										fake_argv,
-										"org.medusa-re.medusa");
+	auto app = Gtk::Application::create(fake_argc, fake_argv, "org.medusa-re.medusa");
 
 	/*
 	 *  create the window object
 	 */
 	medusa_log(LOG_INFO, "Creating medusa_window...");
-	medusa_window window(argc,
-						 argv);
+	medusa_window window(argc, argv);
 
 
 	/*

@@ -16,6 +16,12 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
-# tools/lexicon_wrapper.sh create medusa-re.org TXT "example.example.medusa-re.org" "RDNS_NAME=\"org.medusa-re.example.example\""
+shopt -s globstar
 
-lexicon cloudflare $1 $2 $3 --name="$4" --content="$5"
+for file in medusa_software/**/*.{cpp,cc,c,h,hh,hpp}; do
+	if (echo $file | grep -q submodules); then
+		continue
+	fi
+	echo formatting: $file
+	clang-format -i $file
+done

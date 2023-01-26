@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -17,7 +17,7 @@
 
 #include <cstdio>
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 	printf("Hello, world!\n");
 	return 0;
 }

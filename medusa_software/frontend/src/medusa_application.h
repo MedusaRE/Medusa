@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -22,23 +22,25 @@
 
 class medusa_window;
 
-class medusa_application : public Gtk::Application {
+class medusa_application: public Gtk::Application {
 	public:
 		medusa_application();
 		static Glib::RefPtr<medusa_application> create();
+
 	protected:
-		Gtk::Button paris_test_button;
+		Gtk::Button			paris_test_button;
 		Gtk::ScrolledWindow sw;
-		Gtk::TextView reg_view;
-		Gtk::Box button_box;
-		Gtk::Grid our_grid;
-		Gtk::Box emu_box;
-		Gtk::Box our_box;
-	
+		Gtk::TextView		reg_view;
+		Gtk::Box			button_box;
+		Gtk::Grid			our_grid;
+		Gtk::Box			emu_box;
+		Gtk::Box			our_box;
+
 		void step_clicked();
 		void on_activate() override;
+
 	private:
-		medusa_window* create_appwindow();
+		medusa_window *create_appwindow();
 };
 
 #endif

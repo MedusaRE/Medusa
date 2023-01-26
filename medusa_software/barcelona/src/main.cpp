@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -15,13 +15,13 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <ncurses.h>
-#include <cstring>
 #include <cstdio>
+#include <cstring>
+#include <ncurses.h>
 
 #define KEY_ESC 27
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 	initscr();
 	cbreak();
 	noecho();
@@ -37,10 +37,10 @@ int main(int argc, char* argv[]) {
 
 	waddstr(win, "barcelona");
 	wmove(win, 1, (rows - strlen("Hello, world!")) / 2);
-    waddstr(win, "Hello, world!");
+	waddstr(win, "Hello, world!");
 
 	wmove(win, 1, (rows - strlen("Second String") - 3));
-    waddstr(win, "Second String");
+	waddstr(win, "Second String");
 
 	mvwchgat(win, 1, 1, rows - 2, A_REVERSE, 0, NULL);
 

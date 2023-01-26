@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -15,37 +15,37 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "../../submodules/mINI/src/mini/ini.h"
-#include <gtkmm/application.h>
-#include <capstone/capstone.h>
-#include <gtkmm/toolbutton.h>
-#include <gtksourceviewmm.h>
-#include <unicorn/unicorn.h>
-#include <gtkmm/menuitem.h>
 #include "medusa_window.h"
-#include <gtkmm/menubar.h>
-#include <gtkmm/menu.h>
-#include <gtkmm/box.h>
-#include <filesystem>
-#include "logging.h"
-#include <iostream>
+
+#include "../../submodules/mINI/src/mini/ini.h"
 #include "config.h"
+#include "lib.h"
+#include "logging.h"
 #include "london.h"
+
+#include <capstone/capstone.h>
 #include <cstdlib>
+#include <filesystem>
 #include <fstream>
 #include <gtkmm.h>
-#include "lib.h"
+#include <gtkmm/application.h>
+#include <gtkmm/box.h>
+#include <gtkmm/menu.h>
+#include <gtkmm/menubar.h>
+#include <gtkmm/menuitem.h>
+#include <gtkmm/toolbutton.h>
+#include <gtksourceviewmm.h>
+#include <iostream>
+#include <unicorn/unicorn.h>
 
 using namespace std;
 namespace fs = std::filesystem;
 
-bool						   bold_me = true;
-char						  *filename;
-Glib::RefPtr<Gtk::TextBuffer>  tvb;
+bool						  bold_me = true;
+char						 *filename;
+Glib::RefPtr<Gtk::TextBuffer> tvb;
 
-void on_insert(const Gtk::TextIter& pos,
-			   const Glib::ustring& text,
-			   const int& bytes) {
+void on_insert(const Gtk::TextIter& pos, const Glib::ustring& text, const int& bytes) {
 	/*
 	 *  this signal is currently unused.
 	 */
@@ -64,14 +64,14 @@ void on_changed() {
 void medusa_window::open_file(std::string filename) {
 	ifstream	 f(filename);
 	stringstream ss;
-	
+
 	ss << f.rdbuf();
 
 	tvb = Gsv::Buffer::create(lm->guess_language(filename, ""));
 	tv->set_buffer(tvb);
 	tvb = tv->get_buffer();
 
-	auto monospace_tag = tvb->create_tag("monospace_default");
+	auto monospace_tag			   = tvb->create_tag("monospace_default");
 	monospace_tag->property_font() = "Inconsolata 10";
 
 	tvb->set_text(ss.str());
@@ -89,7 +89,8 @@ void medusa_window::on_open_clicked() {
 }
 
 void medusa_window::on_open_folder_clicked() {
-	char* folder_name = file_prompt_cstr(Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER, "Please choose a folder to open.");
+	char *folder_name = file_prompt_cstr(Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER,
+										 "Please choose a folder to open.");
 	if (folder_name == NULL) {
 		return;
 	}
@@ -102,19 +103,20 @@ void medusa_window::on_open_folder_clicked() {
 
 void medusa_window::on_save_clicked() {
 	while (filename == NULL) {
-		filename = file_prompt_cstr(Gtk::FILE_CHOOSER_ACTION_SAVE, "Please create a file to save to.");
+		filename = file_prompt_cstr(Gtk::FILE_CHOOSER_ACTION_SAVE,
+									"Please create a file to save to.");
 	}
 
-	string		 txt_str = tvb->get_text();
-	const char	*txt	 = txt_str.c_str();
-	ofstream	 f(filename);
+	string		txt_str = tvb->get_text();
+	const char *txt		= txt_str.c_str();
+	ofstream	f(filename);
 
 	f.write(strdup(txt), strlen(txt));
 
 	f.close();
 }
 
-void medusa_window::repopulate_directory_tree(Gtk::TreeModel::Row* parent, std::string path) {
+void medusa_window::repopulate_directory_tree(Gtk::TreeModel::Row *parent, std::string path) {
 	/*
 	 *  path defaults to "", so i fit is unspecified, it will create a new
 	 *  (blank / empty) TreeStore.
@@ -125,7 +127,7 @@ void medusa_window::repopulate_directory_tree(Gtk::TreeModel::Row* parent, std::
 		path = getcwd_str();
 	}
 
-	for (const fs::directory_entry& entry : fs::directory_iterator(path)) {
+	for (const fs::directory_entry& entry: fs::directory_iterator(path)) {
 		Gtk::TreeModel::Row row;
 
 		if (!parent) {
@@ -134,7 +136,7 @@ void medusa_window::repopulate_directory_tree(Gtk::TreeModel::Row* parent, std::
 			row = *(ref_tree_model->append(parent->children()));
 		}
 
-		row[dir_view_columns.dir_name] = entry.path().filename().string();
+		row[dir_view_columns.dir_name]	= entry.path().filename().string();
 		row[dir_view_columns.full_path] = entry.path().string();
 
 		if (entry.is_directory()) {
@@ -144,20 +146,18 @@ void medusa_window::repopulate_directory_tree(Gtk::TreeModel::Row* parent, std::
 }
 
 void medusa_window::on_treeview_row_activated(const Gtk::TreeModel::Path& path,
-											  Gtk::TreeViewColumn*) {
+											  Gtk::TreeViewColumn *) {
 	Gtk::TreeModel::iterator iter = ref_tree_model->get_iter(path);
 	if (iter) {
 		Gtk::TreeModel::Row row = *iter;
-		Glib::ustring str = row.get_value(dir_view_columns.full_path);
+		Glib::ustring		str = row.get_value(dir_view_columns.full_path);
 		open_file(str);
 	}
 }
 
-void medusa_window::on_startup() {
-}
+void medusa_window::on_startup() {}
 
-medusa_window::medusa_window(int   argc,
-							 char* argv[]) {
+medusa_window::medusa_window(int argc, char *argv[]) {
 	medusa_log(LOG_INFO, "Landed in medusa_window.");
 	medusa_log(LOG_VERBOSE, "Showing...");
 
@@ -167,15 +167,15 @@ medusa_window::medusa_window(int   argc,
 
 	Gsv::init();
 
-	tv = manage (new Gsv::View);
-	lm = Gsv::LanguageManager::create();
+	tv					 = manage(new Gsv::View);
+	lm					 = Gsv::LanguageManager::create();
 	vector<string> langs = lm->get_language_ids();
 
-	#if DEBUG_BUILD
-		for (auto& i : langs) {
-			printf("%s\n", i.c_str());
-		}
-	#endif
+#if DEBUG_BUILD
+	for (auto& i: langs) {
+		printf("%s\n", i.c_str());
+	}
+#endif
 
 	tvb = Gsv::Buffer::create();
 	tv->set_buffer(tvb);
@@ -188,14 +188,14 @@ medusa_window::medusa_window(int   argc,
 
 	tv->set_show_line_numbers(true);
 
-	tvb->create_tag("bold")->property_weight() = Pango::WEIGHT_BOLD;
+	tvb->create_tag("bold")->property_weight()	  = Pango::WEIGHT_BOLD;
 	tvb->create_tag("red")->property_foreground() = "#ff0000";
 
-	auto normal_tag = tvb->create_tag("normal");
-	normal_tag->property_weight() = Pango::WEIGHT_NORMAL;
+	auto normal_tag					  = tvb->create_tag("normal");
+	normal_tag->property_weight()	  = Pango::WEIGHT_NORMAL;
 	normal_tag->property_foreground() = "#ffffff";
 
-	auto monospace_tag = tvb->create_tag("monospace_default");
+	auto monospace_tag			   = tvb->create_tag("monospace_default");
 	monospace_tag->property_font() = "Inconsolata 10";
 
 	Gtk::TextIter begin, end;
@@ -208,13 +208,13 @@ medusa_window::medusa_window(int   argc,
 
 	tv->set_buffer(tvb);
 
-	auto* grid			  = new Gtk::Grid;
-	auto* toolbar		  = new Gtk::Grid;
-	auto* open_folder_btn = new Gtk::Button;
-	auto* open_btn		  = new Gtk::Button;
-	auto* save_btn		  = new Gtk::Button;
-	auto* sv			  = new Gtk::ScrolledWindow;
-	auto* paned			  = new Gtk::Paned;
+	auto *grid			  = new Gtk::Grid;
+	auto *toolbar		  = new Gtk::Grid;
+	auto *open_folder_btn = new Gtk::Button;
+	auto *open_btn		  = new Gtk::Button;
+	auto *save_btn		  = new Gtk::Button;
+	auto *sv			  = new Gtk::ScrolledWindow;
+	auto *paned			  = new Gtk::Paned;
 
 	ref_tree_model = Gtk::TreeStore::create(dir_view_columns);
 	trv.set_model(ref_tree_model);
@@ -244,7 +244,7 @@ medusa_window::medusa_window(int   argc,
 	toolbar->attach(*open_btn, 0, 0);
 	toolbar->attach(*open_folder_btn, 1, 0);
 	toolbar->attach(*save_btn, 2, 0);
-	
+
 	grid->set_row_homogeneous(false);
 	grid->set_column_homogeneous(false);
 	grid->set_hexpand(false);
@@ -260,9 +260,9 @@ medusa_window::medusa_window(int   argc,
 	paned->set_position(256);
 
 	Gtk::Toolbar	*tb	  = new Gtk::Toolbar;
-	Gtk::ToolButton	*open = new Gtk::ToolButton(Gtk::Stock::OPEN);
-	Gtk::ToolButton	*dir  = new Gtk::ToolButton(Gtk::Stock::DIRECTORY);
-	Gtk::ToolButton	*save = new Gtk::ToolButton(Gtk::Stock::SAVE);
+	Gtk::ToolButton *open = new Gtk::ToolButton(Gtk::Stock::OPEN);
+	Gtk::ToolButton *dir  = new Gtk::ToolButton(Gtk::Stock::DIRECTORY);
+	Gtk::ToolButton *save = new Gtk::ToolButton(Gtk::Stock::SAVE);
 
 	open->signal_clicked().connect(sigc::mem_fun(this, &medusa_window::on_open_clicked));
 	dir->signal_clicked().connect(sigc::mem_fun(this, &medusa_window::on_open_folder_clicked));
@@ -272,7 +272,7 @@ medusa_window::medusa_window(int   argc,
 	tb->add(*dir);
 	tb->add(*save);
 
-//	auto parent_box = new Gtk::Box;
+	//	auto parent_box = new Gtk::Box;
 	auto parent_grid = new Gtk::Grid;
 
 	parent_grid->attach(*tb, 0, 0);
@@ -284,8 +284,8 @@ medusa_window::medusa_window(int   argc,
 	grid->set_hexpand();
 	grid->set_vexpand();
 
-//	parent_box->pack_start(*tb);
-//	parent_box->pack_start(*paned);
+	//	parent_box->pack_start(*tb);
+	//	parent_box->pack_start(*paned);
 
 	add(*parent_grid);
 
@@ -297,7 +297,7 @@ medusa_window::medusa_window(int   argc,
 	 *  i have this set right now because otherwise it will cut off part of the
 	 *  actual content, as there isn't a toolbar or anything.
 	 */
-//	set_title("London (noround)");
+	//	set_title("London (noround)");
 	set_title("London");
 
 	show_all_children();

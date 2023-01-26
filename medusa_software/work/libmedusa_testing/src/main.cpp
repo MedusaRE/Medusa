@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -20,9 +20,9 @@
 
 using namespace std;
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 	libmedusa::ARMv7Machine armv7_machine;
-	libmedusa::mem_reg_t region;
+	libmedusa::mem_reg_t	region;
 	region.addr = 0x0;
 	region.size = 0x10000;
 	region.prot = XP_PROT_READ | XP_PROT_WRITE | XP_PROT_EXEC;
@@ -31,24 +31,24 @@ int main(int argc, char* argv[]) {
 	vector<uint8_t> assembled = armv7_machine.assemble("mov r0, #0x41\nmov r1, r0\n", 0, 0);
 	armv7_machine.write_memory(0, assembled);
 
-	for (uint8_t& i : assembled) {
+	for (uint8_t& i: assembled) {
 		printf("%02x", i);
 	}
 
 	printf("\n");
 
 	libmedusa::reg_t reg;
-	reg.reg_name = "pc";
+	reg.reg_name		= "pc";
 	reg.reg_description = "pc";
-	reg.reg_id = 0xf;
-	reg.reg_value = 0x0;
+	reg.reg_id			= 0xf;
+	reg.reg_value		= 0x0;
 
 	armv7_machine.set_register(reg);
-	
+
 	for (int i = 0; i < 0x8; i++) {
 		vector<libmedusa::reg_t> registers = armv7_machine.get_registers();
 
-		for (libmedusa::reg_t& i : registers) {
+		for (libmedusa::reg_t& i: registers) {
 			printf("%s %s %lx %lx\n", i.reg_name.c_str(), i.reg_description.c_str(), i.reg_id, i.reg_value);
 		}
 

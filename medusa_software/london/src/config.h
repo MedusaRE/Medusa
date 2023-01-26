@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -23,9 +23,9 @@
 #define DEBUG_BUILD 0
 
 struct london_config_t {
-    int tab_size;
-    bool hard_tabs;
-    std::string default_path;
+		int			tab_size;
+		bool		hard_tabs;
+		std::string default_path;
 };
 
 #endif

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -16,10 +16,11 @@
  */
 
 #include "london.h"
+
 #include "config.h"
 #include "lib.h"
 
-london_config_t parse_config_file(const char* filename) {
+london_config_t parse_config_file(const char *filename) {
 	if (filename == NULL) {
 		filename = strcat(getenv("HOME"), "/.medusa/london.ini");
 	}
@@ -30,13 +31,13 @@ london_config_t parse_config_file(const char* filename) {
 	london_config_t ret;
 
 	file.read(ini);
-	ret.tab_size = stoi(ini["global"]["tab-size"]);
-	ret.hard_tabs = ini["global"]["hard-tabs"] == "true";
+	ret.tab_size	 = stoi(ini["global"]["tab-size"]);
+	ret.hard_tabs	 = ini["global"]["hard-tabs"] == "true";
 	ret.default_path = ini["global"]["default-path"];
 
-	#if DEBUG_BUILD
-		printf("%d %s %s\n", ret.tab_size, ret.hard_tabs ? "true" : "false", ret.default_path);
-	#endif
+#if DEBUG_BUILD
+	printf("%d %s %s\n", ret.tab_size, ret.hard_tabs ? "true" : "false", ret.default_path);
+#endif
 
 	return ret;
 }

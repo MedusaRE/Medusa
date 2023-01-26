@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -30,9 +30,9 @@ namespace XParse {
 	} format_t;
 
 	format_t detect_format(std::vector<uint8_t> buf);
-}
+} //  namespace XParse
 
-#define NORMAL_TEST_ELF_PATH "../submodules/binary-samples/elf-Linux-x64-bash"
+#define NORMAL_TEST_ELF_PATH   "../submodules/binary-samples/elf-Linux-x64-bash"
 #define NORMAL_TEST_MACHO_PATH "../submodules/binary-samples/MachO-OSX-x64-ls"
 
 #endif

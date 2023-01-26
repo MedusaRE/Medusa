@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -15,9 +15,10 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <medusa/munich.hpp>
-#include <cstdio>
 #include "lib.h"
+
+#include <cstdio>
+#include <medusa/munich.hpp>
 
 #if 0
 using namespace munich;

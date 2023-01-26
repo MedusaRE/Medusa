@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -16,25 +16,25 @@
  */
 
 /*
- *  half stolen from https://github.com/lief-project/LIEF/blob/master/examples/cpp/elf_reader.cpp
+ *  half stolen from
+ * https://github.com/lief-project/LIEF/blob/master/examples/cpp/elf_reader.cpp
  */
 
 #include <LIEF/LIEF.hpp>
-#include <iostream>
 #include <assert.h>
-#include <stdio.h>
+#include <iostream>
 #include <memory>
+#include <stdio.h>
 
 using namespace std;
 
-template <typename T>
-std::string to_string(const T& value) {
+template<typename T> std::string to_string(const T& value) {
 	std::ostringstream os;
 	os << value;
 	return os.str();
 }
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 #if 0
 	if (argc < 2) {
 		fprintf(stderr, "usage: %s [path to binary]\n", argv[0]);
@@ -42,19 +42,20 @@ int main(int argc, char* argv[]) {
 	}
 #endif
 
-	char* path_to_binary = (char*)"/bin/cat";
+	char *path_to_binary = (char *)"/bin/cat";
 
-	unique_ptr<const LIEF::ELF::Binary> binary = unique_ptr<const LIEF::ELF::Binary>{ LIEF::ELF::Parser::parse(path_to_binary) };
+	unique_ptr<const LIEF::ELF::Binary> binary = unique_ptr<const LIEF::ELF::Binary>{
+		LIEF::ELF::Parser::parse(path_to_binary)};
 	binary->functions();
 
-//	printf("%s\n", to_string(binary->header()).c_str());
+	//	printf("%s\n", to_string(binary->header()).c_str());
 
 	cout << "Binary: " << binary->name() << '\n';
 	cout << "Interpreter: " << binary->interpreter() << '\n';
 	cout << "== Header ==" << '\n';
 	cout << binary->header() << '\n';
 	cout << "== Sections ==" << '\n';
-	for (const LIEF::ELF::Section& section : binary->sections()) {
+	for (const LIEF::ELF::Section& section: binary->sections()) {
 		cout << section << '\n';
 	}
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -15,10 +15,12 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "XParse.hpp"
 #include "ELF.hpp"
-#include <string>
+
+#include "XParse.hpp"
 #include "lib.h"
+
+#include <string>
 
 using namespace std;
 
@@ -49,13 +51,7 @@ namespace XParse {
 			"OpenVOS",
 		};
 
-		std::string obj_type_strs[] = {
-			"Unknown",
-			"Relocatable file",
-			"Executable file",
-			"Shared object",
-			"Core file"
-		};
+		std::string obj_type_strs[] = {"Unknown", "Relocatable file", "Executable file", "Shared object", "Core file"};
 
 		std::string isa_strs[] = {
 			"Unspecified ISA",
@@ -317,8 +313,8 @@ namespace XParse {
 			"Reserved",
 			"65C816",
 		};
-	}
-}
+	} //  namespace ELF
+} //  namespace XParse
 
 XParse::ELF::raw_elf_file_header_t XParse::ELF::parse_elf_binary_raw(vector<uint8_t> buf) {
 	uint16_t						   obj_type;
@@ -328,20 +324,19 @@ XParse::ELF::raw_elf_file_header_t XParse::ELF::parse_elf_binary_raw(vector<uint
 	 *  ELF File Header contains a flag @ 0x4.
 	 *  if the byte is 1, it uses 32-bit addresses, and if the byte is 2, it
 	 *  uses 64-bit addresses.
-	 * 
+	 *
 	 *  same situation for endianness, @ 0x5. 1 = little endian, 2 = big endian.
 	 */
-	ret.addr_size = (XParse::ELF::raw_elf_addr_size_t)buf[0x4];
+	ret.addr_size  = (XParse::ELF::raw_elf_addr_size_t)buf[0x4];
 	ret.endianness = (XParse::ELF::raw_elf_endianness_t)buf[0x5];
-	
+
 	/*
 	 *  if addr_size is invalid (not 32/64), set it to INVALID
 	 */
-	if (ret.addr_size != XParse::ELF::ELF_32
-		&& ret.addr_size != XParse::ELF::ELF_64) {
+	if (ret.addr_size != XParse::ELF::ELF_32 && ret.addr_size != XParse::ELF::ELF_64) {
 		ret.addr_size = XParse::ELF::ELF_INVALID_ADDR_SIZE;
 	}
-	
+
 	/*
 	 *  if endianness is invalid (not little/big endian), set it to INVALID
 	 */
@@ -389,11 +384,13 @@ XParse::ELF::raw_elf_file_header_t XParse::ELF::parse_elf_binary_raw(vector<uint
 	 *  check if obj_type is valid
 	 *  unknown = 0, invalid is the biggest val before the reserved shit,
 	 *  and RESERVED_OS starts the reserved section before 0xffff (END)
-	 * 
+	 *
 	 *  so if it's not in those ranges, set it to invalid
 	 */
-	if (!((XParse::ELF::ELF_OBJ_TYPE_UNKNOWN <= obj_type) && (obj_type < XParse::ELF::ELF_OBJ_TYPE_INVALID))
-		&& !((XParse::ELF::ELF_OBJ_TYPE_RESERVED_OS <= obj_type) && (obj_type <= XParse::ELF::ELF_OBJ_TYPE_END))) {
+	if (!((XParse::ELF::ELF_OBJ_TYPE_UNKNOWN <= obj_type)
+		  && (obj_type < XParse::ELF::ELF_OBJ_TYPE_INVALID))
+		&& !((XParse::ELF::ELF_OBJ_TYPE_RESERVED_OS <= obj_type)
+			 && (obj_type <= XParse::ELF::ELF_OBJ_TYPE_END))) {
 		obj_type = XParse::ELF::ELF_OBJ_TYPE_INVALID;
 	}
 
@@ -404,35 +401,23 @@ XParse::ELF::raw_elf_file_header_t XParse::ELF::parse_elf_binary_raw(vector<uint
 	 */
 	if (ret.addr_size == XParse::ELF::ELF_64) {
 		if (ret.endianness == XParse::ELF::ELF_LITTLE_ENDIAN) {
-			ret.entry_address =	  ((long)(buf[0x1f]) << 56)
-								| ((long)(buf[0x1e]) << 48)
-								| ((long)(buf[0x1d]) << 40)
-								| ((long)(buf[0x1c]) << 32)
-								| ((long)(buf[0x1b]) << 24)
-								| ((long)(buf[0x1a]) << 16)
-								| ((long)(buf[0x19]) <<  8)
-								| ((long)(buf[0x18]) <<  0);
+			ret.entry_address = ((long)(buf[0x1f]) << 56) | ((long)(buf[0x1e]) << 48)
+							  | ((long)(buf[0x1d]) << 40) | ((long)(buf[0x1c]) << 32)
+							  | ((long)(buf[0x1b]) << 24) | ((long)(buf[0x1a]) << 16)
+							  | ((long)(buf[0x19]) << 8) | ((long)(buf[0x18]) << 0);
 		} else {
-			ret.entry_address =	  ((long)(buf[0x18]) << 56)
-								| ((long)(buf[0x19]) << 48)
-								| ((long)(buf[0x1a]) << 40)
-								| ((long)(buf[0x1b]) << 32)
-								| ((long)(buf[0x1c]) << 24)
-								| ((long)(buf[0x1d]) << 16)
-								| ((long)(buf[0x1e]) <<  8)
-								| ((long)(buf[0x1f]) <<  0);
+			ret.entry_address = ((long)(buf[0x18]) << 56) | ((long)(buf[0x19]) << 48)
+							  | ((long)(buf[0x1a]) << 40) | ((long)(buf[0x1b]) << 32)
+							  | ((long)(buf[0x1c]) << 24) | ((long)(buf[0x1d]) << 16)
+							  | ((long)(buf[0x1e]) << 8) | ((long)(buf[0x1f]) << 0);
 		}
 	} else {
 		if (ret.endianness == XParse::ELF::ELF_LITTLE_ENDIAN) {
-			ret.entry_address =	  ((long)(buf[0x1b]) << 24)
-								| ((long)(buf[0x1a]) << 16)
-								| ((long)(buf[0x19]) <<  8)
-								| ((long)(buf[0x18]) <<  0);
+			ret.entry_address = ((long)(buf[0x1b]) << 24) | ((long)(buf[0x1a]) << 16)
+							  | ((long)(buf[0x19]) << 8) | ((long)(buf[0x18]) << 0);
 		} else {
-			ret.entry_address =	  ((long)(buf[0x1c]) << 24)
-								| ((long)(buf[0x1d]) << 16)
-								| ((long)(buf[0x1e]) <<  8)
-								| ((long)(buf[0x1f]) <<  0);
+			ret.entry_address = ((long)(buf[0x1c]) << 24) | ((long)(buf[0x1d]) << 16)
+							  | ((long)(buf[0x1e]) << 8) | ((long)(buf[0x1f]) << 0);
 		}
 	}
 
@@ -444,13 +429,14 @@ string XParse::ELF::to_string_raw(XParse::ELF::raw_elf_file_header_t file_header
 	string ret;
 
 	ret += "Binary Type: ";
-	ret += (file_header.addr_size == XParse::ELF::ELF_32) ? "32-bit ELF"
-														  : "64-bit ELF";
-	ret += (file_header.endianness == XParse::ELF::ELF_LITTLE_ENDIAN) ? " LE\n"
-																	  : " BE\n";
+	ret += (file_header.addr_size == XParse::ELF::ELF_32) ? "32-bit ELF" : "64-bit ELF";
+	ret += (file_header.endianness == XParse::ELF::ELF_LITTLE_ENDIAN) ? " LE\n" : " BE\n";
 	ret += "ABI: " + abi_strs[file_header.abi] + "\n";
-	ret += "Object Type: " + ((file_header.obj_type < XParse::ELF::ELF_OBJ_TYPE_INVALID) ? obj_type_strs[file_header.obj_type]
-																						 : "OS/Processor Specific") + "\n";
+	ret += "Object Type: "
+		 + ((file_header.obj_type < XParse::ELF::ELF_OBJ_TYPE_INVALID)
+				? obj_type_strs[file_header.obj_type]
+				: "OS/Processor Specific")
+		 + "\n";
 	ret += "ISA: " + isa_strs[file_header.isa] + "\n";
 	ret += "Entry Address: " + string_format("0x%016x", file_header.entry_address) + "\n";
 

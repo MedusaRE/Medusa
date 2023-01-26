@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -15,13 +15,13 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <medusa/munich.hpp>
-#include <iostream>
 #include <cstdio>
+#include <iostream>
+#include <medusa/munich.hpp>
 
 using namespace munich;
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 	string s("Hello, world! %x %d", 0x41424344, 123);
 
 	printf("%s %x\n", s, 0x41424344);

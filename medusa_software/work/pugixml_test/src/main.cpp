@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -16,36 +16,36 @@
  */
 
 #include "../../../submodules/pugixml/src/pugixml.hpp"
-#include <iostream>
+
+#include <cstdio>
 #include <cstring>
 #include <fstream>
+#include <iostream>
 #include <sstream>
-#include <cstdio>
 #include <string>
 
 using namespace std;
 
-const char* node_types[] = {
-	"null", "document", "element", "pcdata", "cdata", "comment", "pi", "declaration"
-};
+const char *node_types[] = {"null", "document", "element", "pcdata", "cdata", "comment", "pi", "declaration"};
 
 struct simple_walker: pugi::xml_tree_walker {
-	virtual bool for_each(pugi::xml_node& node) {
-		if (strcmp((char*)node.name(), "") != 0) {
-			for (int i = 0; i < depth(); i++) {
-				printf("\t");
+		virtual bool for_each(pugi::xml_node& node) {
+			if (strcmp((char *)node.name(), "") != 0) {
+				for (int i = 0; i < depth(); i++) {
+					printf("\t");
+				}
+
+				printf("%s: %s\n", node.name(), node.first_child().value());
 			}
 
-			printf("%s: %s\n", node.name(), node.first_child().value());
+			//		std::cout << node_types[node.type()] << ": name='" <<
+			//node.name() << "', value='" << node.value() << "'\n";
+
+			return true;
 		}
-
-//		std::cout << node_types[node.type()] << ": name='" << node.name() << "', value='" << node.value() << "'\n";
-
-		return true;
-	}
 };
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 	pugi::xml_document doc;
 	pugi::xml_parse_result result = doc.load_file("../../vienna/res/src/cpu_definitions/ARMv7.xml");
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -22,30 +22,30 @@
 #define DEFAULT_LENGTH 0x100
 
 struct mem_change_t_struct {
-	uint64_t where;
-	uint64_t size;
-	void* what;
+		uint64_t where;
+		uint64_t size;
+		void	*what;
 };
 
 struct armv7_reg_state_t_struct {
-	uint32_t regs[16];
+		uint32_t regs[16];
 };
 
-typedef struct mem_change_t_struct mem_change_t;
+typedef struct mem_change_t_struct		mem_change_t;
 typedef struct armv7_reg_state_t_struct armv7_reg_state_t;
 
 struct armv7_state_t_struct {
-	armv7_reg_state_t reg_state;
-	mem_change_t mem_change;
+		armv7_reg_state_t reg_state;
+		mem_change_t	  mem_change;
 };
 
 typedef struct armv7_state_t_struct armv7_state_t;
 
 struct armv7_history_t_struct {
-	uint64_t length;
-	uint64_t allocated_elements;
-	uint64_t position;
-	armv7_state_t* states;
+		uint64_t	   length;
+		uint64_t	   allocated_elements;
+		uint64_t	   position;
+		armv7_state_t *states;
 };
 
 typedef struct armv7_history_t_struct armv7_history_t;

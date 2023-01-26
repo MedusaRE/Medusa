@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -15,16 +15,16 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <getopt.h>
 #include <cstdio>
+#include <getopt.h>
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 	int c;
 
 	struct option long_options[] = {
-		{"example_option_1", required_argument, 0, 0},
+		{"example_option_1", required_argument, 0,   0},
 		{"example_option_2", optional_argument, 0, 'o'},
-		{0, 0, 0, 0},
+		{				 0,				 0, 0,	  0},
 	};
 
 	while (true) {
@@ -42,10 +42,8 @@ int main(int argc, char* argv[]) {
 			case 'o':
 				printf("option %c=%s\n", c, optarg);
 				break;
-			default:
-				;
+			default:;
 		}
-
 	}
 
 	if (optind < argc) {

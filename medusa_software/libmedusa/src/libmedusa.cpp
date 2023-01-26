@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -15,12 +15,12 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <libmedusa/libmedusa.hpp>
-#include <libmedusa/Machine.hpp>
 #include <capstone/capstone.h>
-#include <unicorn/unicorn.h>
-#include <cstring>
 #include <cstdio>
+#include <cstring>
+#include <libmedusa/Machine.hpp>
+#include <libmedusa/libmedusa.hpp>
+#include <unicorn/unicorn.h>
 #include <vector>
 
 using namespace libmedusa;
@@ -44,7 +44,7 @@ bool libmedusa::destroy_insn_t(libmedusa::insn_t insn) {
 }
 
 bool libmedusa::destroy_insn_t_vector(std::vector<libmedusa::insn_t> insns) {
-	bool ret = true;
+	bool   ret	= true;
 	size_t size = insns.size();
 
 	for (int i = 0; i < size; i++) {

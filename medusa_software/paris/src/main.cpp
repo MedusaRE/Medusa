@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -15,21 +15,22 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include "lib.h"
+
+#include <cstdio>
+#include <iostream>
 #include <paris/message.hpp>
 #include <paris/paris.hpp>
-#include <sys/socket.h>
-#include <iostream>
 #include <stddef.h>
 #include <stdlib.h>
+#include <sys/socket.h>
 #include <sys/un.h>
-#include <unistd.h>
-#include <cstdio>
 #include <thread>
-#include "lib.h"
+#include <unistd.h>
 
 using namespace std;
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 	DEBUG_PRINTF("creating Server object\n");
 
 	cin.get();
@@ -59,31 +60,31 @@ int main(int argc, char* argv[]) {
 	uint64_t tmp = 0x4142434445464748;
 
 	paris::paris_message_t message;
-	message.service_id = stdout_service.get_service_id();
-	message.len = 8;
-	message.msg_contents = (uint8_t*)&tmp;
+	message.service_id	 = stdout_service.get_service_id();
+	message.len			 = 8;
+	message.msg_contents = (uint8_t *)&tmp;
 
 	DEBUG_PRINTF("sending stdout test\n");
 	server.send_message(message);
 
 	cin.get();
 
-	message.service_id = PARIS_SERVER_SERVICE_ID;
+	message.service_id	 = PARIS_SERVER_SERVICE_ID;
 	message.message_type = paris::REGISTER_SESSION;
-	message.service_by = stdout_service.get_service_id();
+	message.service_by	 = stdout_service.get_service_id();
 
 	DEBUG_PRINTF("sending REGISTER_SESSION\n");
 	server.send_message(message);
 	cin.get();
 
 	DEBUG_PRINTF("sending message to service1 (%lx)\n", service1.get_service_id());
-	message.uid = 42;
+	message.uid		   = 42;
 	message.service_id = service1.get_service_id();
 	server.send_message(message);
 
 	cin.get();
 	DEBUG_PRINTF("sending message to service2 (%lx)\n", service2.get_service_id());
-	message.uid = 43;
+	message.uid		   = 43;
 	message.service_id = service2.get_service_id();
 	server.send_message(message);
 

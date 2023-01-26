@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -16,17 +16,18 @@
  */
 
 #include "logging.h"
+
 #include <cstdarg>
-#include <cstring>
 #include <cstdio>
+#include <cstring>
 #include <ctime>
 
 using namespace std;
 
-static log_level_t	current_log_level;
-char 				log_char[] = "viwec";
+static log_level_t current_log_level;
+char			   log_char[] = "viwec";
 
-log_status_t medusa_log(log_level_t log_level, const char* fmt, ...) {
+log_status_t medusa_log(log_level_t log_level, const char *fmt, ...) {
 	if (log_level < current_log_level) {
 		/*
 		 *  do not log messages that are less important / more verbose
@@ -34,19 +35,19 @@ log_status_t medusa_log(log_level_t log_level, const char* fmt, ...) {
 		 */
 		return LOG_UNIMPORTANT;
 	} else {
-		va_list		args;
+		va_list args;
 
-		char	   *asctime_ret = NULL;
-		char	   *s_to_print = NULL;
-		struct	tm *time_info;
-		time_t		raw_time;
+		char	  *asctime_ret = NULL;
+		char	  *s_to_print  = NULL;
+		struct tm *time_info;
+		time_t	   raw_time;
 
 		/*
 		 *  get the time, convert to a string
 		 */
 		time(&raw_time);
 		time_info	= localtime(&raw_time);
-		asctime_ret	= asctime(time_info);
+		asctime_ret = asctime(time_info);
 
 		/*
 		 *  asctime adds a newline, remove it.
@@ -67,10 +68,7 @@ log_status_t medusa_log(log_level_t log_level, const char* fmt, ...) {
 		/*
 		 *  print that shit
 		 */
-		printf("[[%c] Medusa (%s)]: %s\n",
-			   log_char[log_level],
-			   asctime_ret,
-			   s_to_print);
+		printf("[[%c] Medusa (%s)]: %s\n", log_char[log_level], asctime_ret, s_to_print);
 
 		va_end(args);
 

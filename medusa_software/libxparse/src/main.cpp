@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -15,18 +15,19 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include "ELF.hpp"
 #include "XParse.hpp"
+#include "lib.h"
+
 #include <cstdint>
+#include <cstdio>
 #include <cstring>
 #include <fstream>
-#include "ELF.hpp"
-#include <cstdio>
 #include <vector>
-#include "lib.h"
 
 using namespace std;
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 	if (argc == 1) {
 		fprintf(stderr, "usage: %s (path to binary)\n", argv[0]);
 		return -1;
@@ -40,8 +41,8 @@ int main(int argc, char* argv[]) {
 		   U8X4_TO_U32(0x41, 0x42, 0x43, 0x44),
 		   U8X8_TO_U64(0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48));
 
-	ifstream f(argv[1], ios::binary);
-	vector<uint8_t> buf(istreambuf_iterator<char>(f), {});
+	ifstream		 f(argv[1], ios::binary);
+	vector<uint8_t>	 buf(istreambuf_iterator<char>(f), {});
 	XParse::format_t format;
 
 	f.close();

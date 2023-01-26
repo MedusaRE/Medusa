@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -15,11 +15,10 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <rome/rome.hpp>
 #include <cstdio>
+#include <rome/rome.hpp>
 
-int main(int   argc,
-		 char *argv[]) {
+int main(int argc, char *argv[]) {
 	rome::window window;
 
 	window.addstr("rome test", 3, 1);
@@ -37,7 +36,9 @@ int main(int   argc,
 
 		if (ch == rome::KEY_ESC && (esc_count == 0)) {
 			window.addstr("Are you sure you would like to exit? Press ESCAPE"
-						  " again if so.", 0, 0);
+						  " again if so.",
+						  0,
+						  0);
 			esc_count++;
 		} else if (ch == rome::KEY_ESC && (esc_count == 1)) {
 			return 0;

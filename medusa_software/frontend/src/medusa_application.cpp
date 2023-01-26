@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -16,7 +16,9 @@
  */
 
 #include "medusa_application.h"
+
 #include "medusa_window.h"
+
 #include <gtkmm.h>
 
 medusa_application::medusa_application() {
@@ -27,7 +29,7 @@ Glib::RefPtr<medusa_application> medusa_application::create() {
 	return Glib::RefPtr<medusa_application>(new medusa_application());
 }
 
-medusa_window* medusa_application::create_appwindow() {
+medusa_window *medusa_application::create_appwindow() {
 	auto appwindow = new medusa_window();
 
 	add_window(*appwindow);

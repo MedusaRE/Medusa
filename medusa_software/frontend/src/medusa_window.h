@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -18,34 +18,35 @@
 #ifndef MEDUSA_WINDOW_H
 #define MEDUSA_WINDOW_H
 
+#include <gtkmm.h>
+#include <paris/paris.hpp>
 #include <warsaw/ARMv7Machine.hpp>
 #include <warsaw/Machine.hpp>
-#include <paris/paris.hpp>
-#include <gtkmm.h>
 
-class TextTestService : public paris::ServiceListener {
+class TextTestService: public paris::ServiceListener {
 	public:
-		virtual bool process_message(paris::paris_message_t message, paris::Server* server);
+		virtual bool process_message(paris::paris_message_t message, paris::Server *server);
 		Glib::RefPtr<Gtk::TextBuffer> our_text_buffer;
 };
 
-class medusa_window : public Gtk::Window {
+class medusa_window: public Gtk::Window {
 	public:
 		medusa_window();
 		virtual ~medusa_window();
-		TextTestService service;
-		paris::Server server;
+		TextTestService		 service;
+		paris::Server		 server;
 		warsaw::ARMv7Machine armv7_machine;
 
 		void on_clicked();
+
 	protected:
-		Gtk::Button paris_test_button;
+		Gtk::Button			paris_test_button;
 		Gtk::ScrolledWindow sw;
-		Gtk::TextView reg_view;
-		Gtk::Box button_box;
-		Gtk::Grid our_grid;
-		Gtk::Box emu_box;
-		Gtk::Box our_box;
+		Gtk::TextView		reg_view;
+		Gtk::Box			button_box;
+		Gtk::Grid			our_grid;
+		Gtk::Box			emu_box;
+		Gtk::Box			our_box;
 };
 
 #endif

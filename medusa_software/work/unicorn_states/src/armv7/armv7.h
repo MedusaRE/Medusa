@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -37,7 +37,7 @@ uint32_t armv7_regs[] = {
 	UC_ARM_REG_R15,
 };
 
-const char* armv7_reg_string_raw[] {
+const char *armv7_reg_string_raw[]{
 	"r0",
 	"r1",
 	"r2",
@@ -56,7 +56,7 @@ const char* armv7_reg_string_raw[] {
 	"r15",
 };
 
-const char* armv7_reg_string_normal[] {
+const char *armv7_reg_string_normal[]{
 	"r0",
 	"r1",
 	"r2",

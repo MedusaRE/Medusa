@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -30,8 +30,8 @@ namespace rome {
 	static int KEY_ESC = 0x80000000;
 
 	typedef struct {
-		int x;
-		int y;
+			int x;
+			int y;
 	} cur_pos_t;
 
 	class window {
@@ -39,33 +39,24 @@ namespace rome {
 			window();
 			~window();
 
-			int getch();
+			int	 getch();
 			void putch(int ch);
-			void putch(int ch,
-					   int x,
-					   int y);
+			void putch(int ch, int x, int y);
 
 			void addstr(std::string str);
-			void addstr(std::string str,
-						int x,
-						int y);
+			void addstr(std::string str, int x, int y);
 
 			void attron(int attr);
 			void attroff(int attr);
 
-			void chgattr(int arr,
-						 int x,
-						 int y,
-						 int n,
-						 int color_pair);
+			void chgattr(int arr, int x, int y, int n, int color_pair);
 
-			void move(int x,
-					  int y);
+			void	  move(int x, int y);
 			cur_pos_t get_cursor_pos();
 
 		private:
 			WINDOW *win;
 	};
-}
+} //  namespace rome
 
 #endif

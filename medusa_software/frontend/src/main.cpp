@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -15,16 +15,16 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "medusa_application.h"
-#include <paris/message.hpp>
-#include "medusa_window.h"
-#include <paris/paris.hpp>
 #include "logging.h"
-#include <gtkmm.h>
-#include <cstdio>
+#include "medusa_application.h"
+#include "medusa_window.h"
 
-int main(int   argc,
-		 char* argv[]) {
+#include <cstdio>
+#include <gtkmm.h>
+#include <paris/message.hpp>
+#include <paris/paris.hpp>
+
+int main(int argc, char *argv[]) {
 	medusa_set_log_level(LOG_VERBOSE);
 	medusa_log(LOG_INFO, "Medusa loaded.");
 

@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2022, w212 research. <contact@w212research.com>
+ *  Copyright (C) 2023, w212 research. <contact@w212research.com>
  *
  *  This program is free software; you can redistribute it and/or modify it
  *  under the terms of version 2 of the GNU General Public License as
@@ -15,18 +15,17 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <warsaw/Machine.hpp>
 #include <paris/message.hpp>
 #include <paris/paris.hpp>
+#include <warsaw/Machine.hpp>
 
-bool warsaw::Machine::process_message(paris::paris_message_t message,
-										   paris::Server* server) {
+bool warsaw::Machine::process_message(paris::paris_message_t message, paris::Server *server) {
 	printf("Machine! (placeholder) %lx: %lu\n", message.service_id, message.uid);
 
 	return true;
 }
 
-bool warsaw::Machine::builtin_init(paris::Server* server) {
+bool warsaw::Machine::builtin_init(paris::Server *server) {
 	printf("Machine!\n");
 
 	return true;
