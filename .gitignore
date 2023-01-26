@@ -11,7 +11,7 @@
 #	                                                                           #
 ################################################################################
 
-# `bin` contains binary files & build artifcats
+# `bin` contains binary files & build artifacts
 bin
 
 # .DS_Store are created by macOS (X)
