@@ -18,6 +18,8 @@
 #ifndef ARMV7_H
 #define ARMV7_H
 
+#include <unicorn/unicorn.h>
+
 uint32_t armv7_regs[] = {
 	UC_ARM_REG_R0,
 	UC_ARM_REG_R1,
