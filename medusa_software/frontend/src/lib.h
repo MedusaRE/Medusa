@@ -18,21 +18,22 @@
 #ifndef LIB_H
 #define LIB_H
 
-#include <sys/resource.h>
-#include <stdarg.h>
 #include <memory>
+#include <stdarg.h>
 #include <string>
+#include <sys/resource.h>
 #include <vector>
 
 #ifndef LIB_H_NO_BUILD_GUI
 
-#include <gtkmm.h>
+	#include <gtkmm.h>
 
 std::string file_prompt(enum Gtk::FileChooserAction action, std::string title);
-char* file_prompt_cstr(enum Gtk::FileChooserAction action, std::string title);
+char *file_prompt_cstr(enum Gtk::FileChooserAction action, std::string title);
 
 #endif
 
+// clang-format off
 std::string string_format_cstr(const char* fmt_str, ...);
 std::string string_format(const std::string fmt_str, ...);
 std::string getcwd_str();
@@ -47,6 +48,7 @@ std::string getcwd_str();
 									 | ((uint64_t)U8X4_TO_U32(u4, u5, u6, u7) << 0))
 
 std::vector<std::string> str_split(std::string& s, char delim);
+// clang-format on
 
 uint64_t get_statm_usage(void);
 uint64_t medusa_rand(void);
@@ -54,19 +56,34 @@ uint64_t medusa_rand(void);
 #define DEBUG 1
 
 #if DEBUG
-#define DEBUG_INFO() do { \
-	fprintf(stderr, "%s (%s @ %d): mem_usage=%ldKB\n", __FILE__, __PRETTY_FUNCTION__, __LINE__, get_statm_usage()); \
-} while(0)
-#define DEBUG_PRINTF(s, ...) do { \
-	fprintf(stderr,  "%s (%s @ %d): " s, __FILE__, __PRETTY_FUNCTION__, __LINE__, ## __VA_ARGS__); \
-} while (0)
+	#define DEBUG_INFO()                               \
+		do {                                           \
+			fprintf(stderr,                            \
+					"%s (%s @ %d): mem_usage=%ldKB\n", \
+					__FILE__,                          \
+					__PRETTY_FUNCTION__,               \
+					__LINE__,                          \
+					get_statm_usage());                \
+		} while (0)
+	#define DEBUG_PRINTF(s, ...)                                                                         \
+		do {                                                                                             \
+			fprintf(stderr, "%s (%s @ %d): " s, __FILE__, __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__); \
+		} while (0)
 #else
-#define DEBUG_INFO() do { } while (0)
-#define DEBUG_PRINTF(s, ...) do { } while (0)
+	#define DEBUG_INFO() \
+		do {             \
+			;            \
+		} while (0)
+	#define DEBUG_PRINTF(s, ...) \
+		do {                     \
+			;                    \
+		} while (0)
 #endif
 
 #include <chrono>
-#define DEBUG_TIME ((duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - start)).count())
+#define DEBUG_TIME                                                                                \
+	((duration_cast<std::chrono::nanoseconds>(std::chrono::high_resolution_clock::now() - start)) \
+		 .count())
 #define DEBUG_TIME_FLOAT (((double)DEBUG_TIME) / 1000000000.0)
 
 #endif
