@@ -58,7 +58,7 @@ int main(int argc, char *argv[]) {
 									  MB_of_code + MB_SIZE);
 #else
 	//	std::vector<uint8_t> machine_code((std::istreambuf_iterator<char>(f)),
-	//std::istreambuf_iterator<char>());
+	//  std::istreambuf_iterator<char>());
 	std::vector<uint8_t> machine_code(BUF_TO_COPY, BUF_TO_COPY + sizeof(BUF_TO_COPY));
 
 	printf("%s\n", vienna::decompile_armv7(machine_code).c_str());

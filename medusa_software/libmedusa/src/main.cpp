@@ -290,7 +290,7 @@ int main(int argc, char *argv[]) {
 	vector<libmedusa::reg_t> registers = armv7_machine.get_registers();
 	for (libmedusa::reg_t& i: registers) {
 		//		printf("%s %s %lx %lx\n", i.reg_description.c_str(),
-		//i.reg_name.c_str(), i.reg_id, i.reg_value);
+		//  i.reg_name.c_str(), i.reg_id, i.reg_value);
 	}
 
 	vector<uint8_t> data;
@@ -308,7 +308,7 @@ int main(int argc, char *argv[]) {
 	registers = armv7_machine.get_registers();
 	for (libmedusa::reg_t& i: registers) {
 		//		printf("%s %s %lx %lx\n", i.reg_description.c_str(),
-		//i.reg_name.c_str(), i.reg_id, i.reg_value);
+		//  i.reg_name.c_str(), i.reg_id, i.reg_value);
 	}
 
 	libmedusa::reg_t reg;
@@ -322,7 +322,7 @@ int main(int argc, char *argv[]) {
 	registers = armv7_machine.get_registers();
 	for (libmedusa::reg_t& i: registers) {
 		//		printf("%s %s %lx %lx\n", i.reg_description.c_str(),
-		//i.reg_name.c_str(), i.reg_id, i.reg_value);
+		//  i.reg_name.c_str(), i.reg_id, i.reg_value);
 	}
 
 	printf("%d\n", __LINE__);
@@ -343,7 +343,7 @@ int main(int argc, char *argv[]) {
 		registers = armv7_machine.get_registers();
 		for (libmedusa::reg_t& i: registers) {
 			//			printf("%s %s %lx %lx\n", i.reg_description.c_str(),
-			//i.reg_name.c_str(), i.reg_id, i.reg_value);
+			//  i.reg_name.c_str(), i.reg_id, i.reg_value);
 		}
 	}
 
