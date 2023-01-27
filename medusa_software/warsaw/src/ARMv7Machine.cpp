@@ -122,6 +122,7 @@ bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 		printf("%s\n", this->armv7_machine.exec_code_ninsns(args->num_insns) ? "true" : "false");
 	} else if (msg.op == GET_MEM_REGIONS) {
 		std::vector<libmedusa::mem_reg_t> memory_regions = this->armv7_machine.get_memory_regions();
+		paris::paris_message_t reply_message;
 
 		reply_message.service_id   = message.service_by;
 		reply_message.len		   = vec.size();
@@ -133,6 +134,7 @@ bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 		server->send_message(reply_message);
 	} else if (msg.op == FIND_MEMORY_REGION) {
 		FIND_MEMORY_REGION_args *args = (FIND_MEMORY_REGION_args *)msg.data;
+		paris::paris_message_t	 reply_message;
 
 		if (!args) {
 			return false;
