@@ -32,21 +32,21 @@ namespace warsaw {
 	//  TODO: doxygen doc the structs
 
 	typedef enum {
-		GET_REGS,
-		SET_REG,
+		GET_REGS, //  done
+		SET_REG,  //  done
 
-		READ_MEM,
-		WRITE_MEM,
+		READ_MEM,  //  done
+		WRITE_MEM, //  done
 
-		GET_MEM_REGIONS,
-		FIND_MEMORY_REGION,
-		UNMAP_MEM,
-		MAP_MEM,
+		GET_MEM_REGIONS,	//  done
+		FIND_MEMORY_REGION, //  done
+		UNMAP_MEM,			//  done
+		MAP_MEM,			//  done
 
-		EXEC_CODE_ADDR_NINSNS,
-		EXEC_CODE_ADDR,
-		EXEC_CODE_NINSNS,
-		EXEC_CODE_STEP,
+		EXEC_CODE_ADDR_NINSNS, //  done
+		EXEC_CODE_ADDR,		   //  done
+		EXEC_CODE_NINSNS,	   //  done
+		EXEC_CODE_STEP,		   //  done
 
 		ASSEMBLE,
 		DISASSEMBLE,
@@ -65,6 +65,11 @@ namespace warsaw {
 			uint64_t addr;
 			uint64_t size;
 	} EXEC_CODE_ADDR_args;
+
+	typedef struct {
+			uint64_t addr;
+			uint64_t num;
+	} EXEC_CODE_ADDR_NINSNS_args;
 
 	typedef struct {
 			uint64_t addr;
@@ -89,6 +94,10 @@ namespace warsaw {
 			machine_op_t op;
 			void		*data;
 	} machine_msg;
+
+	typedef struct {
+			uint64_t addr;
+	} FIND_MEMORY_REGION_args;
 
 	/**
 	 *	@brief A Paris service for libmedusa::Machine.

@@ -102,6 +102,16 @@ bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 		}
 
 		printf("%s\n", this->armv7_machine.exec_code_addr(args->addr, args->size) ? "true" : "false");
+	} else if (msg.op == EXEC_CODE_ADDR_NINSNS) {
+		EXEC_CODE_ADDR_NINSNS_args *args = (EXEC_CODE_ADDR_NINSNS_args *)msg.data;
+
+		if (!args) {
+			return false;
+		}
+
+		// clang-format off
+		printf("%s\n", this->armv7_machine.exec_code_addr_ninsns(args->addr, args->num) ? "true" : "false");
+		// clang-format on
 	} else if (msg.op == EXEC_CODE_NINSNS) {
 		EXEC_CODE_NINSNS_args *args = (EXEC_CODE_NINSNS_args *)msg.data;
 
@@ -110,6 +120,33 @@ bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 		}
 
 		printf("%s\n", this->armv7_machine.exec_code_ninsns(args->num_insns) ? "true" : "false");
+	} else if (msg.op == GET_MEM_REGIONS) {
+		std::vector<libmedusa::mem_reg_t> memory_regions = this->armv7_machine.get_memory_regions();
+
+		reply_message.service_id   = message.service_by;
+		reply_message.len		   = vec.size();
+		reply_message.msg_contents = (libmedusa::mem_reg_t *)calloc(vec.size(),
+																	sizeof(libmedusa::mem_reg_t));
+
+		memcpy((void *)reply_message.msg_contents, vec.data(), reply_message.len);
+
+		server->send_message(reply_message);
+	} else if (msg.op == FIND_MEMORY_REGION) {
+		FIND_MEMORY_REGION_args *args = (FIND_MEMORY_REGION_args *)msg.data;
+
+		if (!args) {
+			return false;
+		}
+
+		libmedusa::mem_reg_t memory_region = this->armv7_machine.find_memory_region(args->addr);
+
+		reply_message.service_id = message.service_by;
+		reply_message.len		 = vec.size();
+		reply_message.msg_contents = (libmedusa::mem_reg_t *)calloc(1, sizeof(libmedusa::mem_reg_t));
+
+		memcpy((void *)reply_message.msg_contents, &memory_region, reply_message.len);
+
+		server->send_message(reply_message);
 	}
 
 	return true;
