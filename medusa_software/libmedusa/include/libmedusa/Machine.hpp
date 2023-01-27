@@ -51,15 +51,19 @@ namespace libmedusa {
 
 	typedef uint64_t mem_prot_t;
 
+	// clang-format off
+
 	/**
 	 *  @brief A structure representing a memory region.
 	 */
 	typedef struct {
-			uint64_t addr; /**< The address of the beginning of the memory region. */
+			uint64_t   addr;  /**< The address of the beginning of the memory region. */
 			uint64_t   size;  /**< The size of the memory region. */
 			mem_prot_t prot;  /**< The protections of this region. */
 			bool	   valid; /**< True if valid region, false if invalid. */
 	} mem_reg_t;
+
+	// clang-format on
 
 #if 0
 		std::vector<uint8_t> bytes;	/**< The bytes, i.e. machine-code of this instruction. */
@@ -67,18 +71,22 @@ namespace libmedusa {
 		std::string op_str;			/**< The operation string. (say, `"r1, r0"`) */
 #endif
 
+	// clang-format off
+
 	/**
 	 *  @brief A structure representing a CPU instruction.
 	 */
 	typedef struct {
-			uint32_t id; /**< The ID of this instruction mnemonic. (will work on
-							in future, capstone stuff) */
+			uint32_t id;      /**< The ID of this instruction mnemonic. (will work on
+							       in future, capstone stuff) */
 			uint64_t address; /**< The address of this instruction in memory. */
 			uint16_t size;	  /**< The size of this instruction. */
-			uint8_t *bytes; /**< The bytes, i.e. machine-code of this instruction. */
-			char *mnemonic; /**< The instruction mnemonic. (say, `"mov"`) */
-			char *op_str;	/**< The operation string. (say, `"r1, r0"`) */
+			uint8_t *bytes;   /**< The bytes, i.e. machine-code of this instruction. */
+			char *mnemonic;   /**< The instruction mnemonic. (say, `"mov"`) */
+			char *op_str;	  /**< The operation string. (say, `"r1, r0"`) */
 	} insn_t;
+
+	// clang-format on
 
 	typedef uint32_t flag_t;
 
