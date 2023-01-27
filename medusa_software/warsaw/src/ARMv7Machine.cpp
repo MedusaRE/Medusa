@@ -125,11 +125,13 @@ bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 		paris::paris_message_t reply_message;
 
 		reply_message.service_id   = message.service_by;
-		reply_message.len		   = vec.size();
-		reply_message.msg_contents = (libmedusa::mem_reg_t *)calloc(vec.size(),
-																	sizeof(libmedusa::mem_reg_t));
+		reply_message.len		   = memory_regions.size();
+		reply_message.msg_contents = (uint8_t *)calloc(memory_regions.size(),
+													   sizeof(libmedusa::mem_reg_t));
 
-		memcpy((void *)reply_message.msg_contents, vec.data(), reply_message.len);
+		memcpy((void *)reply_message.msg_contents,
+			   memory_regions.data(),
+			   reply_message.len);
 
 		server->send_message(reply_message);
 	} else if (msg.op == FIND_MEMORY_REGION) {
@@ -143,8 +145,8 @@ bool warsaw::ARMv7Machine::process_message(paris::paris_message_t message,
 		libmedusa::mem_reg_t memory_region = this->armv7_machine.find_memory_region(args->addr);
 
 		reply_message.service_id = message.service_by;
-		reply_message.len		 = vec.size();
-		reply_message.msg_contents = (libmedusa::mem_reg_t *)calloc(1, sizeof(libmedusa::mem_reg_t));
+		reply_message.len		 = sizeof(memory_region);
+		reply_message.msg_contents = (uint8_t *)calloc(1, sizeof(libmedusa::mem_reg_t));
 
 		memcpy((void *)reply_message.msg_contents, &memory_region, reply_message.len);
 
