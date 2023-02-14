@@ -1,12 +1,12 @@
-![Medusa logo](/res/img/medusa_logo_lus_rounded.png)
+![Medusa logo](res/img/medusa_logo_lus_rounded.png)
 
 # Medusa
-![Badge](/res/badges/commit_count.svg)
-![Badge](/res/badges/loc.svg)
-![Badge](/res/badges/license.svg)
-![Badge](/res/badges/build.svg)
-![Badge](/res/badges/commit.svg)
-![Badge](/res/badges/branches.svg)
+![Badge](res/badges/commit_count.svg)
+![Badge](res/badges/loc.svg)
+![Badge](res/badges/license.svg)
+![Badge](res/badges/build.svg)
+![Badge](res/badges/commit.svg)
+![Badge](res/badges/branches.svg)
 ## What is Medusa?
 Medusa (previously called xp<sup>DBG</sup>) is a project to create a cross
 platform, free, and general purpose tool for software and hardware research,
@@ -189,7 +189,7 @@ question.
 
 ## FAQ
 ### How do you pronounce Medusa?
-![/məˈdusə/](/res/audio/medusa.ogg)
+![/məˈdusə/](res/audio/medusa.ogg)
 
 ### How should I report an issue/bug I find?
 File an issue on [the GitLab repository](https://git.medusa-re.org/Medusa).
