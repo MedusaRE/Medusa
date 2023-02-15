@@ -15,9 +15,18 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
+#include <iostream>
 #include <stdio.h>
 
+using namespace std;
+
 int main(int argc, char* argv[]) {
-    printf("Hello, world!\n");
+    string s;
+
+    while (s != "exit") {
+        getline(cin, s);
+        printf("%s\n", s.c_str());
+    }
+
     return 0;
 }
