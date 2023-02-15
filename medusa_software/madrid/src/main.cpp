@@ -17,16 +17,27 @@
 
 #include <iostream>
 #include <stdio.h>
+#include <ranges>
+#include <vector>
+#include "lib.h"
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
-    string s;
+	vector<string> split_s;
+	string s;
 
-    while (s != "exit") {
-        getline(cin, s);
-        printf("%s\n", s.c_str());
-    }
+	while (s != "exit") {
+		getline(cin, s);
 
-    return 0;
+		split_s = str_split(s, ' ');
+
+		printf("%s:\n", split_s.at(0).c_str());
+		split_s.erase(split_s.begin());
+		for (string arg : split_s) {
+			printf("\t%s\n", arg.c_str());
+		}
+	}
+
+	return 0;
 }
