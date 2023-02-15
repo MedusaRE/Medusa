@@ -1,6 +1,6 @@
-+# codenames, ~ means used
+# codenames, ~ means used
 ~ berlin
-madrid
+~ madrid
 ~ rome
 bucharest
 ~ paris
