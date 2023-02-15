@@ -15,12 +15,12 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "lib.h"
+#include "lib.h" // str_split
 
-#include <iostream>
-#include <ranges>
-#include <stdio.h>
-#include <vector>
+#include <iostream> // getline, cin
+#include <stdio.h>	// printf
+#include <string>	// string
+#include <vector>	// vector
 
 using namespace std;
 
