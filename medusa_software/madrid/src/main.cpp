@@ -31,10 +31,27 @@ int main(int argc, char *argv[]) {
 	while (s != "exit") {
 		getline(cin, s);
 
+		/*
+		 *  split by space, that's how the arguments are delimited
+		 */
 		split_s = str_split(s, ' ');
 
+		/*
+		 *  print the first argument seperately, then print the rest indented.
+		 *  this is done so the output will be of the format:
+		 *  input: "command arg1 arg2 arg3 arg4"
+		 *  ```
+		 *  command:
+		 *  	arg1
+		 *  	arg2
+		 *  	arg3
+		 *  	arg4
+		 *  ```
+		 */
 		printf("%s:\n", split_s.at(0).c_str());
+
 		split_s.erase(split_s.begin());
+
 		for (string arg: split_s) {
 			printf("\t%s\n", arg.c_str());
 		}
