@@ -15,17 +15,18 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <iostream>
-#include <stdio.h>
-#include <ranges>
-#include <vector>
 #include "lib.h"
+
+#include <iostream>
+#include <ranges>
+#include <stdio.h>
+#include <vector>
 
 using namespace std;
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 	vector<string> split_s;
-	string s;
+	string		   s;
 
 	while (s != "exit") {
 		getline(cin, s);
@@ -34,7 +35,7 @@ int main(int argc, char* argv[]) {
 
 		printf("%s:\n", split_s.at(0).c_str());
 		split_s.erase(split_s.begin());
-		for (string arg : split_s) {
+		for (string arg: split_s) {
 			printf("\t%s\n", arg.c_str());
 		}
 	}
