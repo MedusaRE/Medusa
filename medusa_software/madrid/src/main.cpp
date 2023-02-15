@@ -15,18 +15,26 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "lib.h" // str_split
+#include "lib.h"	 // str_split
+#include "logging.h" // medusa_log stuff
 
 #include <iostream> // getline, cin
-#include <stdio.h>	// printf
-#include <string>	// string
-#include <vector>	// vector
+#include <paris/paris.hpp>
+#include <stdio.h> // printf
+#include <string>  // string
+#include <vector>  // vector
 
 using namespace std;
 
 int main(int argc, char *argv[]) {
 	vector<string> split_s;
+	string		   command;
 	string		   s;
+
+	paris::Server server;
+	server.start_server();
+
+	medusa_set_log_level(LOG_VERBOSE);
 
 	while (s != "exit") {
 		getline(cin, s);
@@ -35,6 +43,9 @@ int main(int argc, char *argv[]) {
 		 *  split by space, that's how the arguments are delimited
 		 */
 		split_s = str_split(s, ' ');
+
+		command = split_s.at(0);
+		split_s.erase(split_s.begin());
 
 		/*
 		 *  print the first argument seperately, then print the rest indented.
@@ -48,14 +59,30 @@ int main(int argc, char *argv[]) {
 		 *  	arg4
 		 *  ```
 		 */
-		printf("%s:\n", split_s.at(0).c_str());
 
-		split_s.erase(split_s.begin());
+		medusa_log(LOG_VERBOSE, "%s:\n", command.c_str());
 
 		for (string arg: split_s) {
-			printf("\t%s\n", arg.c_str());
+			medusa_log(LOG_VERBOSE, "\t%s\n", arg.c_str());
+		}
+
+		if (command == "list_services") {
+			vector<paris::Service *> services = server.get_services();
+
+			if (services.size() == 0) {
+				printf("no services currently added.\n");
+				continue;
+			}
+
+			printf("services:\n");
+
+			for (paris::Service *service: services) {
+				printf("\t0x%lx\n", service->get_service_id());
+			}
 		}
 	}
+
+	server.stop_server();
 
 	return 0;
 }
