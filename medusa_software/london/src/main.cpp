@@ -24,21 +24,6 @@
 
 using namespace std;
 
-namespace fs = std::filesystem;
-
-void ls_dir(std::string path, int indent) {
-	for (const fs::directory_entry& entry: fs::directory_iterator(path)) {
-		printf("%s%s",
-			   std::string(indent, '\t').c_str(),
-			   entry.path().filename().c_str());
-		if (entry.is_directory()) {
-			printf(":\n");
-			ls_dir(entry.path(), indent + 1);
-		}
-		printf("\n");
-	}
-}
-
 int main(int argc, char *argv[]) {
 	/*
 	 *  TODO: make this code look better, it looks like shit.
