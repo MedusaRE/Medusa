@@ -15,14 +15,17 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include "lib.h"	 // str_split
-#include "logging.h" // medusa_log stuff
+// clang-format off
+#include "lib.h"	 		// str_split
+#include "logging.h" 		// medusa_log stuff
 
-#include <iostream> // getline, cin
+#include <iostream>			// getline, cin
 #include <paris/paris.hpp>
-#include <stdio.h> // printf
-#include <string>  // string
-#include <vector>  // vector
+#include <stdio.h>			// printf
+#include <string>			// string
+#include <vector>			// vector
+
+// clang-format on
 
 using namespace std;
 
@@ -79,6 +82,8 @@ int main(int argc, char *argv[]) {
 			for (paris::Service *service: services) {
 				printf("\t0x%lx\n", service->get_service_id());
 			}
+		} else if (command == "add_service") {
+			// TODO: come back to after writing Paris API updates
 		}
 	}
 
