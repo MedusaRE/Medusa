@@ -52,7 +52,7 @@ int main(int argc, char* argv[]) {
 
 	error = git_commit_tree(&tree, commit);
 
-	const git_tree_entry *entry = git_tree_entry_byname(tree, "README.md");
+	const git_tree_entry *entry = git_tree_entry_byname(tree, argv[2]);
 
 	git_object *object = NULL;
 	git_tree_entry_to_object(&object, repo, entry);
