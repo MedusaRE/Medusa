@@ -20,6 +20,9 @@
 #include <cstdio>
 
 int main(int argc, char* argv[]) {
+	/*
+	 *  setup code
+	 */
 	git_repository *repo;
 
 	git_libgit2_init();
@@ -32,19 +35,13 @@ int main(int argc, char* argv[]) {
 		exit(error);
 	}
 
+	/*
+	 *  ref lookup
+	 */
 	git_reference *ref = NULL;
 	error = git_reference_lookup(&ref, repo, "refs/heads/master");
 
-	printf("%s\n", git_reference_name(ref));
-	git_strarray refs = {0};
-	error = git_reference_list(&refs, repo);
-
 	const git_oid *oid = git_reference_target(ref);
-
-	char oid_str[256];
-	git_oid_tostr(oid_str, sizeof(oid_str), oid);
-
-	printf("%s\n", oid_str);
 
 	git_commit *commit = NULL;
 	error = git_commit_lookup(&commit, repo, oid);
@@ -64,7 +61,6 @@ int main(int argc, char* argv[]) {
 
 	git_blob_lookup(&blob, repo, git_object_id(object));
 
-	git_off_t rawsize = git_blob_rawsize(blob);
 	const void *rawcontent = git_blob_rawcontent(blob);
 
 	git_buf filtered_content = GIT_BUF_INIT;
