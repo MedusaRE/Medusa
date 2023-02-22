@@ -51,6 +51,33 @@ int main(int argc, char* argv[]) {
 
 	printf("%s\n", git_commit_message(commit));
 
+	git_tree *tree = NULL;
+
+	error = git_commit_tree(&tree, commit);
+
+	const git_tree_entry *entry = git_tree_entry_byname(tree, "README.md");
+
+	git_object *object = NULL;
+	git_tree_entry_to_object(&object, repo, entry);
+
+	git_blob *blob = NULL;
+
+	git_blob_lookup(&blob, repo, git_object_id(object));
+
+	git_off_t rawsize = git_blob_rawsize(blob);
+	const void *rawcontent = git_blob_rawcontent(blob);
+
+	git_buf filtered_content = GIT_BUF_INIT;
+	error = git_blob_filtered_content(
+		&filtered_content,    /* output buffer */
+		blob,                 /* blob */
+		"README.md",          /* path (for attribute-based filtering) */
+  		true);                /* check if binary? */
+
+	printf("%s\n", filtered_content.ptr);
+
+	git_buf_free(&filtered_content);
+
 	git_repository_free(repo);
 	git_libgit2_shutdown();
 
