@@ -36,6 +36,20 @@ int main(int argc, char* argv[]) {
 	error = git_reference_lookup(&ref, repo, "refs/heads/master");
 
 	printf("%s\n", git_reference_name(ref));
+	git_strarray refs = {0};
+	error = git_reference_list(&refs, repo);
+
+	const git_oid *oid = git_reference_target(ref);
+
+	char oid_str[256];
+	git_oid_tostr(oid_str, sizeof(oid_str), oid);
+
+	printf("%s\n", oid_str);
+
+	git_commit *commit = NULL;
+	error = git_commit_lookup(&commit, repo, oid);
+
+	printf("%s\n", git_commit_message(commit));
 
 	git_repository_free(repo);
 	git_libgit2_shutdown();
