@@ -16,7 +16,10 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
-FOLDER=$(dirname $(readlink -f $0))
-cd $FOLDER/../../
+if [ -z "${MEDUSA_PATH}" ]; then
+    source $(realpath $(dirname $0))/../source_env.sh
+fi
 
-node $FOLDER/badges.js
+cd $MEDUSA_PATH
+
+node $MEDUSA_PATH/tools/badges/badges.js

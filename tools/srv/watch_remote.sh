@@ -32,7 +32,10 @@ function pull_and_copy() {
 	cp -R $MEDUSA_PATH/www/* /var/www
 }
 
-MEDUSA_PATH=$(dirname $0)/../..
+if [ -z "${MEDUSA_PATH}" ]; then
+    source $(realpath $(dirname $0))/source_env.sh
+fi
+
 cd $MEDUSA_PATH
 
 pull_and_copy
