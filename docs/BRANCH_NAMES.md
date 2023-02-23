@@ -15,5 +15,7 @@ master                 ~ master
   etc.
 ```
 
+The reasoning for this is it allows you to easily tell the history of a branch.
+
 ## File License
 This file is licensed under the terms of the CC BY-SA 4.0 license.
