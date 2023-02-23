@@ -15,11 +15,11 @@
  *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 
-#include <git2/refs.h>
-#include <git2.h>
 #include <cstdio>
+#include <git2.h>
+#include <git2/refs.h>
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
 	/*
 	 *  setup code
 	 */
@@ -39,12 +39,12 @@ int main(int argc, char* argv[]) {
 	 *  ref lookup
 	 */
 	git_reference *ref = NULL;
-	error = git_reference_lookup(&ref, repo, "refs/heads/master");
+	error			   = git_reference_lookup(&ref, repo, "refs/heads/master");
 
 	const git_oid *oid = git_reference_target(ref);
 
 	git_commit *commit = NULL;
-	error = git_commit_lookup(&commit, repo, oid);
+	error			   = git_commit_lookup(&commit, repo, oid);
 
 	printf("%s\n", git_commit_message(commit));
 
@@ -64,11 +64,11 @@ int main(int argc, char* argv[]) {
 	const void *rawcontent = git_blob_rawcontent(blob);
 
 	git_buf filtered_content = GIT_BUF_INIT;
-	error = git_blob_filtered_content(
-		&filtered_content,    /* output buffer */
-		blob,                 /* blob */
-		"README.md",          /* path (for attribute-based filtering) */
-  		true);                /* check if binary? */
+	error = git_blob_filtered_content(&filtered_content, /* output buffer */
+									  blob,				 /* blob */
+									  "README.md", /* path (for attribute-based
+													  filtering) */
+									  true);	   /* check if binary? */
 
 	printf("%s\n", filtered_content.ptr);
 
