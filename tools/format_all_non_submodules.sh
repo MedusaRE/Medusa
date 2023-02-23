@@ -18,6 +18,12 @@
 
 shopt -s globstar
 
+if [ -z "${MEDUSA_PATH}" ]; then
+	source $(realpath $(dirname $0))/source_env.sh
+fi
+
+cd $MEDUSA_PATH
+
 for file in medusa_software/**/*.{cpp,cc,c,h,hh,hpp}; do
 	if (echo $file | grep -q submodules); then
 		continue
