@@ -214,6 +214,7 @@ medusa_window::medusa_window(int argc, char *argv[]) {
 	auto *open_btn		  = new Gtk::Button;
 	auto *save_btn		  = new Gtk::Button;
 	auto *sv			  = new Gtk::ScrolledWindow;
+	auto *sv2			  = new Gtk::ScrolledWindow;
 	auto *paned			  = new Gtk::Paned;
 
 	ref_tree_model = Gtk::TreeStore::create(dir_view_columns);
@@ -236,8 +237,9 @@ medusa_window::medusa_window(int argc, char *argv[]) {
 	sv->add(*tv);
 	sv->set_hexpand(true);
 	sv->set_vexpand(true);
+	sv2->add(trv);
 
-	paned->add1(trv);
+	paned->add1(*sv2);
 	grid->attach(*sv, 0, 1);
 	grid->attach(*toolbar, 0, 0);
 
