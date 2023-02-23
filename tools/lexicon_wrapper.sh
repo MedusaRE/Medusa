@@ -18,4 +18,10 @@
 
 # tools/lexicon_wrapper.sh create medusa-re.org TXT "example.example.medusa-re.org" "RDNS_NAME=\"org.medusa-re.example.example\""
 
+if [ -z "${MEDUSA_PATH}" ]; then
+    source $(realpath $(dirname $0))/source_env.sh
+fi
+
+cd $MEDUSA_PATH
+
 lexicon cloudflare $1 $2 $3 --name="$4" --content="$5"

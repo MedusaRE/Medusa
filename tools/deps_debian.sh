@@ -21,6 +21,12 @@ if [ $(id -u) != 0 ]; then
     exit 1
 fi
 
+if [ -z "${MEDUSA_PATH}" ]; then
+    source $(realpath $(dirname $0))/source_env.sh
+fi
+
+cd $MEDUSA_PATH
+
 apt-get update
 apt-get -y install git libgtkmm-3.0-dev libgtk-3-dev glade gimp texlive texlive-full python3 python3-pillow nodejs doxygen clang cmake cloc libgtksourceviewmm-3.0-dev googletest
 npm install badgen

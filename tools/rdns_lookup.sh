@@ -16,7 +16,10 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
-MEDUSA_PATH=$(dirname $(realpath $0))/..
+if [ -z "${MEDUSA_PATH}" ]; then
+    source $(realpath $(dirname $0))/source_env.sh
+fi
+
 RDNS=$($MEDUSA_PATH/tools/rdns.sh $1)
 
 # first, try the actual DNS we were passed (if it is actual DNS)

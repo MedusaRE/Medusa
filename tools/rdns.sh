@@ -16,6 +16,12 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
+if [ -z "${MEDUSA_PATH}" ]; then
+    source $(realpath $(dirname $0))/source_env.sh
+fi
+
+cd $MEDUSA_PATH
+
 ARG=$1
 SPLIT_ARG=${1//./ }
 

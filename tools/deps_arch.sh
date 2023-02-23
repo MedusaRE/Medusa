@@ -21,6 +21,12 @@ if [ $(id -u) != 0 ]; then
     exit -1
 fi
 
+if [ -z "${MEDUSA_PATH}" ]; then
+    source $(realpath $(dirname $0))/source_env.sh
+fi
+
+cd $MEDUSA_PATH
+
 pacman -S git gtkmm3 gtk3 glade gimp texlive-most python3 python-pillow nodejs npm doxygen cmake cloc gtksourceviewmm gtest clang13
 npm install badgen
 

@@ -16,4 +16,8 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
+if [ -z "${MEDUSA_PATH}" ]; then
+    source $(realpath $(dirname $0))/source_env.sh
+fi
+
 cp -pR $MEDUSA_PATH/tools/git_hooks/* $MEDUSA_PATH/.git/hooks/
