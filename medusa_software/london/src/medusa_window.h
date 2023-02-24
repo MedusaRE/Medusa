@@ -31,9 +31,10 @@ class medusa_window: public Gtk::Window {
 		virtual ~medusa_window();
 
 	protected:
+		void on_action_file_new();
 		void on_action_file_open();
-		void on_open_folder_clicked();
-		void on_save_clicked();
+		void on_action_file_open_folder();
+		void on_action_file_save();
 		void on_treeview_row_activated(const Gtk::TreeModel::Path& path,
 									   Gtk::TreeViewColumn *);
 

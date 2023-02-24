@@ -79,6 +79,13 @@ void medusa_window::open_file(std::string filename) {
 	f.close();
 }
 
+void medusa_window::on_action_file_new() {
+	filename = NULL;
+
+	tvb = tv->get_buffer();
+	tvb->set_text("");
+}
+
 void medusa_window::on_action_file_open() {
 	filename = file_prompt_cstr(Gtk::FILE_CHOOSER_ACTION_OPEN, "Please choose a file to edit.");
 	if (filename == NULL) {
@@ -88,7 +95,7 @@ void medusa_window::on_action_file_open() {
 	open_file(filename);
 }
 
-void medusa_window::on_open_folder_clicked() {
+void medusa_window::on_action_file_open_folder() {
 	char *folder_name = file_prompt_cstr(Gtk::FILE_CHOOSER_ACTION_SELECT_FOLDER,
 										 "Please choose a folder to open.");
 	if (folder_name == NULL) {
@@ -101,10 +108,15 @@ void medusa_window::on_open_folder_clicked() {
 	this->repopulate_directory_tree();
 }
 
-void medusa_window::on_save_clicked() {
-	while (filename == NULL) {
+void medusa_window::on_action_file_save() {
+//	while (filename == NULL) {
+	if (filename == NULL) {
 		filename = file_prompt_cstr(Gtk::FILE_CHOOSER_ACTION_SAVE,
 									"Please create a file to save to.");
+
+		if (filename == NULL) {
+			return;
+		}
 	}
 
 	string		txt_str = tvb->get_text();
@@ -228,11 +240,11 @@ medusa_window::medusa_window(int argc, char *argv[]) {
 //	open_btn->set_label("Open");
 //	open_btn->signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_open_clicked));
 
-	open_folder_btn->set_label("Open Folder");
-	open_folder_btn->signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_open_folder_clicked));
+//	open_folder_btn->set_label("Open Folder");
+//	open_folder_btn->signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_open_folder_clicked));
 
-	save_btn->set_label("Save");
-	save_btn->signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_save_clicked));
+//	save_btn->set_label("Save");
+//	save_btn->signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_save_clicked));
 
 	sv->add(*tv);
 	sv->set_hexpand(true);
@@ -242,8 +254,8 @@ medusa_window::medusa_window(int argc, char *argv[]) {
 	paned->add1(*sv2);
 
 //	toolbar->attach(*open_btn, 0, 0);
-	toolbar->attach(*open_folder_btn, 1, 0);
-	toolbar->attach(*save_btn, 2, 0);
+//	toolbar->attach(*open_folder_btn, 1, 0);
+//	toolbar->attach(*save_btn, 2, 0);
 
 	grid->set_row_homogeneous(false);
 	grid->set_column_homogeneous(false);
@@ -285,8 +297,10 @@ medusa_window::medusa_window(int argc, char *argv[]) {
 
 	auto m_refActionGroup = Gio::SimpleActionGroup::create();
 
-//	m_refActionGroup->add_action("new", sigc::mem_fun(*this, &medusa_window::on_action_file_new));
+	m_refActionGroup->add_action("new", sigc::mem_fun(*this, &medusa_window::on_action_file_new));
 	m_refActionGroup->add_action("open", sigc::mem_fun(*this, &medusa_window::on_action_file_open));
+	m_refActionGroup->add_action("open_folder", sigc::mem_fun(*this, &medusa_window::on_action_file_open_folder));
+	m_refActionGroup->add_action("save", sigc::mem_fun(*this, &medusa_window::on_action_file_save));
 //	m_refActionGroup->add_action("quit", sigc::mem_fun(*this, &medusa_window::on_action_file_quit));
 
 	insert_action_group("medusa", m_refActionGroup);
@@ -307,6 +321,20 @@ medusa_window::medusa_window(int argc, char *argv[]) {
 						  "          <attribute name='label' translatable='yes'>_Open</attribute>"
 						  "          <attribute name='action'>medusa.open</attribute>"
 						  "          <attribute name='accel'>&lt;Primary&gt;o</attribute>"
+						  "        </item>"
+						  "      </section>"
+						  "      <section>"
+						  "        <item>"
+						  "          <attribute name='label' translatable='yes'>_Open Folder</attribute>"
+						  "          <attribute name='action'>medusa.open_folder</attribute>"
+						  "          <attribute name='accel'>&lt;Primary&gt;&lt;shift&gt;o</attribute>"
+						  "        </item>"
+						  "      </section>"
+						  "      <section>"
+						  "        <item>"
+						  "          <attribute name='label' translatable='yes'>_Save</attribute>"
+						  "          <attribute name='action'>medusa.save</attribute>"
+						  "          <attribute name='accel'>&lt;Primary&gt;s</attribute>"
 						  "        </item>"
 						  "      </section>"
 						  "      <section>"
