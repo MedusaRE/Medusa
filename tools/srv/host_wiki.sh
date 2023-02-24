@@ -1,3 +1,4 @@
+#!/bin/bash
 #
 #  Copyright (C) 2023, w212 research. <contact@w212research.com>
 #
@@ -15,5 +16,10 @@
 #  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 #
 
-export MEDUSA_DOMAIN="medusa-re.org"
-export MEDUSA_PATH=$(realpath $(dirname $(realpath ${BASH_SOURCE[0]}))/..)
+if [ -z "${MEDUSA_PATH}" ]; then
+    source $(realpath $(dirname $0))/../source_env.sh
+fi
+
+cd $MEDUSA_PATH
+
+gollum -c res/gollum/config.rb

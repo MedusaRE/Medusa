@@ -33,7 +33,7 @@ function pull_and_copy() {
 }
 
 if [ -z "${MEDUSA_PATH}" ]; then
-    source $(realpath $(dirname $0))/source_env.sh
+    source $(realpath $(dirname $0))/../source_env.sh
 fi
 
 cd $MEDUSA_PATH
