@@ -173,7 +173,7 @@ void medusa_window::on_treeview_row_activated(const Gtk::TreeModel::Path& path,
 
 void medusa_window::on_startup() {}
 
-medusa_window::medusa_window(int argc, char *argv[], Glib::RefPtr<Gtk::Application>) {
+medusa_window::medusa_window(int argc, char *argv[], Glib::RefPtr<Gtk::Application> app) {
 	medusa_log(LOG_INFO, "Landed in medusa_window.");
 	medusa_log(LOG_VERBOSE, "Showing...");
 
@@ -310,6 +310,12 @@ medusa_window::medusa_window(int argc, char *argv[], Glib::RefPtr<Gtk::Applicati
 	m_refActionGroup->add_action("quit", sigc::mem_fun(*this, &medusa_window::on_action_file_quit));
 
 	insert_action_group("medusa", m_refActionGroup);
+
+	this->app->set_accel_for_action("medusa.new", "<Primary>n");
+	this->app->set_accel_for_action("medusa.open", "<Primary>o");
+	this->app->set_accel_for_action("medusa.open_folder", "<Primary><shift>o");
+	this->app->set_accel_for_action("medusa.save", "<Primary>s");
+	this->app->set_accel_for_action("medusa.quit", "<Primary>q");
 
 	const char *ui_info = "<interface>"
 						  "  <menu id='menubar'>"
