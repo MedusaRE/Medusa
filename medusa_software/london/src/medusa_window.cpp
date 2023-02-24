@@ -240,8 +240,6 @@ medusa_window::medusa_window(int argc, char *argv[]) {
 	sv2->add(trv);
 
 	paned->add1(*sv2);
-	grid->attach(*sv, 0, 1);
-	grid->attach(*toolbar, 0, 0);
 
 	toolbar->attach(*open_btn, 0, 0);
 	toolbar->attach(*open_folder_btn, 1, 0);
@@ -277,14 +275,62 @@ medusa_window::medusa_window(int argc, char *argv[]) {
 	//	auto parent_box = new Gtk::Box;
 	auto parent_grid = new Gtk::Grid;
 
-	parent_grid->attach(*tb, 0, 0);
-	parent_grid->attach(*paned, 0, 1);
-
 	parent_grid->set_column_homogeneous(true);
 	parent_grid->set_row_homogeneous(false);
 
 	grid->set_hexpand();
 	grid->set_vexpand();
+
+	Glib::RefPtr<Gtk::Builder> m_refBuilder = Gtk::Builder::create();
+
+	const char *ui_info = "<interface>"
+						  "  <menu id='menubar'>"
+						  "    <submenu>"
+						  "      <attribute name='label' translatable='yes'>_File</attribute>"
+						  "      <section>"
+						  "        <item>"
+						  "          <attribute name='label' translatable='yes'>_New</attribute>"
+						  "          <attribute name='action'>example.new</attribute>"
+						  "          <attribute name='accel'>&lt;Primary&gt;n</attribute>"
+						  "        </item>"
+						  "      </section>"
+						  "      <section>"
+						  "        <item>"
+						  "          <attribute name='label' translatable='yes'>_Quit</attribute>"
+						  "          <attribute name='action'>example.quit</attribute>"
+						  "          <attribute name='accel'>&lt;Primary&gt;q</attribute>"
+						  "        </item>"
+						  "      </section>"
+						  "    </submenu>"
+						  "    <submenu>"
+						  "      <attribute name='label' translatable='yes'>_Edit</attribute>"
+						  "      <item>"
+						  "        <attribute name='label' translatable='yes'>_Copy</attribute>"
+						  "        <attribute name='action'>example.copy</attribute>"
+						  "        <attribute name='accel'>&lt;Primary&gt;c</attribute>"
+						  "      </item>"
+						  "      <item>"
+						  "        <attribute name='label' translatable='yes'>_Paste</attribute>"
+						  "        <attribute name='action'>example.paste</attribute>"
+						  "        <attribute name='accel'>&lt;Primary&gt;v</attribute>"
+						  "      </item>"
+						  "    </submenu>"
+						  "  </menu>"
+						  "</interface>";
+
+	m_refBuilder->add_from_string(ui_info);
+
+	Glib::RefPtr<Glib::Object> object = m_refBuilder->get_object("menubar");
+	Glib::RefPtr<Gio::Menu> gmenu = Glib::RefPtr<Gio::Menu>::cast_dynamic(object);
+	Gtk::MenuBar *pMenuBar = Gtk::make_managed<Gtk::MenuBar>(gmenu);
+
+	//	grid->attach(*pMenuBar, 0, 0);
+
+	grid->attach(*sv, 0, 0);
+	//	grid->attach(*toolbar, 0, 0);
+
+	parent_grid->attach(*pMenuBar, 0, 0);
+	parent_grid->attach(*paned, 0, 1);
 
 	//	parent_box->pack_start(*tb);
 	//	parent_box->pack_start(*paned);
