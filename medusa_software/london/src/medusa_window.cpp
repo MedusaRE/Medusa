@@ -128,6 +128,10 @@ void medusa_window::on_action_file_save() {
 	f.close();
 }
 
+void medusa_window::on_action_file_quit() {
+	this->app->quit();
+}
+
 void medusa_window::repopulate_directory_tree(Gtk::TreeModel::Row *parent, std::string path) {
 	/*
 	 *  path defaults to "", so i fit is unspecified, it will create a new
@@ -169,9 +173,11 @@ void medusa_window::on_treeview_row_activated(const Gtk::TreeModel::Path& path,
 
 void medusa_window::on_startup() {}
 
-medusa_window::medusa_window(int argc, char *argv[]) {
+medusa_window::medusa_window(int argc, char *argv[], Glib::RefPtr<Gtk::Application>) {
 	medusa_log(LOG_INFO, "Landed in medusa_window.");
 	medusa_log(LOG_VERBOSE, "Showing...");
+
+	this->app = app;
 
 	lct = parse_config_file(NULL);
 
@@ -301,7 +307,7 @@ medusa_window::medusa_window(int argc, char *argv[]) {
 	m_refActionGroup->add_action("open", sigc::mem_fun(*this, &medusa_window::on_action_file_open));
 	m_refActionGroup->add_action("open_folder", sigc::mem_fun(*this, &medusa_window::on_action_file_open_folder));
 	m_refActionGroup->add_action("save", sigc::mem_fun(*this, &medusa_window::on_action_file_save));
-//	m_refActionGroup->add_action("quit", sigc::mem_fun(*this, &medusa_window::on_action_file_quit));
+	m_refActionGroup->add_action("quit", sigc::mem_fun(*this, &medusa_window::on_action_file_quit));
 
 	insert_action_group("medusa", m_refActionGroup);
 

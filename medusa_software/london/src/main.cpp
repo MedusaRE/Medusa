@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
 	 *  create the window object
 	 */
 	medusa_log(LOG_INFO, "Creating medusa_window...");
-	medusa_window window(argc, argv);
+	medusa_window window(argc, argv, app);
 	app->signal_startup().connect(sigc::mem_fun(window, &medusa_window::on_startup));
 
 	/*

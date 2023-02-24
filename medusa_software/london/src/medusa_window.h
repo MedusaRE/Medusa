@@ -26,7 +26,7 @@
 
 class medusa_window: public Gtk::Window {
 	public:
-		medusa_window(int argc, char *argv[]);
+		medusa_window(int argc, char *argv[], Glib::RefPtr<Gtk::Application>);
 		void on_startup();
 		virtual ~medusa_window();
 
@@ -35,6 +35,7 @@ class medusa_window: public Gtk::Window {
 		void on_action_file_open();
 		void on_action_file_open_folder();
 		void on_action_file_save();
+		void on_action_file_quit();
 		void on_treeview_row_activated(const Gtk::TreeModel::Path& path,
 									   Gtk::TreeViewColumn *);
 
@@ -60,6 +61,8 @@ class medusa_window: public Gtk::Window {
 
 		Glib::RefPtr<Gsv::LanguageManager> lm;
 		Gsv::View						  *tv;
+
+		Glib::RefPtr<Gtk::Application> app;
 
 		dir_view_column dir_view_columns;
 };
