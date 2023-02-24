@@ -79,7 +79,7 @@ void medusa_window::open_file(std::string filename) {
 	f.close();
 }
 
-void medusa_window::on_open_clicked() {
+void medusa_window::on_action_file_open() {
 	filename = file_prompt_cstr(Gtk::FILE_CHOOSER_ACTION_OPEN, "Please choose a file to edit.");
 	if (filename == NULL) {
 		return;
@@ -211,7 +211,7 @@ medusa_window::medusa_window(int argc, char *argv[]) {
 	auto *grid			  = new Gtk::Grid;
 	auto *toolbar		  = new Gtk::Grid;
 	auto *open_folder_btn = new Gtk::Button;
-	auto *open_btn		  = new Gtk::Button;
+//	auto *open_btn		  = new Gtk::Button;
 	auto *save_btn		  = new Gtk::Button;
 	auto *sv			  = new Gtk::ScrolledWindow;
 	auto *sv2			  = new Gtk::ScrolledWindow;
@@ -225,8 +225,8 @@ medusa_window::medusa_window(int argc, char *argv[]) {
 	trv.append_column("Directory Browser", dir_view_columns.dir_name);
 	trv.signal_row_activated().connect(sigc::mem_fun(*this, &medusa_window::on_treeview_row_activated));
 
-	open_btn->set_label("Open");
-	open_btn->signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_open_clicked));
+//	open_btn->set_label("Open");
+//	open_btn->signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_open_clicked));
 
 	open_folder_btn->set_label("Open Folder");
 	open_folder_btn->signal_clicked().connect(sigc::mem_fun(*this, &medusa_window::on_open_folder_clicked));
@@ -241,7 +241,7 @@ medusa_window::medusa_window(int argc, char *argv[]) {
 
 	paned->add1(*sv2);
 
-	toolbar->attach(*open_btn, 0, 0);
+//	toolbar->attach(*open_btn, 0, 0);
 	toolbar->attach(*open_folder_btn, 1, 0);
 	toolbar->attach(*save_btn, 2, 0);
 
@@ -264,9 +264,9 @@ medusa_window::medusa_window(int argc, char *argv[]) {
 	Gtk::ToolButton *dir  = new Gtk::ToolButton(Gtk::Stock::DIRECTORY);
 	Gtk::ToolButton *save = new Gtk::ToolButton(Gtk::Stock::SAVE);
 
-	open->signal_clicked().connect(sigc::mem_fun(this, &medusa_window::on_open_clicked));
-	dir->signal_clicked().connect(sigc::mem_fun(this, &medusa_window::on_open_folder_clicked));
-	save->signal_clicked().connect(sigc::mem_fun(this, &medusa_window::on_save_clicked));
+//	open->signal_clicked().connect(sigc::mem_fun(this, &medusa_window::on_open_clicked));
+//	dir->signal_clicked().connect(sigc::mem_fun(this, &medusa_window::on_open_folder_clicked));
+//	save->signal_clicked().connect(sigc::mem_fun(this, &medusa_window::on_save_clicked));
 
 	tb->add(*open);
 	tb->add(*dir);
@@ -283,6 +283,14 @@ medusa_window::medusa_window(int argc, char *argv[]) {
 
 	Glib::RefPtr<Gtk::Builder> m_refBuilder = Gtk::Builder::create();
 
+	auto m_refActionGroup = Gio::SimpleActionGroup::create();
+
+//	m_refActionGroup->add_action("new", sigc::mem_fun(*this, &medusa_window::on_action_file_new));
+	m_refActionGroup->add_action("open", sigc::mem_fun(*this, &medusa_window::on_action_file_open));
+//	m_refActionGroup->add_action("quit", sigc::mem_fun(*this, &medusa_window::on_action_file_quit));
+
+	insert_action_group("medusa", m_refActionGroup);
+
 	const char *ui_info = "<interface>"
 						  "  <menu id='menubar'>"
 						  "    <submenu>"
@@ -290,14 +298,21 @@ medusa_window::medusa_window(int argc, char *argv[]) {
 						  "      <section>"
 						  "        <item>"
 						  "          <attribute name='label' translatable='yes'>_New</attribute>"
-						  "          <attribute name='action'>example.new</attribute>"
+						  "          <attribute name='action'>medusa.new</attribute>"
 						  "          <attribute name='accel'>&lt;Primary&gt;n</attribute>"
 						  "        </item>"
 						  "      </section>"
 						  "      <section>"
 						  "        <item>"
+						  "          <attribute name='label' translatable='yes'>_Open</attribute>"
+						  "          <attribute name='action'>medusa.open</attribute>"
+						  "          <attribute name='accel'>&lt;Primary&gt;o</attribute>"
+						  "        </item>"
+						  "      </section>"
+						  "      <section>"
+						  "        <item>"
 						  "          <attribute name='label' translatable='yes'>_Quit</attribute>"
-						  "          <attribute name='action'>example.quit</attribute>"
+						  "          <attribute name='action'>medusa.quit</attribute>"
 						  "          <attribute name='accel'>&lt;Primary&gt;q</attribute>"
 						  "        </item>"
 						  "      </section>"
@@ -306,12 +321,12 @@ medusa_window::medusa_window(int argc, char *argv[]) {
 						  "      <attribute name='label' translatable='yes'>_Edit</attribute>"
 						  "      <item>"
 						  "        <attribute name='label' translatable='yes'>_Copy</attribute>"
-						  "        <attribute name='action'>example.copy</attribute>"
+						  "        <attribute name='action'>medusa.copy</attribute>"
 						  "        <attribute name='accel'>&lt;Primary&gt;c</attribute>"
 						  "      </item>"
 						  "      <item>"
 						  "        <attribute name='label' translatable='yes'>_Paste</attribute>"
-						  "        <attribute name='action'>example.paste</attribute>"
+						  "        <attribute name='action'>medusa.paste</attribute>"
 						  "        <attribute name='accel'>&lt;Primary&gt;v</attribute>"
 						  "      </item>"
 						  "    </submenu>"
