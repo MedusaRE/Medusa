@@ -22,7 +22,7 @@ mkdir /tmp/loc_time
 
 DIR=/tmp/loc_time
 
-echo "TIMESTAMP,LOC"
+echo "TIMESTAMP,Lines of Code"
 
 for rev in $REVS; do
 	rm -rf /tmp/loc_time
