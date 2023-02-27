@@ -1,7 +1,7 @@
 # TODO
 
 * Write code to auto-expand `trv` if it gets too wide for the view.
-* Add more menubar items.
+* Add more menubar items. (sorta done)
 
 ## `libgit2` integration
 Things like:
