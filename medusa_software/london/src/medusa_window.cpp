@@ -42,7 +42,7 @@ using namespace std;
 namespace fs = std::filesystem;
 
 bool						  bold_me = true;
-char						 *filename;
+const char					 *filename;
 Glib::RefPtr<Gtk::TextBuffer> tvb;
 
 void on_insert(const Gtk::TextIter& pos, const Glib::ustring& text, const int& bytes) {
@@ -61,13 +61,13 @@ void on_changed() {
 	tvb->apply_tag_by_name("monospace_default", begin, end);
 }
 
-void medusa_window::open_file(std::string filename) {
-	ifstream	 f(filename);
+void medusa_window::open_file(std::string fn) {
+	ifstream	 f(fn);
 	stringstream ss;
 
 	ss << f.rdbuf();
 
-	tvb = Gsv::Buffer::create(lm->guess_language(filename, ""));
+	tvb = Gsv::Buffer::create(lm->guess_language(fn, ""));
 	tv->set_buffer(tvb);
 	tvb = tv->get_buffer();
 
@@ -77,6 +77,8 @@ void medusa_window::open_file(std::string filename) {
 	tvb->set_text(ss.str());
 
 	f.close();
+
+	filename = strdup(fn.c_str());
 }
 
 void medusa_window::on_action_file_new() {
@@ -87,12 +89,13 @@ void medusa_window::on_action_file_new() {
 }
 
 void medusa_window::on_action_file_open() {
-	filename = file_prompt_cstr(Gtk::FILE_CHOOSER_ACTION_OPEN, "Please choose a file to edit.");
-	if (filename == NULL) {
+	string fn;
+	fn = file_prompt(Gtk::FILE_CHOOSER_ACTION_OPEN, "Please choose a file to edit.");
+	if (fn == "") {
 		return;
 	}
 
-	open_file(filename);
+	open_file(fn);
 }
 
 void medusa_window::on_action_file_open_folder() {

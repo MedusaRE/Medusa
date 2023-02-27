@@ -42,7 +42,7 @@ class medusa_window: public Gtk::Window {
 		void on_treeview_row_activated(const Gtk::TreeModel::Path& path,
 									   Gtk::TreeViewColumn *);
 
-		void open_file(std::string filename);
+		void open_file(std::string fn);
 
 		void repopulate_directory_tree(Gtk::TreeModel::Row *parent = NULL,
 									   std::string			path   = "");
