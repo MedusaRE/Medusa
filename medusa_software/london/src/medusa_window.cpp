@@ -255,7 +255,7 @@ medusa_window::medusa_window(int argc, char *argv[], Glib::RefPtr<Gtk::Applicati
 	sv->add(*tv);
 	sv->set_hexpand(true);
 	sv->set_vexpand(true);
-	
+
 	sv2->add(trv);
 	sv2->set_hexpand(true);
 	sv2->set_vexpand(true);
