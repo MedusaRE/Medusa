@@ -36,6 +36,9 @@ class medusa_window: public Gtk::Window {
 		void on_action_file_open_folder();
 		void on_action_file_save();
 		void on_action_file_quit();
+		void on_action_edit_copy();
+		void on_action_edit_paste();
+
 		void on_treeview_row_activated(const Gtk::TreeModel::Path& path,
 									   Gtk::TreeViewColumn *);
 

@@ -132,6 +132,14 @@ void medusa_window::on_action_file_quit() {
 	this->app->quit();
 }
 
+void medusa_window::on_action_edit_copy() {
+	//
+}
+
+void medusa_window::on_action_edit_paste() {
+	//
+}
+
 void medusa_window::repopulate_directory_tree(Gtk::TreeModel::Row *parent, std::string path) {
 	/*
 	 *  path defaults to "", so i fit is unspecified, it will create a new
@@ -315,6 +323,8 @@ medusa_window::medusa_window(int argc, char *argv[], Glib::RefPtr<Gtk::Applicati
 	m_refActionGroup->add_action("open_folder", sigc::mem_fun(*this, &medusa_window::on_action_file_open_folder));
 	m_refActionGroup->add_action("save", sigc::mem_fun(*this, &medusa_window::on_action_file_save));
 	m_refActionGroup->add_action("quit", sigc::mem_fun(*this, &medusa_window::on_action_file_quit));
+	m_refActionGroup->add_action("copy", sigc::mem_fun(*this, &medusa_window::on_action_edit_copy));
+	m_refActionGroup->add_action("paste", sigc::mem_fun(*this, &medusa_window::on_action_edit_paste));
 
 	insert_action_group("medusa", m_refActionGroup);
 
@@ -322,7 +332,8 @@ medusa_window::medusa_window(int argc, char *argv[], Glib::RefPtr<Gtk::Applicati
 	this->app->set_accel_for_action("medusa.open", "<Primary>o");
 	this->app->set_accel_for_action("medusa.open_folder", "<Primary><shift>o");
 	this->app->set_accel_for_action("medusa.save", "<Primary>s");
-	this->app->set_accel_for_action("medusa.quit", "<Primary>q");
+	this->app->set_accel_for_action("medusa.copy", "<Primary>c");
+	this->app->set_accel_for_action("medusa.paste", "<Primary>v");
 
 	const char *ui_info = "<interface>"
 						  "  <menu id='menubar'>"
