@@ -1,6 +1,7 @@
-# Paris
-Paris is a subcomponent of the Medusa Project to develop the client/server
-architecture that is intended to be used in the project.
+# MPI
+The MPI (sometimes referred to as Paris) is a subcomponent of the Medusa Project
+to develop the client/server architecture that is intended to be used in the
+project.
 
 Medusa is meant to be modeled after a client/server architecture, where a
 machine (or machines) operates the server, and handle the bulk of the

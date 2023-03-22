@@ -1,7 +1,7 @@
-# Rome
+# ngTUI
 
-Rome is a subcomponent of the Medusa Project to write a modern C++ TUI
-framework based on `ncurses`.
+ngTUI (sometimes referred to as Rome) is a subcomponent of the Medusa Project to
+write a modern C++ TUI framework based on `ncurses`.
 
 ## Why?
 `ncurses`/`curses` is a great framework, but in my (spv) opinion, it feels a bit
