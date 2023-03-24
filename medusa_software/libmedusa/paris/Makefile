@@ -1,5 +1,5 @@
 CPP=clang++
-CPPFLAGS=--std=c++17 -lparis -Iinclude -lmedusa -lunicorn -lkeystone -lcapstone -I../../libmedusa/include -I../../mpi/include -L../../paris/bin -L../../libmedusa/bin
+CPPFLAGS=--std=c++17 -lparis -Iinclude -lmedusa -lunicorn -lkeystone -lcapstone -I../../libmedusa/include -I../../mpi/include -L../../mpi/bin -L../../libmedusa/bin
 CPPFLAGS_SO=-shared -undefined dynamic_lookup
 
 .PHONY: all
