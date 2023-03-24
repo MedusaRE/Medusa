@@ -1,5 +1,5 @@
 CPP=clang++
-CPPFLAGS=--std=c++20 `pkg-config gtkmm-3.0 --cflags` -lparis -I../paris/include/ -L../paris/bin/ -fPIE -fPIC -g3 -lwarsaw -L../warsaw/bin -lmedusa -L../libmedusa/bin -I../warsaw/include -I../libmedusa/include
+CPPFLAGS=--std=c++20 `pkg-config gtkmm-3.0 --cflags` -lparis -I../mpi/include/ -L../mpi/bin/ -fPIE -fPIC -g3 -lwarsaw -L../libmedusa/paris/bin -lmedusa -L../libmedusa/bin -I../libmedusa/paris/include -I../libmedusa/include
 
 all: bin bin/medusa_frontend
 
